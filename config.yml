@@ -1,12 +1,12 @@
 # The name of the project shown in the navigation bar (it links to the
 # home page).
-name: "Divvy data exploration project"
+name: "US Macroeconomic Data Explorer"
 
 # Link to the source repository (e.g., on Github, Gitlab).
-repo: "http://github.com/stephenslab/ipynb-website"
+repo: "http://github.com/kdunn926/us-macro"
 
 # Footer added to the bottom of some webpages.
-footer: "&copy; 2017 Peter Carbonetto &amp; Gao Wang"
+footer: "&copy; 2020 Kyle Dunn"
 
 # When set to True, populate the footer of each notebook with the git
 # commit id (SHA1) and commit modification date.
@@ -14,7 +14,7 @@ add_commit_info: True
 
 # These subdirectories contain Jupyter notebooks that will be rendered
 # into webpages.
-include_dir: ["analysis", "setup", "license", "notes", "protected"]
+include_dir: ["analysis", "setup", "license", "notes"]
 
 # Do not add links in the navigation bar for the Jupyter notebooks in
 # these subdirectories.
@@ -67,4 +67,4 @@ notebook_toc: False
 # remove_whiteline: False
 
 # Load a list of password protected folders / pages and their passwords
-password_file: .passwd
+#password_file: .passwd
