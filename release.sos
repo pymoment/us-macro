@@ -1,9 +1,11 @@
 #!/usr/bin/env sos-runner
 #fileformat=SOS1.0
 import os, sys, glob
+from datetime import datetime
 
 sys.path.append('docs')
 parameter: pip = 'pip'
+parameter: now_str = datetime.utcnow().strftime("%d %B %Y - %H:%M")
 
 [default_1 (Configure website): shared = ['conf', 'binders', 'notebook_files', 'rmd_files', 'index_files', 'pipeline_files', 'generated_files', 'password', 'status']]
 depends: Py_Module('bs4', autoinstall=True), Py_Module('date_parser', autoinstall=True)
@@ -166,6 +168,7 @@ if not os.path.isfile(conf['homepage']):
 parameter: index_files = list
 parameter: conf = dict
 parameter: password = str
+parameter: now_str = str
 depends: sos_step("update-tpl"), executable('jupyter'), executable('sed'), executable('perl'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), path(conf['homepage']).with_suffix('.ipynb')
 input_files = index_files + ([path(conf['homepage']).with_suffix('.ipynb')] if not conf['skip_homepage'] else [])
 output_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + (['docs/index.html'] if not conf['skip_homepage'] else [])
@@ -173,6 +176,9 @@ input: dynamic(input_files), group_by = 1
 output: output_files, group_by = 1
 bash: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl
+  if [[ ${_output:e} == "docs/index.html" ]]; then
+     perl -i -pe "s/REPLACEMEDATE/${now_str} UTC/g" docs/index.html
+  fi
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
      perl -i -ne 'print if /\S/' ${_output:e}
@@ -230,7 +236,7 @@ parameter: generated_files = list
 parameter: conf = dict()
 input: generated_files
 output: 'docs/site_libs/tipuesearch/tipuesearch_content.js'
-from jnbinder import generate_tipue_content
+from tipue_content import generate_tipue_content
 generate_tipue_content(generated_files, conf['site_url'], 'docs/')
 with open('docs/search.html', 'w') as f:
   f.write(open('docs/site_libs/tipuesearch/search.html').read())
@@ -294,7 +300,7 @@ stop_if(status)
 changed_list = get_output('git status --untracked-files=no --porcelain')
 fail_if(os.path.isdir('.git') and ('ipynb' in changed_list or 'Rmd' in changed_list) and conf['add_commit_info'], msg = err_msg)
 sos_run('update-index', conf=conf, binders=binders, notebook_files=notebook_files)
-sos_run('update-hp + update-nb + update-wf + update-toc + update-search + remove-obsolete', conf=conf, binders=binders, notebook_files=notebook_files, rmd_files=rmd_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password=password)
+sos_run('update-hp + update-nb + update-wf + update-toc + update-search + remove-obsolete', conf=conf, binders=binders, notebook_files=notebook_files, rmd_files=rmd_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password=password, now_str=now_str)
 sos_run('release-website', conf=conf)
 
 [default_4]
