@@ -1601,8 +1601,8 @@ div.output_area .MathJax_Display {
   text-align: left !important;
 }
 div.output_area .rendered_html table {
-  margin-left: 0;
-  margin-right: 0;
+  /* margin-left: 0; */
+  /* margin-right: 0; */
 }
 div.output_area .rendered_html img {
   margin-left: 0;
@@ -1876,29 +1876,29 @@ div.output_unrecognized a:hover {
   margin: 1em 2em;
 }
 .rendered_html table {
-  margin-left: auto;
+  /* margin-left: auto;
   margin-right: auto;
   border: 1px solid black;
-  border-collapse: collapse;
+  border-collapse: collapse; */
 }
 .rendered_html tr,
 .rendered_html th,
 .rendered_html td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  margin: 1em 2em;
+  /* border: 1px solid black; */
+  /* border-collapse: collapse; */
+  /* margin: 1em 2em; */
 }
 .rendered_html td,
 .rendered_html th {
-  text-align: left;
-  vertical-align: middle;
-  padding: 4px;
+  /* text-align: left;*/
+  /* vertical-align: middle;*/
+  /* padding: 4px;*/
 }
 .rendered_html th {
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 .rendered_html * + table {
-  margin-top: 1em;
+  /* margin-top: 1em; */
 }
 .rendered_html p {
   text-align: left;
@@ -3336,19 +3336,19 @@ ul.typeahead-list > li > a {
  src: local('PT Mono'), url('../fonts/ptmono.ttf') format('truetype');
 }
 div#notebook {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif;
  font-size: 12pt;
  line-height: 170%;
- color: #303030;
+ color: #303030; */
 }
 body,
 div.body {
- /* font-family: "Droid Sans", sans-serif; */
+ /* font-family: "Droid Sans", sans-serif;
  font-family: inherit;
  font-size: 12pt;
  color: #303030;
  background-color: #ffffff;
- background: #ffffff;
+ background: #ffffff; */
 }
 body.notebook_app {
  padding: 0;
@@ -3604,7 +3604,7 @@ div#notebook {
  background-color: #ffffff;
  min-height: 0px;
  box-shadow: none;
- width: 980px;
+ /*width: 980px;*/
  margin-right: auto;
  margin-left: auto;
 }
@@ -4311,11 +4311,11 @@ div.output_area {
  display: -webkit-box;
 }
 div.output_html {
- font-family: "PT Mono", monospace;
- font-size: 10.0pt;
- color: #353535;
- background-color: #ffffff;
- background: #ffffff;
+ /* font-family: "PT Mono", monospace; */
+ /* font-size: 10.0pt; */
+ /* color: #353535; */
+ /* background-color: #ffffff; */
+ /* background: #ffffff; */
 }
 div.output_subarea {
  overflow-x: auto;
@@ -4558,48 +4558,48 @@ div.rendered_html h5 {
 .rendered_html table,
 .rendered_html tr,
 .rendered_html td {
- font-family: "Fira Code", monospace;
+ /* font-family: "Fira Code", monospace;
  font-size: 10.0pt !important;
  line-height: 150% !important;
  border: 1px solid #d6d6d6;
  color: #353535;
  background-color: #ffffff;
- background: #ffffff;
+ background: #ffffff; */
 }
 table.dataframe,
 .rendered_html tr,
 .dataframe * {
- font-family: "Fira Code", monospace;
- font-size: 10.0pt !important;
- border: 1px solid #d6d6d6;
+ /* font-family: "Fira Code", monospace; */
+ /* font-size: 10.0pt !important; */
+ /* border: 1px solid #d6d6d6; */
 }
 .dataframe th,
 .rendered_html th {
  /* font-family: "Droid Sans", sans-serif; */
- font-family: inherit;
- font-size: 11pt !important;
- font-weight: bold;
- border: 1px solid #c4c4c4;
- background: #eeeeee;
+ /* font-family: inherit;*/
+ /* font-size: 11pt !important;*/
+ /* font-weight: bold;*/
+ /* border: 1px solid #c4c4c4;*/
+ /* background: #eeeeee;*/
 }
 .dataframe td,
 .rendered_html td {
- font-family: "Fira Code", monospace;
+ /* font-family: "Fira Code", monospace;
  font-size: 10.0pt !important;
  color: #353535;
  background: #ffffff;
  border: 1px solid #d6d6d6;
  text-align: left;
- min-width: 4em;
+ min-width: 4em; */
 }
 .dataframe-summary-row tr:last-child,
 .dataframe-summary-col td:last-child {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif;
  font-size: 11pt !important;
  font-weight: bold;
  color: #353535;
  border: 1px solid #d6d6d6;
- background: #eeeeee;
+ background: #eeeeee; */
 }
 div.widget-area {
  background-color: #ffffff;
