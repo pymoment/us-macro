@@ -13,6 +13,7 @@ sos-notebook
 sos-bash
 sos-r
 sos-pbs
+jupyter_contrib_nbextensions
 soupsieve
 feather-format
 pyarrow
