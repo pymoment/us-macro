@@ -3,6 +3,7 @@
 import os, sys, glob
 from datetime import datetime
 
+sys.path.append('/usr/share/miniconda/bin')
 sys.path.append('docs')
 parameter: pip = 'pip'
 parameter: now_str = datetime.utcnow().strftime("%d %B %Y - %H:%M")
