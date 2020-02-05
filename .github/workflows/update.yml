@@ -25,8 +25,8 @@ jobs:
     - name: Install dependencies
       run: |
         conda install -c conda-forge --yes --file requirements.txt
-        pip3 install setuptools
-        pip3 install sos-essentials tabula
+        /usr/share/miniconda/bin/pip3 install setuptools
+        /usr/share/miniconda/bin/pip3 install sos-essentials tabula
 
     - name: Execute all notebooks
       run: |
