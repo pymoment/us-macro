@@ -1,0 +1,6 @@
+pandas
+altair
+numpy
+tabula
+selenium
+sos-essentials
