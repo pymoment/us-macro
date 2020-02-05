@@ -47,7 +47,7 @@ jobs:
         find ./analysis/*.ipynb -exec \
           /usr/share/miniconda/bin/jupyter nbconvert \
             --ExecutePreprocessor.timeout=-1 \
-            --to notebook
+            --to notebook \
             --execute {} \;
         git add ./analysis
 
@@ -63,13 +63,13 @@ jobs:
         /usr/share/miniconda/bin/sos run release.sos -s force
         git add ./docs
 
-    - name: Commit webpages
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Add generated page changes"
+    #- name: Commit webpages
+      #run: |
+        #git config --local user.email "action@github.com"
+        #git config --local user.name "GitHub Action"
+        #git commit -m "Add generated page changes"
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+    #- name: Push changes
+      #uses: ad-m/github-push-action@master
+        #with:
+        #github_token: ${{ secrets.GITHUB_TOKEN }}
