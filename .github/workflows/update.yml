@@ -42,8 +42,12 @@ jobs:
       env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
       run: |
-        echo "::add-path::/usr/local/bin"
-        find ./analysis/*.ipynb -exec /usr/share/miniconda/bin/jupyter nbconvert --execute {} \;
+        # Set PATH to chromedriver
+        echo "::add-path::/usr/bin"
+        find ./analysis/*.ipynb -exec \
+          /usr/share/miniconda/bin/jupyter nbconvert \
+            --ExecutePreprocessor.timeout=-1 \
+            --execute {} \;
         git add ./analysis
 
     - name: Commit notebook changes 
