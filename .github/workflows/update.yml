@@ -25,7 +25,8 @@ jobs:
     - name: Install dependencies
       run: |
         conda install -c conda-forge --yes --file requirements.txt
-        pip3 install setuptools sos-essentials tabula
+        pip3 install setuptools
+        pip3 install sos-essentials tabula
 
     - name: Execute all notebooks
       run: |
@@ -36,7 +37,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Add notebook execution changes" -a
+        git commit -m "Add notebook execution changes"
 
     - name: Generate webpages
       run: |
@@ -48,7 +49,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Add generated page changes" -a
+        git commit -m "Add generated page changes"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
