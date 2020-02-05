@@ -30,6 +30,7 @@ jobs:
     - name: Display system Python3 version
       run: |
         python3 -c 'import sys; print(sys.version)'
+        pip install python-dateutil
 
     - name: Set up Miniconda
       uses: goanpeca/setup-miniconda@v1
