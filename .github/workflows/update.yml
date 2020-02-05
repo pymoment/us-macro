@@ -47,7 +47,7 @@ jobs:
         find ./analysis/*.ipynb -exec \
           /usr/share/miniconda/bin/jupyter nbconvert \
             --ExecutePreprocessor.timeout=-1 \
-            --to notebook \
+            --to notebook --inplace \
             --execute {} \;
         git add ./analysis
 
