@@ -22,6 +22,15 @@ jobs:
         path: /usr/share/miniconda
         key: ${{ runner.OS }}-build-${{ hashFiles('**/requirements.txt') }}
 
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.6'
+
+    - name: Display system Python3 version
+      run: |
+        python3 -c 'import sys; print(sys.version)'
+
     - name: Set up Miniconda
       uses: goanpeca/setup-miniconda@v1
       with:
@@ -50,22 +59,22 @@ jobs:
 
     - name: Commit updated notebooks
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Add notebook execution changes"
+        git config --local user.email 'action@github.com'
+        git config --local user.name 'GitHub Action'
+        git commit -m 'Add notebook execution changes'
 
     - name: Generate webpages
       run: |
-        echo "::add-path::/usr/share/miniconda/bin"
+        echo '::add-path::/usr/share/miniconda/bin'
         /usr/share/miniconda/bin/sos run release.sos clean
         /usr/share/miniconda/bin/sos run release.sos -s force
         git add ./docs
 
     - name: Commit generated webpages
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Add generated page changes"
+        git config --local user.email 'action@github.com'
+        git config --local user.name 'GitHub Action'
+        git commit -m 'Add generated page changes'
 
     - name: Push changes
       uses: ad-m/github-push-action@master
