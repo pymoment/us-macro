@@ -36,9 +36,8 @@ jobs:
     - name: Install dependencies
       run: |
         conda install -c conda-forge --yes --file requirements.txt
-        /usr/share/miniconda/bin/pip install bs4 date-parser sos-essentials tabula-py
 
-    - name: Execute all notebooks
+    - name: Update notebooks
       env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
       run: |
@@ -49,7 +48,7 @@ jobs:
             --execute {} \;
         git add ./analysis
 
-    - name: Commit notebook changes 
+    - name: Commit updated notebooks
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
@@ -62,13 +61,13 @@ jobs:
         /usr/share/miniconda/bin/sos run release.sos -s force
         git add ./docs
 
-    #- name: Commit webpages
-      #run: |
-        #git config --local user.email "action@github.com"
-        #git config --local user.name "GitHub Action"
-        #git commit -m "Add generated page changes"
+    - name: Commit generated webpages
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Add generated page changes"
 
-    #- name: Push changes
-      #uses: ad-m/github-push-action@master
-        #with:
-        #github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}

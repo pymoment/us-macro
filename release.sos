@@ -3,13 +3,12 @@
 import os, sys, glob
 from datetime import datetime
 
-sys.path.append('/usr/share/miniconda/bin')
 sys.path.append('docs')
 parameter: pip = 'pip'
 parameter: now_str = datetime.utcnow().strftime("%d %B %Y - %H:%M")
 
 [default_1 (Configure website): shared = ['conf', 'binders', 'notebook_files', 'rmd_files', 'index_files', 'pipeline_files', 'generated_files', 'password', 'status']]
-depends: Py_Module('bs4', autoinstall=True), Py_Module('date_parser', autoinstall=True)
+depends: Py_Module('bs4', autoinstall=True), Py_Module('dateutil', autoinstall=True)
 DEFAULT_CONF = {
            '__version__': '0.9.7',
            '__sos_version__': '0.19.12',
@@ -170,7 +169,7 @@ parameter: index_files = list
 parameter: conf = dict
 parameter: password = str
 parameter: now_str = str
-depends: sos_step("update-tpl"), executable('jupyter'), executable('sed'), executable('perl'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), path(conf['homepage']).with_suffix('.ipynb')
+depends: sos_step("update-tpl"), executable('sed'), executable('perl'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), path(conf['homepage']).with_suffix('.ipynb')
 input_files = index_files + ([path(conf['homepage']).with_suffix('.ipynb')] if not conf['skip_homepage'] else [])
 output_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + (['docs/index.html'] if not conf['skip_homepage'] else [])
 input: dynamic(input_files), group_by = 1
@@ -194,7 +193,7 @@ parameter: rmd_files = list
 parameter: conf = dict
 parameter: password = str
 stop_if(len(notebook_files) == 0)
-depends: sos_step("update-tpl"), executable('jupyter'), executable('sed'), executable('perl'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), paths(notebook_files)
+depends: sos_step("update-tpl"), executable('sed'), executable('perl'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), paths(notebook_files)
 from jnbinder import get_commit_info
 nb_info = [get_commit_info(x[:-5] + 'Rmd' if path(x).with_suffix(".Rmd").exists() else x, conf) for x in notebook_files]
 input: notebook_files, group_by = 1, paired_with = ['nb_info']
