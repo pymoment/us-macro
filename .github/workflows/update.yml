@@ -57,9 +57,8 @@ jobs:
 
     - name: Generate webpages
       run: |
-        echo "::add-path::/usr/share/miniconda/bin"
-        sos run release.sos clean
-        sos run release.sos -s force
+        /usr/share/miniconda/bin/sos run release.sos clean
+        /usr/share/miniconda/bin/sos run release.sos -s force
         git add ./docs
 
     #- name: Commit webpages
