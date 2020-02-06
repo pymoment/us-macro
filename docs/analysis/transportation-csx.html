@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="0.9.7" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- begin stylesheets -->
+
+<link rel="stylesheet"
+    href="../css/jt.css">
+<link rel="stylesheet"
+    href="../css/toc2.css">
+<link rel="stylesheet"
+    href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+<link rel="stylesheet" type="text/css" href="../css/readable.css">
+<!-- end stylesheets -->
+
+<!-- begin javascript -->
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!-- Bootstrap 4 -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- Vega/Vegalite -->
+<script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+<!-- end javascript -->
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+    if (window.hljs &&
+        document.readyState &&
+        document.readyState === "complete") {
+       window.setTimeout(() => {
+          hljs.initHighlighting();
+       }, 0);
+    }
+</script>
+    
+
+<script src="../js/doc_toc.js"></script>
+<script src="../js/docs.js"></script>
+
+
+<script>
+    MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true
+        },
+        "HTML-CSS": {
+            preferredFont: "TeX",
+            availableFonts: ["TeX"],
+            styles: {
+                scale: 110,
+                ".MathJax_Display": {
+                    "font-size": "110%%",
+                }
+            }
+        }
+    });
+</script>
+    
+
+<script>
+function filterDataFrame(id) {
+    var input = document.getElementById("search_" + id);
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("dataframe_" + id);
+    var tr = table.getElementsByTagName("tr");
+    // Loop through all table rows, and hide those who don't match the search query
+    for (var i = 1; i < tr.length; i++) {
+        for (var j = 0; j < tr[i].cells.length; ++j) {
+            var matched = false;
+            if (tr[i].cells[j].innerHTML.toUpperCase().indexOf(filter) != -1) {
+                tr[i].style.display = "";
+                matched = true
+                break;
+            }
+            if (!matched)
+                tr[i].style.display = "none";
+        }
+    }
+}
+
+function sortDataFrame(id, n, dtype) {
+    var table = document.getElementById("dataframe_" + id);
+    var tb = table.tBodies[0]; // use `<tbody>` to ignore `<thead>` and `<tfoot>` rows
+    var tr = Array.prototype.slice.call(tb.rows, 0); // put rows into array
+    if (dtype === 'numeric') {
+        var fn = (a, b) =>
+            parseFloat(a.cells[n].textContent) <= parseFloat(b.cells[n].textContent) ? -1 : 1;
+    } else {
+        var fn = function(a, b) {
+            var c = a.cells[n].textContent.trim().localeCompare(b.cells[n].textContent.trim());
+            return c > 0 ? 1 : (c < 0 ? -1 : 0) }
+    }
+    var isSorted = function(array, fn) {
+        if (array.length < 2)
+            return 1;
+        var direction = fn(array[0], array[1]);
+        for (var i = 1; i < array.length - 1; ++i) {
+            var d = fn(array[i], array[i+1]);
+            if (d == 0)
+                continue;
+            else if (direction == 0)
+                direction = d;
+            else if (direction != d)
+                return 0;
+            }
+        return direction;
+    }
+    var sorted = isSorted(tr, fn);
+    if (sorted == 1 || sorted == -1) {
+        // if sorted already, reverse it
+        for(var i = tr.length - 1; i >= 0; --i)
+            tb.appendChild(tr[i]); // append each row in order
+    } else {
+        tr = tr.sort(fn);
+        for(var i = 0; i < tr.length; ++i)
+            tb.appendChild(tr[i]); // append each row in order
+    }
+}
+</script>
+
+
+
+
+<script>
+    // manage active state of menu based on current page
+    $(document).ready(function () {
+      // active menu anchor
+      href = window.location.pathname
+      href = href.substr(href.lastIndexOf('/') + 1)
+      if (href === "")
+        href = "index.html";
+      var menuAnchor = $('a[href*="' + href + '"]');
+      // mark it active
+      menuAnchor.parent().addClass('active');
+      // if it's got a parent navbar menu mark it active as well
+      menuAnchor.closest('li.dropdown').addClass('active');
+    });
+</script>
+    
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="../site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+    $(document).ready(function () {
+      window.buildTabsets("TOC");
+    });
+</script>
+
+
+
+<title>US Macroeconomic Data Explorer</title>
+
+<style type = "text/css">
+    body {
+      
+    }
+</style>
+</head>
+
+<body>
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+<div class="container" id="notebook-container">
+
+<!-- code folding -->
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="../index.html">US Macroeconomic Data Explorer</a>
+    <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="navbar-nav mr-auto">
+        
+<li class="nav-item">
+  <a class="nav-link" href="../index.html">Overview</a>
+</li>
+        
+      </ul>
+        
+<ul class="navbar-nav">
+<li class="nav-item">
+   <a class="nav-link" href="http://github.com/kdunn926/us-macro"> source </a>
+</li>
+</ul>
+        
+    </div><!--/.nav-collapse -->
+</nav><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="CSX-Weekly-Freight-Reports">CSX Weekly Freight Reports<a class="anchor-link" href="#CSX-Weekly-Freight-Reports">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tabula</span> <span class="kn">import</span> <span class="n">read_pdf</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.options</span> <span class="kn">import</span> <span class="n">Options</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">WebDriverException</span>
+
+<span class="n">chrome_options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
+<span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--disable-extensions&quot;</span><span class="p">)</span>
+<span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--disable-gpu&quot;</span><span class="p">)</span>
+<span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--headless&quot;</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">fetchVolumeReportUrls</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">baseUrl</span> <span class="o">=</span> <span class="s1">&#39;https://www.csx.com/index.cfm/investors/volume-trends/?page=</span><span class="si">{}</span><span class="s1">&#39;</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">executable_path</span><span class="o">=</span><span class="s1">&#39;/usr/local/bin/chromedriver&#39;</span><span class="p">,</span>
+                                  <span class="n">options</span><span class="o">=</span><span class="n">chrome_options</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">WebDriverException</span><span class="p">:</span>
+        <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">executable_path</span><span class="o">=</span><span class="s1">&#39;/usr/bin/chromedriver&#39;</span><span class="p">,</span>
+                          <span class="n">options</span><span class="o">=</span><span class="n">chrome_options</span><span class="p">)</span>
+        
+    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">baseUrl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">page</span><span class="p">))</span>
+        
+    <span class="n">pageString</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">page_source</span>
+    
+    <span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    
+    <span class="c1"># &lt;a href=&quot;http://csx.gcs-web.com/static-files/02ae9432-408a-4537-97c2-d0e0d9716e1b&quot; target=&quot;_blank&quot; class=&quot;new_window&quot;&gt;2019 Week 27 AAR&lt;/a&gt;</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;\&lt;a href=</span><span class="se">\&quot;</span><span class="s2">([^</span><span class="se">\&quot;</span><span class="s2">]*)</span><span class="se">\&quot;</span><span class="s2"> target=</span><span class="se">\&quot;</span><span class="s2">_blank</span><span class="se">\&quot;</span><span class="s2"> class=</span><span class="se">\&quot;</span><span class="s2">new_window</span><span class="se">\&quot;</span><span class="s2">\&gt;([^&lt;]*)&quot;</span><span class="p">,</span> <span class="n">pageString</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">parseReport</span><span class="p">(</span><span class="n">urlAndWeek</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">url</span><span class="p">,</span> <span class="n">weekAndYear</span> <span class="o">=</span> <span class="n">urlAndWeek</span>
+    
+        <span class="c1"># &#39;2013 Week 29&#39;</span>
+        <span class="n">year</span><span class="p">,</span> <span class="n">week</span> <span class="o">=</span> <span class="n">weekAndYear</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; Week &#39;</span><span class="p">)</span>
+        
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">urlAndWeek</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="c1">#            WEEK   28                QUARTER TO DATE           YEAR TO DATE</span>
+    <span class="n">baseCols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Cargo&#39;</span><span class="p">,</span> <span class="s1">&#39;Week </span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;Week </span><span class="si">{0}</span><span class="s1"> </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;Week </span><span class="si">{0}</span><span class="s1"> pct-change&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Week </span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1"> QTD&#39;</span><span class="p">,</span> <span class="s1">&#39;Week </span><span class="si">{0}</span><span class="s1"> </span><span class="si">{2}</span><span class="s1"> QTD&#39;</span><span class="p">,</span> <span class="s1">&#39;Week </span><span class="si">{0}</span><span class="s1"> QTD pct-change&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Week </span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1"> YTD&#39;</span><span class="p">,</span> <span class="s1">&#39;Week </span><span class="si">{0}</span><span class="s1"> </span><span class="si">{2}</span><span class="s1"> YTD&#39;</span><span class="p">,</span> <span class="s1">&#39;Week </span><span class="si">{0}</span><span class="s1"> YTD pct-change&#39;</span><span class="p">]</span>
+
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">week</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">baseCols</span><span class="p">]</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">read_pdf</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">pages</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">pandas_options</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="n">cols</span> <span class="p">})</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">tmp</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Cargo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[^0-9.]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)))</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">urlAndWeek</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">urlAndWeek</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+        
+<span class="n">reportUrls</span> <span class="o">=</span> <span class="p">[</span><span class="n">fetchVolumeReportUrls</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)]</span>
+
+<span class="n">flatten</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">l</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+
+<span class="n">reportUrls</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">reportUrls</span><span class="p">)</span>
+    
+<span class="c1">#parseReport((&#39;http://csx.gcs-web.com/static-files/f2baf981-9658-41f8-9ec0-400e9fdbde11&#39;, &#39;2013 Week 29&#39;)).head(30)</span>
+
+<span class="c1">#parseReport((&#39;http://csx.gcs-web.com/static-files/2d4f737e-1314-46aa-9e8c-a29b40be2a2b&#39;, &#39;2019 Week 49 AAR&#39;)).head(30)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">dfs</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">parseReport</span><span class="p">,</span> <span class="n">reportUrls</span><span class="p">)</span>
+
+<span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">merged</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>The output file is empty.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(&#39;http://csx.gcs-web.com/static-files/942ad9b6-158b-4db6-a5fd-9dea04c0373c&#39;, &#39;2016 Week 25 AAR&#39;)
+CPU times: user 7.98 s, sys: 2.68 s, total: 10.7 s
+Wall time: 12min 26s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Grain</th>
+      <th>Grain Mill Products</th>
+      <th>Farm Products (excl. Grain)</th>
+      <th>Food Products</th>
+      <th>Chemicals</th>
+      <th>Petroleum &amp; Petroleum Products</th>
+      <th>Primary Metal Products</th>
+      <th>Primary Forest Products</th>
+      <th>Lumber &amp; Wood Products</th>
+      <th>Pulp &amp; Paper Products</th>
+      <th>...</th>
+      <th>Non‐Metallic Minerals (incl. Phosphates)</th>
+      <th>Primary Forest Products*</th>
+      <th>Farm Products, Ex. Grain</th>
+      <th>Food &amp; Kindred Products</th>
+      <th>Petroleum Products</th>
+      <th>Metals &amp; Products</th>
+      <th>Pulp, Paper &amp; Allied Products</th>
+      <th>Phosphate (Phospate Rock)</th>
+      <th>Automotive (Motor Vehicles &amp; Equip.)</th>
+      <th>Military, Machinery &amp; Transportation Equipment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Week 5 2020</th>
+      <td>3443.0</td>
+      <td>2255.0</td>
+      <td>202.0</td>
+      <td>2191.0</td>
+      <td>9634.0</td>
+      <td>3886.0</td>
+      <td>2828.0</td>
+      <td>649.0</td>
+      <td>1321.0</td>
+      <td>3305.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Week 5 2019</th>
+      <td>2603.0</td>
+      <td>1723.0</td>
+      <td>205.0</td>
+      <td>1827.0</td>
+      <td>8744.0</td>
+      <td>2965.0</td>
+      <td>2345.0</td>
+      <td>652.0</td>
+      <td>1174.0</td>
+      <td>2929.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Week 5 pct-change</th>
+      <td>32.3</td>
+      <td>30.9</td>
+      <td>1.5</td>
+      <td>19.9</td>
+      <td>10.2</td>
+      <td>31.1</td>
+      <td>20.6</td>
+      <td>0.5</td>
+      <td>12.5</td>
+      <td>12.8</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Week 5 2020 QTD</th>
+      <td>15901.0</td>
+      <td>10385.0</td>
+      <td>964.0</td>
+      <td>10027.0</td>
+      <td>48867.0</td>
+      <td>17658.0</td>
+      <td>12604.0</td>
+      <td>3136.0</td>
+      <td>5366.0</td>
+      <td>16136.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Week 5 2019 QTD</th>
+      <td>14513.0</td>
+      <td>9819.0</td>
+      <td>1211.0</td>
+      <td>9489.0</td>
+      <td>47304.0</td>
+      <td>16430.0</td>
+      <td>13599.0</td>
+      <td>2804.0</td>
+      <td>5289.0</td>
+      <td>15319.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 35 columns</p>
+</div>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">merged</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csx-data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+
+<span class="c1">#merged.tail()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="s1">&#39;[0-9]$&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#subset.head()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; AAR&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; 6&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;Week %W %Y %w&#39;</span><span class="p">))</span>
+
+<span class="c1">#subset.tail()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">subset</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Grain                                                    float64
+Grain Mill Products                                      float64
+Farm Products (excl. Grain)                              float64
+Food Products                                            float64
+Chemicals                                                float64
+Petroleum &amp; Petroleum Products                           float64
+Primary Metal Products                                   float64
+Primary Forest Products                                  float64
+Lumber &amp; Wood Products                                   float64
+Pulp &amp; Paper Products                                    float64
+Non-Metallic Minerals (incl. Phosphates)                 float64
+Crushed Stone, Sand &amp; Gravel                             float64
+Stone, Clay &amp; Glass Products                             float64
+Iron &amp; Steel Scrap                                       float64
+Waste &amp; Nonferrous Scrap                                 float64
+Motor Vehicles and Parts                                 float64
+Metallic Ores                                            float64
+Coal                                                     float64
+Coke                                                     float64
+All Other Carloads                                       float64
+Total Carloads                                           float64
+Trailers                                                 float64
+Containers                                               float64
+Total Intermodal                                         float64
+Total Traffic                                            float64
+Non‐Metallic Minerals (incl. Phosphates)                 float64
+Primary Forest Products*                                 float64
+Farm Products, Ex. Grain                                 float64
+Food &amp; Kindred Products                                  float64
+Petroleum Products                                       float64
+Metals &amp; Products                                        float64
+Pulp, Paper &amp; Allied Products                            float64
+Phosphate (Phospate Rock)                                float64
+Automotive (Motor Vehicles &amp; Equip.)                     float64
+Military, Machinery &amp; Transportation Equipment           float64
+dt                                                datetime64[ns]
+dtype: object
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">):</span>
+    <span class="n">pmp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">pmp2</span> <span class="o">=</span> <span class="n">pmp</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">)[</span><span class="n">metric</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">pmp2</span><span class="p">[</span><span class="s1">&#39;Change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pmp2</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">pmp2</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+        <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;dt:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
+        <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Change:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;52-Week Growth [%]&#39;</span><span class="p">)),</span>
+        <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;dt:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%B %Y&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Period&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Change:Q&#39;</span><span class="p">)]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s1">&#39;CSX Freight Reports: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metric</span><span class="p">),</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span>
+        <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
+    <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+    
+<span class="n">doChart</span><span class="p">(</span><span class="s1">&#39;Primary Metal Products&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-49e86f6b631541b6a36b0401a299cbbd"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-49e86f6b631541b6a36b0401a299cbbd");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-259877a30c80cc48c38be848178b331f"}, "mark": {"type": "bar", "color": "grey"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Primary Metal Products", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-259877a30c80cc48c38be848178b331f": [{"dt": "2015-01-31T00:00:00", "Primary Metal Products": 3391.6, "Change": null}, {"dt": "2015-02-28T00:00:00", "Primary Metal Products": 3109.0, "Change": null}, {"dt": "2015-03-31T00:00:00", "Primary Metal Products": 2869.0, "Change": null}, {"dt": "2015-04-30T00:00:00", "Primary Metal Products": 3003.0, "Change": null}, {"dt": "2015-05-31T00:00:00", "Primary Metal Products": 3143.0, "Change": null}, {"dt": "2015-06-30T00:00:00", "Primary Metal Products": 3265.0, "Change": null}, {"dt": "2015-07-31T00:00:00", "Primary Metal Products": 3150.5, "Change": null}, {"dt": "2015-08-31T00:00:00", "Primary Metal Products": 3192.2, "Change": null}, {"dt": "2015-09-30T00:00:00", "Primary Metal Products": 3063.0, "Change": null}, {"dt": "2015-10-31T00:00:00", "Primary Metal Products": 2849.8, "Change": null}, {"dt": "2015-11-30T00:00:00", "Primary Metal Products": 2727.75, "Change": null}, {"dt": "2015-12-31T00:00:00", "Primary Metal Products": 2790.5, "Change": null}, {"dt": "2016-01-31T00:00:00", "Primary Metal Products": 2384.4, "Change": -29.696898219129608}, {"dt": "2016-02-29T00:00:00", "Primary Metal Products": 2574.25, "Change": -17.20006432936636}, {"dt": "2016-03-31T00:00:00", "Primary Metal Products": 2620.75, "Change": -8.652840711049148}, {"dt": "2016-04-30T00:00:00", "Primary Metal Products": 2735.222222222222, "Change": -8.917008917008918}, {"dt": "2016-05-31T00:00:00", "Primary Metal Products": 2776.5, "Change": -11.660833598472797}, {"dt": "2016-06-30T00:00:00", "Primary Metal Products": 2687.1428571428573, "Change": -17.698534237584763}, {"dt": "2016-07-31T00:00:00", "Primary Metal Products": 2733.4, "Change": -13.23916838597048}, {"dt": "2016-08-31T00:00:00", "Primary Metal Products": 2652.5, "Change": -16.90683541131508}, {"dt": "2016-09-30T00:00:00", "Primary Metal Products": 2435.0, "Change": -20.502775057133526}, {"dt": "2016-10-31T00:00:00", "Primary Metal Products": 2318.0, "Change": -18.660958663765882}, {"dt": "2016-11-30T00:00:00", "Primary Metal Products": 2332.75, "Change": -14.48079919347448}, {"dt": "2016-12-31T00:00:00", "Primary Metal Products": 2509.2, "Change": -10.080630711342064}, {"dt": "2017-01-31T00:00:00", "Primary Metal Products": 2611.25, "Change": 9.513923838282157}, {"dt": "2017-02-28T00:00:00", "Primary Metal Products": 2917.75, "Change": 13.343692337574042}, {"dt": "2017-03-31T00:00:00", "Primary Metal Products": 2701.25, "Change": 3.071639797767811}, {"dt": "2017-04-30T00:00:00", "Primary Metal Products": 2782.4, "Change": 1.724824308404771}, {"dt": "2017-05-31T00:00:00", "Primary Metal Products": 2451.75, "Change": -11.696380334954082}, {"dt": "2017-06-30T00:00:00", "Primary Metal Products": 2372.0, "Change": -11.72780435938331}, {"dt": "2017-07-31T00:00:00", "Primary Metal Products": 2372.6, "Change": -13.199678056632768}, {"dt": "2017-08-31T00:00:00", "Primary Metal Products": 2368.5, "Change": -10.706880301602261}, {"dt": "2017-09-30T00:00:00", "Primary Metal Products": 2467.6, "Change": 1.3388090349075954}, {"dt": "2017-10-31T00:00:00", "Primary Metal Products": 2416.5, "Change": 4.249352890422786}, {"dt": "2017-11-30T00:00:00", "Primary Metal Products": 2075.0, "Change": -11.049190869145853}, {"dt": "2017-12-31T00:00:00", "Primary Metal Products": 2323.0, "Change": -7.420691853977357}, {"dt": "2018-01-31T00:00:00", "Primary Metal Products": 2482.5, "Change": -4.930588798468172}, {"dt": "2018-02-28T00:00:00", "Primary Metal Products": 2878.5, "Change": -1.3452146345643068}, {"dt": "2018-03-31T00:00:00", "Primary Metal Products": 2798.8, "Change": 3.6112910689495736}, {"dt": "2018-04-30T00:00:00", "Primary Metal Products": 2716.0, "Change": -2.3864289821736717}, {"dt": "2018-05-31T00:00:00", "Primary Metal Products": 2780.25, "Change": 13.398592841847655}, {"dt": "2018-06-30T00:00:00", "Primary Metal Products": 3044.2, "Change": 28.33895446880268}, {"dt": "2018-07-31T00:00:00", "Primary Metal Products": 2897.0, "Change": 22.102334991148954}, {"dt": "2018-08-31T00:00:00", "Primary Metal Products": 2939.5, "Change": 24.10808528604602}, {"dt": "2018-09-30T00:00:00", "Primary Metal Products": 2846.6, "Change": 15.359053331171978}, {"dt": "2018-10-31T00:00:00", "Primary Metal Products": 2710.5, "Change": 12.166356300434522}, {"dt": "2018-11-30T00:00:00", "Primary Metal Products": 2486.0, "Change": 19.807228915662645}, {"dt": "2018-12-31T00:00:00", "Primary Metal Products": 2727.2, "Change": 17.399913904433916}, {"dt": "2019-01-31T00:00:00", "Primary Metal Products": 2851.6666666666665, "Change": 14.870762000671366}, {"dt": "2019-02-28T00:00:00", "Primary Metal Products": 2562.1666666666665, "Change": -10.989520004632048}, {"dt": "2019-03-31T00:00:00", "Primary Metal Products": 2713.6, "Change": -3.0441617836215573}, {"dt": "2019-04-30T00:00:00", "Primary Metal Products": 2664.5, "Change": -1.896170839469813}, {"dt": "2019-05-31T00:00:00", "Primary Metal Products": 2513.5, "Change": -9.594460929772497}, {"dt": "2019-06-30T00:00:00", "Primary Metal Products": 2479.8, "Change": -18.54017475855725}, {"dt": "2019-07-31T00:00:00", "Primary Metal Products": 2495.0, "Change": -13.876423886779431}, {"dt": "2019-08-31T00:00:00", "Primary Metal Products": 2652.2, "Change": -9.773771049498226}, {"dt": "2019-09-30T00:00:00", "Primary Metal Products": 2389.5, "Change": -16.057753108972108}, {"dt": "2019-10-31T00:00:00", "Primary Metal Products": 2136.25, "Change": -21.186128020660398}, {"dt": "2019-11-30T00:00:00", "Primary Metal Products": 2091.0, "Change": -15.888978278358811}, {"dt": "2019-12-31T00:00:00", "Primary Metal Products": 2503.25, "Change": -8.211718979172765}, {"dt": "2020-01-31T00:00:00", "Primary Metal Products": 2340.0, "Change": -17.942723553477492}, {"dt": "2020-02-29T00:00:00", "Primary Metal Products": 2742.0, "Change": 7.018799193391012}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Lumber &amp; Wood Products&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tan&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-e2481f31486b4aefa215723c1652fa38"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-e2481f31486b4aefa215723c1652fa38");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-bebec53840e76ae281287071d99b1074"}, "mark": {"type": "bar", "color": "tan"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Lumber & Wood Products", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-bebec53840e76ae281287071d99b1074": [{"dt": "2011-12-31T00:00:00", "Lumber & Wood Products": 807.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Lumber & Wood Products": 906.75, "Change": null}, {"dt": "2012-02-29T00:00:00", "Lumber & Wood Products": 1055.0, "Change": null}, {"dt": "2012-03-31T00:00:00", "Lumber & Wood Products": 1032.0, "Change": null}, {"dt": "2012-04-30T00:00:00", "Lumber & Wood Products": 1103.0, "Change": null}, {"dt": "2012-05-31T00:00:00", "Lumber & Wood Products": 1120.25, "Change": null}, {"dt": "2012-06-30T00:00:00", "Lumber & Wood Products": 989.8, "Change": null}, {"dt": "2012-07-31T00:00:00", "Lumber & Wood Products": 976.5, "Change": null}, {"dt": "2012-08-31T00:00:00", "Lumber & Wood Products": 1012.25, "Change": null}, {"dt": "2012-09-30T00:00:00", "Lumber & Wood Products": 1050.2, "Change": null}, {"dt": "2012-10-31T00:00:00", "Lumber & Wood Products": 1059.75, "Change": null}, {"dt": "2012-11-30T00:00:00", "Lumber & Wood Products": 1007.75, "Change": null}, {"dt": "2012-12-31T00:00:00", "Lumber & Wood Products": 938.6666666666666, "Change": 16.31557207765386}, {"dt": "2013-01-31T00:00:00", "Lumber & Wood Products": 963.6666666666666, "Change": 6.276996599577234}, {"dt": "2013-02-28T00:00:00", "Lumber & Wood Products": 1122.75, "Change": 6.421800947867307}, {"dt": "2013-03-31T00:00:00", "Lumber & Wood Products": 1084.4, "Change": 5.077519379844975}, {"dt": "2013-04-30T00:00:00", "Lumber & Wood Products": 1193.75, "Change": 8.227561196736177}, {"dt": "2013-05-31T00:00:00", "Lumber & Wood Products": 1257.5, "Change": 12.251729524659671}, {"dt": "2013-06-30T00:00:00", "Lumber & Wood Products": 1154.0, "Change": 16.589209941402316}, {"dt": "2013-07-31T00:00:00", "Lumber & Wood Products": 1019.5, "Change": 4.403481822836652}, {"dt": "2013-08-31T00:00:00", "Lumber & Wood Products": 1132.0, "Change": 11.830081501605338}, {"dt": "2013-09-30T00:00:00", "Lumber & Wood Products": 1141.75, "Change": 8.717387164349644}, {"dt": "2013-10-31T00:00:00", "Lumber & Wood Products": 1172.25, "Change": 10.615711252653925}, {"dt": "2013-11-30T00:00:00", "Lumber & Wood Products": 1176.4, "Change": 16.73530141404118}, {"dt": "2013-12-31T00:00:00", "Lumber & Wood Products": 1044.25, "Change": 11.248224431818187}, {"dt": "2014-01-31T00:00:00", "Lumber & Wood Products": 948.0, "Change": -1.6257350397786197}, {"dt": "2014-02-28T00:00:00", "Lumber & Wood Products": 1071.25, "Change": -4.586951681140061}, {"dt": "2014-03-31T00:00:00", "Lumber & Wood Products": 1135.2, "Change": 4.684618222058279}, {"dt": "2014-04-30T00:00:00", "Lumber & Wood Products": 1269.5, "Change": 6.345549738219902}, {"dt": "2014-05-31T00:00:00", "Lumber & Wood Products": 1292.6, "Change": 2.791252485089446}, {"dt": "2014-06-30T00:00:00", "Lumber & Wood Products": 1241.875, "Change": 7.614818024263426}, {"dt": "2014-07-31T00:00:00", "Lumber & Wood Products": 1234.25, "Change": 21.064247179990183}, {"dt": "2014-08-31T00:00:00", "Lumber & Wood Products": 1184.5, "Change": 4.637809187279163}, {"dt": "2014-09-30T00:00:00", "Lumber & Wood Products": 1232.25, "Change": 7.926428727830093}, {"dt": "2014-10-31T00:00:00", "Lumber & Wood Products": 1288.875, "Change": 9.948816378758796}, {"dt": "2014-11-30T00:00:00", "Lumber & Wood Products": 1153.2, "Change": -1.9721183270996256}, {"dt": "2014-12-31T00:00:00", "Lumber & Wood Products": 1056.75, "Change": 1.19703136222169}, {"dt": "2015-01-31T00:00:00", "Lumber & Wood Products": 1033.7272727272727, "Change": 9.042961258151138}, {"dt": "2015-02-28T00:00:00", "Lumber & Wood Products": 1119.5, "Change": 4.50408401400233}, {"dt": "2015-03-31T00:00:00", "Lumber & Wood Products": 1184.0, "Change": 4.298801973220567}, {"dt": "2015-04-30T00:00:00", "Lumber & Wood Products": 1217.2857142857142, "Change": -4.112980363472685}, {"dt": "2015-05-31T00:00:00", "Lumber & Wood Products": 1215.2, "Change": -5.98793130125328}, {"dt": "2015-06-30T00:00:00", "Lumber & Wood Products": 1264.2857142857142, "Change": 1.8045869580846974}, {"dt": "2015-07-31T00:00:00", "Lumber & Wood Products": 1173.25, "Change": -4.94227263520356}, {"dt": "2015-08-31T00:00:00", "Lumber & Wood Products": 1173.8, "Change": -0.9033347403967995}, {"dt": "2015-09-30T00:00:00", "Lumber & Wood Products": 1227.5, "Change": -0.38547372692229187}, {"dt": "2015-10-31T00:00:00", "Lumber & Wood Products": 1187.4, "Change": -7.873145184754138}, {"dt": "2015-11-30T00:00:00", "Lumber & Wood Products": 1111.75, "Change": -3.594346167186957}, {"dt": "2015-12-31T00:00:00", "Lumber & Wood Products": 1001.25, "Change": -5.251951738821859}, {"dt": "2016-01-31T00:00:00", "Lumber & Wood Products": 1030.2, "Change": -0.3412188901591784}, {"dt": "2016-02-29T00:00:00", "Lumber & Wood Products": 1061.75, "Change": -5.1585529254131295}, {"dt": "2016-03-31T00:00:00", "Lumber & Wood Products": 1127.0, "Change": -4.814189189189189}, {"dt": "2016-04-30T00:00:00", "Lumber & Wood Products": 1226.7777777777778, "Change": 0.7797728487788369}, {"dt": "2016-05-31T00:00:00", "Lumber & Wood Products": 1239.25, "Change": 1.9790980908492406}, {"dt": "2016-06-30T00:00:00", "Lumber & Wood Products": 1179.2857142857142, "Change": -6.723163841807911}, {"dt": "2016-07-31T00:00:00", "Lumber & Wood Products": 1162.2, "Change": -0.9418282548476431}, {"dt": "2016-08-31T00:00:00", "Lumber & Wood Products": 1142.5, "Change": -2.666553075481337}, {"dt": "2016-09-30T00:00:00", "Lumber & Wood Products": 1161.25, "Change": -5.397148676171081}, {"dt": "2016-10-31T00:00:00", "Lumber & Wood Products": 1146.6, "Change": -3.4360788276907694}, {"dt": "2016-11-30T00:00:00", "Lumber & Wood Products": 1155.5, "Change": 3.9352372385878187}, {"dt": "2016-12-31T00:00:00", "Lumber & Wood Products": 990.0, "Change": -1.1235955056179803}, {"dt": "2017-01-31T00:00:00", "Lumber & Wood Products": 978.0, "Change": -5.066977285963892}, {"dt": "2017-02-28T00:00:00", "Lumber & Wood Products": 1129.5, "Change": 6.380974805745221}, {"dt": "2017-03-31T00:00:00", "Lumber & Wood Products": 1228.75, "Change": 9.028393966282167}, {"dt": "2017-04-30T00:00:00", "Lumber & Wood Products": 1289.6, "Change": 5.12091296078252}, {"dt": "2017-05-31T00:00:00", "Lumber & Wood Products": 1264.0, "Change": 1.9971757111155952}, {"dt": "2017-06-30T00:00:00", "Lumber & Wood Products": 1112.75, "Change": -5.642035130224099}, {"dt": "2017-07-31T00:00:00", "Lumber & Wood Products": 1069.4, "Change": -7.984856307003952}, {"dt": "2017-08-31T00:00:00", "Lumber & Wood Products": 1057.5, "Change": -7.4398249452954035}, {"dt": "2017-09-30T00:00:00", "Lumber & Wood Products": 1121.4, "Change": -3.4316469321851395}, {"dt": "2017-10-31T00:00:00", "Lumber & Wood Products": 1179.5, "Change": 2.8693528693528814}, {"dt": "2017-11-30T00:00:00", "Lumber & Wood Products": 1142.5, "Change": -1.1250540891388994}, {"dt": "2017-12-31T00:00:00", "Lumber & Wood Products": 1006.0, "Change": 1.6161616161616266}, {"dt": "2018-01-31T00:00:00", "Lumber & Wood Products": 953.75, "Change": -2.4795501022494837}, {"dt": "2018-02-28T00:00:00", "Lumber & Wood Products": 1069.5, "Change": -5.312084993359889}, {"dt": "2018-03-31T00:00:00", "Lumber & Wood Products": 1281.6, "Change": 4.301119023397759}, {"dt": "2018-04-30T00:00:00", "Lumber & Wood Products": 1301.25, "Change": 0.9033808933002652}, {"dt": "2018-05-31T00:00:00", "Lumber & Wood Products": 1348.0, "Change": 6.645569620253156}, {"dt": "2018-06-30T00:00:00", "Lumber & Wood Products": 1295.2, "Change": 16.396315434733765}, {"dt": "2018-07-31T00:00:00", "Lumber & Wood Products": 1239.0, "Change": 15.859360389003175}, {"dt": "2018-08-31T00:00:00", "Lumber & Wood Products": 1243.0, "Change": 17.541371158392426}, {"dt": "2018-09-30T00:00:00", "Lumber & Wood Products": 1237.0, "Change": 10.308542892812556}, {"dt": "2018-10-31T00:00:00", "Lumber & Wood Products": 1197.25, "Change": 1.5048749470114364}, {"dt": "2018-11-30T00:00:00", "Lumber & Wood Products": 1134.25, "Change": -0.722100656455138}, {"dt": "2018-12-31T00:00:00", "Lumber & Wood Products": 1070.2, "Change": 6.381709741550701}, {"dt": "2019-01-31T00:00:00", "Lumber & Wood Products": 985.0, "Change": 3.2765399737876733}, {"dt": "2019-02-28T00:00:00", "Lumber & Wood Products": 1186.3333333333333, "Change": 10.924107838553843}, {"dt": "2019-03-31T00:00:00", "Lumber & Wood Products": 1211.2, "Change": -5.493133583021215}, {"dt": "2019-04-30T00:00:00", "Lumber & Wood Products": 1428.25, "Change": 9.759846301633047}, {"dt": "2019-05-31T00:00:00", "Lumber & Wood Products": 1393.0, "Change": 3.3382789317507378}, {"dt": "2019-06-30T00:00:00", "Lumber & Wood Products": 1300.4, "Change": 0.4014823965410752}, {"dt": "2019-07-31T00:00:00", "Lumber & Wood Products": 1244.5, "Change": 0.44390637610975947}, {"dt": "2019-08-31T00:00:00", "Lumber & Wood Products": 1279.0, "Change": 2.8962188254223697}, {"dt": "2019-09-30T00:00:00", "Lumber & Wood Products": 1244.5, "Change": 0.6063055780113125}, {"dt": "2019-10-31T00:00:00", "Lumber & Wood Products": 1275.5, "Change": 6.535811234078093}, {"dt": "2019-11-30T00:00:00", "Lumber & Wood Products": 1132.4, "Change": -0.16310337227242178}, {"dt": "2019-12-31T00:00:00", "Lumber & Wood Products": 1051.75, "Change": -1.723976826761353}, {"dt": "2020-01-31T00:00:00", "Lumber & Wood Products": 980.25, "Change": -0.4822335025380764}, {"dt": "2020-02-29T00:00:00", "Lumber & Wood Products": 1206.0, "Change": 1.6577690362461484}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Total Traffic&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-f1609cd1bed64b74a80e862f6fcd2faa"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-f1609cd1bed64b74a80e862f6fcd2faa");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-3a31175ace34f91d23b2e28137c11691"}, "mark": {"type": "bar", "color": "navy"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Total Traffic", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-3a31175ace34f91d23b2e28137c11691": [{"dt": "2011-12-31T00:00:00", "Total Traffic": 96750.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Total Traffic": 118349.25, "Change": null}, {"dt": "2012-02-29T00:00:00", "Total Traffic": 124225.75, "Change": null}, {"dt": "2012-03-31T00:00:00", "Total Traffic": 126210.0, "Change": null}, {"dt": "2012-04-30T00:00:00", "Total Traffic": 125825.0, "Change": null}, {"dt": "2012-05-31T00:00:00", "Total Traffic": 127522.0, "Change": null}, {"dt": "2012-06-30T00:00:00", "Total Traffic": 124759.4, "Change": null}, {"dt": "2012-07-31T00:00:00", "Total Traffic": 118194.0, "Change": null}, {"dt": "2012-08-31T00:00:00", "Total Traffic": 126301.25, "Change": null}, {"dt": "2012-09-30T00:00:00", "Total Traffic": 124749.4, "Change": null}, {"dt": "2012-10-31T00:00:00", "Total Traffic": 126322.0, "Change": null}, {"dt": "2012-11-30T00:00:00", "Total Traffic": 116796.75, "Change": null}, {"dt": "2012-12-31T00:00:00", "Total Traffic": 112230.83333333333, "Change": 16.000861326442717}, {"dt": "2013-01-31T00:00:00", "Total Traffic": 113272.33333333333, "Change": -4.289775107714389}, {"dt": "2013-02-28T00:00:00", "Total Traffic": 120703.75, "Change": -2.835160987154439}, {"dt": "2013-03-31T00:00:00", "Total Traffic": 126071.6, "Change": -0.10965850566515556}, {"dt": "2013-04-30T00:00:00", "Total Traffic": 124612.75, "Change": -0.9634412875024867}, {"dt": "2013-05-31T00:00:00", "Total Traffic": 128585.75, "Change": 0.8341697903107015}, {"dt": "2013-06-30T00:00:00", "Total Traffic": 128617.8, "Change": 3.0926727765603346}, {"dt": "2013-07-31T00:00:00", "Total Traffic": 115853.0, "Change": -1.9806419953635523}, {"dt": "2013-08-31T00:00:00", "Total Traffic": 128646.0, "Change": 1.856474104571415}, {"dt": "2013-09-30T00:00:00", "Total Traffic": 129402.0, "Change": 3.7295570159054936}, {"dt": "2013-10-31T00:00:00", "Total Traffic": 133186.0, "Change": 5.433732841468619}, {"dt": "2013-11-30T00:00:00", "Total Traffic": 134134.2, "Change": 14.844120234509962}, {"dt": "2013-12-31T00:00:00", "Total Traffic": 124947.0, "Change": 11.330368214320185}, {"dt": "2014-01-31T00:00:00", "Total Traffic": 108905.11111111111, "Change": -3.855506542246756}, {"dt": "2014-02-28T00:00:00", "Total Traffic": 120893.625, "Change": 0.15730662883299829}, {"dt": "2014-03-31T00:00:00", "Total Traffic": 133629.9, "Change": 5.995243972472775}, {"dt": "2014-04-30T00:00:00", "Total Traffic": 138865.125, "Change": 11.437332857191574}, {"dt": "2014-05-31T00:00:00", "Total Traffic": 137300.6, "Change": 6.777461732734769}, {"dt": "2014-06-30T00:00:00", "Total Traffic": 135240.75, "Change": 5.149326143037736}, {"dt": "2014-07-31T00:00:00", "Total Traffic": 131182.5, "Change": 13.231854160013112}, {"dt": "2014-08-31T00:00:00", "Total Traffic": 136958.5, "Change": 6.461530090325396}, {"dt": "2014-09-30T00:00:00", "Total Traffic": 136229.625, "Change": 5.2762901655306615}, {"dt": "2014-10-31T00:00:00", "Total Traffic": 139301.5, "Change": 4.5916988272040715}, {"dt": "2014-11-30T00:00:00", "Total Traffic": 137125.9, "Change": 2.2303782331426047}, {"dt": "2014-12-31T00:00:00", "Total Traffic": 133319.0, "Change": 6.700440986978484}, {"dt": "2015-01-31T00:00:00", "Total Traffic": 123186.0, "Change": 13.11314844931266}, {"dt": "2015-02-28T00:00:00", "Total Traffic": 120493.25, "Change": -0.3311795803955797}, {"dt": "2015-03-31T00:00:00", "Total Traffic": 132091.5, "Change": -1.151239355862721}, {"dt": "2015-04-30T00:00:00", "Total Traffic": 135868.7142857143, "Change": -2.157784911284033}, {"dt": "2015-05-31T00:00:00", "Total Traffic": 135178.8, "Change": -1.5453683377931515}, {"dt": "2015-06-30T00:00:00", "Total Traffic": 135775.14285714287, "Change": 0.3951418911406934}, {"dt": "2015-07-31T00:00:00", "Total Traffic": 127273.75, "Change": -2.97962761801307}, {"dt": "2015-08-31T00:00:00", "Total Traffic": 135592.8, "Change": -0.9971633743068198}, {"dt": "2015-09-30T00:00:00", "Total Traffic": 132999.25, "Change": -2.3712720342583316}, {"dt": "2015-10-31T00:00:00", "Total Traffic": 131761.2, "Change": -5.412935251953488}, {"dt": "2015-11-30T00:00:00", "Total Traffic": 125586.25, "Change": -8.415368650269562}, {"dt": "2015-12-31T00:00:00", "Total Traffic": 123328.5, "Change": -7.493680570661343}, {"dt": "2016-01-31T00:00:00", "Total Traffic": 114183.6, "Change": -7.307973308655202}, {"dt": "2016-02-29T00:00:00", "Total Traffic": 122749.5, "Change": 1.872511530728893}, {"dt": "2016-03-31T00:00:00", "Total Traffic": 124138.0, "Change": -6.021204998050589}, {"dt": "2016-04-30T00:00:00", "Total Traffic": 123852.44444444444, "Change": -8.844029992071023}, {"dt": "2016-05-31T00:00:00", "Total Traffic": 125129.75, "Change": -7.433894959860565}, {"dt": "2016-06-30T00:00:00", "Total Traffic": 120399.85714285714, "Change": -11.324079938890563}, {"dt": "2016-07-31T00:00:00", "Total Traffic": 118767.0, "Change": -6.68382129072177}, {"dt": "2016-08-31T00:00:00", "Total Traffic": 122785.75, "Change": -9.445228655208826}, {"dt": "2016-09-30T00:00:00", "Total Traffic": 123506.25, "Change": -7.137634234779522}, {"dt": "2016-10-31T00:00:00", "Total Traffic": 125625.2, "Change": -4.656909621345296}, {"dt": "2016-11-30T00:00:00", "Total Traffic": 123684.25, "Change": -1.51449700902766}, {"dt": "2016-12-31T00:00:00", "Total Traffic": 121287.0, "Change": -1.655335141512304}, {"dt": "2017-01-31T00:00:00", "Total Traffic": 118231.5, "Change": 3.5450800290059092}, {"dt": "2017-02-28T00:00:00", "Total Traffic": 126893.5, "Change": 3.3759811648927274}, {"dt": "2017-03-31T00:00:00", "Total Traffic": 123041.25, "Change": -0.8834925647263514}, {"dt": "2017-04-30T00:00:00", "Total Traffic": 123566.4, "Change": -0.23095583274721498}, {"dt": "2017-05-31T00:00:00", "Total Traffic": 125647.75, "Change": 0.4139702988298133}, {"dt": "2017-06-30T00:00:00", "Total Traffic": 123693.75, "Change": 2.7357946556652246}, {"dt": "2017-07-31T00:00:00", "Total Traffic": 119594.6, "Change": 0.6968265595662215}, {"dt": "2017-08-31T00:00:00", "Total Traffic": 124588.25, "Change": 1.4680042268748528}, {"dt": "2017-09-30T00:00:00", "Total Traffic": 121188.4, "Change": -1.8767066444005942}, {"dt": "2017-10-31T00:00:00", "Total Traffic": 127707.25, "Change": 1.6573505952627299}, {"dt": "2017-11-30T00:00:00", "Total Traffic": 121471.25, "Change": -1.7892334715212344}, {"dt": "2017-12-31T00:00:00", "Total Traffic": 118833.2, "Change": -2.023135208225124}, {"dt": "2018-01-31T00:00:00", "Total Traffic": 109579.5, "Change": -7.3178467667246005}, {"dt": "2018-02-28T00:00:00", "Total Traffic": 121591.0, "Change": -4.178701036696131}, {"dt": "2018-03-31T00:00:00", "Total Traffic": 124402.4, "Change": 1.1062550161023088}, {"dt": "2018-04-30T00:00:00", "Total Traffic": 125980.75, "Change": 1.9538887594038545}, {"dt": "2018-05-31T00:00:00", "Total Traffic": 127656.0, "Change": 1.5983175186185195}, {"dt": "2018-06-30T00:00:00", "Total Traffic": 126765.2, "Change": 2.483108483654184}, {"dt": "2018-07-31T00:00:00", "Total Traffic": 122199.25, "Change": 2.177899336592115}, {"dt": "2018-08-31T00:00:00", "Total Traffic": 130629.75, "Change": 4.8491731764432}, {"dt": "2018-09-30T00:00:00", "Total Traffic": 126987.2, "Change": 4.784946414013236}, {"dt": "2018-10-31T00:00:00", "Total Traffic": 129976.75, "Change": 1.7771113229671842}, {"dt": "2018-11-30T00:00:00", "Total Traffic": 125028.75, "Change": 2.928676538687136}, {"dt": "2018-12-31T00:00:00", "Total Traffic": 123604.0, "Change": 4.014702961798555}, {"dt": "2019-01-31T00:00:00", "Total Traffic": 115536.66666666667, "Change": 5.436387888853922}, {"dt": "2019-02-28T00:00:00", "Total Traffic": 115359.66666666667, "Change": -5.124831059316337}, {"dt": "2019-03-31T00:00:00", "Total Traffic": 121755.0, "Change": -2.128093991755786}, {"dt": "2019-04-30T00:00:00", "Total Traffic": 122892.0, "Change": -2.451763463862533}, {"dt": "2019-05-31T00:00:00", "Total Traffic": 122639.75, "Change": -3.9295058594973953}, {"dt": "2019-06-30T00:00:00", "Total Traffic": 120274.4, "Change": -5.120332709608}, {"dt": "2019-07-31T00:00:00", "Total Traffic": 114402.25, "Change": -6.3805628921617785}, {"dt": "2019-08-31T00:00:00", "Total Traffic": 123207.4, "Change": -5.68197520090179}, {"dt": "2019-09-30T00:00:00", "Total Traffic": 119708.75, "Change": -5.7316406692958015}, {"dt": "2019-10-31T00:00:00", "Total Traffic": 122587.75, "Change": -5.684862869705542}, {"dt": "2019-11-30T00:00:00", "Total Traffic": 120637.0, "Change": -3.5125921038161256}, {"dt": "2019-12-31T00:00:00", "Total Traffic": 117750.5, "Change": -4.73568816543154}, {"dt": "2020-01-31T00:00:00", "Total Traffic": 105513.25, "Change": -8.67552869219007}, {"dt": "2020-02-29T00:00:00", "Total Traffic": 118995.5, "Change": 3.1517370311402892}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Total Carloads&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-fc206a8d87854f6f940065b89481877b"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-fc206a8d87854f6f940065b89481877b");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-b1f2f83052552e82310f89d211d86f18"}, "mark": {"type": "bar", "color": "navy"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Total Carloads", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-b1f2f83052552e82310f89d211d86f18": [{"dt": "2011-12-31T00:00:00", "Total Carloads": 62688.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Total Carloads": 75824.75, "Change": null}, {"dt": "2012-02-29T00:00:00", "Total Carloads": 77715.25, "Change": null}, {"dt": "2012-03-31T00:00:00", "Total Carloads": 77645.8, "Change": null}, {"dt": "2012-04-30T00:00:00", "Total Carloads": 77928.25, "Change": null}, {"dt": "2012-05-31T00:00:00", "Total Carloads": 78644.0, "Change": null}, {"dt": "2012-06-30T00:00:00", "Total Carloads": 76875.2, "Change": null}, {"dt": "2012-07-31T00:00:00", "Total Carloads": 71971.0, "Change": null}, {"dt": "2012-08-31T00:00:00", "Total Carloads": 77564.25, "Change": null}, {"dt": "2012-09-30T00:00:00", "Total Carloads": 76474.2, "Change": null}, {"dt": "2012-10-31T00:00:00", "Total Carloads": 76631.25, "Change": null}, {"dt": "2012-11-30T00:00:00", "Total Carloads": 72090.75, "Change": null}, {"dt": "2012-12-31T00:00:00", "Total Carloads": 70627.0, "Change": 12.664305768249108}, {"dt": "2013-01-31T00:00:00", "Total Carloads": 70124.33333333333, "Change": -7.517883892352661}, {"dt": "2013-02-28T00:00:00", "Total Carloads": 73321.5, "Change": -5.653652275454302}, {"dt": "2013-03-31T00:00:00", "Total Carloads": 76563.6, "Change": -1.3937650201298668}, {"dt": "2013-04-30T00:00:00", "Total Carloads": 77069.75, "Change": -1.1016544064572198}, {"dt": "2013-05-31T00:00:00", "Total Carloads": 78451.0, "Change": -0.24540969431869897}, {"dt": "2013-06-30T00:00:00", "Total Carloads": 78657.6, "Change": 2.318563073657054}, {"dt": "2013-07-31T00:00:00", "Total Carloads": 68343.75, "Change": -5.03987717275014}, {"dt": "2013-08-31T00:00:00", "Total Carloads": 77658.4, "Change": 0.12138324034589587}, {"dt": "2013-09-30T00:00:00", "Total Carloads": 78436.5, "Change": 2.5659634229583395}, {"dt": "2013-10-31T00:00:00", "Total Carloads": 79761.75, "Change": 4.085148030340102}, {"dt": "2013-11-30T00:00:00", "Total Carloads": 80707.4, "Change": 11.952504308805212}, {"dt": "2013-12-31T00:00:00", "Total Carloads": 75240.25, "Change": 6.531850425474683}, {"dt": "2014-01-31T00:00:00", "Total Carloads": 66849.11111111111, "Change": -4.6705930260378725}, {"dt": "2014-02-28T00:00:00", "Total Carloads": 72456.875, "Change": -1.1792243748423026}, {"dt": "2014-03-31T00:00:00", "Total Carloads": 79388.4, "Change": 3.6894816858141333}, {"dt": "2014-04-30T00:00:00", "Total Carloads": 85204.375, "Change": 10.554886969271337}, {"dt": "2014-05-31T00:00:00", "Total Carloads": 83725.8, "Change": 6.723687397228839}, {"dt": "2014-06-30T00:00:00", "Total Carloads": 83210.875, "Change": 5.788728616179495}, {"dt": "2014-07-31T00:00:00", "Total Carloads": 80014.625, "Change": 17.076726108824868}, {"dt": "2014-08-31T00:00:00", "Total Carloads": 82772.7, "Change": 6.5856365827779095}, {"dt": "2014-09-30T00:00:00", "Total Carloads": 83154.25, "Change": 6.014738036500855}, {"dt": "2014-10-31T00:00:00", "Total Carloads": 84513.375, "Change": 5.957272752917286}, {"dt": "2014-11-30T00:00:00", "Total Carloads": 81676.5, "Change": 1.2007573035434316}, {"dt": "2014-12-31T00:00:00", "Total Carloads": 81481.75, "Change": 8.295426982233579}, {"dt": "2015-01-31T00:00:00", "Total Carloads": 76339.72727272728, "Change": 14.19707158984005}, {"dt": "2015-02-28T00:00:00", "Total Carloads": 71561.75, "Change": -1.2353900164753129}, {"dt": "2015-03-31T00:00:00", "Total Carloads": 76799.75, "Change": -3.260740863904543}, {"dt": "2015-04-30T00:00:00", "Total Carloads": 80328.57142857143, "Change": -5.722480296849275}, {"dt": "2015-05-31T00:00:00", "Total Carloads": 80299.8, "Change": -4.09192865281669}, {"dt": "2015-06-30T00:00:00", "Total Carloads": 79701.28571428571, "Change": -4.217705060443466}, {"dt": "2015-07-31T00:00:00", "Total Carloads": 73838.5, "Change": -7.718745166899177}, {"dt": "2015-08-31T00:00:00", "Total Carloads": 78086.4, "Change": -5.661649311910811}, {"dt": "2015-09-30T00:00:00", "Total Carloads": 75889.0, "Change": -8.737075976273012}, {"dt": "2015-10-31T00:00:00", "Total Carloads": 73636.0, "Change": -12.870595926384432}, {"dt": "2015-11-30T00:00:00", "Total Carloads": 70437.5, "Change": -13.760383953768828}, {"dt": "2015-12-31T00:00:00", "Total Carloads": 70135.25, "Change": -13.925204110122824}, {"dt": "2016-01-31T00:00:00", "Total Carloads": 64582.0, "Change": -15.401846054181256}, {"dt": "2016-02-29T00:00:00", "Total Carloads": 69132.0, "Change": -3.395319426928489}, {"dt": "2016-03-31T00:00:00", "Total Carloads": 70585.0, "Change": -8.092148737463333}, {"dt": "2016-04-30T00:00:00", "Total Carloads": 70901.55555555556, "Change": -11.735570178038612}, {"dt": "2016-05-31T00:00:00", "Total Carloads": 71385.0, "Change": -11.101895646066373}, {"dt": "2016-06-30T00:00:00", "Total Carloads": 67753.85714285714, "Change": -14.990258267925405}, {"dt": "2016-07-31T00:00:00", "Total Carloads": 67347.4, "Change": -8.790942394550271}, {"dt": "2016-08-31T00:00:00", "Total Carloads": 70087.0, "Change": -10.244293500532741}, {"dt": "2016-09-30T00:00:00", "Total Carloads": 70954.0, "Change": -6.502918736575792}, {"dt": "2016-10-31T00:00:00", "Total Carloads": 70925.6, "Change": -3.6808083002878966}, {"dt": "2016-11-30T00:00:00", "Total Carloads": 68971.0, "Change": -2.0819875776397545}, {"dt": "2016-12-31T00:00:00", "Total Carloads": 69416.8, "Change": -1.0243778984176943}, {"dt": "2017-01-31T00:00:00", "Total Carloads": 67429.0, "Change": 4.40834907559382}, {"dt": "2017-02-28T00:00:00", "Total Carloads": 72873.0, "Change": 5.4113869119944535}, {"dt": "2017-03-31T00:00:00", "Total Carloads": 69739.75, "Change": -1.1974923850676444}, {"dt": "2017-04-30T00:00:00", "Total Carloads": 69469.2, "Change": -2.020203286560096}, {"dt": "2017-05-31T00:00:00", "Total Carloads": 70262.75, "Change": -1.5721089864817572}, {"dt": "2017-06-30T00:00:00", "Total Carloads": 68878.0, "Change": 1.6591569905350712}, {"dt": "2017-07-31T00:00:00", "Total Carloads": 65891.8, "Change": -2.161330652705218}, {"dt": "2017-08-31T00:00:00", "Total Carloads": 68373.75, "Change": -2.444461883088167}, {"dt": "2017-09-30T00:00:00", "Total Carloads": 67213.0, "Change": -5.272430025086672}, {"dt": "2017-10-31T00:00:00", "Total Carloads": 69578.25, "Change": -1.8996666929853356}, {"dt": "2017-11-30T00:00:00", "Total Carloads": 66941.75, "Change": -2.942178596801559}, {"dt": "2017-12-31T00:00:00", "Total Carloads": 66870.2, "Change": -3.6685643821092406}, {"dt": "2018-01-31T00:00:00", "Total Carloads": 60233.25, "Change": -10.671595307656945}, {"dt": "2018-02-28T00:00:00", "Total Carloads": 66960.75, "Change": -8.113087151619947}, {"dt": "2018-03-31T00:00:00", "Total Carloads": 69442.0, "Change": -0.42694446137245823}, {"dt": "2018-04-30T00:00:00", "Total Carloads": 70743.0, "Change": 1.833618351729971}, {"dt": "2018-05-31T00:00:00", "Total Carloads": 70868.0, "Change": 0.8614094950738505}, {"dt": "2018-06-30T00:00:00", "Total Carloads": 70281.2, "Change": 2.0372252388280776}, {"dt": "2018-07-31T00:00:00", "Total Carloads": 67509.25, "Change": 2.4547060484005456}, {"dt": "2018-08-31T00:00:00", "Total Carloads": 73193.75, "Change": 7.049489021737143}, {"dt": "2018-09-30T00:00:00", "Total Carloads": 70586.6, "Change": 5.0192671060657945}, {"dt": "2018-10-31T00:00:00", "Total Carloads": 72533.0, "Change": 4.246657540251442}, {"dt": "2018-11-30T00:00:00", "Total Carloads": 69164.0, "Change": 3.3196771820276583}, {"dt": "2018-12-31T00:00:00", "Total Carloads": 68881.6, "Change": 3.007916829918278}, {"dt": "2019-01-31T00:00:00", "Total Carloads": 66781.33333333333, "Change": 10.871210391823993}, {"dt": "2019-02-28T00:00:00", "Total Carloads": 65656.5, "Change": -1.9477828429341093}, {"dt": "2019-03-31T00:00:00", "Total Carloads": 70067.6, "Change": 0.9008957115290483}, {"dt": "2019-04-30T00:00:00", "Total Carloads": 71917.5, "Change": 1.6602349349052137}, {"dt": "2019-05-31T00:00:00", "Total Carloads": 71656.25, "Change": 1.1122791669018417}, {"dt": "2019-06-30T00:00:00", "Total Carloads": 70337.2, "Change": 0.07967991440100963}, {"dt": "2019-07-31T00:00:00", "Total Carloads": 65632.25, "Change": -2.7803597284816517}, {"dt": "2019-08-31T00:00:00", "Total Carloads": 70993.0, "Change": -3.0067457945521348}, {"dt": "2019-09-30T00:00:00", "Total Carloads": 68544.5, "Change": -2.893042022140191}, {"dt": "2019-10-31T00:00:00", "Total Carloads": 68944.0, "Change": -4.948092592337283}, {"dt": "2019-11-30T00:00:00", "Total Carloads": 67007.2, "Change": -3.11838528714361}, {"dt": "2019-12-31T00:00:00", "Total Carloads": 65503.5, "Change": -4.904212445703937}, {"dt": "2020-01-31T00:00:00", "Total Carloads": 60718.5, "Change": -9.078634748233029}, {"dt": "2020-02-29T00:00:00", "Total Carloads": 66223.0, "Change": 0.862823939747015}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Total Intermodal&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-a9c32255afce44d6922749e51ca19d45"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-a9c32255afce44d6922749e51ca19d45");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-2bb4ad52d39bccc2cddcf56138e81cad"}, "mark": {"type": "bar", "color": "navy"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Total Intermodal", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-2bb4ad52d39bccc2cddcf56138e81cad": [{"dt": "2011-12-31T00:00:00", "Total Intermodal": 34062.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Total Intermodal": 42524.5, "Change": null}, {"dt": "2012-02-29T00:00:00", "Total Intermodal": 46510.5, "Change": null}, {"dt": "2012-03-31T00:00:00", "Total Intermodal": 48564.2, "Change": null}, {"dt": "2012-04-30T00:00:00", "Total Intermodal": 47896.75, "Change": null}, {"dt": "2012-05-31T00:00:00", "Total Intermodal": 48878.0, "Change": null}, {"dt": "2012-06-30T00:00:00", "Total Intermodal": 47884.2, "Change": null}, {"dt": "2012-07-31T00:00:00", "Total Intermodal": 46223.0, "Change": null}, {"dt": "2012-08-31T00:00:00", "Total Intermodal": 48737.0, "Change": null}, {"dt": "2012-09-30T00:00:00", "Total Intermodal": 48275.2, "Change": null}, {"dt": "2012-10-31T00:00:00", "Total Intermodal": 49690.75, "Change": null}, {"dt": "2012-11-30T00:00:00", "Total Intermodal": 44706.0, "Change": null}, {"dt": "2012-12-31T00:00:00", "Total Intermodal": 41603.833333333336, "Change": 22.141487092165278}, {"dt": "2013-01-31T00:00:00", "Total Intermodal": 43148.0, "Change": 1.466213594516108}, {"dt": "2013-02-28T00:00:00", "Total Intermodal": 47382.25, "Change": 1.8743079519678352}, {"dt": "2013-03-31T00:00:00", "Total Intermodal": 49508.0, "Change": 1.943406871728559}, {"dt": "2013-04-30T00:00:00", "Total Intermodal": 47543.0, "Change": -0.7385678569005183}, {"dt": "2013-05-31T00:00:00", "Total Intermodal": 50134.75, "Change": 2.571197675845993}, {"dt": "2013-06-30T00:00:00", "Total Intermodal": 49960.2, "Change": 4.335459295550526}, {"dt": "2013-07-31T00:00:00", "Total Intermodal": 47509.25, "Change": 2.7827055794734212}, {"dt": "2013-08-31T00:00:00", "Total Intermodal": 50987.6, "Change": 4.617846810431492}, {"dt": "2013-09-30T00:00:00", "Total Intermodal": 50965.5, "Change": 5.572840713244065}, {"dt": "2013-10-31T00:00:00", "Total Intermodal": 53424.25, "Change": 7.513470817003154}, {"dt": "2013-11-30T00:00:00", "Total Intermodal": 53426.8, "Change": 19.507001297365022}, {"dt": "2013-12-31T00:00:00", "Total Intermodal": 49706.75, "Change": 19.476370366512686}, {"dt": "2014-01-31T00:00:00", "Total Intermodal": 42056.0, "Change": -2.5308241401687193}, {"dt": "2014-02-28T00:00:00", "Total Intermodal": 48436.75, "Change": 2.225516939360195}, {"dt": "2014-03-31T00:00:00", "Total Intermodal": 54241.5, "Change": 9.561081037408092}, {"dt": "2014-04-30T00:00:00", "Total Intermodal": 53660.75, "Change": 12.867824916391468}, {"dt": "2014-05-31T00:00:00", "Total Intermodal": 53574.8, "Change": 6.861607966530214}, {"dt": "2014-06-30T00:00:00", "Total Intermodal": 52029.875, "Change": 4.142647547447775}, {"dt": "2014-07-31T00:00:00", "Total Intermodal": 51167.875, "Change": 7.700868778185299}, {"dt": "2014-08-31T00:00:00", "Total Intermodal": 54185.8, "Change": 6.272505471918666}, {"dt": "2014-09-30T00:00:00", "Total Intermodal": 53075.375, "Change": 4.139810263805899}, {"dt": "2014-10-31T00:00:00", "Total Intermodal": 54788.125, "Change": 2.5529137049186357}, {"dt": "2014-11-30T00:00:00", "Total Intermodal": 55449.4, "Change": 3.7857404897916336}, {"dt": "2014-12-31T00:00:00", "Total Intermodal": 51837.25, "Change": 4.286138200546197}, {"dt": "2015-01-31T00:00:00", "Total Intermodal": 46846.27272727273, "Change": 11.390224289691675}, {"dt": "2015-02-28T00:00:00", "Total Intermodal": 48931.5, "Change": 1.0214351706090863}, {"dt": "2015-03-31T00:00:00", "Total Intermodal": 55291.75, "Change": 1.9362480757353584}, {"dt": "2015-04-30T00:00:00", "Total Intermodal": 55540.142857142855, "Change": 3.50236039776346}, {"dt": "2015-05-31T00:00:00", "Total Intermodal": 54879.0, "Change": 2.43435346468861}, {"dt": "2015-06-30T00:00:00", "Total Intermodal": 56073.857142857145, "Change": 7.772423329591205}, {"dt": "2015-07-31T00:00:00", "Total Intermodal": 53435.25, "Change": 4.431247144814976}, {"dt": "2015-08-31T00:00:00", "Total Intermodal": 57506.4, "Change": 6.128173801992398}, {"dt": "2015-09-30T00:00:00", "Total Intermodal": 57110.25, "Change": 7.602160135467728}, {"dt": "2015-10-31T00:00:00", "Total Intermodal": 58125.2, "Change": 6.0908727940589324}, {"dt": "2015-11-30T00:00:00", "Total Intermodal": 55148.75, "Change": -0.5422060473152079}, {"dt": "2015-12-31T00:00:00", "Total Intermodal": 53193.25, "Change": 2.615879507497021}, {"dt": "2016-01-31T00:00:00", "Total Intermodal": 49601.6, "Change": 5.881636066903551}, {"dt": "2016-02-29T00:00:00", "Total Intermodal": 53617.5, "Change": 9.576653076239229}, {"dt": "2016-03-31T00:00:00", "Total Intermodal": 53553.0, "Change": -3.144682524969822}, {"dt": "2016-04-30T00:00:00", "Total Intermodal": 52950.88888888889, "Change": -4.661950501124734}, {"dt": "2016-05-31T00:00:00", "Total Intermodal": 53744.75, "Change": -2.066819730680225}, {"dt": "2016-06-30T00:00:00", "Total Intermodal": 52646.0, "Change": -6.113111024490658}, {"dt": "2016-07-31T00:00:00", "Total Intermodal": 51419.6, "Change": -3.772135434942292}, {"dt": "2016-08-31T00:00:00", "Total Intermodal": 52698.75, "Change": -8.360199908184129}, {"dt": "2016-09-30T00:00:00", "Total Intermodal": 52552.25, "Change": -7.981054189046621}, {"dt": "2016-10-31T00:00:00", "Total Intermodal": 54699.6, "Change": -5.89348509768568}, {"dt": "2016-11-30T00:00:00", "Total Intermodal": 54713.25, "Change": -0.7896824497382049}, {"dt": "2016-12-31T00:00:00", "Total Intermodal": 51870.2, "Change": -2.487251671969659}, {"dt": "2017-01-31T00:00:00", "Total Intermodal": 50802.5, "Change": 2.4210912551207997}, {"dt": "2017-02-28T00:00:00", "Total Intermodal": 54020.5, "Change": 0.751620273231679}, {"dt": "2017-03-31T00:00:00", "Total Intermodal": 53301.5, "Change": -0.4696282187739209}, {"dt": "2017-04-30T00:00:00", "Total Intermodal": 54097.2, "Change": 2.164857163241396}, {"dt": "2017-05-31T00:00:00", "Total Intermodal": 55385.0, "Change": 3.051926002074623}, {"dt": "2017-06-30T00:00:00", "Total Intermodal": 54815.75, "Change": 4.121395737567912}, {"dt": "2017-07-31T00:00:00", "Total Intermodal": 53702.8, "Change": 4.4403301464811085}, {"dt": "2017-08-31T00:00:00", "Total Intermodal": 56214.5, "Change": 6.6714106122061745}, {"dt": "2017-09-30T00:00:00", "Total Intermodal": 53975.4, "Change": 2.7080667335841913}, {"dt": "2017-10-31T00:00:00", "Total Intermodal": 58129.0, "Change": 6.269515682015969}, {"dt": "2017-11-30T00:00:00", "Total Intermodal": 54529.5, "Change": -0.3358418664583085}, {"dt": "2017-12-31T00:00:00", "Total Intermodal": 51963.0, "Change": 0.17890812065501915}, {"dt": "2018-01-31T00:00:00", "Total Intermodal": 49346.25, "Change": -2.8664927907091187}, {"dt": "2018-02-28T00:00:00", "Total Intermodal": 54630.25, "Change": 1.128738164215437}, {"dt": "2018-03-31T00:00:00", "Total Intermodal": 54960.4, "Change": 3.112295151168354}, {"dt": "2018-04-30T00:00:00", "Total Intermodal": 55237.75, "Change": 2.10833462730049}, {"dt": "2018-05-31T00:00:00", "Total Intermodal": 56788.0, "Change": 2.5331768529385235}, {"dt": "2018-06-30T00:00:00", "Total Intermodal": 56484.0, "Change": 3.043377131572589}, {"dt": "2018-07-31T00:00:00", "Total Intermodal": 54690.0, "Change": 1.8382654163283885}, {"dt": "2018-08-31T00:00:00", "Total Intermodal": 57436.0, "Change": 2.17292691387454}, {"dt": "2018-09-30T00:00:00", "Total Intermodal": 56400.6, "Change": 4.493157994197361}, {"dt": "2018-10-31T00:00:00", "Total Intermodal": 57443.75, "Change": -1.1788436064614882}, {"dt": "2018-11-30T00:00:00", "Total Intermodal": 55864.75, "Change": 2.4486745706452373}, {"dt": "2018-12-31T00:00:00", "Total Intermodal": 54722.4, "Change": 5.310316956295824}, {"dt": "2019-01-31T00:00:00", "Total Intermodal": 48755.333333333336, "Change": -1.197490521907263}, {"dt": "2019-02-28T00:00:00", "Total Intermodal": 49703.166666666664, "Change": -9.018965377850796}, {"dt": "2019-03-31T00:00:00", "Total Intermodal": 51687.4, "Change": -5.955196832628584}, {"dt": "2019-04-30T00:00:00", "Total Intermodal": 50974.5, "Change": -7.718000823712046}, {"dt": "2019-05-31T00:00:00", "Total Intermodal": 50983.5, "Change": -10.221349580897376}, {"dt": "2019-06-30T00:00:00", "Total Intermodal": 49937.2, "Change": -11.590538913674674}, {"dt": "2019-07-31T00:00:00", "Total Intermodal": 48770.0, "Change": -10.824648016090688}, {"dt": "2019-08-31T00:00:00", "Total Intermodal": 52214.4, "Change": -9.091162337210113}, {"dt": "2019-09-30T00:00:00", "Total Intermodal": 51164.25, "Change": -9.284209742449544}, {"dt": "2019-10-31T00:00:00", "Total Intermodal": 53643.75, "Change": -6.615167011206613}, {"dt": "2019-11-30T00:00:00", "Total Intermodal": 53629.8, "Change": -4.000644413516563}, {"dt": "2019-12-31T00:00:00", "Total Intermodal": 52247.0, "Change": -4.523558908235026}, {"dt": "2020-01-31T00:00:00", "Total Intermodal": 44794.75, "Change": -8.123384792091127}, {"dt": "2020-02-29T00:00:00", "Total Intermodal": 52772.5, "Change": 6.175327527756447}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Automotive (Motor Vehicles &amp; Equip.)&#39;</span>
+<span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Motor Vehicles and Parts&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-940daf711ad6425b831449f990993e90"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-940daf711ad6425b831449f990993e90");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-443613ddc1da48b4b3fed419232d73c8"}, "mark": {"type": "bar", "color": "purple"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Motor Vehicles and Parts", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-443613ddc1da48b4b3fed419232d73c8": [{"dt": "2015-01-31T00:00:00", "Motor Vehicles and Parts": 6854.2, "Change": null}, {"dt": "2015-02-28T00:00:00", "Motor Vehicles and Parts": 7988.75, "Change": null}, {"dt": "2015-03-31T00:00:00", "Motor Vehicles and Parts": 8807.75, "Change": null}, {"dt": "2015-04-30T00:00:00", "Motor Vehicles and Parts": 9129.333333333334, "Change": null}, {"dt": "2015-05-31T00:00:00", "Motor Vehicles and Parts": 9265.4, "Change": null}, {"dt": "2015-06-30T00:00:00", "Motor Vehicles and Parts": 9329.666666666666, "Change": null}, {"dt": "2015-07-31T00:00:00", "Motor Vehicles and Parts": 7192.75, "Change": null}, {"dt": "2015-08-31T00:00:00", "Motor Vehicles and Parts": 9025.0, "Change": null}, {"dt": "2015-09-30T00:00:00", "Motor Vehicles and Parts": 8930.5, "Change": null}, {"dt": "2015-10-31T00:00:00", "Motor Vehicles and Parts": 9324.6, "Change": null}, {"dt": "2015-11-30T00:00:00", "Motor Vehicles and Parts": 9017.75, "Change": null}, {"dt": "2015-12-31T00:00:00", "Motor Vehicles and Parts": 9016.25, "Change": null}, {"dt": "2016-01-31T00:00:00", "Motor Vehicles and Parts": 7060.4, "Change": 3.0083744273583957}, {"dt": "2016-02-29T00:00:00", "Motor Vehicles and Parts": 9541.0, "Change": 19.430449069003288}, {"dt": "2016-03-31T00:00:00", "Motor Vehicles and Parts": 9947.5, "Change": 12.940308251256006}, {"dt": "2016-04-30T00:00:00", "Motor Vehicles and Parts": 9365.444444444445, "Change": 2.586290832968219}, {"dt": "2016-05-31T00:00:00", "Motor Vehicles and Parts": 9363.75, "Change": 1.0614760290974967}, {"dt": "2016-06-30T00:00:00", "Motor Vehicles and Parts": 9228.714285714286, "Change": -1.0820577471761794}, {"dt": "2016-07-31T00:00:00", "Motor Vehicles and Parts": 8082.0, "Change": 12.363143443050294}, {"dt": "2016-08-31T00:00:00", "Motor Vehicles and Parts": 9091.75, "Change": 0.7396121883656459}, {"dt": "2016-09-30T00:00:00", "Motor Vehicles and Parts": 9608.5, "Change": 7.591960136610498}, {"dt": "2016-10-31T00:00:00", "Motor Vehicles and Parts": 10067.2, "Change": 7.963880488171071}, {"dt": "2016-11-30T00:00:00", "Motor Vehicles and Parts": 9400.75, "Change": 4.247179174406024}, {"dt": "2016-12-31T00:00:00", "Motor Vehicles and Parts": 8927.0, "Change": -0.9898793844447473}, {"dt": "2017-01-31T00:00:00", "Motor Vehicles and Parts": 8213.75, "Change": 16.335476743527288}, {"dt": "2017-02-28T00:00:00", "Motor Vehicles and Parts": 9806.75, "Change": 2.785347447856612}, {"dt": "2017-03-31T00:00:00", "Motor Vehicles and Parts": 9525.75, "Change": -4.239758733350085}, {"dt": "2017-04-30T00:00:00", "Motor Vehicles and Parts": 8847.8, "Change": -5.527174364389198}, {"dt": "2017-05-31T00:00:00", "Motor Vehicles and Parts": 9337.0, "Change": -0.2856761447069811}, {"dt": "2017-06-30T00:00:00", "Motor Vehicles and Parts": 8688.25, "Change": -5.856333493289578}, {"dt": "2017-07-31T00:00:00", "Motor Vehicles and Parts": 7496.6, "Change": -7.243256619648597}, {"dt": "2017-08-31T00:00:00", "Motor Vehicles and Parts": 8202.5, "Change": -9.780845271812355}, {"dt": "2017-09-30T00:00:00", "Motor Vehicles and Parts": 8570.8, "Change": -10.79981266586877}, {"dt": "2017-10-31T00:00:00", "Motor Vehicles and Parts": 9191.5, "Change": -8.698545772409416}, {"dt": "2017-11-30T00:00:00", "Motor Vehicles and Parts": 9219.0, "Change": -1.9333563811398058}, {"dt": "2017-12-31T00:00:00", "Motor Vehicles and Parts": 8508.2, "Change": -4.691385683880355}, {"dt": "2018-01-31T00:00:00", "Motor Vehicles and Parts": 7546.5, "Change": -8.123573276518037}, {"dt": "2018-02-28T00:00:00", "Motor Vehicles and Parts": 8938.0, "Change": -8.85869426670406}, {"dt": "2018-03-31T00:00:00", "Motor Vehicles and Parts": 9294.6, "Change": -2.426580584205962}, {"dt": "2018-04-30T00:00:00", "Motor Vehicles and Parts": 9552.0, "Change": 7.959040665476169}, {"dt": "2018-05-31T00:00:00", "Motor Vehicles and Parts": 9262.75, "Change": -0.7952233051301327}, {"dt": "2018-06-30T00:00:00", "Motor Vehicles and Parts": 8935.4, "Change": 2.844646505337667}, {"dt": "2018-07-31T00:00:00", "Motor Vehicles and Parts": 7330.0, "Change": -2.2223407944935047}, {"dt": "2018-08-31T00:00:00", "Motor Vehicles and Parts": 9008.25, "Change": 9.823224626638227}, {"dt": "2018-09-30T00:00:00", "Motor Vehicles and Parts": 8920.2, "Change": 4.076632286367676}, {"dt": "2018-10-31T00:00:00", "Motor Vehicles and Parts": 9821.5, "Change": 6.85415873361257}, {"dt": "2018-11-30T00:00:00", "Motor Vehicles and Parts": 9418.75, "Change": 2.1667209024839984}, {"dt": "2018-12-31T00:00:00", "Motor Vehicles and Parts": 9065.4, "Change": 6.548976281704699}, {"dt": "2019-01-31T00:00:00", "Motor Vehicles and Parts": 7391.0, "Change": -2.0605578745113595}, {"dt": "2019-02-28T00:00:00", "Motor Vehicles and Parts": 8647.666666666666, "Change": -3.2483031252330985}, {"dt": "2019-03-31T00:00:00", "Motor Vehicles and Parts": 9589.8, "Change": 3.1760376993092754}, {"dt": "2019-04-30T00:00:00", "Motor Vehicles and Parts": 9720.75, "Change": 1.7666457286432236}, {"dt": "2019-05-31T00:00:00", "Motor Vehicles and Parts": 9140.0, "Change": -1.325200399449411}, {"dt": "2019-06-30T00:00:00", "Motor Vehicles and Parts": 9245.2, "Change": 3.467108355529702}, {"dt": "2019-07-31T00:00:00", "Motor Vehicles and Parts": 7753.25, "Change": 5.774215552523865}, {"dt": "2019-08-31T00:00:00", "Motor Vehicles and Parts": 8787.2, "Change": -2.453861737851404}, {"dt": "2019-09-30T00:00:00", "Motor Vehicles and Parts": 8764.5, "Change": -1.745476558821557}, {"dt": "2019-10-31T00:00:00", "Motor Vehicles and Parts": 8723.5, "Change": -11.179555057781398}, {"dt": "2019-11-30T00:00:00", "Motor Vehicles and Parts": 8719.0, "Change": -7.429329794293293}, {"dt": "2019-12-31T00:00:00", "Motor Vehicles and Parts": 9005.5, "Change": -0.6607540759370756}, {"dt": "2020-01-31T00:00:00", "Motor Vehicles and Parts": 5956.25, "Change": -19.41212285211744}, {"dt": "2020-02-29T00:00:00", "Motor Vehicles and Parts": 8194.5, "Change": -5.240334579655393}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Containers&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-3afbb24f672b4237b0768b11bf31d7bf"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-3afbb24f672b4237b0768b11bf31d7bf");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-69ac093f364dca0482f7b2c0acfe5de0"}, "mark": {"type": "bar", "color": "navy"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Containers", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-69ac093f364dca0482f7b2c0acfe5de0": [{"dt": "2011-12-31T00:00:00", "Containers": 31435.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Containers": 39548.25, "Change": null}, {"dt": "2012-02-29T00:00:00", "Containers": 43681.25, "Change": null}, {"dt": "2012-03-31T00:00:00", "Containers": 45616.2, "Change": null}, {"dt": "2012-04-30T00:00:00", "Containers": 44993.0, "Change": null}, {"dt": "2012-05-31T00:00:00", "Containers": 45888.5, "Change": null}, {"dt": "2012-06-30T00:00:00", "Containers": 44992.6, "Change": null}, {"dt": "2012-07-31T00:00:00", "Containers": 43450.25, "Change": null}, {"dt": "2012-08-31T00:00:00", "Containers": 45794.75, "Change": null}, {"dt": "2012-09-30T00:00:00", "Containers": 45475.2, "Change": null}, {"dt": "2012-10-31T00:00:00", "Containers": 46906.75, "Change": null}, {"dt": "2012-11-30T00:00:00", "Containers": 42089.25, "Change": null}, {"dt": "2012-12-31T00:00:00", "Containers": 38763.833333333336, "Change": 23.314246328402533}, {"dt": "2013-01-31T00:00:00", "Containers": 40586.666666666664, "Change": 2.625695616535917}, {"dt": "2013-02-28T00:00:00", "Containers": 44711.0, "Change": 2.3574188009729546}, {"dt": "2013-03-31T00:00:00", "Containers": 46896.8, "Change": 2.8073359902841766}, {"dt": "2013-04-30T00:00:00", "Containers": 45085.0, "Change": 0.20447625186139629}, {"dt": "2013-05-31T00:00:00", "Containers": 47529.0, "Change": 3.574969763666269}, {"dt": "2013-06-30T00:00:00", "Containers": 47378.2, "Change": 5.302205251530245}, {"dt": "2013-07-31T00:00:00", "Containers": 45024.0, "Change": 3.621958446729301}, {"dt": "2013-08-31T00:00:00", "Containers": 48340.6, "Change": 5.559261705763219}, {"dt": "2013-09-30T00:00:00", "Containers": 48393.75, "Change": 6.417893709098599}, {"dt": "2013-10-31T00:00:00", "Containers": 50792.0, "Change": 8.28292303346534}, {"dt": "2013-11-30T00:00:00", "Containers": 50801.0, "Change": 20.698278063876163}, {"dt": "2013-12-31T00:00:00", "Containers": 46523.75, "Change": 20.018445028226473}, {"dt": "2014-01-31T00:00:00", "Containers": 39516.88888888889, "Change": -2.6357862461673154}, {"dt": "2014-02-28T00:00:00", "Containers": 45851.0, "Change": 2.5497081255172027}, {"dt": "2014-03-31T00:00:00", "Containers": 51608.5, "Change": 10.046954163183841}, {"dt": "2014-04-30T00:00:00", "Containers": 51030.75, "Change": 13.187867361650207}, {"dt": "2014-05-31T00:00:00", "Containers": 50914.4, "Change": 7.122809232258209}, {"dt": "2014-06-30T00:00:00", "Containers": 49457.875, "Change": 4.3895188082282655}, {"dt": "2014-07-31T00:00:00", "Containers": 48750.375, "Change": 8.276419243070364}, {"dt": "2014-08-31T00:00:00", "Containers": 51731.9, "Change": 7.015428025303794}, {"dt": "2014-09-30T00:00:00", "Containers": 50506.125, "Change": 4.364974815962808}, {"dt": "2014-10-31T00:00:00", "Containers": 52226.625, "Change": 2.8245097653173623}, {"dt": "2014-11-30T00:00:00", "Containers": 52488.9, "Change": 3.322572390307288}, {"dt": "2014-12-31T00:00:00", "Containers": 48446.0, "Change": 4.131760659878014}, {"dt": "2015-01-31T00:00:00", "Containers": 44013.72727272727, "Change": 11.379535460097356}, {"dt": "2015-02-28T00:00:00", "Containers": 46138.5, "Change": 0.6270310353100328}, {"dt": "2015-03-31T00:00:00", "Containers": 52520.5, "Change": 1.7671507600492076}, {"dt": "2015-04-30T00:00:00", "Containers": 53102.71428571428, "Change": 4.0602269919887135}, {"dt": "2015-05-31T00:00:00", "Containers": 52463.4, "Change": 3.042361296607643}, {"dt": "2015-06-30T00:00:00", "Containers": 53520.71428571428, "Change": 8.21474696540092}, {"dt": "2015-07-31T00:00:00", "Containers": 50959.5, "Change": 4.531503603818443}, {"dt": "2015-08-31T00:00:00", "Containers": 54962.8, "Change": 6.245469429887551}, {"dt": "2015-09-30T00:00:00", "Containers": 54622.0, "Change": 8.14925912451212}, {"dt": "2015-10-31T00:00:00", "Containers": 55588.4, "Change": 6.436898804010416}, {"dt": "2015-11-30T00:00:00", "Containers": 52573.25, "Change": 0.16070064337412315}, {"dt": "2015-12-31T00:00:00", "Containers": 50264.0, "Change": 3.7526317962267353}, {"dt": "2016-01-31T00:00:00", "Containers": 47191.6, "Change": 7.220185438014171}, {"dt": "2016-02-29T00:00:00", "Containers": 51413.0, "Change": 11.431884434907946}, {"dt": "2016-03-31T00:00:00", "Containers": 51492.0, "Change": -1.9582829561790138}, {"dt": "2016-04-30T00:00:00", "Containers": 50987.555555555555, "Change": -3.9831461698517145}, {"dt": "2016-05-31T00:00:00", "Containers": 51714.0, "Change": -1.4284243872871416}, {"dt": "2016-06-30T00:00:00", "Containers": 50730.42857142857, "Change": -5.21346875041705}, {"dt": "2016-07-31T00:00:00", "Containers": 49488.8, "Change": -2.886017327485546}, {"dt": "2016-08-31T00:00:00", "Containers": 50734.0, "Change": -7.693931167989987}, {"dt": "2016-09-30T00:00:00", "Containers": 50567.25, "Change": -7.4232909816557395}, {"dt": "2016-10-31T00:00:00", "Containers": 52704.2, "Change": -5.188492563196645}, {"dt": "2016-11-30T00:00:00", "Containers": 52759.0, "Change": 0.35331656308104087}, {"dt": "2016-12-31T00:00:00", "Containers": 49220.6, "Change": -2.075839567085791}, {"dt": "2017-01-31T00:00:00", "Containers": 48642.25, "Change": 3.073958077284944}, {"dt": "2017-02-28T00:00:00", "Containers": 52096.75, "Change": 1.3299165580689776}, {"dt": "2017-03-31T00:00:00", "Containers": 51390.5, "Change": -0.19711799891245496}, {"dt": "2017-04-30T00:00:00", "Containers": 52185.2, "Change": 2.348895591081046}, {"dt": "2017-05-31T00:00:00", "Containers": 53471.5, "Change": 3.3984994392234125}, {"dt": "2017-06-30T00:00:00", "Containers": 52907.25, "Change": 4.290958089396901}, {"dt": "2017-07-31T00:00:00", "Containers": 51788.2, "Change": 4.646303810155006}, {"dt": "2017-08-31T00:00:00", "Containers": 54376.5, "Change": 7.1796034217684435}, {"dt": "2017-09-30T00:00:00", "Containers": 52179.4, "Change": 3.188130657688526}, {"dt": "2017-10-31T00:00:00", "Containers": 56168.25, "Change": 6.572626090520295}, {"dt": "2017-11-30T00:00:00", "Containers": 52419.75, "Change": -0.643018252809946}, {"dt": "2017-12-31T00:00:00", "Containers": 49241.0, "Change": 0.04144606120202177}, {"dt": "2018-01-31T00:00:00", "Containers": 47197.5, "Change": -2.970154546716075}, {"dt": "2018-02-28T00:00:00", "Containers": 52510.75, "Change": 0.7946752916448752}, {"dt": "2018-03-31T00:00:00", "Containers": 52795.0, "Change": 2.7329953979821076}, {"dt": "2018-04-30T00:00:00", "Containers": 53194.0, "Change": 1.9331151360922227}, {"dt": "2018-05-31T00:00:00", "Containers": 54702.25, "Change": 2.301693425469642}, {"dt": "2018-06-30T00:00:00", "Containers": 54343.8, "Change": 2.7152233389563962}, {"dt": "2018-07-31T00:00:00", "Containers": 52704.5, "Change": 1.769321969097204}, {"dt": "2018-08-31T00:00:00", "Containers": 55311.75, "Change": 1.7199525530330106}, {"dt": "2018-09-30T00:00:00", "Containers": 54250.4, "Change": 3.9689992602444546}, {"dt": "2018-10-31T00:00:00", "Containers": 55255.25, "Change": -1.6254734658815218}, {"dt": "2018-11-30T00:00:00", "Containers": 53601.25, "Change": 2.253921470438147}, {"dt": "2018-12-31T00:00:00", "Containers": 51748.6, "Change": 5.09250421396803}, {"dt": "2019-01-31T00:00:00", "Containers": 46479.333333333336, "Change": -1.5216201423097875}, {"dt": "2019-02-28T00:00:00", "Containers": 47584.0, "Change": -9.382364563446533}, {"dt": "2019-03-31T00:00:00", "Containers": 49680.0, "Change": -5.900179941282313}, {"dt": "2019-04-30T00:00:00", "Containers": 49044.75, "Change": -7.800221829529641}, {"dt": "2019-05-31T00:00:00", "Containers": 49112.5, "Change": -10.21850106714075}, {"dt": "2019-06-30T00:00:00", "Containers": 48175.4, "Change": -11.350696859623365}, {"dt": "2019-07-31T00:00:00", "Containers": 47070.0, "Change": -10.690737982525212}, {"dt": "2019-08-31T00:00:00", "Containers": 50497.2, "Change": -8.704389212057118}, {"dt": "2019-09-30T00:00:00", "Containers": 49416.5, "Change": -8.910349048117617}, {"dt": "2019-10-31T00:00:00", "Containers": 51955.75, "Change": -5.971378285321305}, {"dt": "2019-11-30T00:00:00", "Containers": 51921.6, "Change": -3.133602294722604}, {"dt": "2019-12-31T00:00:00", "Containers": 49592.5, "Change": -4.166489528219119}, {"dt": "2020-01-31T00:00:00", "Containers": 42903.0, "Change": -7.694459186161595}, {"dt": "2020-02-29T00:00:00", "Containers": 50943.5, "Change": 7.060146267652989}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Coal&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-32b44bb260b147dda3a3cb9f6057601f"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-32b44bb260b147dda3a3cb9f6057601f");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-57ddf0a448208383de00ba07ffde30d8"}, "mark": {"type": "bar", "color": "black"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Coal", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-57ddf0a448208383de00ba07ffde30d8": [{"dt": "2011-12-31T00:00:00", "Coal": 19125.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Coal": 24349.25, "Change": null}, {"dt": "2012-02-29T00:00:00", "Coal": 23667.5, "Change": null}, {"dt": "2012-03-31T00:00:00", "Coal": 23189.8, "Change": null}, {"dt": "2012-04-30T00:00:00", "Coal": 22715.25, "Change": null}, {"dt": "2012-05-31T00:00:00", "Coal": 23210.5, "Change": null}, {"dt": "2012-06-30T00:00:00", "Coal": 23893.4, "Change": null}, {"dt": "2012-07-31T00:00:00", "Coal": 21302.0, "Change": null}, {"dt": "2012-08-31T00:00:00", "Coal": 23955.75, "Change": null}, {"dt": "2012-09-30T00:00:00", "Coal": 23568.8, "Change": null}, {"dt": "2012-10-31T00:00:00", "Coal": 21916.25, "Change": null}, {"dt": "2012-11-30T00:00:00", "Coal": 20211.5, "Change": null}, {"dt": "2012-12-31T00:00:00", "Coal": 20432.333333333332, "Change": 6.835729847494543}, {"dt": "2013-01-31T00:00:00", "Coal": 20618.333333333332, "Change": -15.3225116447803}, {"dt": "2013-02-28T00:00:00", "Coal": 20565.75, "Change": -13.105524453364314}, {"dt": "2013-03-31T00:00:00", "Coal": 21937.6, "Change": -5.399787837756254}, {"dt": "2013-04-30T00:00:00", "Coal": 21510.0, "Change": -5.305906824710272}, {"dt": "2013-05-31T00:00:00", "Coal": 21793.0, "Change": -6.107149781348964}, {"dt": "2013-06-30T00:00:00", "Coal": 22848.2, "Change": -4.374429758845544}, {"dt": "2013-07-31T00:00:00", "Coal": 16400.0, "Change": -23.011923763026942}, {"dt": "2013-08-31T00:00:00", "Coal": 22648.0, "Change": -5.459023407741359}, {"dt": "2013-09-30T00:00:00", "Coal": 22446.0, "Change": -4.76392518923322}, {"dt": "2013-10-31T00:00:00", "Coal": 20861.25, "Change": -4.813779729652657}, {"dt": "2013-11-30T00:00:00", "Coal": 20911.4, "Change": 3.4628800435395846}, {"dt": "2013-12-31T00:00:00", "Coal": 20456.75, "Change": 0.11950013866910414}, {"dt": "2014-01-31T00:00:00", "Coal": 18059.777777777777, "Change": -12.409128876673936}, {"dt": "2014-02-28T00:00:00", "Coal": 19582.125, "Change": -4.782830677218186}, {"dt": "2014-03-31T00:00:00", "Coal": 22862.5, "Change": 4.216049157610691}, {"dt": "2014-04-30T00:00:00", "Coal": 25230.5, "Change": 17.296606229660625}, {"dt": "2014-05-31T00:00:00", "Coal": 22831.0, "Change": 4.7629972927086595}, {"dt": "2014-06-30T00:00:00", "Coal": 23186.75, "Change": 1.4817359792018703}, {"dt": "2014-07-31T00:00:00", "Coal": 21349.5, "Change": 30.179878048780484}, {"dt": "2014-08-31T00:00:00", "Coal": 22362.9, "Change": -1.2588308018367966}, {"dt": "2014-09-30T00:00:00", "Coal": 22807.625, "Change": 1.6110888354272435}, {"dt": "2014-10-31T00:00:00", "Coal": 22727.0, "Change": 8.943615555156082}, {"dt": "2014-11-30T00:00:00", "Coal": 22564.1, "Change": 7.903344587162975}, {"dt": "2014-12-31T00:00:00", "Coal": 22065.5, "Change": 7.8641524191281675}, {"dt": "2015-01-31T00:00:00", "Coal": 20972.636363636364, "Change": 16.128983543988042}, {"dt": "2015-02-28T00:00:00", "Coal": 18036.25, "Change": -7.894316883382169}, {"dt": "2015-03-31T00:00:00", "Coal": 20900.75, "Change": -8.580645161290324}, {"dt": "2015-04-30T00:00:00", "Coal": 21491.85714285714, "Change": -14.817949930214859}, {"dt": "2015-05-31T00:00:00", "Coal": 20197.8, "Change": -11.53344137357103}, {"dt": "2015-06-30T00:00:00", "Coal": 19443.0, "Change": -16.146074805654088}, {"dt": "2015-07-31T00:00:00", "Coal": 16019.75, "Change": -24.964284877865992}, {"dt": "2015-08-31T00:00:00", "Coal": 19289.0, "Change": -13.745533897660867}, {"dt": "2015-09-30T00:00:00", "Coal": 18282.25, "Change": -19.841500375422694}, {"dt": "2015-10-31T00:00:00", "Coal": 15256.0, "Change": -32.87279447353369}, {"dt": "2015-11-30T00:00:00", "Coal": 15112.5, "Change": -33.024140116379556}, {"dt": "2015-12-31T00:00:00", "Coal": 15433.25, "Change": -30.05710271691101}, {"dt": "2016-01-31T00:00:00", "Coal": 13244.4, "Change": -36.84914108860463}, {"dt": "2016-02-29T00:00:00", "Coal": 14394.5, "Change": -20.19128144708573}, {"dt": "2016-03-31T00:00:00", "Coal": 14490.5, "Change": -30.669952035214042}, {"dt": "2016-04-30T00:00:00", "Coal": 14332.333333333334, "Change": -33.31272752249467}, {"dt": "2016-05-31T00:00:00", "Coal": 14463.25, "Change": -28.39195357910267}, {"dt": "2016-06-30T00:00:00", "Coal": 12702.0, "Change": -34.67057552846783}, {"dt": "2016-07-31T00:00:00", "Coal": 13419.2, "Change": -16.233399397618562}, {"dt": "2016-08-31T00:00:00", "Coal": 15758.75, "Change": -18.301881901601945}, {"dt": "2016-09-30T00:00:00", "Coal": 15553.5, "Change": -14.925679279082171}, {"dt": "2016-10-31T00:00:00", "Coal": 15268.8, "Change": 0.08390141583638488}, {"dt": "2016-11-30T00:00:00", "Coal": 15998.75, "Change": 5.8643507030603725}, {"dt": "2016-12-31T00:00:00", "Coal": 16555.2, "Change": 7.269693680851419}, {"dt": "2017-01-31T00:00:00", "Coal": 14270.5, "Change": 7.747425326930624}, {"dt": "2017-02-28T00:00:00", "Coal": 16178.5, "Change": 12.393622564173823}, {"dt": "2017-03-31T00:00:00", "Coal": 14347.5, "Change": -0.9868534557123665}, {"dt": "2017-04-30T00:00:00", "Coal": 14111.6, "Change": -1.5401074493569311}, {"dt": "2017-05-31T00:00:00", "Coal": 14635.5, "Change": 1.1909494753945316}, {"dt": "2017-06-30T00:00:00", "Coal": 15711.5, "Change": 23.693119193827748}, {"dt": "2017-07-31T00:00:00", "Coal": 14466.4, "Change": 7.803743889352566}, {"dt": "2017-08-31T00:00:00", "Coal": 16378.5, "Change": 3.932735781708585}, {"dt": "2017-09-30T00:00:00", "Coal": 16500.0, "Change": 6.085447005497158}, {"dt": "2017-10-31T00:00:00", "Coal": 16338.25, "Change": 7.004152258199725}, {"dt": "2017-11-30T00:00:00", "Coal": 15558.75, "Change": -2.750214860535982}, {"dt": "2017-12-31T00:00:00", "Coal": 16425.8, "Change": -0.7816275248864524}, {"dt": "2018-01-31T00:00:00", "Coal": 12997.25, "Change": -8.922252198591496}, {"dt": "2018-02-28T00:00:00", "Coal": 15439.25, "Change": -4.569335846957379}, {"dt": "2018-03-31T00:00:00", "Coal": 15846.8, "Change": 10.449904164488588}, {"dt": "2018-04-30T00:00:00", "Coal": 16057.0, "Change": 13.785821593582593}, {"dt": "2018-05-31T00:00:00", "Coal": 16235.5, "Change": 10.932322093539671}, {"dt": "2018-06-30T00:00:00", "Coal": 15936.8, "Change": 1.4339814785348182}, {"dt": "2018-07-31T00:00:00", "Coal": 15307.5, "Change": 5.814162473040985}, {"dt": "2018-08-31T00:00:00", "Coal": 18161.0, "Change": 10.883170009463615}, {"dt": "2018-09-30T00:00:00", "Coal": 16710.8, "Change": 1.277575757575744}, {"dt": "2018-10-31T00:00:00", "Coal": 17107.0, "Change": 4.705216286934033}, {"dt": "2018-11-30T00:00:00", "Coal": 16207.75, "Change": 4.171286253715745}, {"dt": "2018-12-31T00:00:00", "Coal": 16056.0, "Change": -2.2513363123866093}, {"dt": "2019-01-31T00:00:00", "Coal": 15521.333333333334, "Change": 19.420133746241184}, {"dt": "2019-02-28T00:00:00", "Coal": 14789.0, "Change": -4.211668312903805}, {"dt": "2019-03-31T00:00:00", "Coal": 16297.2, "Change": 2.8422142009743467}, {"dt": "2019-04-30T00:00:00", "Coal": 16276.5, "Change": 1.3670050445288684}, {"dt": "2019-05-31T00:00:00", "Coal": 16049.5, "Change": -1.1456376458994222}, {"dt": "2019-06-30T00:00:00", "Coal": 15705.0, "Change": -1.4544952562622337}, {"dt": "2019-07-31T00:00:00", "Coal": 14013.75, "Change": -8.451739343459085}, {"dt": "2019-08-31T00:00:00", "Coal": 16145.4, "Change": -11.098507791421175}, {"dt": "2019-09-30T00:00:00", "Coal": 15537.5, "Change": -7.021207841635347}, {"dt": "2019-10-31T00:00:00", "Coal": 14517.25, "Change": -15.138539779037819}, {"dt": "2019-11-30T00:00:00", "Coal": 13993.4, "Change": -13.662291187857667}, {"dt": "2019-12-31T00:00:00", "Coal": 12982.0, "Change": -19.145490782262087}, {"dt": "2020-01-31T00:00:00", "Coal": 12880.5, "Change": -17.014216991667386}, {"dt": "2020-02-29T00:00:00", "Coal": 13466.0, "Change": -8.945838122929207}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Chemicals&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-7f6d7d9dd3f840da8aa8d68d35062ac5"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-7f6d7d9dd3f840da8aa8d68d35062ac5");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-fe5e81c26677bdbbba50f4f51fae4939"}, "mark": {"type": "bar", "color": "orange"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Chemicals", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-fe5e81c26677bdbbba50f4f51fae4939": [{"dt": "2011-12-31T00:00:00", "Chemicals": 10390.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Chemicals": 11030.25, "Change": null}, {"dt": "2012-02-29T00:00:00", "Chemicals": 11234.0, "Change": null}, {"dt": "2012-03-31T00:00:00", "Chemicals": 11357.4, "Change": null}, {"dt": "2012-04-30T00:00:00", "Chemicals": 11381.5, "Change": null}, {"dt": "2012-05-31T00:00:00", "Chemicals": 11134.5, "Change": null}, {"dt": "2012-06-30T00:00:00", "Chemicals": 10291.4, "Change": null}, {"dt": "2012-07-31T00:00:00", "Chemicals": 10475.5, "Change": null}, {"dt": "2012-08-31T00:00:00", "Chemicals": 10823.0, "Change": null}, {"dt": "2012-09-30T00:00:00", "Chemicals": 10522.6, "Change": null}, {"dt": "2012-10-31T00:00:00", "Chemicals": 10532.0, "Change": null}, {"dt": "2012-11-30T00:00:00", "Chemicals": 9671.75, "Change": null}, {"dt": "2012-12-31T00:00:00", "Chemicals": 10195.0, "Change": -1.8768046198267552}, {"dt": "2013-01-31T00:00:00", "Chemicals": 10538.0, "Change": -4.462727499376717}, {"dt": "2013-02-28T00:00:00", "Chemicals": 11106.0, "Change": -1.13939825529642}, {"dt": "2013-03-31T00:00:00", "Chemicals": 11420.0, "Change": 0.5511824889499417}, {"dt": "2013-04-30T00:00:00", "Chemicals": 11147.0, "Change": -2.0603611123314103}, {"dt": "2013-05-31T00:00:00", "Chemicals": 11404.25, "Change": 2.422650321074138}, {"dt": "2013-06-30T00:00:00", "Chemicals": 10714.6, "Change": 4.112171327516179}, {"dt": "2013-07-31T00:00:00", "Chemicals": 10428.5, "Change": -0.44866593480025196}, {"dt": "2013-08-31T00:00:00", "Chemicals": 10457.6, "Change": -3.3761433983183875}, {"dt": "2013-09-30T00:00:00", "Chemicals": 10649.75, "Change": 1.2083515480964646}, {"dt": "2013-10-31T00:00:00", "Chemicals": 11247.0, "Change": 6.788834029624002}, {"dt": "2013-11-30T00:00:00", "Chemicals": 10939.8, "Change": 13.110864114560439}, {"dt": "2013-12-31T00:00:00", "Chemicals": 10695.25, "Change": 4.906817067189806}, {"dt": "2014-01-31T00:00:00", "Chemicals": 10465.222222222223, "Change": -0.6906222981379551}, {"dt": "2014-02-28T00:00:00", "Chemicals": 10798.25, "Change": -2.7710246713488207}, {"dt": "2014-03-31T00:00:00", "Chemicals": 11204.0, "Change": -1.891418563922942}, {"dt": "2014-04-30T00:00:00", "Chemicals": 11798.625, "Change": 5.845743249304736}, {"dt": "2014-05-31T00:00:00", "Chemicals": 11563.4, "Change": 1.3955323673191966}, {"dt": "2014-06-30T00:00:00", "Chemicals": 11252.75, "Change": 5.02258600414387}, {"dt": "2014-07-31T00:00:00", "Chemicals": 11257.875, "Change": 7.952965431270087}, {"dt": "2014-08-31T00:00:00", "Chemicals": 11322.9, "Change": 8.274365055079546}, {"dt": "2014-09-30T00:00:00", "Chemicals": 11064.5, "Change": 3.894457616375968}, {"dt": "2014-10-31T00:00:00", "Chemicals": 11065.75, "Change": -1.6115408553391997}, {"dt": "2014-11-30T00:00:00", "Chemicals": 10635.3, "Change": -2.783414687654251}, {"dt": "2014-12-31T00:00:00", "Chemicals": 10876.625, "Change": 1.6958462869030688}, {"dt": "2015-01-31T00:00:00", "Chemicals": 11029.454545454546, "Change": 5.391498730282218}, {"dt": "2015-02-28T00:00:00", "Chemicals": 11055.75, "Change": 2.384645660176421}, {"dt": "2015-03-31T00:00:00", "Chemicals": 10886.0, "Change": -2.838272045697965}, {"dt": "2015-04-30T00:00:00", "Chemicals": 10656.714285714286, "Change": -9.678337215444287}, {"dt": "2015-05-31T00:00:00", "Chemicals": 10732.2, "Change": -7.188197243025396}, {"dt": "2015-06-30T00:00:00", "Chemicals": 10302.285714285714, "Change": -8.446506726927073}, {"dt": "2015-07-31T00:00:00", "Chemicals": 10395.25, "Change": -7.662414087916236}, {"dt": "2015-08-31T00:00:00", "Chemicals": 10177.2, "Change": -10.118432557030433}, {"dt": "2015-09-30T00:00:00", "Chemicals": 10228.0, "Change": -7.560215102354373}, {"dt": "2015-10-31T00:00:00", "Chemicals": 10402.6, "Change": -5.9928156699726625}, {"dt": "2015-11-30T00:00:00", "Chemicals": 10308.5, "Change": -3.072785911069731}, {"dt": "2015-12-31T00:00:00", "Chemicals": 10254.0, "Change": -5.724431981428058}, {"dt": "2016-01-31T00:00:00", "Chemicals": 10745.8, "Change": -2.5717912366885476}, {"dt": "2016-02-29T00:00:00", "Chemicals": 10846.5, "Change": -1.8926802794925757}, {"dt": "2016-03-31T00:00:00", "Chemicals": 10758.5, "Change": -1.1712291015983811}, {"dt": "2016-04-30T00:00:00", "Chemicals": 10983.888888888889, "Change": 3.0701264423800056}, {"dt": "2016-05-31T00:00:00", "Chemicals": 10660.25, "Change": -0.6704124037941961}, {"dt": "2016-06-30T00:00:00", "Chemicals": 9711.42857142857, "Change": -5.735204392922522}, {"dt": "2016-07-31T00:00:00", "Chemicals": 9924.8, "Change": -4.525624684351037}, {"dt": "2016-08-31T00:00:00", "Chemicals": 10091.75, "Change": -0.8396218999331961}, {"dt": "2016-09-30T00:00:00", "Chemicals": 10268.75, "Change": 0.39841611263198295}, {"dt": "2016-10-31T00:00:00", "Chemicals": 9997.6, "Change": -3.8932574548670495}, {"dt": "2016-11-30T00:00:00", "Chemicals": 9875.0, "Change": -4.205267497696075}, {"dt": "2016-12-31T00:00:00", "Chemicals": 9962.8, "Change": -2.8398673688316833}, {"dt": "2017-01-31T00:00:00", "Chemicals": 10605.75, "Change": -1.3032998939120355}, {"dt": "2017-02-28T00:00:00", "Chemicals": 11151.0, "Change": 2.8073572120038692}, {"dt": "2017-03-31T00:00:00", "Chemicals": 10838.25, "Change": 0.7412743412185785}, {"dt": "2017-04-30T00:00:00", "Chemicals": 10932.6, "Change": -0.4669465378584703}, {"dt": "2017-05-31T00:00:00", "Chemicals": 10914.25, "Change": 2.38268333294247}, {"dt": "2017-06-30T00:00:00", "Chemicals": 10130.0, "Change": 4.3100912032950855}, {"dt": "2017-07-31T00:00:00", "Chemicals": 10274.0, "Change": 3.5184588102531}, {"dt": "2017-08-31T00:00:00", "Chemicals": 10370.5, "Change": 2.762157207620075}, {"dt": "2017-09-30T00:00:00", "Chemicals": 9572.2, "Change": -6.783201460742538}, {"dt": "2017-10-31T00:00:00", "Chemicals": 9848.0, "Change": -1.4963591261902942}, {"dt": "2017-11-30T00:00:00", "Chemicals": 9665.25, "Change": -2.1240506329113895}, {"dt": "2017-12-31T00:00:00", "Chemicals": 10062.2, "Change": 0.9977114867306458}, {"dt": "2018-01-31T00:00:00", "Chemicals": 9422.25, "Change": -11.159041086203237}, {"dt": "2018-02-28T00:00:00", "Chemicals": 9847.5, "Change": -11.689534570890503}, {"dt": "2018-03-31T00:00:00", "Chemicals": 10273.2, "Change": -5.213480035983665}, {"dt": "2018-04-30T00:00:00", "Chemicals": 10103.0, "Change": -7.588313850319228}, {"dt": "2018-05-31T00:00:00", "Chemicals": 10187.75, "Change": -6.656435394094872}, {"dt": "2018-06-30T00:00:00", "Chemicals": 9821.2, "Change": -3.048371174728526}, {"dt": "2018-07-31T00:00:00", "Chemicals": 9709.25, "Change": -5.496885341639091}, {"dt": "2018-08-31T00:00:00", "Chemicals": 10140.0, "Change": -2.222650788293723}, {"dt": "2018-09-30T00:00:00", "Chemicals": 9699.6, "Change": 1.3309375065293283}, {"dt": "2018-10-31T00:00:00", "Chemicals": 9408.75, "Change": -4.460296506904959}, {"dt": "2018-11-30T00:00:00", "Chemicals": 9188.25, "Change": -4.9352060215721245}, {"dt": "2018-12-31T00:00:00", "Chemicals": 9636.8, "Change": -4.227703683091189}, {"dt": "2019-01-31T00:00:00", "Chemicals": 9892.333333333334, "Change": 4.989077272767473}, {"dt": "2019-02-28T00:00:00", "Chemicals": 9145.5, "Change": -7.128712871287124}, {"dt": "2019-03-31T00:00:00", "Chemicals": 9813.2, "Change": -4.477670054121408}, {"dt": "2019-04-30T00:00:00", "Chemicals": 10056.5, "Change": -0.4602593289122048}, {"dt": "2019-05-31T00:00:00", "Chemicals": 10147.5, "Change": -0.3950823292679928}, {"dt": "2019-06-30T00:00:00", "Chemicals": 9576.4, "Change": -2.4925670997434257}, {"dt": "2019-07-31T00:00:00", "Chemicals": 9123.25, "Change": -6.035481628344108}, {"dt": "2019-08-31T00:00:00", "Chemicals": 9974.4, "Change": -1.6331360946745588}, {"dt": "2019-09-30T00:00:00", "Chemicals": 9591.75, "Change": -1.111901521712244}, {"dt": "2019-10-31T00:00:00", "Chemicals": 9815.75, "Change": 4.325760595190653}, {"dt": "2019-11-30T00:00:00", "Chemicals": 9612.0, "Change": 4.611868418904574}, {"dt": "2019-12-31T00:00:00", "Chemicals": 9333.0, "Change": -3.1524987547733585}, {"dt": "2020-01-31T00:00:00", "Chemicals": 9607.0, "Change": -2.884388583751729}, {"dt": "2020-02-29T00:00:00", "Chemicals": 9566.5, "Change": 4.60335684216282}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Food Products&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-62df52476e734ae6bcf559cd124b4179"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-62df52476e734ae6bcf559cd124b4179");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-cf9e8c173954dddc507c373ccf782157"}, "mark": {"type": "bar", "color": "green"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Food Products", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-cf9e8c173954dddc507c373ccf782157": [{"dt": "2015-01-31T00:00:00", "Food Products": 2029.4, "Change": null}, {"dt": "2015-02-28T00:00:00", "Food Products": 2188.0, "Change": null}, {"dt": "2015-03-31T00:00:00", "Food Products": 2281.25, "Change": null}, {"dt": "2015-04-30T00:00:00", "Food Products": 2367.6666666666665, "Change": null}, {"dt": "2015-05-31T00:00:00", "Food Products": 2258.0, "Change": null}, {"dt": "2015-06-30T00:00:00", "Food Products": 2196.0, "Change": null}, {"dt": "2015-07-31T00:00:00", "Food Products": 2206.75, "Change": null}, {"dt": "2015-08-31T00:00:00", "Food Products": 2342.2, "Change": null}, {"dt": "2015-09-30T00:00:00", "Food Products": 2206.75, "Change": null}, {"dt": "2015-10-31T00:00:00", "Food Products": 2215.4, "Change": null}, {"dt": "2015-11-30T00:00:00", "Food Products": 2055.75, "Change": null}, {"dt": "2015-12-31T00:00:00", "Food Products": 2084.5, "Change": null}, {"dt": "2016-01-31T00:00:00", "Food Products": 2009.4, "Change": -0.985512959495416}, {"dt": "2016-02-29T00:00:00", "Food Products": 2161.25, "Change": -1.2225776965265056}, {"dt": "2016-03-31T00:00:00", "Food Products": 2160.25, "Change": -5.304109589041095}, {"dt": "2016-04-30T00:00:00", "Food Products": 2237.0, "Change": -5.518794875404753}, {"dt": "2016-05-31T00:00:00", "Food Products": 2251.5, "Change": -0.2878653675819298}, {"dt": "2016-06-30T00:00:00", "Food Products": 2202.285714285714, "Change": 0.2862347124642284}, {"dt": "2016-07-31T00:00:00", "Food Products": 2185.4, "Change": -0.967486122125294}, {"dt": "2016-08-31T00:00:00", "Food Products": 2024.75, "Change": -13.55349671249252}, {"dt": "2016-09-30T00:00:00", "Food Products": 2110.75, "Change": -4.350288886371356}, {"dt": "2016-10-31T00:00:00", "Food Products": 2188.6, "Change": -1.2097138214318015}, {"dt": "2016-11-30T00:00:00", "Food Products": 2123.5, "Change": 3.2956341967651737}, {"dt": "2016-12-31T00:00:00", "Food Products": 1993.8, "Change": -4.3511633485248336}, {"dt": "2017-01-31T00:00:00", "Food Products": 1944.5, "Change": -3.2298198467204164}, {"dt": "2017-02-28T00:00:00", "Food Products": 2055.5, "Change": -4.893001735106994}, {"dt": "2017-03-31T00:00:00", "Food Products": 2203.25, "Change": 1.990510357597497}, {"dt": "2017-04-30T00:00:00", "Food Products": 2181.2, "Change": -2.4944121591417123}, {"dt": "2017-05-31T00:00:00", "Food Products": 2250.5, "Change": -0.04441483455474016}, {"dt": "2017-06-30T00:00:00", "Food Products": 2095.0, "Change": -4.87156201349247}, {"dt": "2017-07-31T00:00:00", "Food Products": 2084.0, "Change": -4.639882858973188}, {"dt": "2017-08-31T00:00:00", "Food Products": 2116.75, "Change": 4.543770835905669}, {"dt": "2017-09-30T00:00:00", "Food Products": 1977.4, "Change": -6.317659599668357}, {"dt": "2017-10-31T00:00:00", "Food Products": 2180.5, "Change": -0.3700996070547302}, {"dt": "2017-11-30T00:00:00", "Food Products": 2028.25, "Change": -4.485519190016484}, {"dt": "2017-12-31T00:00:00", "Food Products": 2002.4, "Change": 0.43133714514997923}, {"dt": "2018-01-31T00:00:00", "Food Products": 1983.75, "Change": 2.018513756749818}, {"dt": "2018-02-28T00:00:00", "Food Products": 2041.5, "Change": -0.6810994891753852}, {"dt": "2018-03-31T00:00:00", "Food Products": 2219.0, "Change": 0.7148530579825341}, {"dt": "2018-04-30T00:00:00", "Food Products": 2225.25, "Change": 2.0195305336512037}, {"dt": "2018-05-31T00:00:00", "Food Products": 2236.5, "Change": -0.6220839813374845}, {"dt": "2018-06-30T00:00:00", "Food Products": 2070.0, "Change": -1.1933174224343701}, {"dt": "2018-07-31T00:00:00", "Food Products": 2173.5, "Change": 4.294625719769685}, {"dt": "2018-08-31T00:00:00", "Food Products": 2146.75, "Change": 1.4172670367308404}, {"dt": "2018-09-30T00:00:00", "Food Products": 2139.8, "Change": 8.21280469303125}, {"dt": "2018-10-31T00:00:00", "Food Products": 2155.5, "Change": -1.1465260261407928}, {"dt": "2018-11-30T00:00:00", "Food Products": 2082.5, "Change": 2.6747195858498607}, {"dt": "2018-12-31T00:00:00", "Food Products": 2064.0, "Change": 3.0763084298841337}, {"dt": "2019-01-31T00:00:00", "Food Products": 1925.0, "Change": -2.961562696912412}, {"dt": "2019-02-28T00:00:00", "Food Products": 1868.8333333333333, "Change": -8.457833292513683}, {"dt": "2019-03-31T00:00:00", "Food Products": 2136.4, "Change": -3.7223974763406886}, {"dt": "2019-04-30T00:00:00", "Food Products": 2209.75, "Change": -0.6965509493315314}, {"dt": "2019-05-31T00:00:00", "Food Products": 2237.5, "Change": 0.04471272076906896}, {"dt": "2019-06-30T00:00:00", "Food Products": 2167.4, "Change": 4.705314009661832}, {"dt": "2019-07-31T00:00:00", "Food Products": 2167.25, "Change": -0.2875546353807268}, {"dt": "2019-08-31T00:00:00", "Food Products": 2102.6, "Change": -2.0565971817864237}, {"dt": "2019-09-30T00:00:00", "Food Products": 2220.75, "Change": 3.783063837741829}, {"dt": "2019-10-31T00:00:00", "Food Products": 2267.0, "Change": 5.172813732312687}, {"dt": "2019-11-30T00:00:00", "Food Products": 2203.4, "Change": 5.805522208883551}, {"dt": "2019-12-31T00:00:00", "Food Products": 1967.0, "Change": -4.699612403100772}, {"dt": "2020-01-31T00:00:00", "Food Products": 1891.0, "Change": -1.7662337662337713}, {"dt": "2020-02-29T00:00:00", "Food Products": 2102.5, "Change": 12.503344332471244}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Farm Products (excl. Grain)&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;brown&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-e509171fa2e3450fa092c6efd8129c64"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-e509171fa2e3450fa092c6efd8129c64");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-f46e5e6d535934b8cc2fd0d97f9014d8"}, "mark": {"type": "bar", "color": "brown"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Farm Products (excl. Grain)", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-f46e5e6d535934b8cc2fd0d97f9014d8": [{"dt": "2015-01-31T00:00:00", "Farm Products (excl. Grain)": 306.8, "Change": null}, {"dt": "2015-02-28T00:00:00", "Farm Products (excl. Grain)": 295.5, "Change": null}, {"dt": "2015-03-31T00:00:00", "Farm Products (excl. Grain)": 279.25, "Change": null}, {"dt": "2015-04-30T00:00:00", "Farm Products (excl. Grain)": 261.0, "Change": null}, {"dt": "2015-05-31T00:00:00", "Farm Products (excl. Grain)": 257.6, "Change": null}, {"dt": "2015-06-30T00:00:00", "Farm Products (excl. Grain)": 262.6666666666667, "Change": null}, {"dt": "2015-07-31T00:00:00", "Farm Products (excl. Grain)": 237.25, "Change": null}, {"dt": "2015-08-31T00:00:00", "Farm Products (excl. Grain)": 206.4, "Change": null}, {"dt": "2015-09-30T00:00:00", "Farm Products (excl. Grain)": 193.75, "Change": null}, {"dt": "2015-10-31T00:00:00", "Farm Products (excl. Grain)": 210.8, "Change": null}, {"dt": "2015-11-30T00:00:00", "Farm Products (excl. Grain)": 275.75, "Change": null}, {"dt": "2015-12-31T00:00:00", "Farm Products (excl. Grain)": 281.75, "Change": null}, {"dt": "2016-01-31T00:00:00", "Farm Products (excl. Grain)": 236.6, "Change": -22.881355932203395}, {"dt": "2016-02-29T00:00:00", "Farm Products (excl. Grain)": 241.5, "Change": -18.274111675126903}, {"dt": "2016-03-31T00:00:00", "Farm Products (excl. Grain)": 210.75, "Change": -24.52999104744852}, {"dt": "2016-04-30T00:00:00", "Farm Products (excl. Grain)": 214.55555555555554, "Change": -17.794806300553432}, {"dt": "2016-05-31T00:00:00", "Farm Products (excl. Grain)": 198.0, "Change": -23.136645962732928}, {"dt": "2016-06-30T00:00:00", "Farm Products (excl. Grain)": 197.71428571428572, "Change": -24.728063814358237}, {"dt": "2016-07-31T00:00:00", "Farm Products (excl. Grain)": 171.2, "Change": -27.839831401475244}, {"dt": "2016-08-31T00:00:00", "Farm Products (excl. Grain)": 179.0, "Change": -13.275193798449614}, {"dt": "2016-09-30T00:00:00", "Farm Products (excl. Grain)": 154.75, "Change": -20.129032258064516}, {"dt": "2016-10-31T00:00:00", "Farm Products (excl. Grain)": 201.0, "Change": -4.648956356736244}, {"dt": "2016-11-30T00:00:00", "Farm Products (excl. Grain)": 240.75, "Change": -12.692656391659106}, {"dt": "2016-12-31T00:00:00", "Farm Products (excl. Grain)": 251.6, "Change": -10.700976042590948}, {"dt": "2017-01-31T00:00:00", "Farm Products (excl. Grain)": 224.5, "Change": -5.114116652578193}, {"dt": "2017-02-28T00:00:00", "Farm Products (excl. Grain)": 249.0, "Change": 3.105590062111796}, {"dt": "2017-03-31T00:00:00", "Farm Products (excl. Grain)": 214.25, "Change": 1.6607354685646447}, {"dt": "2017-04-30T00:00:00", "Farm Products (excl. Grain)": 216.4, "Change": 0.8596582081823012}, {"dt": "2017-05-31T00:00:00", "Farm Products (excl. Grain)": 209.25, "Change": 5.681818181818188}, {"dt": "2017-06-30T00:00:00", "Farm Products (excl. Grain)": 211.5, "Change": 6.972543352601157}, {"dt": "2017-07-31T00:00:00", "Farm Products (excl. Grain)": 210.6, "Change": 23.014018691588788}, {"dt": "2017-08-31T00:00:00", "Farm Products (excl. Grain)": 202.25, "Change": 12.988826815642462}, {"dt": "2017-09-30T00:00:00", "Farm Products (excl. Grain)": 148.2, "Change": -4.232633279483045}, {"dt": "2017-10-31T00:00:00", "Farm Products (excl. Grain)": 196.75, "Change": -2.1144278606965217}, {"dt": "2017-11-30T00:00:00", "Farm Products (excl. Grain)": 275.5, "Change": 14.43406022845275}, {"dt": "2017-12-31T00:00:00", "Farm Products (excl. Grain)": 248.0, "Change": -1.4308426073131986}, {"dt": "2018-01-31T00:00:00", "Farm Products (excl. Grain)": 272.0, "Change": 21.15812917594655}, {"dt": "2018-02-28T00:00:00", "Farm Products (excl. Grain)": 243.5, "Change": -2.208835341365467}, {"dt": "2018-03-31T00:00:00", "Farm Products (excl. Grain)": 214.2, "Change": -0.02333722287047868}, {"dt": "2018-04-30T00:00:00", "Farm Products (excl. Grain)": 207.5, "Change": -4.112754158964882}, {"dt": "2018-05-31T00:00:00", "Farm Products (excl. Grain)": 219.25, "Change": 4.778972520907998}, {"dt": "2018-06-30T00:00:00", "Farm Products (excl. Grain)": 247.0, "Change": 16.784869976359328}, {"dt": "2018-07-31T00:00:00", "Farm Products (excl. Grain)": 213.5, "Change": 1.377018043684708}, {"dt": "2018-08-31T00:00:00", "Farm Products (excl. Grain)": 202.0, "Change": -0.12360939431397266}, {"dt": "2018-09-30T00:00:00", "Farm Products (excl. Grain)": 171.6, "Change": 15.789473684210531}, {"dt": "2018-10-31T00:00:00", "Farm Products (excl. Grain)": 214.5, "Change": 9.021601016518431}, {"dt": "2018-11-30T00:00:00", "Farm Products (excl. Grain)": 275.75, "Change": 0.09074410163338875}, {"dt": "2018-12-31T00:00:00", "Farm Products (excl. Grain)": 261.0, "Change": 5.241935483870974}, {"dt": "2019-01-31T00:00:00", "Farm Products (excl. Grain)": 240.0, "Change": -11.764705882352944}, {"dt": "2019-02-28T00:00:00", "Farm Products (excl. Grain)": 242.33333333333334, "Change": -0.4791238877481119}, {"dt": "2019-03-31T00:00:00", "Farm Products (excl. Grain)": 201.2, "Change": -6.069094304388423}, {"dt": "2019-04-30T00:00:00", "Farm Products (excl. Grain)": 213.5, "Change": 2.8915662650602414}, {"dt": "2019-05-31T00:00:00", "Farm Products (excl. Grain)": 163.0, "Change": -25.655644241733178}, {"dt": "2019-06-30T00:00:00", "Farm Products (excl. Grain)": 175.2, "Change": -29.068825910931185}, {"dt": "2019-07-31T00:00:00", "Farm Products (excl. Grain)": 156.0, "Change": -26.932084309133486}, {"dt": "2019-08-31T00:00:00", "Farm Products (excl. Grain)": 158.0, "Change": -21.78217821782178}, {"dt": "2019-09-30T00:00:00", "Farm Products (excl. Grain)": 115.25, "Change": -32.83799533799534}, {"dt": "2019-10-31T00:00:00", "Farm Products (excl. Grain)": 134.75, "Change": -37.17948717948718}, {"dt": "2019-11-30T00:00:00", "Farm Products (excl. Grain)": 202.6, "Change": -26.52765185856755}, {"dt": "2019-12-31T00:00:00", "Farm Products (excl. Grain)": 206.0, "Change": -21.0727969348659}, {"dt": "2020-01-31T00:00:00", "Farm Products (excl. Grain)": 184.25, "Change": -23.229166666666668}, {"dt": "2020-02-29T00:00:00", "Farm Products (excl. Grain)": 209.5, "Change": -13.548830811554335}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Grain&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tan&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-3f5de1341490443bbc31f0b48a2a7da1"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-3f5de1341490443bbc31f0b48a2a7da1");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-d31ca8512b8f4a3e6fa372e653ebf0df"}, "mark": {"type": "bar", "color": "tan"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Grain", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-d31ca8512b8f4a3e6fa372e653ebf0df": [{"dt": "2011-12-31T00:00:00", "Grain": 3089.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Grain": 3598.75, "Change": null}, {"dt": "2012-02-29T00:00:00", "Grain": 3310.0, "Change": null}, {"dt": "2012-03-31T00:00:00", "Grain": 3408.2, "Change": null}, {"dt": "2012-04-30T00:00:00", "Grain": 2954.0, "Change": null}, {"dt": "2012-05-31T00:00:00", "Grain": 3376.5, "Change": null}, {"dt": "2012-06-30T00:00:00", "Grain": 3027.6, "Change": null}, {"dt": "2012-07-31T00:00:00", "Grain": 2614.0, "Change": null}, {"dt": "2012-08-31T00:00:00", "Grain": 2228.75, "Change": null}, {"dt": "2012-09-30T00:00:00", "Grain": 2011.4, "Change": null}, {"dt": "2012-10-31T00:00:00", "Grain": 3231.0, "Change": null}, {"dt": "2012-11-30T00:00:00", "Grain": 3226.75, "Change": null}, {"dt": "2012-12-31T00:00:00", "Grain": 2944.0, "Change": -4.694075752670768}, {"dt": "2013-01-31T00:00:00", "Grain": 3181.6666666666665, "Change": -11.589672339932855}, {"dt": "2013-02-28T00:00:00", "Grain": 2934.0, "Change": -11.359516616314203}, {"dt": "2013-03-31T00:00:00", "Grain": 2891.0, "Change": -15.175165776656296}, {"dt": "2013-04-30T00:00:00", "Grain": 2883.25, "Change": -2.3950575490859882}, {"dt": "2013-05-31T00:00:00", "Grain": 2715.5, "Change": -19.576484525396122}, {"dt": "2013-06-30T00:00:00", "Grain": 2670.2, "Change": -11.804729818998549}, {"dt": "2013-07-31T00:00:00", "Grain": 2591.25, "Change": -0.870313695485847}, {"dt": "2013-08-31T00:00:00", "Grain": 2218.0, "Change": -0.48233314638249647}, {"dt": "2013-09-30T00:00:00", "Grain": 2215.5, "Change": 10.147161181266773}, {"dt": "2013-10-31T00:00:00", "Grain": 3439.75, "Change": 6.460848034664202}, {"dt": "2013-11-30T00:00:00", "Grain": 4265.0, "Change": 32.17633842101186}, {"dt": "2013-12-31T00:00:00", "Grain": 3732.75, "Change": 26.791779891304344}, {"dt": "2014-01-31T00:00:00", "Grain": 3315.1111111111113, "Change": 4.194167976252849}, {"dt": "2014-02-28T00:00:00", "Grain": 3303.25, "Change": 12.585207907293805}, {"dt": "2014-03-31T00:00:00", "Grain": 3539.4, "Change": 22.428225527499144}, {"dt": "2014-04-30T00:00:00", "Grain": 3493.125, "Change": 21.152345443509923}, {"dt": "2014-05-31T00:00:00", "Grain": 3172.9, "Change": 16.84404345424415}, {"dt": "2014-06-30T00:00:00", "Grain": 3118.5, "Change": 16.789004568946165}, {"dt": "2014-07-31T00:00:00", "Grain": 3229.0, "Change": 24.611673902556674}, {"dt": "2014-08-31T00:00:00", "Grain": 2809.3, "Change": 26.659152389540132}, {"dt": "2014-09-30T00:00:00", "Grain": 2293.375, "Change": 3.5150078988941624}, {"dt": "2014-10-31T00:00:00", "Grain": 3570.125, "Change": 3.7902463841849032}, {"dt": "2014-11-30T00:00:00", "Grain": 3637.2, "Change": -14.719812426729195}, {"dt": "2014-12-31T00:00:00", "Grain": 3956.75, "Change": 6.000937646507265}, {"dt": "2015-01-31T00:00:00", "Grain": 3947.3636363636365, "Change": 19.07183512291435}, {"dt": "2015-02-28T00:00:00", "Grain": 3164.75, "Change": -4.192840384469843}, {"dt": "2015-03-31T00:00:00", "Grain": 3375.25, "Change": -4.6377917161100735}, {"dt": "2015-04-30T00:00:00", "Grain": 3386.5714285714284, "Change": -3.050379572118711}, {"dt": "2015-05-31T00:00:00", "Grain": 3436.4, "Change": 8.304705474487072}, {"dt": "2015-06-30T00:00:00", "Grain": 3163.5714285714284, "Change": 1.4452919214823945}, {"dt": "2015-07-31T00:00:00", "Grain": 3592.25, "Change": 11.249612883245597}, {"dt": "2015-08-31T00:00:00", "Grain": 3024.2, "Change": 7.6495924251592795}, {"dt": "2015-09-30T00:00:00", "Grain": 2824.75, "Change": 23.170000545048232}, {"dt": "2015-10-31T00:00:00", "Grain": 3787.2, "Change": 6.080319316550531}, {"dt": "2015-11-30T00:00:00", "Grain": 3002.75, "Change": -17.4433630265039}, {"dt": "2015-12-31T00:00:00", "Grain": 3045.0, "Change": -23.04290137107474}, {"dt": "2016-01-31T00:00:00", "Grain": 3371.0, "Change": -14.601229819672511}, {"dt": "2016-02-29T00:00:00", "Grain": 3498.25, "Change": 10.537957184611745}, {"dt": "2016-03-31T00:00:00", "Grain": 3147.5, "Change": -6.747648322346489}, {"dt": "2016-04-30T00:00:00", "Grain": 2958.8888888888887, "Change": -12.62877658726811}, {"dt": "2016-05-31T00:00:00", "Grain": 3018.75, "Change": -12.153707368176004}, {"dt": "2016-06-30T00:00:00", "Grain": 2845.1428571428573, "Change": -10.065477534432144}, {"dt": "2016-07-31T00:00:00", "Grain": 2932.2, "Change": -18.374277959496144}, {"dt": "2016-08-31T00:00:00", "Grain": 2385.0, "Change": -21.13616824284108}, {"dt": "2016-09-30T00:00:00", "Grain": 2476.5, "Change": -12.328524648198957}, {"dt": "2016-10-31T00:00:00", "Grain": 3578.8, "Change": -5.502746092099697}, {"dt": "2016-11-30T00:00:00", "Grain": 3134.0, "Change": 4.370993256181843}, {"dt": "2016-12-31T00:00:00", "Grain": 2841.0, "Change": -6.699507389162562}, {"dt": "2017-01-31T00:00:00", "Grain": 3168.5, "Change": -6.0071195490952185}, {"dt": "2017-02-28T00:00:00", "Grain": 3194.25, "Change": -8.690059315371968}, {"dt": "2017-03-31T00:00:00", "Grain": 2957.0, "Change": -6.052422557585391}, {"dt": "2017-04-30T00:00:00", "Grain": 2639.2, "Change": -10.804355989485547}, {"dt": "2017-05-31T00:00:00", "Grain": 2489.75, "Change": -17.52380952380952}, {"dt": "2017-06-30T00:00:00", "Grain": 2568.5, "Change": -9.72333801968267}, {"dt": "2017-07-31T00:00:00", "Grain": 2498.6, "Change": -14.787531546279242}, {"dt": "2017-08-31T00:00:00", "Grain": 1997.75, "Change": -16.236897274633122}, {"dt": "2017-09-30T00:00:00", "Grain": 2283.4, "Change": -7.79729456894811}, {"dt": "2017-10-31T00:00:00", "Grain": 3200.0, "Change": -10.584553481613955}, {"dt": "2017-11-30T00:00:00", "Grain": 2735.75, "Change": -12.707402680280788}, {"dt": "2017-12-31T00:00:00", "Grain": 2551.4, "Change": -10.193593804998235}, {"dt": "2018-01-31T00:00:00", "Grain": 2588.75, "Change": -18.29730156225343}, {"dt": "2018-02-28T00:00:00", "Grain": 2589.5, "Change": -18.93245675823746}, {"dt": "2018-03-31T00:00:00", "Grain": 2864.6, "Change": -3.1247886371322364}, {"dt": "2018-04-30T00:00:00", "Grain": 3035.25, "Change": 15.006441345862399}, {"dt": "2018-05-31T00:00:00", "Grain": 2885.0, "Change": 15.875087860226934}, {"dt": "2018-06-30T00:00:00", "Grain": 2929.2, "Change": 14.043215884757632}, {"dt": "2018-07-31T00:00:00", "Grain": 2924.5, "Change": 17.045545505483073}, {"dt": "2018-08-31T00:00:00", "Grain": 2958.0, "Change": 48.06657489675885}, {"dt": "2018-09-30T00:00:00", "Grain": 2500.8, "Change": 9.520889901024798}, {"dt": "2018-10-31T00:00:00", "Grain": 3001.0, "Change": -6.218749999999995}, {"dt": "2018-11-30T00:00:00", "Grain": 3013.75, "Change": 10.161747235675778}, {"dt": "2018-12-31T00:00:00", "Grain": 2812.4, "Change": 10.229677823939799}, {"dt": "2019-01-31T00:00:00", "Grain": 3116.3333333333335, "Change": 20.37984870432963}, {"dt": "2019-02-28T00:00:00", "Grain": 2856.1666666666665, "Change": 10.297998326575275}, {"dt": "2019-03-31T00:00:00", "Grain": 3169.4, "Change": 10.640229002303991}, {"dt": "2019-04-30T00:00:00", "Grain": 3273.0, "Change": 7.83296268841116}, {"dt": "2019-05-31T00:00:00", "Grain": 3108.5, "Change": 7.746967071057198}, {"dt": "2019-06-30T00:00:00", "Grain": 2976.2, "Change": 1.604533661067875}, {"dt": "2019-07-31T00:00:00", "Grain": 3231.5, "Change": 10.49752094375107}, {"dt": "2019-08-31T00:00:00", "Grain": 3104.6, "Change": 4.956051386071669}, {"dt": "2019-09-30T00:00:00", "Grain": 2864.75, "Change": 14.553342930262314}, {"dt": "2019-10-31T00:00:00", "Grain": 2959.5, "Change": -1.3828723758747108}, {"dt": "2019-11-30T00:00:00", "Grain": 3222.8, "Change": 6.936540854417261}, {"dt": "2019-12-31T00:00:00", "Grain": 3081.0, "Change": 9.550561797752799}, {"dt": "2020-01-31T00:00:00", "Grain": 2835.25, "Change": -9.01968124933148}, {"dt": "2020-02-29T00:00:00", "Grain": 3234.5, "Change": 13.24619244908678}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Grain Mill Products&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tan&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-801efbe245fc464ba098d8e4c4bfa838"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-801efbe245fc464ba098d8e4c4bfa838");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-f4dac7f43ba38bed7dc33ce6615df49d"}, "mark": {"type": "bar", "color": "tan"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Grain Mill Products", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-f4dac7f43ba38bed7dc33ce6615df49d": [{"dt": "2011-12-31T00:00:00", "Grain Mill Products": 1934.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Grain Mill Products": 2126.75, "Change": null}, {"dt": "2012-02-29T00:00:00", "Grain Mill Products": 2095.25, "Change": null}, {"dt": "2012-03-31T00:00:00", "Grain Mill Products": 2050.8, "Change": null}, {"dt": "2012-04-30T00:00:00", "Grain Mill Products": 2078.0, "Change": null}, {"dt": "2012-05-31T00:00:00", "Grain Mill Products": 2117.0, "Change": null}, {"dt": "2012-06-30T00:00:00", "Grain Mill Products": 2094.0, "Change": null}, {"dt": "2012-07-31T00:00:00", "Grain Mill Products": 2017.25, "Change": null}, {"dt": "2012-08-31T00:00:00", "Grain Mill Products": 2029.75, "Change": null}, {"dt": "2012-09-30T00:00:00", "Grain Mill Products": 2044.4, "Change": null}, {"dt": "2012-10-31T00:00:00", "Grain Mill Products": 2032.25, "Change": null}, {"dt": "2012-11-30T00:00:00", "Grain Mill Products": 2057.0, "Change": null}, {"dt": "2012-12-31T00:00:00", "Grain Mill Products": 1976.0, "Change": 2.171664943123064}, {"dt": "2013-01-31T00:00:00", "Grain Mill Products": 2156.6666666666665, "Change": 1.406684691038751}, {"dt": "2013-02-28T00:00:00", "Grain Mill Products": 2103.5, "Change": 0.39374776279679224}, {"dt": "2013-03-31T00:00:00", "Grain Mill Products": 1989.8, "Change": -2.9744489955139564}, {"dt": "2013-04-30T00:00:00", "Grain Mill Products": 2093.75, "Change": 0.7579403272377272}, {"dt": "2013-05-31T00:00:00", "Grain Mill Products": 2107.75, "Change": -0.4369390647142146}, {"dt": "2013-06-30T00:00:00", "Grain Mill Products": 1959.6, "Change": -6.418338108882526}, {"dt": "2013-07-31T00:00:00", "Grain Mill Products": 2064.75, "Change": 2.3546907919197}, {"dt": "2013-08-31T00:00:00", "Grain Mill Products": 1947.6, "Change": -4.0472964650819065}, {"dt": "2013-09-30T00:00:00", "Grain Mill Products": 2007.25, "Change": -1.8171590686754113}, {"dt": "2013-10-31T00:00:00", "Grain Mill Products": 2147.75, "Change": 5.683355886332886}, {"dt": "2013-11-30T00:00:00", "Grain Mill Products": 2248.0, "Change": 9.285367039377746}, {"dt": "2013-12-31T00:00:00", "Grain Mill Products": 2104.75, "Change": 6.515688259109309}, {"dt": "2014-01-31T00:00:00", "Grain Mill Products": 2036.3333333333333, "Change": -5.579598145285935}, {"dt": "2014-02-28T00:00:00", "Grain Mill Products": 2242.625, "Change": 6.613976705490843}, {"dt": "2014-03-31T00:00:00", "Grain Mill Products": 2316.0, "Change": 16.393607397728417}, {"dt": "2014-04-30T00:00:00", "Grain Mill Products": 2257.75, "Change": 7.832835820895512}, {"dt": "2014-05-31T00:00:00", "Grain Mill Products": 2252.8, "Change": 6.8817459376111945}, {"dt": "2014-06-30T00:00:00", "Grain Mill Products": 2152.5, "Change": 9.843845682792418}, {"dt": "2014-07-31T00:00:00", "Grain Mill Products": 2193.5, "Change": 6.235621745974096}, {"dt": "2014-08-31T00:00:00", "Grain Mill Products": 2068.0, "Change": 6.18196754980489}, {"dt": "2014-09-30T00:00:00", "Grain Mill Products": 2157.0, "Change": 7.460455847552616}, {"dt": "2014-10-31T00:00:00", "Grain Mill Products": 2192.25, "Change": 2.071935746711673}, {"dt": "2014-11-30T00:00:00", "Grain Mill Products": 2158.5, "Change": -3.9813167259786453}, {"dt": "2014-12-31T00:00:00", "Grain Mill Products": 2156.625, "Change": 2.4646632616700304}, {"dt": "2015-01-31T00:00:00", "Grain Mill Products": 2098.909090909091, "Change": 3.0729623952737484}, {"dt": "2015-02-28T00:00:00", "Grain Mill Products": 2130.25, "Change": -5.01086895936681}, {"dt": "2015-03-31T00:00:00", "Grain Mill Products": 2268.5, "Change": -2.0509499136442177}, {"dt": "2015-04-30T00:00:00", "Grain Mill Products": 2163.714285714286, "Change": -4.165018903143136}, {"dt": "2015-05-31T00:00:00", "Grain Mill Products": 2125.0, "Change": -5.6729403409090935}, {"dt": "2015-06-30T00:00:00", "Grain Mill Products": 2230.5714285714284, "Change": 3.627011780321876}, {"dt": "2015-07-31T00:00:00", "Grain Mill Products": 2181.5, "Change": -0.5470708912696631}, {"dt": "2015-08-31T00:00:00", "Grain Mill Products": 2130.0, "Change": 2.9980657640232167}, {"dt": "2015-09-30T00:00:00", "Grain Mill Products": 2162.5, "Change": 0.2549837737598537}, {"dt": "2015-10-31T00:00:00", "Grain Mill Products": 2259.2, "Change": 3.0539400159653285}, {"dt": "2015-11-30T00:00:00", "Grain Mill Products": 2246.5, "Change": 4.076905258281216}, {"dt": "2015-12-31T00:00:00", "Grain Mill Products": 2008.0, "Change": -6.891555091868085}, {"dt": "2016-01-31T00:00:00", "Grain Mill Products": 2003.4, "Change": -4.550415800415797}, {"dt": "2016-02-29T00:00:00", "Grain Mill Products": 2095.25, "Change": -1.6429996479286446}, {"dt": "2016-03-31T00:00:00", "Grain Mill Products": 2080.25, "Change": -8.298435089266032}, {"dt": "2016-04-30T00:00:00", "Grain Mill Products": 2020.4444444444443, "Change": -6.621476884252542}, {"dt": "2016-05-31T00:00:00", "Grain Mill Products": 2001.0, "Change": -5.835294117647061}, {"dt": "2016-06-30T00:00:00", "Grain Mill Products": 2059.1428571428573, "Change": -7.685410529012415}, {"dt": "2016-07-31T00:00:00", "Grain Mill Products": 1921.0, "Change": -11.941324776529916}, {"dt": "2016-08-31T00:00:00", "Grain Mill Products": 1936.0, "Change": -9.10798122065728}, {"dt": "2016-09-30T00:00:00", "Grain Mill Products": 1975.75, "Change": -8.635838150289022}, {"dt": "2016-10-31T00:00:00", "Grain Mill Products": 2204.8, "Change": -2.407932011331426}, {"dt": "2016-11-30T00:00:00", "Grain Mill Products": 2235.0, "Change": -0.5119074115290445}, {"dt": "2016-12-31T00:00:00", "Grain Mill Products": 2118.4, "Change": 5.498007968127494}, {"dt": "2017-01-31T00:00:00", "Grain Mill Products": 2139.0, "Change": 6.768493560946376}, {"dt": "2017-02-28T00:00:00", "Grain Mill Products": 2184.5, "Change": 4.259634888438124}, {"dt": "2017-03-31T00:00:00", "Grain Mill Products": 1999.0, "Change": -3.9057805552217273}, {"dt": "2017-04-30T00:00:00", "Grain Mill Products": 2039.8, "Change": 0.9579850417949842}, {"dt": "2017-05-31T00:00:00", "Grain Mill Products": 2020.75, "Change": 0.9870064967516301}, {"dt": "2017-06-30T00:00:00", "Grain Mill Products": 2014.5, "Change": -2.1680310808935843}, {"dt": "2017-07-31T00:00:00", "Grain Mill Products": 1926.2, "Change": 0.27069234773555717}, {"dt": "2017-08-31T00:00:00", "Grain Mill Products": 1948.25, "Change": 0.6327479338843034}, {"dt": "2017-09-30T00:00:00", "Grain Mill Products": 1881.2, "Change": -4.785524484373016}, {"dt": "2017-10-31T00:00:00", "Grain Mill Products": 1991.75, "Change": -9.66300798258346}, {"dt": "2017-11-30T00:00:00", "Grain Mill Products": 1996.25, "Change": -10.682326621923933}, {"dt": "2017-12-31T00:00:00", "Grain Mill Products": 1890.6, "Change": -10.753398791540791}, {"dt": "2018-01-31T00:00:00", "Grain Mill Products": 1898.5, "Change": -11.243571762505844}, {"dt": "2018-02-28T00:00:00", "Grain Mill Products": 2038.25, "Change": -6.6948958571755535}, {"dt": "2018-03-31T00:00:00", "Grain Mill Products": 2011.0, "Change": 0.6003001500750393}, {"dt": "2018-04-30T00:00:00", "Grain Mill Products": 1952.25, "Change": -4.29208745955486}, {"dt": "2018-05-31T00:00:00", "Grain Mill Products": 1917.5, "Change": -5.109489051094895}, {"dt": "2018-06-30T00:00:00", "Grain Mill Products": 1930.8, "Change": -4.154877140729707}, {"dt": "2018-07-31T00:00:00", "Grain Mill Products": 2016.75, "Change": 4.700965631813925}, {"dt": "2018-08-31T00:00:00", "Grain Mill Products": 2091.0, "Change": 7.32708841267804}, {"dt": "2018-09-30T00:00:00", "Grain Mill Products": 1986.0, "Change": 5.570912183712529}, {"dt": "2018-10-31T00:00:00", "Grain Mill Products": 2162.25, "Change": 8.560311284046684}, {"dt": "2018-11-30T00:00:00", "Grain Mill Products": 2076.5, "Change": 4.020037570444579}, {"dt": "2018-12-31T00:00:00", "Grain Mill Products": 2028.2, "Change": 7.278112768433309}, {"dt": "2019-01-31T00:00:00", "Grain Mill Products": 2019.3333333333333, "Change": 6.364673865332282}, {"dt": "2019-02-28T00:00:00", "Grain Mill Products": 1983.0, "Change": -2.7106586532564703}, {"dt": "2019-03-31T00:00:00", "Grain Mill Products": 2155.2, "Change": 7.1705619094977635}, {"dt": "2019-04-30T00:00:00", "Grain Mill Products": 2119.25, "Change": 8.554232296068642}, {"dt": "2019-05-31T00:00:00", "Grain Mill Products": 2071.75, "Change": 8.044328552803126}, {"dt": "2019-06-30T00:00:00", "Grain Mill Products": 2134.6, "Change": 10.555210275533454}, {"dt": "2019-07-31T00:00:00", "Grain Mill Products": 2118.5, "Change": 5.0452460642122166}, {"dt": "2019-08-31T00:00:00", "Grain Mill Products": 2173.4, "Change": 3.94069823051173}, {"dt": "2019-09-30T00:00:00", "Grain Mill Products": 2129.25, "Change": 7.212990936555896}, {"dt": "2019-10-31T00:00:00", "Grain Mill Products": 2130.5, "Change": -1.4683778471499598}, {"dt": "2019-11-30T00:00:00", "Grain Mill Products": 2031.2, "Change": -2.181555502046706}, {"dt": "2019-12-31T00:00:00", "Grain Mill Products": 1975.25, "Change": -2.6106892811359805}, {"dt": "2020-01-31T00:00:00", "Grain Mill Products": 2049.25, "Change": 1.4815120501815882}, {"dt": "2020-02-29T00:00:00", "Grain Mill Products": 2151.0, "Change": 8.472012102874427}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Grain Mill Products&#39;</span>
+<span class="n">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">subset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-fbcf8b4f36994fa6af74e34193f5676a"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-fbcf8b4f36994fa6af74e34193f5676a");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-f4dac7f43ba38bed7dc33ce6615df49d"}, "mark": {"type": "bar", "color": "black"}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B %Y", "title": "Period"}, {"type": "quantitative", "field": "Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "52-Week Growth [%]"}, "field": "Change"}}, "height": 450, "title": "CSX Freight Reports: Grain Mill Products", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-f4dac7f43ba38bed7dc33ce6615df49d": [{"dt": "2011-12-31T00:00:00", "Grain Mill Products": 1934.0, "Change": null}, {"dt": "2012-01-31T00:00:00", "Grain Mill Products": 2126.75, "Change": null}, {"dt": "2012-02-29T00:00:00", "Grain Mill Products": 2095.25, "Change": null}, {"dt": "2012-03-31T00:00:00", "Grain Mill Products": 2050.8, "Change": null}, {"dt": "2012-04-30T00:00:00", "Grain Mill Products": 2078.0, "Change": null}, {"dt": "2012-05-31T00:00:00", "Grain Mill Products": 2117.0, "Change": null}, {"dt": "2012-06-30T00:00:00", "Grain Mill Products": 2094.0, "Change": null}, {"dt": "2012-07-31T00:00:00", "Grain Mill Products": 2017.25, "Change": null}, {"dt": "2012-08-31T00:00:00", "Grain Mill Products": 2029.75, "Change": null}, {"dt": "2012-09-30T00:00:00", "Grain Mill Products": 2044.4, "Change": null}, {"dt": "2012-10-31T00:00:00", "Grain Mill Products": 2032.25, "Change": null}, {"dt": "2012-11-30T00:00:00", "Grain Mill Products": 2057.0, "Change": null}, {"dt": "2012-12-31T00:00:00", "Grain Mill Products": 1976.0, "Change": 2.171664943123064}, {"dt": "2013-01-31T00:00:00", "Grain Mill Products": 2156.6666666666665, "Change": 1.406684691038751}, {"dt": "2013-02-28T00:00:00", "Grain Mill Products": 2103.5, "Change": 0.39374776279679224}, {"dt": "2013-03-31T00:00:00", "Grain Mill Products": 1989.8, "Change": -2.9744489955139564}, {"dt": "2013-04-30T00:00:00", "Grain Mill Products": 2093.75, "Change": 0.7579403272377272}, {"dt": "2013-05-31T00:00:00", "Grain Mill Products": 2107.75, "Change": -0.4369390647142146}, {"dt": "2013-06-30T00:00:00", "Grain Mill Products": 1959.6, "Change": -6.418338108882526}, {"dt": "2013-07-31T00:00:00", "Grain Mill Products": 2064.75, "Change": 2.3546907919197}, {"dt": "2013-08-31T00:00:00", "Grain Mill Products": 1947.6, "Change": -4.0472964650819065}, {"dt": "2013-09-30T00:00:00", "Grain Mill Products": 2007.25, "Change": -1.8171590686754113}, {"dt": "2013-10-31T00:00:00", "Grain Mill Products": 2147.75, "Change": 5.683355886332886}, {"dt": "2013-11-30T00:00:00", "Grain Mill Products": 2248.0, "Change": 9.285367039377746}, {"dt": "2013-12-31T00:00:00", "Grain Mill Products": 2104.75, "Change": 6.515688259109309}, {"dt": "2014-01-31T00:00:00", "Grain Mill Products": 2036.3333333333333, "Change": -5.579598145285935}, {"dt": "2014-02-28T00:00:00", "Grain Mill Products": 2242.625, "Change": 6.613976705490843}, {"dt": "2014-03-31T00:00:00", "Grain Mill Products": 2316.0, "Change": 16.393607397728417}, {"dt": "2014-04-30T00:00:00", "Grain Mill Products": 2257.75, "Change": 7.832835820895512}, {"dt": "2014-05-31T00:00:00", "Grain Mill Products": 2252.8, "Change": 6.8817459376111945}, {"dt": "2014-06-30T00:00:00", "Grain Mill Products": 2152.5, "Change": 9.843845682792418}, {"dt": "2014-07-31T00:00:00", "Grain Mill Products": 2193.5, "Change": 6.235621745974096}, {"dt": "2014-08-31T00:00:00", "Grain Mill Products": 2068.0, "Change": 6.18196754980489}, {"dt": "2014-09-30T00:00:00", "Grain Mill Products": 2157.0, "Change": 7.460455847552616}, {"dt": "2014-10-31T00:00:00", "Grain Mill Products": 2192.25, "Change": 2.071935746711673}, {"dt": "2014-11-30T00:00:00", "Grain Mill Products": 2158.5, "Change": -3.9813167259786453}, {"dt": "2014-12-31T00:00:00", "Grain Mill Products": 2156.625, "Change": 2.4646632616700304}, {"dt": "2015-01-31T00:00:00", "Grain Mill Products": 2098.909090909091, "Change": 3.0729623952737484}, {"dt": "2015-02-28T00:00:00", "Grain Mill Products": 2130.25, "Change": -5.01086895936681}, {"dt": "2015-03-31T00:00:00", "Grain Mill Products": 2268.5, "Change": -2.0509499136442177}, {"dt": "2015-04-30T00:00:00", "Grain Mill Products": 2163.714285714286, "Change": -4.165018903143136}, {"dt": "2015-05-31T00:00:00", "Grain Mill Products": 2125.0, "Change": -5.6729403409090935}, {"dt": "2015-06-30T00:00:00", "Grain Mill Products": 2230.5714285714284, "Change": 3.627011780321876}, {"dt": "2015-07-31T00:00:00", "Grain Mill Products": 2181.5, "Change": -0.5470708912696631}, {"dt": "2015-08-31T00:00:00", "Grain Mill Products": 2130.0, "Change": 2.9980657640232167}, {"dt": "2015-09-30T00:00:00", "Grain Mill Products": 2162.5, "Change": 0.2549837737598537}, {"dt": "2015-10-31T00:00:00", "Grain Mill Products": 2259.2, "Change": 3.0539400159653285}, {"dt": "2015-11-30T00:00:00", "Grain Mill Products": 2246.5, "Change": 4.076905258281216}, {"dt": "2015-12-31T00:00:00", "Grain Mill Products": 2008.0, "Change": -6.891555091868085}, {"dt": "2016-01-31T00:00:00", "Grain Mill Products": 2003.4, "Change": -4.550415800415797}, {"dt": "2016-02-29T00:00:00", "Grain Mill Products": 2095.25, "Change": -1.6429996479286446}, {"dt": "2016-03-31T00:00:00", "Grain Mill Products": 2080.25, "Change": -8.298435089266032}, {"dt": "2016-04-30T00:00:00", "Grain Mill Products": 2020.4444444444443, "Change": -6.621476884252542}, {"dt": "2016-05-31T00:00:00", "Grain Mill Products": 2001.0, "Change": -5.835294117647061}, {"dt": "2016-06-30T00:00:00", "Grain Mill Products": 2059.1428571428573, "Change": -7.685410529012415}, {"dt": "2016-07-31T00:00:00", "Grain Mill Products": 1921.0, "Change": -11.941324776529916}, {"dt": "2016-08-31T00:00:00", "Grain Mill Products": 1936.0, "Change": -9.10798122065728}, {"dt": "2016-09-30T00:00:00", "Grain Mill Products": 1975.75, "Change": -8.635838150289022}, {"dt": "2016-10-31T00:00:00", "Grain Mill Products": 2204.8, "Change": -2.407932011331426}, {"dt": "2016-11-30T00:00:00", "Grain Mill Products": 2235.0, "Change": -0.5119074115290445}, {"dt": "2016-12-31T00:00:00", "Grain Mill Products": 2118.4, "Change": 5.498007968127494}, {"dt": "2017-01-31T00:00:00", "Grain Mill Products": 2139.0, "Change": 6.768493560946376}, {"dt": "2017-02-28T00:00:00", "Grain Mill Products": 2184.5, "Change": 4.259634888438124}, {"dt": "2017-03-31T00:00:00", "Grain Mill Products": 1999.0, "Change": -3.9057805552217273}, {"dt": "2017-04-30T00:00:00", "Grain Mill Products": 2039.8, "Change": 0.9579850417949842}, {"dt": "2017-05-31T00:00:00", "Grain Mill Products": 2020.75, "Change": 0.9870064967516301}, {"dt": "2017-06-30T00:00:00", "Grain Mill Products": 2014.5, "Change": -2.1680310808935843}, {"dt": "2017-07-31T00:00:00", "Grain Mill Products": 1926.2, "Change": 0.27069234773555717}, {"dt": "2017-08-31T00:00:00", "Grain Mill Products": 1948.25, "Change": 0.6327479338843034}, {"dt": "2017-09-30T00:00:00", "Grain Mill Products": 1881.2, "Change": -4.785524484373016}, {"dt": "2017-10-31T00:00:00", "Grain Mill Products": 1991.75, "Change": -9.66300798258346}, {"dt": "2017-11-30T00:00:00", "Grain Mill Products": 1996.25, "Change": -10.682326621923933}, {"dt": "2017-12-31T00:00:00", "Grain Mill Products": 1890.6, "Change": -10.753398791540791}, {"dt": "2018-01-31T00:00:00", "Grain Mill Products": 1898.5, "Change": -11.243571762505844}, {"dt": "2018-02-28T00:00:00", "Grain Mill Products": 2038.25, "Change": -6.6948958571755535}, {"dt": "2018-03-31T00:00:00", "Grain Mill Products": 2011.0, "Change": 0.6003001500750393}, {"dt": "2018-04-30T00:00:00", "Grain Mill Products": 1952.25, "Change": -4.29208745955486}, {"dt": "2018-05-31T00:00:00", "Grain Mill Products": 1917.5, "Change": -5.109489051094895}, {"dt": "2018-06-30T00:00:00", "Grain Mill Products": 1930.8, "Change": -4.154877140729707}, {"dt": "2018-07-31T00:00:00", "Grain Mill Products": 2016.75, "Change": 4.700965631813925}, {"dt": "2018-08-31T00:00:00", "Grain Mill Products": 2091.0, "Change": 7.32708841267804}, {"dt": "2018-09-30T00:00:00", "Grain Mill Products": 1986.0, "Change": 5.570912183712529}, {"dt": "2018-10-31T00:00:00", "Grain Mill Products": 2162.25, "Change": 8.560311284046684}, {"dt": "2018-11-30T00:00:00", "Grain Mill Products": 2076.5, "Change": 4.020037570444579}, {"dt": "2018-12-31T00:00:00", "Grain Mill Products": 2028.2, "Change": 7.278112768433309}, {"dt": "2019-01-31T00:00:00", "Grain Mill Products": 2019.3333333333333, "Change": 6.364673865332282}, {"dt": "2019-02-28T00:00:00", "Grain Mill Products": 1983.0, "Change": -2.7106586532564703}, {"dt": "2019-03-31T00:00:00", "Grain Mill Products": 2155.2, "Change": 7.1705619094977635}, {"dt": "2019-04-30T00:00:00", "Grain Mill Products": 2119.25, "Change": 8.554232296068642}, {"dt": "2019-05-31T00:00:00", "Grain Mill Products": 2071.75, "Change": 8.044328552803126}, {"dt": "2019-06-30T00:00:00", "Grain Mill Products": 2134.6, "Change": 10.555210275533454}, {"dt": "2019-07-31T00:00:00", "Grain Mill Products": 2118.5, "Change": 5.0452460642122166}, {"dt": "2019-08-31T00:00:00", "Grain Mill Products": 2173.4, "Change": 3.94069823051173}, {"dt": "2019-09-30T00:00:00", "Grain Mill Products": 2129.25, "Change": 7.212990936555896}, {"dt": "2019-10-31T00:00:00", "Grain Mill Products": 2130.5, "Change": -1.4683778471499598}, {"dt": "2019-11-30T00:00:00", "Grain Mill Products": 2031.2, "Change": -2.181555502046706}, {"dt": "2019-12-31T00:00:00", "Grain Mill Products": 1975.25, "Change": -2.6106892811359805}, {"dt": "2020-01-31T00:00:00", "Grain Mill Products": 2049.25, "Change": 1.4815120501815882}, {"dt": "2020-02-29T00:00:00", "Grain Mill Products": 2151.0, "Change": 8.472012102874427}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<hr>
+&copy; 2020 Kyle Dunn
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/133bd85554c933ac0ef7bab7a1a35a57a56e3808/analysis/transportation-csx.ipynb"><code>analysis/transportation-csx.ipynb</code></a> committed by GitHub Action on Thu Feb 6 05:58:48 2020 <a href="http://github.com/kdunn926/us-macro/commit/133bd85554c933ac0ef7bab7a1a35a57a56e3808">revision 2, 133bd85</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+</div>
+</div>
+</body>
+
+
+<script>
+// TODO - some, or all of this could be moved to pre-rendering sed/regex
+// add bootstrap table styles to pandoc tables (notebooks)
+$(document).ready( () => {
+
+  $('tr').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr').parent('thead').parent('table').removeAttr('border');
+  $('tr').parent('thead').parent('table').removeClass('dataframe');
+
+  $('.output_area .output_html table thead tr').removeAttr('style');
+  $('.output_area .output_html table thead tr th').attr("scope", "col");
+
+  $('.output_area .output_html table tbody tr th').attr("scope", "row");
+
+
+  // Change the input cell gutter text, make it a link
+  $('.input .input_prompt').map((n, e) => {
+    e.innerHTML = `<a href="#" >Show Code Cell [${n + 1}]</a>`;
+  });
+
+  // Attach an event listener to the above link for show/hide
+  $('.input .input_prompt a').map((n, e) => {
+    const showOrHide = e => {
+      e.preventDefault();
+      $(`#code-${n}`).find('.inner_cell').toggleClass('collapse');
+      const v = $(`#code-${n}`).find('.input_prompt a');
+      if (v.html().includes('Show')) {
+        v.html(`Hide Code Cell [${n+1}]`);
+      } else {
+        v.html(`Show Code Cell [${n+1}]`);
+      }
+    }
+
+    e.addEventListener("click", showOrHide, false);
+  });
+
+  // Annotate parent cells of input cells with id/classes
+  $('.input .inner_cell').map((n, e) => {
+    $('.input .inner_cell').parent('div').toArray()[n].id = `code-${n}`;
+  });
+  $('.input .inner_cell')
+    .addClass("collapse")
+    .after('<div class="inner_cell" style="font-size: 150%; padding-left: 5px;">...</div>');
+
+});
+</script>
+    
+
+</html>

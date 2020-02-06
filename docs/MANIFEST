@@ -1,6 +1,5 @@
 docs/analysis.tpl
 docs/analysis/construction.html
-docs/analysis/consumer.html
 docs/analysis/labor.html
 docs/analysis/manufacturing.html
 docs/analysis/residential-realestate-zillow.html
@@ -12,9 +11,3 @@ docs/analysis/transportation-csx.html
 docs/index.html
 docs/index.tpl
 docs/js/docs.js
-docs/license.html
-docs/license.tpl
-docs/notes.html
-docs/notes.tpl
-docs/setup.html
-docs/setup.tpl
