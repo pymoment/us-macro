@@ -7,7 +7,7 @@ on:
     - 'docs/**'
     - 'README.md'
   schedule:
-    - cron:  '1 * * * */6'
+    - cron:  '0 0 * * */6'
 
 jobs:
   refreshAndPublish:
@@ -32,6 +32,7 @@ jobs:
     - name: Display system Python3 version
       run: |
         python3 -c 'import sys; print(sys.version)'
+        echo "${{ steps.cache.outputs.cache-hit }}"
         pip install python-dateutil
 
     - name: Set up Miniconda
