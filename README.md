@@ -23,6 +23,7 @@ Sources:
 - [x] Manufacturing [new orders]
 - [x] Freight [trucking price index, railcar loads]
 - [x] Construction [new spend]
+- [ ] US Stock Market [distribution of inflation adjusted returns, Benford testing]
 - [ ] US Treasuries [yield curves, bid to cover ratios, interest rates]
 - [ ] Consumer Confidence
 - [ ] Commericial Credit [issuance, default rates]
