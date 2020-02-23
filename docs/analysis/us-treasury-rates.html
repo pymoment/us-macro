@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="0.9.7" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- begin stylesheets -->
+
+<link rel="stylesheet"
+    href="../css/jt.css">
+<link rel="stylesheet"
+    href="../css/toc2.css">
+<link rel="stylesheet"
+    href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+<link rel="stylesheet" type="text/css" href="../css/readable.css">
+<!-- end stylesheets -->
+
+<!-- begin javascript -->
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!-- Bootstrap 4 -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- Vega/Vegalite -->
+<script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+<!-- end javascript -->
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+    if (window.hljs &&
+        document.readyState &&
+        document.readyState === "complete") {
+       window.setTimeout(() => {
+          hljs.initHighlighting();
+       }, 0);
+    }
+</script>
+    
+
+<script src="../js/doc_toc.js"></script>
+<script src="../js/docs.js"></script>
+
+
+<script>
+    MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true
+        },
+        "HTML-CSS": {
+            preferredFont: "TeX",
+            availableFonts: ["TeX"],
+            styles: {
+                scale: 110,
+                ".MathJax_Display": {
+                    "font-size": "110%%",
+                }
+            }
+        }
+    });
+</script>
+    
+
+<script>
+function filterDataFrame(id) {
+    var input = document.getElementById("search_" + id);
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("dataframe_" + id);
+    var tr = table.getElementsByTagName("tr");
+    // Loop through all table rows, and hide those who don't match the search query
+    for (var i = 1; i < tr.length; i++) {
+        for (var j = 0; j < tr[i].cells.length; ++j) {
+            var matched = false;
+            if (tr[i].cells[j].innerHTML.toUpperCase().indexOf(filter) != -1) {
+                tr[i].style.display = "";
+                matched = true
+                break;
+            }
+            if (!matched)
+                tr[i].style.display = "none";
+        }
+    }
+}
+
+function sortDataFrame(id, n, dtype) {
+    var table = document.getElementById("dataframe_" + id);
+    var tb = table.tBodies[0]; // use `<tbody>` to ignore `<thead>` and `<tfoot>` rows
+    var tr = Array.prototype.slice.call(tb.rows, 0); // put rows into array
+    if (dtype === 'numeric') {
+        var fn = (a, b) =>
+            parseFloat(a.cells[n].textContent) <= parseFloat(b.cells[n].textContent) ? -1 : 1;
+    } else {
+        var fn = function(a, b) {
+            var c = a.cells[n].textContent.trim().localeCompare(b.cells[n].textContent.trim());
+            return c > 0 ? 1 : (c < 0 ? -1 : 0) }
+    }
+    var isSorted = function(array, fn) {
+        if (array.length < 2)
+            return 1;
+        var direction = fn(array[0], array[1]);
+        for (var i = 1; i < array.length - 1; ++i) {
+            var d = fn(array[i], array[i+1]);
+            if (d == 0)
+                continue;
+            else if (direction == 0)
+                direction = d;
+            else if (direction != d)
+                return 0;
+            }
+        return direction;
+    }
+    var sorted = isSorted(tr, fn);
+    if (sorted == 1 || sorted == -1) {
+        // if sorted already, reverse it
+        for(var i = tr.length - 1; i >= 0; --i)
+            tb.appendChild(tr[i]); // append each row in order
+    } else {
+        tr = tr.sort(fn);
+        for(var i = 0; i < tr.length; ++i)
+            tb.appendChild(tr[i]); // append each row in order
+    }
+}
+</script>
+
+
+
+
+<script>
+    // manage active state of menu based on current page
+    $(document).ready(function () {
+      // active menu anchor
+      href = window.location.pathname
+      href = href.substr(href.lastIndexOf('/') + 1)
+      if (href === "")
+        href = "index.html";
+      var menuAnchor = $('a[href*="' + href + '"]');
+      // mark it active
+      menuAnchor.parent().addClass('active');
+      // if it's got a parent navbar menu mark it active as well
+      menuAnchor.closest('li.dropdown').addClass('active');
+    });
+</script>
+    
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="../site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+    $(document).ready(function () {
+      window.buildTabsets("TOC");
+    });
+</script>
+
+
+
+<title>US Macroeconomic Data Explorer</title>
+
+<style type = "text/css">
+    body {
+      
+    }
+</style>
+</head>
+
+<body>
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+<div class="container" id="notebook-container">
+
+<!-- code folding -->
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="../index.html">US Macroeconomic Data Explorer</a>
+    <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="navbar-nav mr-auto">
+        
+<li class="nav-item">
+  <a class="nav-link" href="../index.html">Overview</a>
+</li>
+        
+      </ul>
+        
+<ul class="navbar-nav">
+<li class="nav-item">
+   <a class="nav-link" href="http://github.com/kdunn926/us-macro"> source </a>
+</li>
+</ul>
+        
+    </div><!--/.nav-collapse -->
+</nav><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="US-Treasury-Interest-Rates-/-Yield-Curve-Data">US Treasury Interest Rates / Yield Curve Data<a class="anchor-link" href="#US-Treasury-Interest-Rates-/-Yield-Curve-Data">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.treasury.gov/resource-center/data-chart-center/interest-rates/pages/TextView.aspx?data=yieldYear&amp;year=</span><span class="si">{year}</span><span class="s1">&#39;</span>
+
+<span class="k">def</span> <span class="nf">fetchRates</span><span class="p">(</span><span class="n">year</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">),</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span> <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;t-chart&quot;</span> <span class="p">})[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Date</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1m&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="n">fetchTsRates</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">years</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">fetchRates</span><span class="p">,</span> <span class="n">years</span><span class="p">))</span>
+
+<span class="c1">#fetchRates(2019).head()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-do-the-interest-rates-look-for-the-past-4-years-(by-instrument)?">How do the interest rates look for the past 4 years (by instrument)?<a class="anchor-link" href="#How-do-the-interest-rates-look-for-the-past-4-years-(by-instrument)?">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2021</span><span class="p">)</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;3 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;1 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;2 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;7 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;10 yr&#39;</span><span class="p">]</span>
+
+<span class="n">dfm</span> <span class="o">=</span> <span class="n">fetchTsRates</span><span class="p">(</span><span class="n">years</span><span class="p">)[</span><span class="n">fields</span><span class="p">]</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">)</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">dfm</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span>
+          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Interest Rate [%]&#39;</span><span class="p">),</span>
+          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">dfm</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">dfm</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())])),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;U.S. Treasury Yields from </span><span class="si">{y1}</span><span class="s1"> to </span><span class="si">{y2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y1</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">years</span><span class="p">),</span> <span class="n">y2</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">years</span><span class="p">)),</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-2b36f37ef4054544b71ebc205fb124fd"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-2b36f37ef4054544b71ebc205fb124fd");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-ac76be571139a8e673ffcd88680017bc"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "Maturity", "sort": ["3 mo", "1 yr", "2 yr", "7 yr", "10 yr"]}, "tooltip": [{"type": "temporal", "field": "Date", "format": "%b %Y"}, {"type": "nominal", "field": "Maturity"}, {"type": "quantitative", "field": "value"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "Date"}, "y": {"type": "quantitative", "axis": {"title": "Interest Rate [%]"}, "field": "value", "scale": {"domain": [0.0, 4.0]}}}, "height": 450, "title": "U.S. Treasury Yields from 2016 to 2020", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-ac76be571139a8e673ffcd88680017bc": [{"Date": "2016-01-31T00:00:00", "Maturity": "3 mo", "value": 0.33}, {"Date": "2016-02-29T00:00:00", "Maturity": "3 mo", "value": 0.33}, {"Date": "2016-03-31T00:00:00", "Maturity": "3 mo", "value": 0.21}, {"Date": "2016-04-30T00:00:00", "Maturity": "3 mo", "value": 0.22}, {"Date": "2016-05-31T00:00:00", "Maturity": "3 mo", "value": 0.34}, {"Date": "2016-06-30T00:00:00", "Maturity": "3 mo", "value": 0.26}, {"Date": "2016-07-31T00:00:00", "Maturity": "3 mo", "value": 0.28}, {"Date": "2016-08-31T00:00:00", "Maturity": "3 mo", "value": 0.33}, {"Date": "2016-09-30T00:00:00", "Maturity": "3 mo", "value": 0.29}, {"Date": "2016-10-31T00:00:00", "Maturity": "3 mo", "value": 0.34}, {"Date": "2016-11-30T00:00:00", "Maturity": "3 mo", "value": 0.48}, {"Date": "2016-12-31T00:00:00", "Maturity": "3 mo", "value": 0.51}, {"Date": "2017-01-31T00:00:00", "Maturity": "3 mo", "value": 0.52}, {"Date": "2017-02-28T00:00:00", "Maturity": "3 mo", "value": 0.53}, {"Date": "2017-03-31T00:00:00", "Maturity": "3 mo", "value": 0.76}, {"Date": "2017-04-30T00:00:00", "Maturity": "3 mo", "value": 0.8}, {"Date": "2017-05-31T00:00:00", "Maturity": "3 mo", "value": 0.98}, {"Date": "2017-06-30T00:00:00", "Maturity": "3 mo", "value": 1.03}, {"Date": "2017-07-31T00:00:00", "Maturity": "3 mo", "value": 1.07}, {"Date": "2017-08-31T00:00:00", "Maturity": "3 mo", "value": 1.01}, {"Date": "2017-09-30T00:00:00", "Maturity": "3 mo", "value": 1.06}, {"Date": "2017-10-31T00:00:00", "Maturity": "3 mo", "value": 1.15}, {"Date": "2017-11-30T00:00:00", "Maturity": "3 mo", "value": 1.27}, {"Date": "2017-12-31T00:00:00", "Maturity": "3 mo", "value": 1.39}, {"Date": "2018-01-31T00:00:00", "Maturity": "3 mo", "value": 1.46}, {"Date": "2018-02-28T00:00:00", "Maturity": "3 mo", "value": 1.65}, {"Date": "2018-03-31T00:00:00", "Maturity": "3 mo", "value": 1.73}, {"Date": "2018-04-30T00:00:00", "Maturity": "3 mo", "value": 1.87}, {"Date": "2018-05-31T00:00:00", "Maturity": "3 mo", "value": 1.93}, {"Date": "2018-06-30T00:00:00", "Maturity": "3 mo", "value": 1.93}, {"Date": "2018-07-31T00:00:00", "Maturity": "3 mo", "value": 2.03}, {"Date": "2018-08-31T00:00:00", "Maturity": "3 mo", "value": 2.11}, {"Date": "2018-09-30T00:00:00", "Maturity": "3 mo", "value": 2.19}, {"Date": "2018-10-31T00:00:00", "Maturity": "3 mo", "value": 2.34}, {"Date": "2018-11-30T00:00:00", "Maturity": "3 mo", "value": 2.37}, {"Date": "2018-12-31T00:00:00", "Maturity": "3 mo", "value": 2.45}, {"Date": "2019-01-31T00:00:00", "Maturity": "3 mo", "value": 2.41}, {"Date": "2019-02-28T00:00:00", "Maturity": "3 mo", "value": 2.45}, {"Date": "2019-03-31T00:00:00", "Maturity": "3 mo", "value": 2.4}, {"Date": "2019-04-30T00:00:00", "Maturity": "3 mo", "value": 2.43}, {"Date": "2019-05-31T00:00:00", "Maturity": "3 mo", "value": 2.35}, {"Date": "2019-06-30T00:00:00", "Maturity": "3 mo", "value": 2.12}, {"Date": "2019-07-31T00:00:00", "Maturity": "3 mo", "value": 2.08}, {"Date": "2019-08-31T00:00:00", "Maturity": "3 mo", "value": 1.99}, {"Date": "2019-09-30T00:00:00", "Maturity": "3 mo", "value": 1.88}, {"Date": "2019-10-31T00:00:00", "Maturity": "3 mo", "value": 1.54}, {"Date": "2019-11-30T00:00:00", "Maturity": "3 mo", "value": 1.59}, {"Date": "2019-12-31T00:00:00", "Maturity": "3 mo", "value": 1.55}, {"Date": "2020-01-31T00:00:00", "Maturity": "3 mo", "value": 1.55}, {"Date": "2020-02-29T00:00:00", "Maturity": "3 mo", "value": 1.56}, {"Date": "2016-01-31T00:00:00", "Maturity": "1 yr", "value": 0.47}, {"Date": "2016-02-29T00:00:00", "Maturity": "1 yr", "value": 0.62}, {"Date": "2016-03-31T00:00:00", "Maturity": "1 yr", "value": 0.59}, {"Date": "2016-04-30T00:00:00", "Maturity": "1 yr", "value": 0.56}, {"Date": "2016-05-31T00:00:00", "Maturity": "1 yr", "value": 0.68}, {"Date": "2016-06-30T00:00:00", "Maturity": "1 yr", "value": 0.45}, {"Date": "2016-07-31T00:00:00", "Maturity": "1 yr", "value": 0.5}, {"Date": "2016-08-31T00:00:00", "Maturity": "1 yr", "value": 0.61}, {"Date": "2016-09-30T00:00:00", "Maturity": "1 yr", "value": 0.59}, {"Date": "2016-10-31T00:00:00", "Maturity": "1 yr", "value": 0.66}, {"Date": "2016-11-30T00:00:00", "Maturity": "1 yr", "value": 0.8}, {"Date": "2016-12-31T00:00:00", "Maturity": "1 yr", "value": 0.85}, {"Date": "2017-01-31T00:00:00", "Maturity": "1 yr", "value": 0.84}, {"Date": "2017-02-28T00:00:00", "Maturity": "1 yr", "value": 0.88}, {"Date": "2017-03-31T00:00:00", "Maturity": "1 yr", "value": 1.03}, {"Date": "2017-04-30T00:00:00", "Maturity": "1 yr", "value": 1.07}, {"Date": "2017-05-31T00:00:00", "Maturity": "1 yr", "value": 1.17}, {"Date": "2017-06-30T00:00:00", "Maturity": "1 yr", "value": 1.24}, {"Date": "2017-07-31T00:00:00", "Maturity": "1 yr", "value": 1.23}, {"Date": "2017-08-31T00:00:00", "Maturity": "1 yr", "value": 1.23}, {"Date": "2017-09-30T00:00:00", "Maturity": "1 yr", "value": 1.31}, {"Date": "2017-10-31T00:00:00", "Maturity": "1 yr", "value": 1.43}, {"Date": "2017-11-30T00:00:00", "Maturity": "1 yr", "value": 1.62}, {"Date": "2017-12-31T00:00:00", "Maturity": "1 yr", "value": 1.76}, {"Date": "2018-01-31T00:00:00", "Maturity": "1 yr", "value": 1.9}, {"Date": "2018-02-28T00:00:00", "Maturity": "1 yr", "value": 2.07}, {"Date": "2018-03-31T00:00:00", "Maturity": "1 yr", "value": 2.09}, {"Date": "2018-04-30T00:00:00", "Maturity": "1 yr", "value": 2.24}, {"Date": "2018-05-31T00:00:00", "Maturity": "1 yr", "value": 2.23}, {"Date": "2018-06-30T00:00:00", "Maturity": "1 yr", "value": 2.33}, {"Date": "2018-07-31T00:00:00", "Maturity": "1 yr", "value": 2.44}, {"Date": "2018-08-31T00:00:00", "Maturity": "1 yr", "value": 2.46}, {"Date": "2018-09-30T00:00:00", "Maturity": "1 yr", "value": 2.59}, {"Date": "2018-10-31T00:00:00", "Maturity": "1 yr", "value": 2.69}, {"Date": "2018-11-30T00:00:00", "Maturity": "1 yr", "value": 2.7}, {"Date": "2018-12-31T00:00:00", "Maturity": "1 yr", "value": 2.63}, {"Date": "2019-01-31T00:00:00", "Maturity": "1 yr", "value": 2.55}, {"Date": "2019-02-28T00:00:00", "Maturity": "1 yr", "value": 2.54}, {"Date": "2019-03-31T00:00:00", "Maturity": "1 yr", "value": 2.4}, {"Date": "2019-04-30T00:00:00", "Maturity": "1 yr", "value": 2.39}, {"Date": "2019-05-31T00:00:00", "Maturity": "1 yr", "value": 2.21}, {"Date": "2019-06-30T00:00:00", "Maturity": "1 yr", "value": 1.92}, {"Date": "2019-07-31T00:00:00", "Maturity": "1 yr", "value": 2.0}, {"Date": "2019-08-31T00:00:00", "Maturity": "1 yr", "value": 1.76}, {"Date": "2019-09-30T00:00:00", "Maturity": "1 yr", "value": 1.75}, {"Date": "2019-10-31T00:00:00", "Maturity": "1 yr", "value": 1.53}, {"Date": "2019-11-30T00:00:00", "Maturity": "1 yr", "value": 1.6}, {"Date": "2019-12-31T00:00:00", "Maturity": "1 yr", "value": 1.59}, {"Date": "2020-01-31T00:00:00", "Maturity": "1 yr", "value": 1.45}, {"Date": "2020-02-29T00:00:00", "Maturity": "1 yr", "value": 1.43}, {"Date": "2016-01-31T00:00:00", "Maturity": "2 yr", "value": 0.76}, {"Date": "2016-02-29T00:00:00", "Maturity": "2 yr", "value": 0.78}, {"Date": "2016-03-31T00:00:00", "Maturity": "2 yr", "value": 0.73}, {"Date": "2016-04-30T00:00:00", "Maturity": "2 yr", "value": 0.77}, {"Date": "2016-05-31T00:00:00", "Maturity": "2 yr", "value": 0.87}, {"Date": "2016-06-30T00:00:00", "Maturity": "2 yr", "value": 0.58}, {"Date": "2016-07-31T00:00:00", "Maturity": "2 yr", "value": 0.67}, {"Date": "2016-08-31T00:00:00", "Maturity": "2 yr", "value": 0.8}, {"Date": "2016-09-30T00:00:00", "Maturity": "2 yr", "value": 0.77}, {"Date": "2016-10-31T00:00:00", "Maturity": "2 yr", "value": 0.86}, {"Date": "2016-11-30T00:00:00", "Maturity": "2 yr", "value": 1.11}, {"Date": "2016-12-31T00:00:00", "Maturity": "2 yr", "value": 1.2}, {"Date": "2017-01-31T00:00:00", "Maturity": "2 yr", "value": 1.19}, {"Date": "2017-02-28T00:00:00", "Maturity": "2 yr", "value": 1.22}, {"Date": "2017-03-31T00:00:00", "Maturity": "2 yr", "value": 1.27}, {"Date": "2017-04-30T00:00:00", "Maturity": "2 yr", "value": 1.28}, {"Date": "2017-05-31T00:00:00", "Maturity": "2 yr", "value": 1.28}, {"Date": "2017-06-30T00:00:00", "Maturity": "2 yr", "value": 1.38}, {"Date": "2017-07-31T00:00:00", "Maturity": "2 yr", "value": 1.34}, {"Date": "2017-08-31T00:00:00", "Maturity": "2 yr", "value": 1.33}, {"Date": "2017-09-30T00:00:00", "Maturity": "2 yr", "value": 1.47}, {"Date": "2017-10-31T00:00:00", "Maturity": "2 yr", "value": 1.6}, {"Date": "2017-11-30T00:00:00", "Maturity": "2 yr", "value": 1.78}, {"Date": "2017-12-31T00:00:00", "Maturity": "2 yr", "value": 1.89}, {"Date": "2018-01-31T00:00:00", "Maturity": "2 yr", "value": 2.14}, {"Date": "2018-02-28T00:00:00", "Maturity": "2 yr", "value": 2.25}, {"Date": "2018-03-31T00:00:00", "Maturity": "2 yr", "value": 2.27}, {"Date": "2018-04-30T00:00:00", "Maturity": "2 yr", "value": 2.49}, {"Date": "2018-05-31T00:00:00", "Maturity": "2 yr", "value": 2.4}, {"Date": "2018-06-30T00:00:00", "Maturity": "2 yr", "value": 2.52}, {"Date": "2018-07-31T00:00:00", "Maturity": "2 yr", "value": 2.67}, {"Date": "2018-08-31T00:00:00", "Maturity": "2 yr", "value": 2.62}, {"Date": "2018-09-30T00:00:00", "Maturity": "2 yr", "value": 2.81}, {"Date": "2018-10-31T00:00:00", "Maturity": "2 yr", "value": 2.87}, {"Date": "2018-11-30T00:00:00", "Maturity": "2 yr", "value": 2.8}, {"Date": "2018-12-31T00:00:00", "Maturity": "2 yr", "value": 2.48}, {"Date": "2019-01-31T00:00:00", "Maturity": "2 yr", "value": 2.45}, {"Date": "2019-02-28T00:00:00", "Maturity": "2 yr", "value": 2.52}, {"Date": "2019-03-31T00:00:00", "Maturity": "2 yr", "value": 2.27}, {"Date": "2019-04-30T00:00:00", "Maturity": "2 yr", "value": 2.27}, {"Date": "2019-05-31T00:00:00", "Maturity": "2 yr", "value": 1.95}, {"Date": "2019-06-30T00:00:00", "Maturity": "2 yr", "value": 1.75}, {"Date": "2019-07-31T00:00:00", "Maturity": "2 yr", "value": 1.89}, {"Date": "2019-08-31T00:00:00", "Maturity": "2 yr", "value": 1.5}, {"Date": "2019-09-30T00:00:00", "Maturity": "2 yr", "value": 1.63}, {"Date": "2019-10-31T00:00:00", "Maturity": "2 yr", "value": 1.52}, {"Date": "2019-11-30T00:00:00", "Maturity": "2 yr", "value": 1.61}, {"Date": "2019-12-31T00:00:00", "Maturity": "2 yr", "value": 1.58}, {"Date": "2020-01-31T00:00:00", "Maturity": "2 yr", "value": 1.33}, {"Date": "2020-02-29T00:00:00", "Maturity": "2 yr", "value": 1.34}, {"Date": "2016-01-31T00:00:00", "Maturity": "7 yr", "value": 1.67}, {"Date": "2016-02-29T00:00:00", "Maturity": "7 yr", "value": 1.52}, {"Date": "2016-03-31T00:00:00", "Maturity": "7 yr", "value": 1.54}, {"Date": "2016-04-30T00:00:00", "Maturity": "7 yr", "value": 1.6}, {"Date": "2016-05-31T00:00:00", "Maturity": "7 yr", "value": 1.66}, {"Date": "2016-06-30T00:00:00", "Maturity": "7 yr", "value": 1.29}, {"Date": "2016-07-31T00:00:00", "Maturity": "7 yr", "value": 1.29}, {"Date": "2016-08-31T00:00:00", "Maturity": "7 yr", "value": 1.45}, {"Date": "2016-09-30T00:00:00", "Maturity": "7 yr", "value": 1.42}, {"Date": "2016-10-31T00:00:00", "Maturity": "7 yr", "value": 1.62}, {"Date": "2016-11-30T00:00:00", "Maturity": "7 yr", "value": 2.18}, {"Date": "2016-12-31T00:00:00", "Maturity": "7 yr", "value": 2.25}, {"Date": "2017-01-31T00:00:00", "Maturity": "7 yr", "value": 2.24}, {"Date": "2017-02-28T00:00:00", "Maturity": "7 yr", "value": 2.19}, {"Date": "2017-03-31T00:00:00", "Maturity": "7 yr", "value": 2.22}, {"Date": "2017-04-30T00:00:00", "Maturity": "7 yr", "value": 2.1}, {"Date": "2017-05-31T00:00:00", "Maturity": "7 yr", "value": 2.02}, {"Date": "2017-06-30T00:00:00", "Maturity": "7 yr", "value": 2.14}, {"Date": "2017-07-31T00:00:00", "Maturity": "7 yr", "value": 2.11}, {"Date": "2017-08-31T00:00:00", "Maturity": "7 yr", "value": 1.95}, {"Date": "2017-09-30T00:00:00", "Maturity": "7 yr", "value": 2.16}, {"Date": "2017-10-31T00:00:00", "Maturity": "7 yr", "value": 2.23}, {"Date": "2017-11-30T00:00:00", "Maturity": "7 yr", "value": 2.31}, {"Date": "2017-12-31T00:00:00", "Maturity": "7 yr", "value": 2.33}, {"Date": "2018-01-31T00:00:00", "Maturity": "7 yr", "value": 2.66}, {"Date": "2018-02-28T00:00:00", "Maturity": "7 yr", "value": 2.8}, {"Date": "2018-03-31T00:00:00", "Maturity": "7 yr", "value": 2.68}, {"Date": "2018-04-30T00:00:00", "Maturity": "7 yr", "value": 2.91}, {"Date": "2018-05-31T00:00:00", "Maturity": "7 yr", "value": 2.78}, {"Date": "2018-06-30T00:00:00", "Maturity": "7 yr", "value": 2.81}, {"Date": "2018-07-31T00:00:00", "Maturity": "7 yr", "value": 2.92}, {"Date": "2018-08-31T00:00:00", "Maturity": "7 yr", "value": 2.81}, {"Date": "2018-09-30T00:00:00", "Maturity": "7 yr", "value": 3.01}, {"Date": "2018-10-31T00:00:00", "Maturity": "7 yr", "value": 3.07}, {"Date": "2018-11-30T00:00:00", "Maturity": "7 yr", "value": 2.92}, {"Date": "2018-12-31T00:00:00", "Maturity": "7 yr", "value": 2.59}, {"Date": "2019-01-31T00:00:00", "Maturity": "7 yr", "value": 2.51}, {"Date": "2019-02-28T00:00:00", "Maturity": "7 yr", "value": 2.63}, {"Date": "2019-03-31T00:00:00", "Maturity": "7 yr", "value": 2.31}, {"Date": "2019-04-30T00:00:00", "Maturity": "7 yr", "value": 2.39}, {"Date": "2019-05-31T00:00:00", "Maturity": "7 yr", "value": 2.03}, {"Date": "2019-06-30T00:00:00", "Maturity": "7 yr", "value": 1.87}, {"Date": "2019-07-31T00:00:00", "Maturity": "7 yr", "value": 1.92}, {"Date": "2019-08-31T00:00:00", "Maturity": "7 yr", "value": 1.45}, {"Date": "2019-09-30T00:00:00", "Maturity": "7 yr", "value": 1.62}, {"Date": "2019-10-31T00:00:00", "Maturity": "7 yr", "value": 1.6}, {"Date": "2019-11-30T00:00:00", "Maturity": "7 yr", "value": 1.73}, {"Date": "2019-12-31T00:00:00", "Maturity": "7 yr", "value": 1.83}, {"Date": "2020-01-31T00:00:00", "Maturity": "7 yr", "value": 1.42}, {"Date": "2020-02-29T00:00:00", "Maturity": "7 yr", "value": 1.39}, {"Date": "2016-01-31T00:00:00", "Maturity": "10 yr", "value": 1.94}, {"Date": "2016-02-29T00:00:00", "Maturity": "10 yr", "value": 1.74}, {"Date": "2016-03-31T00:00:00", "Maturity": "10 yr", "value": 1.78}, {"Date": "2016-04-30T00:00:00", "Maturity": "10 yr", "value": 1.83}, {"Date": "2016-05-31T00:00:00", "Maturity": "10 yr", "value": 1.84}, {"Date": "2016-06-30T00:00:00", "Maturity": "10 yr", "value": 1.49}, {"Date": "2016-07-31T00:00:00", "Maturity": "10 yr", "value": 1.46}, {"Date": "2016-08-31T00:00:00", "Maturity": "10 yr", "value": 1.58}, {"Date": "2016-09-30T00:00:00", "Maturity": "10 yr", "value": 1.6}, {"Date": "2016-10-31T00:00:00", "Maturity": "10 yr", "value": 1.84}, {"Date": "2016-11-30T00:00:00", "Maturity": "10 yr", "value": 2.37}, {"Date": "2016-12-31T00:00:00", "Maturity": "10 yr", "value": 2.45}, {"Date": "2017-01-31T00:00:00", "Maturity": "10 yr", "value": 2.45}, {"Date": "2017-02-28T00:00:00", "Maturity": "10 yr", "value": 2.36}, {"Date": "2017-03-31T00:00:00", "Maturity": "10 yr", "value": 2.4}, {"Date": "2017-04-30T00:00:00", "Maturity": "10 yr", "value": 2.29}, {"Date": "2017-05-31T00:00:00", "Maturity": "10 yr", "value": 2.21}, {"Date": "2017-06-30T00:00:00", "Maturity": "10 yr", "value": 2.31}, {"Date": "2017-07-31T00:00:00", "Maturity": "10 yr", "value": 2.3}, {"Date": "2017-08-31T00:00:00", "Maturity": "10 yr", "value": 2.12}, {"Date": "2017-09-30T00:00:00", "Maturity": "10 yr", "value": 2.33}, {"Date": "2017-10-31T00:00:00", "Maturity": "10 yr", "value": 2.38}, {"Date": "2017-11-30T00:00:00", "Maturity": "10 yr", "value": 2.42}, {"Date": "2017-12-31T00:00:00", "Maturity": "10 yr", "value": 2.4}, {"Date": "2018-01-31T00:00:00", "Maturity": "10 yr", "value": 2.72}, {"Date": "2018-02-28T00:00:00", "Maturity": "10 yr", "value": 2.87}, {"Date": "2018-03-31T00:00:00", "Maturity": "10 yr", "value": 2.74}, {"Date": "2018-04-30T00:00:00", "Maturity": "10 yr", "value": 2.95}, {"Date": "2018-05-31T00:00:00", "Maturity": "10 yr", "value": 2.83}, {"Date": "2018-06-30T00:00:00", "Maturity": "10 yr", "value": 2.85}, {"Date": "2018-07-31T00:00:00", "Maturity": "10 yr", "value": 2.96}, {"Date": "2018-08-31T00:00:00", "Maturity": "10 yr", "value": 2.86}, {"Date": "2018-09-30T00:00:00", "Maturity": "10 yr", "value": 3.05}, {"Date": "2018-10-31T00:00:00", "Maturity": "10 yr", "value": 3.15}, {"Date": "2018-11-30T00:00:00", "Maturity": "10 yr", "value": 3.01}, {"Date": "2018-12-31T00:00:00", "Maturity": "10 yr", "value": 2.69}, {"Date": "2019-01-31T00:00:00", "Maturity": "10 yr", "value": 2.63}, {"Date": "2019-02-28T00:00:00", "Maturity": "10 yr", "value": 2.73}, {"Date": "2019-03-31T00:00:00", "Maturity": "10 yr", "value": 2.41}, {"Date": "2019-04-30T00:00:00", "Maturity": "10 yr", "value": 2.51}, {"Date": "2019-05-31T00:00:00", "Maturity": "10 yr", "value": 2.14}, {"Date": "2019-06-30T00:00:00", "Maturity": "10 yr", "value": 2.0}, {"Date": "2019-07-31T00:00:00", "Maturity": "10 yr", "value": 2.02}, {"Date": "2019-08-31T00:00:00", "Maturity": "10 yr", "value": 1.5}, {"Date": "2019-09-30T00:00:00", "Maturity": "10 yr", "value": 1.68}, {"Date": "2019-10-31T00:00:00", "Maturity": "10 yr", "value": 1.69}, {"Date": "2019-11-30T00:00:00", "Maturity": "10 yr", "value": 1.78}, {"Date": "2019-12-31T00:00:00", "Maturity": "10 yr", "value": 1.92}, {"Date": "2020-01-31T00:00:00", "Maturity": "10 yr", "value": 1.51}, {"Date": "2020-02-29T00:00:00", "Maturity": "10 yr", "value": 1.46}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Same-chart-as-above,-just-a-different-mix-of-instruments">Same chart as above, just a different mix of instruments<a class="anchor-link" href="#Same-chart-as-above,-just-a-different-mix-of-instruments">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2021</span><span class="p">)</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;6 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;2 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;3 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;5 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;30 yr&#39;</span><span class="p">]</span>
+
+<span class="n">dfm</span> <span class="o">=</span> <span class="n">fetchTsRates</span><span class="p">(</span><span class="n">years</span><span class="p">)[</span><span class="n">fields</span><span class="p">]</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">)</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">dfm</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span>
+          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Interest Rate [%]&#39;</span><span class="p">),</span>
+          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">dfm</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">dfm</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())])),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;U.S. Treasury Yields from </span><span class="si">{y1}</span><span class="s1"> to </span><span class="si">{y2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y1</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">years</span><span class="p">),</span> <span class="n">y2</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">years</span><span class="p">)),</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-691e22e5b3754da0a9c50945644eb836"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-691e22e5b3754da0a9c50945644eb836");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-5b8853c3482479641097412c065d0de6"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "Maturity", "sort": ["6 mo", "2 yr", "3 yr", "5 yr", "30 yr"]}, "tooltip": [{"type": "temporal", "field": "Date", "format": "%b %Y"}, {"type": "nominal", "field": "Maturity"}, {"type": "quantitative", "field": "value"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "Date"}, "y": {"type": "quantitative", "axis": {"title": "Interest Rate [%]"}, "field": "value", "scale": {"domain": [0.0, 4.0]}}}, "height": 450, "title": "U.S. Treasury Yields from 2016 to 2020", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-5b8853c3482479641097412c065d0de6": [{"Date": "2016-01-31T00:00:00", "Maturity": "6 mo", "value": 0.43}, {"Date": "2016-02-29T00:00:00", "Maturity": "6 mo", "value": 0.49}, {"Date": "2016-03-31T00:00:00", "Maturity": "6 mo", "value": 0.39}, {"Date": "2016-04-30T00:00:00", "Maturity": "6 mo", "value": 0.4}, {"Date": "2016-05-31T00:00:00", "Maturity": "6 mo", "value": 0.49}, {"Date": "2016-06-30T00:00:00", "Maturity": "6 mo", "value": 0.36}, {"Date": "2016-07-31T00:00:00", "Maturity": "6 mo", "value": 0.38}, {"Date": "2016-08-31T00:00:00", "Maturity": "6 mo", "value": 0.47}, {"Date": "2016-09-30T00:00:00", "Maturity": "6 mo", "value": 0.45}, {"Date": "2016-10-31T00:00:00", "Maturity": "6 mo", "value": 0.51}, {"Date": "2016-11-30T00:00:00", "Maturity": "6 mo", "value": 0.62}, {"Date": "2016-12-31T00:00:00", "Maturity": "6 mo", "value": 0.62}, {"Date": "2017-01-31T00:00:00", "Maturity": "6 mo", "value": 0.64}, {"Date": "2017-02-28T00:00:00", "Maturity": "6 mo", "value": 0.69}, {"Date": "2017-03-31T00:00:00", "Maturity": "6 mo", "value": 0.91}, {"Date": "2017-04-30T00:00:00", "Maturity": "6 mo", "value": 0.99}, {"Date": "2017-05-31T00:00:00", "Maturity": "6 mo", "value": 1.08}, {"Date": "2017-06-30T00:00:00", "Maturity": "6 mo", "value": 1.14}, {"Date": "2017-07-31T00:00:00", "Maturity": "6 mo", "value": 1.13}, {"Date": "2017-08-31T00:00:00", "Maturity": "6 mo", "value": 1.08}, {"Date": "2017-09-30T00:00:00", "Maturity": "6 mo", "value": 1.2}, {"Date": "2017-10-31T00:00:00", "Maturity": "6 mo", "value": 1.28}, {"Date": "2017-11-30T00:00:00", "Maturity": "6 mo", "value": 1.44}, {"Date": "2017-12-31T00:00:00", "Maturity": "6 mo", "value": 1.53}, {"Date": "2018-01-31T00:00:00", "Maturity": "6 mo", "value": 1.66}, {"Date": "2018-02-28T00:00:00", "Maturity": "6 mo", "value": 1.86}, {"Date": "2018-03-31T00:00:00", "Maturity": "6 mo", "value": 1.93}, {"Date": "2018-04-30T00:00:00", "Maturity": "6 mo", "value": 2.04}, {"Date": "2018-05-31T00:00:00", "Maturity": "6 mo", "value": 2.08}, {"Date": "2018-06-30T00:00:00", "Maturity": "6 mo", "value": 2.11}, {"Date": "2018-07-31T00:00:00", "Maturity": "6 mo", "value": 2.21}, {"Date": "2018-08-31T00:00:00", "Maturity": "6 mo", "value": 2.28}, {"Date": "2018-09-30T00:00:00", "Maturity": "6 mo", "value": 2.36}, {"Date": "2018-10-31T00:00:00", "Maturity": "6 mo", "value": 2.49}, {"Date": "2018-11-30T00:00:00", "Maturity": "6 mo", "value": 2.52}, {"Date": "2018-12-31T00:00:00", "Maturity": "6 mo", "value": 2.56}, {"Date": "2019-01-31T00:00:00", "Maturity": "6 mo", "value": 2.46}, {"Date": "2019-02-28T00:00:00", "Maturity": "6 mo", "value": 2.5}, {"Date": "2019-03-31T00:00:00", "Maturity": "6 mo", "value": 2.44}, {"Date": "2019-04-30T00:00:00", "Maturity": "6 mo", "value": 2.46}, {"Date": "2019-05-31T00:00:00", "Maturity": "6 mo", "value": 2.35}, {"Date": "2019-06-30T00:00:00", "Maturity": "6 mo", "value": 2.09}, {"Date": "2019-07-31T00:00:00", "Maturity": "6 mo", "value": 2.1}, {"Date": "2019-08-31T00:00:00", "Maturity": "6 mo", "value": 1.89}, {"Date": "2019-09-30T00:00:00", "Maturity": "6 mo", "value": 1.83}, {"Date": "2019-10-31T00:00:00", "Maturity": "6 mo", "value": 1.57}, {"Date": "2019-11-30T00:00:00", "Maturity": "6 mo", "value": 1.63}, {"Date": "2019-12-31T00:00:00", "Maturity": "6 mo", "value": 1.6}, {"Date": "2020-01-31T00:00:00", "Maturity": "6 mo", "value": 1.54}, {"Date": "2020-02-29T00:00:00", "Maturity": "6 mo", "value": 1.53}, {"Date": "2016-01-31T00:00:00", "Maturity": "2 yr", "value": 0.76}, {"Date": "2016-02-29T00:00:00", "Maturity": "2 yr", "value": 0.78}, {"Date": "2016-03-31T00:00:00", "Maturity": "2 yr", "value": 0.73}, {"Date": "2016-04-30T00:00:00", "Maturity": "2 yr", "value": 0.77}, {"Date": "2016-05-31T00:00:00", "Maturity": "2 yr", "value": 0.87}, {"Date": "2016-06-30T00:00:00", "Maturity": "2 yr", "value": 0.58}, {"Date": "2016-07-31T00:00:00", "Maturity": "2 yr", "value": 0.67}, {"Date": "2016-08-31T00:00:00", "Maturity": "2 yr", "value": 0.8}, {"Date": "2016-09-30T00:00:00", "Maturity": "2 yr", "value": 0.77}, {"Date": "2016-10-31T00:00:00", "Maturity": "2 yr", "value": 0.86}, {"Date": "2016-11-30T00:00:00", "Maturity": "2 yr", "value": 1.11}, {"Date": "2016-12-31T00:00:00", "Maturity": "2 yr", "value": 1.2}, {"Date": "2017-01-31T00:00:00", "Maturity": "2 yr", "value": 1.19}, {"Date": "2017-02-28T00:00:00", "Maturity": "2 yr", "value": 1.22}, {"Date": "2017-03-31T00:00:00", "Maturity": "2 yr", "value": 1.27}, {"Date": "2017-04-30T00:00:00", "Maturity": "2 yr", "value": 1.28}, {"Date": "2017-05-31T00:00:00", "Maturity": "2 yr", "value": 1.28}, {"Date": "2017-06-30T00:00:00", "Maturity": "2 yr", "value": 1.38}, {"Date": "2017-07-31T00:00:00", "Maturity": "2 yr", "value": 1.34}, {"Date": "2017-08-31T00:00:00", "Maturity": "2 yr", "value": 1.33}, {"Date": "2017-09-30T00:00:00", "Maturity": "2 yr", "value": 1.47}, {"Date": "2017-10-31T00:00:00", "Maturity": "2 yr", "value": 1.6}, {"Date": "2017-11-30T00:00:00", "Maturity": "2 yr", "value": 1.78}, {"Date": "2017-12-31T00:00:00", "Maturity": "2 yr", "value": 1.89}, {"Date": "2018-01-31T00:00:00", "Maturity": "2 yr", "value": 2.14}, {"Date": "2018-02-28T00:00:00", "Maturity": "2 yr", "value": 2.25}, {"Date": "2018-03-31T00:00:00", "Maturity": "2 yr", "value": 2.27}, {"Date": "2018-04-30T00:00:00", "Maturity": "2 yr", "value": 2.49}, {"Date": "2018-05-31T00:00:00", "Maturity": "2 yr", "value": 2.4}, {"Date": "2018-06-30T00:00:00", "Maturity": "2 yr", "value": 2.52}, {"Date": "2018-07-31T00:00:00", "Maturity": "2 yr", "value": 2.67}, {"Date": "2018-08-31T00:00:00", "Maturity": "2 yr", "value": 2.62}, {"Date": "2018-09-30T00:00:00", "Maturity": "2 yr", "value": 2.81}, {"Date": "2018-10-31T00:00:00", "Maturity": "2 yr", "value": 2.87}, {"Date": "2018-11-30T00:00:00", "Maturity": "2 yr", "value": 2.8}, {"Date": "2018-12-31T00:00:00", "Maturity": "2 yr", "value": 2.48}, {"Date": "2019-01-31T00:00:00", "Maturity": "2 yr", "value": 2.45}, {"Date": "2019-02-28T00:00:00", "Maturity": "2 yr", "value": 2.52}, {"Date": "2019-03-31T00:00:00", "Maturity": "2 yr", "value": 2.27}, {"Date": "2019-04-30T00:00:00", "Maturity": "2 yr", "value": 2.27}, {"Date": "2019-05-31T00:00:00", "Maturity": "2 yr", "value": 1.95}, {"Date": "2019-06-30T00:00:00", "Maturity": "2 yr", "value": 1.75}, {"Date": "2019-07-31T00:00:00", "Maturity": "2 yr", "value": 1.89}, {"Date": "2019-08-31T00:00:00", "Maturity": "2 yr", "value": 1.5}, {"Date": "2019-09-30T00:00:00", "Maturity": "2 yr", "value": 1.63}, {"Date": "2019-10-31T00:00:00", "Maturity": "2 yr", "value": 1.52}, {"Date": "2019-11-30T00:00:00", "Maturity": "2 yr", "value": 1.61}, {"Date": "2019-12-31T00:00:00", "Maturity": "2 yr", "value": 1.58}, {"Date": "2020-01-31T00:00:00", "Maturity": "2 yr", "value": 1.33}, {"Date": "2020-02-29T00:00:00", "Maturity": "2 yr", "value": 1.34}, {"Date": "2016-01-31T00:00:00", "Maturity": "3 yr", "value": 0.97}, {"Date": "2016-02-29T00:00:00", "Maturity": "3 yr", "value": 0.91}, {"Date": "2016-03-31T00:00:00", "Maturity": "3 yr", "value": 0.87}, {"Date": "2016-04-30T00:00:00", "Maturity": "3 yr", "value": 0.92}, {"Date": "2016-05-31T00:00:00", "Maturity": "3 yr", "value": 1.03}, {"Date": "2016-06-30T00:00:00", "Maturity": "3 yr", "value": 0.71}, {"Date": "2016-07-31T00:00:00", "Maturity": "3 yr", "value": 0.76}, {"Date": "2016-08-31T00:00:00", "Maturity": "3 yr", "value": 0.92}, {"Date": "2016-09-30T00:00:00", "Maturity": "3 yr", "value": 0.88}, {"Date": "2016-10-31T00:00:00", "Maturity": "3 yr", "value": 1.0}, {"Date": "2016-11-30T00:00:00", "Maturity": "3 yr", "value": 1.4}, {"Date": "2016-12-31T00:00:00", "Maturity": "3 yr", "value": 1.47}, {"Date": "2017-01-31T00:00:00", "Maturity": "3 yr", "value": 1.46}, {"Date": "2017-02-28T00:00:00", "Maturity": "3 yr", "value": 1.49}, {"Date": "2017-03-31T00:00:00", "Maturity": "3 yr", "value": 1.5}, {"Date": "2017-04-30T00:00:00", "Maturity": "3 yr", "value": 1.45}, {"Date": "2017-05-31T00:00:00", "Maturity": "3 yr", "value": 1.44}, {"Date": "2017-06-30T00:00:00", "Maturity": "3 yr", "value": 1.55}, {"Date": "2017-07-31T00:00:00", "Maturity": "3 yr", "value": 1.51}, {"Date": "2017-08-31T00:00:00", "Maturity": "3 yr", "value": 1.44}, {"Date": "2017-09-30T00:00:00", "Maturity": "3 yr", "value": 1.62}, {"Date": "2017-10-31T00:00:00", "Maturity": "3 yr", "value": 1.73}, {"Date": "2017-11-30T00:00:00", "Maturity": "3 yr", "value": 1.9}, {"Date": "2017-12-31T00:00:00", "Maturity": "3 yr", "value": 1.98}, {"Date": "2018-01-31T00:00:00", "Maturity": "3 yr", "value": 2.29}, {"Date": "2018-02-28T00:00:00", "Maturity": "3 yr", "value": 2.42}, {"Date": "2018-03-31T00:00:00", "Maturity": "3 yr", "value": 2.39}, {"Date": "2018-04-30T00:00:00", "Maturity": "3 yr", "value": 2.62}, {"Date": "2018-05-31T00:00:00", "Maturity": "3 yr", "value": 2.54}, {"Date": "2018-06-30T00:00:00", "Maturity": "3 yr", "value": 2.63}, {"Date": "2018-07-31T00:00:00", "Maturity": "3 yr", "value": 2.77}, {"Date": "2018-08-31T00:00:00", "Maturity": "3 yr", "value": 2.7}, {"Date": "2018-09-30T00:00:00", "Maturity": "3 yr", "value": 2.88}, {"Date": "2018-10-31T00:00:00", "Maturity": "3 yr", "value": 2.93}, {"Date": "2018-11-30T00:00:00", "Maturity": "3 yr", "value": 2.83}, {"Date": "2018-12-31T00:00:00", "Maturity": "3 yr", "value": 2.46}, {"Date": "2019-01-31T00:00:00", "Maturity": "3 yr", "value": 2.43}, {"Date": "2019-02-28T00:00:00", "Maturity": "3 yr", "value": 2.5}, {"Date": "2019-03-31T00:00:00", "Maturity": "3 yr", "value": 2.21}, {"Date": "2019-04-30T00:00:00", "Maturity": "3 yr", "value": 2.24}, {"Date": "2019-05-31T00:00:00", "Maturity": "3 yr", "value": 1.9}, {"Date": "2019-06-30T00:00:00", "Maturity": "3 yr", "value": 1.71}, {"Date": "2019-07-31T00:00:00", "Maturity": "3 yr", "value": 1.84}, {"Date": "2019-08-31T00:00:00", "Maturity": "3 yr", "value": 1.42}, {"Date": "2019-09-30T00:00:00", "Maturity": "3 yr", "value": 1.56}, {"Date": "2019-10-31T00:00:00", "Maturity": "3 yr", "value": 1.52}, {"Date": "2019-11-30T00:00:00", "Maturity": "3 yr", "value": 1.61}, {"Date": "2019-12-31T00:00:00", "Maturity": "3 yr", "value": 1.62}, {"Date": "2020-01-31T00:00:00", "Maturity": "3 yr", "value": 1.3}, {"Date": "2020-02-29T00:00:00", "Maturity": "3 yr", "value": 1.3}, {"Date": "2016-01-31T00:00:00", "Maturity": "5 yr", "value": 1.33}, {"Date": "2016-02-29T00:00:00", "Maturity": "5 yr", "value": 1.22}, {"Date": "2016-03-31T00:00:00", "Maturity": "5 yr", "value": 1.21}, {"Date": "2016-04-30T00:00:00", "Maturity": "5 yr", "value": 1.28}, {"Date": "2016-05-31T00:00:00", "Maturity": "5 yr", "value": 1.37}, {"Date": "2016-06-30T00:00:00", "Maturity": "5 yr", "value": 1.01}, {"Date": "2016-07-31T00:00:00", "Maturity": "5 yr", "value": 1.03}, {"Date": "2016-08-31T00:00:00", "Maturity": "5 yr", "value": 1.19}, {"Date": "2016-09-30T00:00:00", "Maturity": "5 yr", "value": 1.14}, {"Date": "2016-10-31T00:00:00", "Maturity": "5 yr", "value": 1.31}, {"Date": "2016-11-30T00:00:00", "Maturity": "5 yr", "value": 1.83}, {"Date": "2016-12-31T00:00:00", "Maturity": "5 yr", "value": 1.93}, {"Date": "2017-01-31T00:00:00", "Maturity": "5 yr", "value": 1.9}, {"Date": "2017-02-28T00:00:00", "Maturity": "5 yr", "value": 1.89}, {"Date": "2017-03-31T00:00:00", "Maturity": "5 yr", "value": 1.93}, {"Date": "2017-04-30T00:00:00", "Maturity": "5 yr", "value": 1.81}, {"Date": "2017-05-31T00:00:00", "Maturity": "5 yr", "value": 1.75}, {"Date": "2017-06-30T00:00:00", "Maturity": "5 yr", "value": 1.89}, {"Date": "2017-07-31T00:00:00", "Maturity": "5 yr", "value": 1.84}, {"Date": "2017-08-31T00:00:00", "Maturity": "5 yr", "value": 1.7}, {"Date": "2017-09-30T00:00:00", "Maturity": "5 yr", "value": 1.92}, {"Date": "2017-10-31T00:00:00", "Maturity": "5 yr", "value": 2.01}, {"Date": "2017-11-30T00:00:00", "Maturity": "5 yr", "value": 2.14}, {"Date": "2017-12-31T00:00:00", "Maturity": "5 yr", "value": 2.2}, {"Date": "2018-01-31T00:00:00", "Maturity": "5 yr", "value": 2.52}, {"Date": "2018-02-28T00:00:00", "Maturity": "5 yr", "value": 2.65}, {"Date": "2018-03-31T00:00:00", "Maturity": "5 yr", "value": 2.56}, {"Date": "2018-04-30T00:00:00", "Maturity": "5 yr", "value": 2.79}, {"Date": "2018-05-31T00:00:00", "Maturity": "5 yr", "value": 2.68}, {"Date": "2018-06-30T00:00:00", "Maturity": "5 yr", "value": 2.73}, {"Date": "2018-07-31T00:00:00", "Maturity": "5 yr", "value": 2.85}, {"Date": "2018-08-31T00:00:00", "Maturity": "5 yr", "value": 2.74}, {"Date": "2018-09-30T00:00:00", "Maturity": "5 yr", "value": 2.94}, {"Date": "2018-10-31T00:00:00", "Maturity": "5 yr", "value": 2.98}, {"Date": "2018-11-30T00:00:00", "Maturity": "5 yr", "value": 2.84}, {"Date": "2018-12-31T00:00:00", "Maturity": "5 yr", "value": 2.51}, {"Date": "2019-01-31T00:00:00", "Maturity": "5 yr", "value": 2.43}, {"Date": "2019-02-28T00:00:00", "Maturity": "5 yr", "value": 2.52}, {"Date": "2019-03-31T00:00:00", "Maturity": "5 yr", "value": 2.23}, {"Date": "2019-04-30T00:00:00", "Maturity": "5 yr", "value": 2.28}, {"Date": "2019-05-31T00:00:00", "Maturity": "5 yr", "value": 1.93}, {"Date": "2019-06-30T00:00:00", "Maturity": "5 yr", "value": 1.76}, {"Date": "2019-07-31T00:00:00", "Maturity": "5 yr", "value": 1.84}, {"Date": "2019-08-31T00:00:00", "Maturity": "5 yr", "value": 1.39}, {"Date": "2019-09-30T00:00:00", "Maturity": "5 yr", "value": 1.55}, {"Date": "2019-10-31T00:00:00", "Maturity": "5 yr", "value": 1.51}, {"Date": "2019-11-30T00:00:00", "Maturity": "5 yr", "value": 1.62}, {"Date": "2019-12-31T00:00:00", "Maturity": "5 yr", "value": 1.69}, {"Date": "2020-01-31T00:00:00", "Maturity": "5 yr", "value": 1.32}, {"Date": "2020-02-29T00:00:00", "Maturity": "5 yr", "value": 1.3}, {"Date": "2016-01-31T00:00:00", "Maturity": "30 yr", "value": 2.75}, {"Date": "2016-02-29T00:00:00", "Maturity": "30 yr", "value": 2.61}, {"Date": "2016-03-31T00:00:00", "Maturity": "30 yr", "value": 2.61}, {"Date": "2016-04-30T00:00:00", "Maturity": "30 yr", "value": 2.66}, {"Date": "2016-05-31T00:00:00", "Maturity": "30 yr", "value": 2.64}, {"Date": "2016-06-30T00:00:00", "Maturity": "30 yr", "value": 2.3}, {"Date": "2016-07-31T00:00:00", "Maturity": "30 yr", "value": 2.18}, {"Date": "2016-08-31T00:00:00", "Maturity": "30 yr", "value": 2.23}, {"Date": "2016-09-30T00:00:00", "Maturity": "30 yr", "value": 2.32}, {"Date": "2016-10-31T00:00:00", "Maturity": "30 yr", "value": 2.58}, {"Date": "2016-11-30T00:00:00", "Maturity": "30 yr", "value": 3.02}, {"Date": "2016-12-31T00:00:00", "Maturity": "30 yr", "value": 3.06}, {"Date": "2017-01-31T00:00:00", "Maturity": "30 yr", "value": 3.05}, {"Date": "2017-02-28T00:00:00", "Maturity": "30 yr", "value": 2.97}, {"Date": "2017-03-31T00:00:00", "Maturity": "30 yr", "value": 3.02}, {"Date": "2017-04-30T00:00:00", "Maturity": "30 yr", "value": 2.96}, {"Date": "2017-05-31T00:00:00", "Maturity": "30 yr", "value": 2.87}, {"Date": "2017-06-30T00:00:00", "Maturity": "30 yr", "value": 2.84}, {"Date": "2017-07-31T00:00:00", "Maturity": "30 yr", "value": 2.89}, {"Date": "2017-08-31T00:00:00", "Maturity": "30 yr", "value": 2.73}, {"Date": "2017-09-30T00:00:00", "Maturity": "30 yr", "value": 2.86}, {"Date": "2017-10-31T00:00:00", "Maturity": "30 yr", "value": 2.88}, {"Date": "2017-11-30T00:00:00", "Maturity": "30 yr", "value": 2.83}, {"Date": "2017-12-31T00:00:00", "Maturity": "30 yr", "value": 2.74}, {"Date": "2018-01-31T00:00:00", "Maturity": "30 yr", "value": 2.95}, {"Date": "2018-02-28T00:00:00", "Maturity": "30 yr", "value": 3.13}, {"Date": "2018-03-31T00:00:00", "Maturity": "30 yr", "value": 2.97}, {"Date": "2018-04-30T00:00:00", "Maturity": "30 yr", "value": 3.11}, {"Date": "2018-05-31T00:00:00", "Maturity": "30 yr", "value": 3.0}, {"Date": "2018-06-30T00:00:00", "Maturity": "30 yr", "value": 2.98}, {"Date": "2018-07-31T00:00:00", "Maturity": "30 yr", "value": 3.08}, {"Date": "2018-08-31T00:00:00", "Maturity": "30 yr", "value": 3.02}, {"Date": "2018-09-30T00:00:00", "Maturity": "30 yr", "value": 3.19}, {"Date": "2018-10-31T00:00:00", "Maturity": "30 yr", "value": 3.39}, {"Date": "2018-11-30T00:00:00", "Maturity": "30 yr", "value": 3.3}, {"Date": "2018-12-31T00:00:00", "Maturity": "30 yr", "value": 3.02}, {"Date": "2019-01-31T00:00:00", "Maturity": "30 yr", "value": 2.99}, {"Date": "2019-02-28T00:00:00", "Maturity": "30 yr", "value": 3.09}, {"Date": "2019-03-31T00:00:00", "Maturity": "30 yr", "value": 2.81}, {"Date": "2019-04-30T00:00:00", "Maturity": "30 yr", "value": 2.93}, {"Date": "2019-05-31T00:00:00", "Maturity": "30 yr", "value": 2.58}, {"Date": "2019-06-30T00:00:00", "Maturity": "30 yr", "value": 2.52}, {"Date": "2019-07-31T00:00:00", "Maturity": "30 yr", "value": 2.53}, {"Date": "2019-08-31T00:00:00", "Maturity": "30 yr", "value": 1.96}, {"Date": "2019-09-30T00:00:00", "Maturity": "30 yr", "value": 2.12}, {"Date": "2019-10-31T00:00:00", "Maturity": "30 yr", "value": 2.17}, {"Date": "2019-11-30T00:00:00", "Maturity": "30 yr", "value": 2.21}, {"Date": "2019-12-31T00:00:00", "Maturity": "30 yr", "value": 2.39}, {"Date": "2020-01-31T00:00:00", "Maturity": "30 yr", "value": 1.99}, {"Date": "2020-02-29T00:00:00", "Maturity": "30 yr", "value": 1.9}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-did-that-chart-look-for-the-4-years-before-2008?">How did that chart look for the 4 years before 2008?<a class="anchor-link" href="#How-did-that-chart-look-for-the-4-years-before-2008?">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2004</span><span class="p">,</span> <span class="mi">2009</span><span class="p">)</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;6 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;2 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;3 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;5 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;30 yr&#39;</span><span class="p">]</span>
+
+<span class="n">dfm2</span> <span class="o">=</span> <span class="n">fetchTsRates</span><span class="p">(</span><span class="n">years</span><span class="p">)[</span><span class="n">fields</span><span class="p">]</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">)</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">dfm2</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span>
+          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Interest Rate [%]&#39;</span><span class="p">),</span>
+          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">dfm2</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">dfm2</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())])),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;U.S. Treasury Yields from </span><span class="si">{y1}</span><span class="s1"> to </span><span class="si">{y2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y1</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">years</span><span class="p">),</span> <span class="n">y2</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">years</span><span class="p">)),</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-3315231eaf374cd2bb18abe489e5984a"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-3315231eaf374cd2bb18abe489e5984a");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-ca82d36217f5f92637c631c5be125014"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "Maturity", "sort": ["6 mo", "2 yr", "3 yr", "5 yr", "30 yr"]}, "tooltip": [{"type": "temporal", "field": "Date", "format": "%b %Y"}, {"type": "nominal", "field": "Maturity"}, {"type": "quantitative", "field": "value"}], "x": {"type": "temporal", "axis": {"format": "%b %Y", "title": ""}, "field": "Date"}, "y": {"type": "quantitative", "axis": {"title": "Interest Rate [%]"}, "field": "value", "scale": {"domain": [0.0, 6.0]}}}, "height": 450, "title": "U.S. Treasury Yields from 2004 to 2008", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-ca82d36217f5f92637c631c5be125014": [{"Date": "2004-01-31T00:00:00", "Maturity": "6 mo", "value": 1.01}, {"Date": "2004-02-29T00:00:00", "Maturity": "6 mo", "value": 1.01}, {"Date": "2004-03-31T00:00:00", "Maturity": "6 mo", "value": 1.01}, {"Date": "2004-04-30T00:00:00", "Maturity": "6 mo", "value": 1.17}, {"Date": "2004-05-31T00:00:00", "Maturity": "6 mo", "value": 1.39}, {"Date": "2004-06-30T00:00:00", "Maturity": "6 mo", "value": 1.68}, {"Date": "2004-07-31T00:00:00", "Maturity": "6 mo", "value": 1.77}, {"Date": "2004-08-31T00:00:00", "Maturity": "6 mo", "value": 1.79}, {"Date": "2004-09-30T00:00:00", "Maturity": "6 mo", "value": 2.0}, {"Date": "2004-10-31T00:00:00", "Maturity": "6 mo", "value": 2.13}, {"Date": "2004-11-30T00:00:00", "Maturity": "6 mo", "value": 2.44}, {"Date": "2004-12-31T00:00:00", "Maturity": "6 mo", "value": 2.59}, {"Date": "2005-01-31T00:00:00", "Maturity": "6 mo", "value": 2.79}, {"Date": "2005-02-28T00:00:00", "Maturity": "6 mo", "value": 3.01}, {"Date": "2005-03-31T00:00:00", "Maturity": "6 mo", "value": 3.13}, {"Date": "2005-04-30T00:00:00", "Maturity": "6 mo", "value": 3.17}, {"Date": "2005-05-31T00:00:00", "Maturity": "6 mo", "value": 3.18}, {"Date": "2005-06-30T00:00:00", "Maturity": "6 mo", "value": 3.34}, {"Date": "2005-07-31T00:00:00", "Maturity": "6 mo", "value": 3.69}, {"Date": "2005-08-31T00:00:00", "Maturity": "6 mo", "value": 3.74}, {"Date": "2005-09-30T00:00:00", "Maturity": "6 mo", "value": 3.93}, {"Date": "2005-10-31T00:00:00", "Maturity": "6 mo", "value": 4.26}, {"Date": "2005-11-30T00:00:00", "Maturity": "6 mo", "value": 4.31}, {"Date": "2005-12-31T00:00:00", "Maturity": "6 mo", "value": 4.37}, {"Date": "2006-01-31T00:00:00", "Maturity": "6 mo", "value": 4.59}, {"Date": "2006-02-28T00:00:00", "Maturity": "6 mo", "value": 4.74}, {"Date": "2006-03-31T00:00:00", "Maturity": "6 mo", "value": 4.81}, {"Date": "2006-04-30T00:00:00", "Maturity": "6 mo", "value": 4.91}, {"Date": "2006-05-31T00:00:00", "Maturity": "6 mo", "value": 5.08}, {"Date": "2006-06-30T00:00:00", "Maturity": "6 mo", "value": 5.24}, {"Date": "2006-07-31T00:00:00", "Maturity": "6 mo", "value": 5.18}, {"Date": "2006-08-31T00:00:00", "Maturity": "6 mo", "value": 5.11}, {"Date": "2006-09-30T00:00:00", "Maturity": "6 mo", "value": 5.02}, {"Date": "2006-10-31T00:00:00", "Maturity": "6 mo", "value": 5.13}, {"Date": "2006-11-30T00:00:00", "Maturity": "6 mo", "value": 5.1}, {"Date": "2006-12-31T00:00:00", "Maturity": "6 mo", "value": 5.09}, {"Date": "2007-01-31T00:00:00", "Maturity": "6 mo", "value": 5.16}, {"Date": "2007-02-28T00:00:00", "Maturity": "6 mo", "value": 5.12}, {"Date": "2007-03-31T00:00:00", "Maturity": "6 mo", "value": 5.06}, {"Date": "2007-04-30T00:00:00", "Maturity": "6 mo", "value": 5.03}, {"Date": "2007-05-31T00:00:00", "Maturity": "6 mo", "value": 4.96}, {"Date": "2007-06-30T00:00:00", "Maturity": "6 mo", "value": 4.93}, {"Date": "2007-07-31T00:00:00", "Maturity": "6 mo", "value": 4.99}, {"Date": "2007-08-31T00:00:00", "Maturity": "6 mo", "value": 4.21}, {"Date": "2007-09-30T00:00:00", "Maturity": "6 mo", "value": 4.09}, {"Date": "2007-10-31T00:00:00", "Maturity": "6 mo", "value": 4.09}, {"Date": "2007-11-30T00:00:00", "Maturity": "6 mo", "value": 3.37}, {"Date": "2007-12-31T00:00:00", "Maturity": "6 mo", "value": 3.49}, {"Date": "2008-01-31T00:00:00", "Maturity": "6 mo", "value": 2.07}, {"Date": "2008-02-29T00:00:00", "Maturity": "6 mo", "value": 1.83}, {"Date": "2008-03-31T00:00:00", "Maturity": "6 mo", "value": 1.51}, {"Date": "2008-04-30T00:00:00", "Maturity": "6 mo", "value": 1.64}, {"Date": "2008-05-31T00:00:00", "Maturity": "6 mo", "value": 2.01}, {"Date": "2008-06-30T00:00:00", "Maturity": "6 mo", "value": 2.17}, {"Date": "2008-07-31T00:00:00", "Maturity": "6 mo", "value": 1.89}, {"Date": "2008-08-31T00:00:00", "Maturity": "6 mo", "value": 1.97}, {"Date": "2008-09-30T00:00:00", "Maturity": "6 mo", "value": 1.6}, {"Date": "2008-10-31T00:00:00", "Maturity": "6 mo", "value": 0.94}, {"Date": "2008-11-30T00:00:00", "Maturity": "6 mo", "value": 0.44}, {"Date": "2008-12-31T00:00:00", "Maturity": "6 mo", "value": 0.27}, {"Date": "2004-01-31T00:00:00", "Maturity": "2 yr", "value": 1.84}, {"Date": "2004-02-29T00:00:00", "Maturity": "2 yr", "value": 1.66}, {"Date": "2004-03-31T00:00:00", "Maturity": "2 yr", "value": 1.6}, {"Date": "2004-04-30T00:00:00", "Maturity": "2 yr", "value": 2.31}, {"Date": "2004-05-31T00:00:00", "Maturity": "2 yr", "value": 2.54}, {"Date": "2004-06-30T00:00:00", "Maturity": "2 yr", "value": 2.7}, {"Date": "2004-07-31T00:00:00", "Maturity": "2 yr", "value": 2.68}, {"Date": "2004-08-31T00:00:00", "Maturity": "2 yr", "value": 2.41}, {"Date": "2004-09-30T00:00:00", "Maturity": "2 yr", "value": 2.63}, {"Date": "2004-10-31T00:00:00", "Maturity": "2 yr", "value": 2.56}, {"Date": "2004-11-30T00:00:00", "Maturity": "2 yr", "value": 3.02}, {"Date": "2004-12-31T00:00:00", "Maturity": "2 yr", "value": 3.08}, {"Date": "2005-01-31T00:00:00", "Maturity": "2 yr", "value": 3.29}, {"Date": "2005-02-28T00:00:00", "Maturity": "2 yr", "value": 3.59}, {"Date": "2005-03-31T00:00:00", "Maturity": "2 yr", "value": 3.8}, {"Date": "2005-04-30T00:00:00", "Maturity": "2 yr", "value": 3.66}, {"Date": "2005-05-31T00:00:00", "Maturity": "2 yr", "value": 3.6}, {"Date": "2005-06-30T00:00:00", "Maturity": "2 yr", "value": 3.66}, {"Date": "2005-07-31T00:00:00", "Maturity": "2 yr", "value": 4.02}, {"Date": "2005-08-31T00:00:00", "Maturity": "2 yr", "value": 3.84}, {"Date": "2005-09-30T00:00:00", "Maturity": "2 yr", "value": 4.18}, {"Date": "2005-10-31T00:00:00", "Maturity": "2 yr", "value": 4.4}, {"Date": "2005-11-30T00:00:00", "Maturity": "2 yr", "value": 4.42}, {"Date": "2005-12-31T00:00:00", "Maturity": "2 yr", "value": 4.41}, {"Date": "2006-01-31T00:00:00", "Maturity": "2 yr", "value": 4.54}, {"Date": "2006-02-28T00:00:00", "Maturity": "2 yr", "value": 4.69}, {"Date": "2006-03-31T00:00:00", "Maturity": "2 yr", "value": 4.82}, {"Date": "2006-04-30T00:00:00", "Maturity": "2 yr", "value": 4.87}, {"Date": "2006-05-31T00:00:00", "Maturity": "2 yr", "value": 5.04}, {"Date": "2006-06-30T00:00:00", "Maturity": "2 yr", "value": 5.16}, {"Date": "2006-07-31T00:00:00", "Maturity": "2 yr", "value": 4.97}, {"Date": "2006-08-31T00:00:00", "Maturity": "2 yr", "value": 4.79}, {"Date": "2006-09-30T00:00:00", "Maturity": "2 yr", "value": 4.71}, {"Date": "2006-10-31T00:00:00", "Maturity": "2 yr", "value": 4.71}, {"Date": "2006-11-30T00:00:00", "Maturity": "2 yr", "value": 4.62}, {"Date": "2006-12-31T00:00:00", "Maturity": "2 yr", "value": 4.82}, {"Date": "2007-01-31T00:00:00", "Maturity": "2 yr", "value": 4.94}, {"Date": "2007-02-28T00:00:00", "Maturity": "2 yr", "value": 4.65}, {"Date": "2007-03-31T00:00:00", "Maturity": "2 yr", "value": 4.58}, {"Date": "2007-04-30T00:00:00", "Maturity": "2 yr", "value": 4.6}, {"Date": "2007-05-31T00:00:00", "Maturity": "2 yr", "value": 4.92}, {"Date": "2007-06-30T00:00:00", "Maturity": "2 yr", "value": 4.87}, {"Date": "2007-07-31T00:00:00", "Maturity": "2 yr", "value": 4.56}, {"Date": "2007-08-31T00:00:00", "Maturity": "2 yr", "value": 4.15}, {"Date": "2007-09-30T00:00:00", "Maturity": "2 yr", "value": 3.97}, {"Date": "2007-10-31T00:00:00", "Maturity": "2 yr", "value": 3.94}, {"Date": "2007-11-30T00:00:00", "Maturity": "2 yr", "value": 3.04}, {"Date": "2007-12-31T00:00:00", "Maturity": "2 yr", "value": 3.05}, {"Date": "2008-01-31T00:00:00", "Maturity": "2 yr", "value": 2.17}, {"Date": "2008-02-29T00:00:00", "Maturity": "2 yr", "value": 1.65}, {"Date": "2008-03-31T00:00:00", "Maturity": "2 yr", "value": 1.62}, {"Date": "2008-04-30T00:00:00", "Maturity": "2 yr", "value": 2.29}, {"Date": "2008-05-31T00:00:00", "Maturity": "2 yr", "value": 2.66}, {"Date": "2008-06-30T00:00:00", "Maturity": "2 yr", "value": 2.63}, {"Date": "2008-07-31T00:00:00", "Maturity": "2 yr", "value": 2.52}, {"Date": "2008-08-31T00:00:00", "Maturity": "2 yr", "value": 2.36}, {"Date": "2008-09-30T00:00:00", "Maturity": "2 yr", "value": 2.0}, {"Date": "2008-10-31T00:00:00", "Maturity": "2 yr", "value": 1.56}, {"Date": "2008-11-30T00:00:00", "Maturity": "2 yr", "value": 1.0}, {"Date": "2008-12-31T00:00:00", "Maturity": "2 yr", "value": 0.76}, {"Date": "2004-01-31T00:00:00", "Maturity": "3 yr", "value": 2.35}, {"Date": "2004-02-29T00:00:00", "Maturity": "3 yr", "value": 2.13}, {"Date": "2004-03-31T00:00:00", "Maturity": "3 yr", "value": 1.99}, {"Date": "2004-04-30T00:00:00", "Maturity": "3 yr", "value": 2.86}, {"Date": "2004-05-31T00:00:00", "Maturity": "3 yr", "value": 3.1}, {"Date": "2004-06-30T00:00:00", "Maturity": "3 yr", "value": 3.16}, {"Date": "2004-07-31T00:00:00", "Maturity": "3 yr", "value": 3.09}, {"Date": "2004-08-31T00:00:00", "Maturity": "3 yr", "value": 2.75}, {"Date": "2004-09-30T00:00:00", "Maturity": "3 yr", "value": 2.89}, {"Date": "2004-10-31T00:00:00", "Maturity": "3 yr", "value": 2.82}, {"Date": "2004-11-30T00:00:00", "Maturity": "3 yr", "value": 3.29}, {"Date": "2004-12-31T00:00:00", "Maturity": "3 yr", "value": 3.25}, {"Date": "2005-01-31T00:00:00", "Maturity": "3 yr", "value": 3.43}, {"Date": "2005-02-28T00:00:00", "Maturity": "3 yr", "value": 3.75}, {"Date": "2005-03-31T00:00:00", "Maturity": "3 yr", "value": 3.96}, {"Date": "2005-04-30T00:00:00", "Maturity": "3 yr", "value": 3.73}, {"Date": "2005-05-31T00:00:00", "Maturity": "3 yr", "value": 3.65}, {"Date": "2005-06-30T00:00:00", "Maturity": "3 yr", "value": 3.67}, {"Date": "2005-07-31T00:00:00", "Maturity": "3 yr", "value": 4.06}, {"Date": "2005-08-31T00:00:00", "Maturity": "3 yr", "value": 3.83}, {"Date": "2005-09-30T00:00:00", "Maturity": "3 yr", "value": 4.18}, {"Date": "2005-10-31T00:00:00", "Maturity": "3 yr", "value": 4.41}, {"Date": "2005-11-30T00:00:00", "Maturity": "3 yr", "value": 4.41}, {"Date": "2005-12-31T00:00:00", "Maturity": "3 yr", "value": 4.37}, {"Date": "2006-01-31T00:00:00", "Maturity": "3 yr", "value": 4.49}, {"Date": "2006-02-28T00:00:00", "Maturity": "3 yr", "value": 4.67}, {"Date": "2006-03-31T00:00:00", "Maturity": "3 yr", "value": 4.83}, {"Date": "2006-04-30T00:00:00", "Maturity": "3 yr", "value": 4.87}, {"Date": "2006-05-31T00:00:00", "Maturity": "3 yr", "value": 5.03}, {"Date": "2006-06-30T00:00:00", "Maturity": "3 yr", "value": 5.13}, {"Date": "2006-07-31T00:00:00", "Maturity": "3 yr", "value": 4.93}, {"Date": "2006-08-31T00:00:00", "Maturity": "3 yr", "value": 4.71}, {"Date": "2006-09-30T00:00:00", "Maturity": "3 yr", "value": 4.62}, {"Date": "2006-10-31T00:00:00", "Maturity": "3 yr", "value": 4.62}, {"Date": "2006-11-30T00:00:00", "Maturity": "3 yr", "value": 4.52}, {"Date": "2006-12-31T00:00:00", "Maturity": "3 yr", "value": 4.74}, {"Date": "2007-01-31T00:00:00", "Maturity": "3 yr", "value": 4.85}, {"Date": "2007-02-28T00:00:00", "Maturity": "3 yr", "value": 4.55}, {"Date": "2007-03-31T00:00:00", "Maturity": "3 yr", "value": 4.54}, {"Date": "2007-04-30T00:00:00", "Maturity": "3 yr", "value": 4.54}, {"Date": "2007-05-31T00:00:00", "Maturity": "3 yr", "value": 4.88}, {"Date": "2007-06-30T00:00:00", "Maturity": "3 yr", "value": 4.89}, {"Date": "2007-07-31T00:00:00", "Maturity": "3 yr", "value": 4.55}, {"Date": "2007-08-31T00:00:00", "Maturity": "3 yr", "value": 4.16}, {"Date": "2007-09-30T00:00:00", "Maturity": "3 yr", "value": 4.03}, {"Date": "2007-10-31T00:00:00", "Maturity": "3 yr", "value": 3.94}, {"Date": "2007-11-30T00:00:00", "Maturity": "3 yr", "value": 3.09}, {"Date": "2007-12-31T00:00:00", "Maturity": "3 yr", "value": 3.07}, {"Date": "2008-01-31T00:00:00", "Maturity": "3 yr", "value": 2.27}, {"Date": "2008-02-29T00:00:00", "Maturity": "3 yr", "value": 1.87}, {"Date": "2008-03-31T00:00:00", "Maturity": "3 yr", "value": 1.79}, {"Date": "2008-04-30T00:00:00", "Maturity": "3 yr", "value": 2.49}, {"Date": "2008-05-31T00:00:00", "Maturity": "3 yr", "value": 2.93}, {"Date": "2008-06-30T00:00:00", "Maturity": "3 yr", "value": 2.91}, {"Date": "2008-07-31T00:00:00", "Maturity": "3 yr", "value": 2.81}, {"Date": "2008-08-31T00:00:00", "Maturity": "3 yr", "value": 2.6}, {"Date": "2008-09-30T00:00:00", "Maturity": "3 yr", "value": 2.28}, {"Date": "2008-10-31T00:00:00", "Maturity": "3 yr", "value": 1.8}, {"Date": "2008-11-30T00:00:00", "Maturity": "3 yr", "value": 1.27}, {"Date": "2008-12-31T00:00:00", "Maturity": "3 yr", "value": 1.0}, {"Date": "2004-01-31T00:00:00", "Maturity": "5 yr", "value": 3.17}, {"Date": "2004-02-29T00:00:00", "Maturity": "5 yr", "value": 3.01}, {"Date": "2004-03-31T00:00:00", "Maturity": "5 yr", "value": 2.8}, {"Date": "2004-04-30T00:00:00", "Maturity": "5 yr", "value": 3.63}, {"Date": "2004-05-31T00:00:00", "Maturity": "5 yr", "value": 3.81}, {"Date": "2004-06-30T00:00:00", "Maturity": "5 yr", "value": 3.81}, {"Date": "2004-07-31T00:00:00", "Maturity": "5 yr", "value": 3.71}, {"Date": "2004-08-31T00:00:00", "Maturity": "5 yr", "value": 3.33}, {"Date": "2004-09-30T00:00:00", "Maturity": "5 yr", "value": 3.38}, {"Date": "2004-10-31T00:00:00", "Maturity": "5 yr", "value": 3.3}, {"Date": "2004-11-30T00:00:00", "Maturity": "5 yr", "value": 3.72}, {"Date": "2004-12-31T00:00:00", "Maturity": "5 yr", "value": 3.63}, {"Date": "2005-01-31T00:00:00", "Maturity": "5 yr", "value": 3.71}, {"Date": "2005-02-28T00:00:00", "Maturity": "5 yr", "value": 4.0}, {"Date": "2005-03-31T00:00:00", "Maturity": "5 yr", "value": 4.18}, {"Date": "2005-04-30T00:00:00", "Maturity": "5 yr", "value": 3.9}, {"Date": "2005-05-31T00:00:00", "Maturity": "5 yr", "value": 3.76}, {"Date": "2005-06-30T00:00:00", "Maturity": "5 yr", "value": 3.72}, {"Date": "2005-07-31T00:00:00", "Maturity": "5 yr", "value": 4.12}, {"Date": "2005-08-31T00:00:00", "Maturity": "5 yr", "value": 3.87}, {"Date": "2005-09-30T00:00:00", "Maturity": "5 yr", "value": 4.18}, {"Date": "2005-10-31T00:00:00", "Maturity": "5 yr", "value": 4.45}, {"Date": "2005-11-30T00:00:00", "Maturity": "5 yr", "value": 4.42}, {"Date": "2005-12-31T00:00:00", "Maturity": "5 yr", "value": 4.35}, {"Date": "2006-01-31T00:00:00", "Maturity": "5 yr", "value": 4.47}, {"Date": "2006-02-28T00:00:00", "Maturity": "5 yr", "value": 4.61}, {"Date": "2006-03-31T00:00:00", "Maturity": "5 yr", "value": 4.82}, {"Date": "2006-04-30T00:00:00", "Maturity": "5 yr", "value": 4.92}, {"Date": "2006-05-31T00:00:00", "Maturity": "5 yr", "value": 5.04}, {"Date": "2006-06-30T00:00:00", "Maturity": "5 yr", "value": 5.1}, {"Date": "2006-07-31T00:00:00", "Maturity": "5 yr", "value": 4.91}, {"Date": "2006-08-31T00:00:00", "Maturity": "5 yr", "value": 4.7}, {"Date": "2006-09-30T00:00:00", "Maturity": "5 yr", "value": 4.59}, {"Date": "2006-10-31T00:00:00", "Maturity": "5 yr", "value": 4.57}, {"Date": "2006-11-30T00:00:00", "Maturity": "5 yr", "value": 4.45}, {"Date": "2006-12-31T00:00:00", "Maturity": "5 yr", "value": 4.7}, {"Date": "2007-01-31T00:00:00", "Maturity": "5 yr", "value": 4.82}, {"Date": "2007-02-28T00:00:00", "Maturity": "5 yr", "value": 4.52}, {"Date": "2007-03-31T00:00:00", "Maturity": "5 yr", "value": 4.54}, {"Date": "2007-04-30T00:00:00", "Maturity": "5 yr", "value": 4.51}, {"Date": "2007-05-31T00:00:00", "Maturity": "5 yr", "value": 4.86}, {"Date": "2007-06-30T00:00:00", "Maturity": "5 yr", "value": 4.92}, {"Date": "2007-07-31T00:00:00", "Maturity": "5 yr", "value": 4.6}, {"Date": "2007-08-31T00:00:00", "Maturity": "5 yr", "value": 4.25}, {"Date": "2007-09-30T00:00:00", "Maturity": "5 yr", "value": 4.23}, {"Date": "2007-10-31T00:00:00", "Maturity": "5 yr", "value": 4.16}, {"Date": "2007-11-30T00:00:00", "Maturity": "5 yr", "value": 3.41}, {"Date": "2007-12-31T00:00:00", "Maturity": "5 yr", "value": 3.45}, {"Date": "2008-01-31T00:00:00", "Maturity": "5 yr", "value": 2.82}, {"Date": "2008-02-29T00:00:00", "Maturity": "5 yr", "value": 2.5}, {"Date": "2008-03-31T00:00:00", "Maturity": "5 yr", "value": 2.46}, {"Date": "2008-04-30T00:00:00", "Maturity": "5 yr", "value": 3.03}, {"Date": "2008-05-31T00:00:00", "Maturity": "5 yr", "value": 3.41}, {"Date": "2008-06-30T00:00:00", "Maturity": "5 yr", "value": 3.34}, {"Date": "2008-07-31T00:00:00", "Maturity": "5 yr", "value": 3.25}, {"Date": "2008-08-31T00:00:00", "Maturity": "5 yr", "value": 3.1}, {"Date": "2008-09-30T00:00:00", "Maturity": "5 yr", "value": 2.98}, {"Date": "2008-10-31T00:00:00", "Maturity": "5 yr", "value": 2.8}, {"Date": "2008-11-30T00:00:00", "Maturity": "5 yr", "value": 1.93}, {"Date": "2008-12-31T00:00:00", "Maturity": "5 yr", "value": 1.55}, {"Date": "2004-01-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-02-29T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-03-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-04-30T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-05-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-06-30T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-07-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-08-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-09-30T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-10-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-11-30T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2004-12-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-01-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-02-28T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-03-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-04-30T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-05-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-06-30T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-07-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-08-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-09-30T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-10-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-11-30T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2005-12-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2006-01-31T00:00:00", "Maturity": "30 yr", "value": null}, {"Date": "2006-02-28T00:00:00", "Maturity": "30 yr", "value": 4.51}, {"Date": "2006-03-31T00:00:00", "Maturity": "30 yr", "value": 4.9}, {"Date": "2006-04-30T00:00:00", "Maturity": "30 yr", "value": 5.17}, {"Date": "2006-05-31T00:00:00", "Maturity": "30 yr", "value": 5.21}, {"Date": "2006-06-30T00:00:00", "Maturity": "30 yr", "value": 5.19}, {"Date": "2006-07-31T00:00:00", "Maturity": "30 yr", "value": 5.07}, {"Date": "2006-08-31T00:00:00", "Maturity": "30 yr", "value": 4.88}, {"Date": "2006-09-30T00:00:00", "Maturity": "30 yr", "value": 4.77}, {"Date": "2006-10-31T00:00:00", "Maturity": "30 yr", "value": 4.72}, {"Date": "2006-11-30T00:00:00", "Maturity": "30 yr", "value": 4.56}, {"Date": "2006-12-31T00:00:00", "Maturity": "30 yr", "value": 4.81}, {"Date": "2007-01-31T00:00:00", "Maturity": "30 yr", "value": 4.93}, {"Date": "2007-02-28T00:00:00", "Maturity": "30 yr", "value": 4.68}, {"Date": "2007-03-31T00:00:00", "Maturity": "30 yr", "value": 4.84}, {"Date": "2007-04-30T00:00:00", "Maturity": "30 yr", "value": 4.81}, {"Date": "2007-05-31T00:00:00", "Maturity": "30 yr", "value": 5.01}, {"Date": "2007-06-30T00:00:00", "Maturity": "30 yr", "value": 5.12}, {"Date": "2007-07-31T00:00:00", "Maturity": "30 yr", "value": 4.92}, {"Date": "2007-08-31T00:00:00", "Maturity": "30 yr", "value": 4.83}, {"Date": "2007-09-30T00:00:00", "Maturity": "30 yr", "value": 4.83}, {"Date": "2007-10-31T00:00:00", "Maturity": "30 yr", "value": 4.74}, {"Date": "2007-11-30T00:00:00", "Maturity": "30 yr", "value": 4.4}, {"Date": "2007-12-31T00:00:00", "Maturity": "30 yr", "value": 4.45}, {"Date": "2008-01-31T00:00:00", "Maturity": "30 yr", "value": 4.35}, {"Date": "2008-02-29T00:00:00", "Maturity": "30 yr", "value": 4.41}, {"Date": "2008-03-31T00:00:00", "Maturity": "30 yr", "value": 4.3}, {"Date": "2008-04-30T00:00:00", "Maturity": "30 yr", "value": 4.49}, {"Date": "2008-05-31T00:00:00", "Maturity": "30 yr", "value": 4.72}, {"Date": "2008-06-30T00:00:00", "Maturity": "30 yr", "value": 4.53}, {"Date": "2008-07-31T00:00:00", "Maturity": "30 yr", "value": 4.59}, {"Date": "2008-08-31T00:00:00", "Maturity": "30 yr", "value": 4.43}, {"Date": "2008-09-30T00:00:00", "Maturity": "30 yr", "value": 4.31}, {"Date": "2008-10-31T00:00:00", "Maturity": "30 yr", "value": 4.35}, {"Date": "2008-11-30T00:00:00", "Maturity": "30 yr", "value": 3.45}, {"Date": "2008-12-31T00:00:00", "Maturity": "30 yr", "value": 2.69}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">year</span> <span class="o">=</span> <span class="mi">2019</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">fetchRates</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Interest Rate [%]&#39;</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">,</span>
+              <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;1 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;2 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;3 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;6 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;1 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;2 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;3 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;5 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;7 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;10 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;20 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;30 yr&#39;</span><span class="p">]),</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;U.S. Treasury Yields for </span><span class="si">{year}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">),</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span>
+<span class="p">)</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-4eb842b6630343a3898e72c70a72a661"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-4eb842b6630343a3898e72c70a72a661");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-95c954a9a79885c68985e16c0cd2ff42"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "Maturity", "sort": ["1 mo", "2 mo", "3 mo", "6 mo", "1 yr", "2 yr", "3 yr", "5 yr", "7 yr", "10 yr", "20 yr", "30 yr"]}, "tooltip": [{"type": "temporal", "field": "Date", "format": "%b %Y"}, {"type": "nominal", "field": "Maturity"}, {"type": "quantitative", "field": "value"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "Date"}, "y": {"type": "quantitative", "axis": {"title": "Interest Rate [%]"}, "field": "value", "scale": {"zero": false}}}, "height": 450, "selection": {"selector001": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}}, "title": "U.S. Treasury Yields for 2019", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-95c954a9a79885c68985e16c0cd2ff42": [{"Date": "2019-01-31T00:00:00", "Maturity": "1 mo", "value": 2.42}, {"Date": "2019-02-28T00:00:00", "Maturity": "1 mo", "value": 2.44}, {"Date": "2019-03-31T00:00:00", "Maturity": "1 mo", "value": 2.43}, {"Date": "2019-04-30T00:00:00", "Maturity": "1 mo", "value": 2.43}, {"Date": "2019-05-31T00:00:00", "Maturity": "1 mo", "value": 2.35}, {"Date": "2019-06-30T00:00:00", "Maturity": "1 mo", "value": 2.18}, {"Date": "2019-07-31T00:00:00", "Maturity": "1 mo", "value": 2.01}, {"Date": "2019-08-31T00:00:00", "Maturity": "1 mo", "value": 2.1}, {"Date": "2019-09-30T00:00:00", "Maturity": "1 mo", "value": 1.91}, {"Date": "2019-10-31T00:00:00", "Maturity": "1 mo", "value": 1.59}, {"Date": "2019-11-30T00:00:00", "Maturity": "1 mo", "value": 1.62}, {"Date": "2019-12-31T00:00:00", "Maturity": "1 mo", "value": 1.48}, {"Date": "2019-01-31T00:00:00", "Maturity": "2 mo", "value": 2.43}, {"Date": "2019-02-28T00:00:00", "Maturity": "2 mo", "value": 2.47}, {"Date": "2019-03-31T00:00:00", "Maturity": "2 mo", "value": 2.44}, {"Date": "2019-04-30T00:00:00", "Maturity": "2 mo", "value": 2.44}, {"Date": "2019-05-31T00:00:00", "Maturity": "2 mo", "value": 2.38}, {"Date": "2019-06-30T00:00:00", "Maturity": "2 mo", "value": 2.15}, {"Date": "2019-07-31T00:00:00", "Maturity": "2 mo", "value": 2.07}, {"Date": "2019-08-31T00:00:00", "Maturity": "2 mo", "value": 2.04}, {"Date": "2019-09-30T00:00:00", "Maturity": "2 mo", "value": 1.87}, {"Date": "2019-10-31T00:00:00", "Maturity": "2 mo", "value": 1.59}, {"Date": "2019-11-30T00:00:00", "Maturity": "2 mo", "value": 1.6}, {"Date": "2019-12-31T00:00:00", "Maturity": "2 mo", "value": 1.51}, {"Date": "2019-01-31T00:00:00", "Maturity": "3 mo", "value": 2.41}, {"Date": "2019-02-28T00:00:00", "Maturity": "3 mo", "value": 2.45}, {"Date": "2019-03-31T00:00:00", "Maturity": "3 mo", "value": 2.4}, {"Date": "2019-04-30T00:00:00", "Maturity": "3 mo", "value": 2.43}, {"Date": "2019-05-31T00:00:00", "Maturity": "3 mo", "value": 2.35}, {"Date": "2019-06-30T00:00:00", "Maturity": "3 mo", "value": 2.12}, {"Date": "2019-07-31T00:00:00", "Maturity": "3 mo", "value": 2.08}, {"Date": "2019-08-31T00:00:00", "Maturity": "3 mo", "value": 1.99}, {"Date": "2019-09-30T00:00:00", "Maturity": "3 mo", "value": 1.88}, {"Date": "2019-10-31T00:00:00", "Maturity": "3 mo", "value": 1.54}, {"Date": "2019-11-30T00:00:00", "Maturity": "3 mo", "value": 1.59}, {"Date": "2019-12-31T00:00:00", "Maturity": "3 mo", "value": 1.55}, {"Date": "2019-01-31T00:00:00", "Maturity": "6 mo", "value": 2.46}, {"Date": "2019-02-28T00:00:00", "Maturity": "6 mo", "value": 2.5}, {"Date": "2019-03-31T00:00:00", "Maturity": "6 mo", "value": 2.44}, {"Date": "2019-04-30T00:00:00", "Maturity": "6 mo", "value": 2.46}, {"Date": "2019-05-31T00:00:00", "Maturity": "6 mo", "value": 2.35}, {"Date": "2019-06-30T00:00:00", "Maturity": "6 mo", "value": 2.09}, {"Date": "2019-07-31T00:00:00", "Maturity": "6 mo", "value": 2.1}, {"Date": "2019-08-31T00:00:00", "Maturity": "6 mo", "value": 1.89}, {"Date": "2019-09-30T00:00:00", "Maturity": "6 mo", "value": 1.83}, {"Date": "2019-10-31T00:00:00", "Maturity": "6 mo", "value": 1.57}, {"Date": "2019-11-30T00:00:00", "Maturity": "6 mo", "value": 1.63}, {"Date": "2019-12-31T00:00:00", "Maturity": "6 mo", "value": 1.6}, {"Date": "2019-01-31T00:00:00", "Maturity": "1 yr", "value": 2.55}, {"Date": "2019-02-28T00:00:00", "Maturity": "1 yr", "value": 2.54}, {"Date": "2019-03-31T00:00:00", "Maturity": "1 yr", "value": 2.4}, {"Date": "2019-04-30T00:00:00", "Maturity": "1 yr", "value": 2.39}, {"Date": "2019-05-31T00:00:00", "Maturity": "1 yr", "value": 2.21}, {"Date": "2019-06-30T00:00:00", "Maturity": "1 yr", "value": 1.92}, {"Date": "2019-07-31T00:00:00", "Maturity": "1 yr", "value": 2.0}, {"Date": "2019-08-31T00:00:00", "Maturity": "1 yr", "value": 1.76}, {"Date": "2019-09-30T00:00:00", "Maturity": "1 yr", "value": 1.75}, {"Date": "2019-10-31T00:00:00", "Maturity": "1 yr", "value": 1.53}, {"Date": "2019-11-30T00:00:00", "Maturity": "1 yr", "value": 1.6}, {"Date": "2019-12-31T00:00:00", "Maturity": "1 yr", "value": 1.59}, {"Date": "2019-01-31T00:00:00", "Maturity": "2 yr", "value": 2.45}, {"Date": "2019-02-28T00:00:00", "Maturity": "2 yr", "value": 2.52}, {"Date": "2019-03-31T00:00:00", "Maturity": "2 yr", "value": 2.27}, {"Date": "2019-04-30T00:00:00", "Maturity": "2 yr", "value": 2.27}, {"Date": "2019-05-31T00:00:00", "Maturity": "2 yr", "value": 1.95}, {"Date": "2019-06-30T00:00:00", "Maturity": "2 yr", "value": 1.75}, {"Date": "2019-07-31T00:00:00", "Maturity": "2 yr", "value": 1.89}, {"Date": "2019-08-31T00:00:00", "Maturity": "2 yr", "value": 1.5}, {"Date": "2019-09-30T00:00:00", "Maturity": "2 yr", "value": 1.63}, {"Date": "2019-10-31T00:00:00", "Maturity": "2 yr", "value": 1.52}, {"Date": "2019-11-30T00:00:00", "Maturity": "2 yr", "value": 1.61}, {"Date": "2019-12-31T00:00:00", "Maturity": "2 yr", "value": 1.58}, {"Date": "2019-01-31T00:00:00", "Maturity": "3 yr", "value": 2.43}, {"Date": "2019-02-28T00:00:00", "Maturity": "3 yr", "value": 2.5}, {"Date": "2019-03-31T00:00:00", "Maturity": "3 yr", "value": 2.21}, {"Date": "2019-04-30T00:00:00", "Maturity": "3 yr", "value": 2.24}, {"Date": "2019-05-31T00:00:00", "Maturity": "3 yr", "value": 1.9}, {"Date": "2019-06-30T00:00:00", "Maturity": "3 yr", "value": 1.71}, {"Date": "2019-07-31T00:00:00", "Maturity": "3 yr", "value": 1.84}, {"Date": "2019-08-31T00:00:00", "Maturity": "3 yr", "value": 1.42}, {"Date": "2019-09-30T00:00:00", "Maturity": "3 yr", "value": 1.56}, {"Date": "2019-10-31T00:00:00", "Maturity": "3 yr", "value": 1.52}, {"Date": "2019-11-30T00:00:00", "Maturity": "3 yr", "value": 1.61}, {"Date": "2019-12-31T00:00:00", "Maturity": "3 yr", "value": 1.62}, {"Date": "2019-01-31T00:00:00", "Maturity": "5 yr", "value": 2.43}, {"Date": "2019-02-28T00:00:00", "Maturity": "5 yr", "value": 2.52}, {"Date": "2019-03-31T00:00:00", "Maturity": "5 yr", "value": 2.23}, {"Date": "2019-04-30T00:00:00", "Maturity": "5 yr", "value": 2.28}, {"Date": "2019-05-31T00:00:00", "Maturity": "5 yr", "value": 1.93}, {"Date": "2019-06-30T00:00:00", "Maturity": "5 yr", "value": 1.76}, {"Date": "2019-07-31T00:00:00", "Maturity": "5 yr", "value": 1.84}, {"Date": "2019-08-31T00:00:00", "Maturity": "5 yr", "value": 1.39}, {"Date": "2019-09-30T00:00:00", "Maturity": "5 yr", "value": 1.55}, {"Date": "2019-10-31T00:00:00", "Maturity": "5 yr", "value": 1.51}, {"Date": "2019-11-30T00:00:00", "Maturity": "5 yr", "value": 1.62}, {"Date": "2019-12-31T00:00:00", "Maturity": "5 yr", "value": 1.69}, {"Date": "2019-01-31T00:00:00", "Maturity": "7 yr", "value": 2.51}, {"Date": "2019-02-28T00:00:00", "Maturity": "7 yr", "value": 2.63}, {"Date": "2019-03-31T00:00:00", "Maturity": "7 yr", "value": 2.31}, {"Date": "2019-04-30T00:00:00", "Maturity": "7 yr", "value": 2.39}, {"Date": "2019-05-31T00:00:00", "Maturity": "7 yr", "value": 2.03}, {"Date": "2019-06-30T00:00:00", "Maturity": "7 yr", "value": 1.87}, {"Date": "2019-07-31T00:00:00", "Maturity": "7 yr", "value": 1.92}, {"Date": "2019-08-31T00:00:00", "Maturity": "7 yr", "value": 1.45}, {"Date": "2019-09-30T00:00:00", "Maturity": "7 yr", "value": 1.62}, {"Date": "2019-10-31T00:00:00", "Maturity": "7 yr", "value": 1.6}, {"Date": "2019-11-30T00:00:00", "Maturity": "7 yr", "value": 1.73}, {"Date": "2019-12-31T00:00:00", "Maturity": "7 yr", "value": 1.83}, {"Date": "2019-01-31T00:00:00", "Maturity": "10 yr", "value": 2.63}, {"Date": "2019-02-28T00:00:00", "Maturity": "10 yr", "value": 2.73}, {"Date": "2019-03-31T00:00:00", "Maturity": "10 yr", "value": 2.41}, {"Date": "2019-04-30T00:00:00", "Maturity": "10 yr", "value": 2.51}, {"Date": "2019-05-31T00:00:00", "Maturity": "10 yr", "value": 2.14}, {"Date": "2019-06-30T00:00:00", "Maturity": "10 yr", "value": 2.0}, {"Date": "2019-07-31T00:00:00", "Maturity": "10 yr", "value": 2.02}, {"Date": "2019-08-31T00:00:00", "Maturity": "10 yr", "value": 1.5}, {"Date": "2019-09-30T00:00:00", "Maturity": "10 yr", "value": 1.68}, {"Date": "2019-10-31T00:00:00", "Maturity": "10 yr", "value": 1.69}, {"Date": "2019-11-30T00:00:00", "Maturity": "10 yr", "value": 1.78}, {"Date": "2019-12-31T00:00:00", "Maturity": "10 yr", "value": 1.92}, {"Date": "2019-01-31T00:00:00", "Maturity": "20 yr", "value": 2.83}, {"Date": "2019-02-28T00:00:00", "Maturity": "20 yr", "value": 2.94}, {"Date": "2019-03-31T00:00:00", "Maturity": "20 yr", "value": 2.63}, {"Date": "2019-04-30T00:00:00", "Maturity": "20 yr", "value": 2.75}, {"Date": "2019-05-31T00:00:00", "Maturity": "20 yr", "value": 2.39}, {"Date": "2019-06-30T00:00:00", "Maturity": "20 yr", "value": 2.31}, {"Date": "2019-07-31T00:00:00", "Maturity": "20 yr", "value": 2.31}, {"Date": "2019-08-31T00:00:00", "Maturity": "20 yr", "value": 1.78}, {"Date": "2019-09-30T00:00:00", "Maturity": "20 yr", "value": 1.94}, {"Date": "2019-10-31T00:00:00", "Maturity": "20 yr", "value": 2.0}, {"Date": "2019-11-30T00:00:00", "Maturity": "20 yr", "value": 2.07}, {"Date": "2019-12-31T00:00:00", "Maturity": "20 yr", "value": 2.25}, {"Date": "2019-01-31T00:00:00", "Maturity": "30 yr", "value": 2.99}, {"Date": "2019-02-28T00:00:00", "Maturity": "30 yr", "value": 3.09}, {"Date": "2019-03-31T00:00:00", "Maturity": "30 yr", "value": 2.81}, {"Date": "2019-04-30T00:00:00", "Maturity": "30 yr", "value": 2.93}, {"Date": "2019-05-31T00:00:00", "Maturity": "30 yr", "value": 2.58}, {"Date": "2019-06-30T00:00:00", "Maturity": "30 yr", "value": 2.52}, {"Date": "2019-07-31T00:00:00", "Maturity": "30 yr", "value": 2.53}, {"Date": "2019-08-31T00:00:00", "Maturity": "30 yr", "value": 1.96}, {"Date": "2019-09-30T00:00:00", "Maturity": "30 yr", "value": 2.12}, {"Date": "2019-10-31T00:00:00", "Maturity": "30 yr", "value": 2.17}, {"Date": "2019-11-30T00:00:00", "Maturity": "30 yr", "value": 2.21}, {"Date": "2019-12-31T00:00:00", "Maturity": "30 yr", "value": 2.39}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">year</span> <span class="o">=</span> <span class="mi">2007</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">fetchRates</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Interest Rate [%]&#39;</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">,</span>
+              <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;1 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;2 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;3 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;6 mo&#39;</span><span class="p">,</span> <span class="s1">&#39;1 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;2 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;3 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;5 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;7 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;10 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;20 yr&#39;</span><span class="p">,</span> <span class="s1">&#39;30 yr&#39;</span><span class="p">]),</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;U.S. Treasury Yields for </span><span class="si">{year}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">),</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span>
+<span class="p">)</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[7]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-04da914ec14c4f65afae08e8bb858b04"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-04da914ec14c4f65afae08e8bb858b04");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-3d45c0d363779ac3e8be797f35ab4aa3"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "Maturity", "sort": ["1 mo", "2 mo", "3 mo", "6 mo", "1 yr", "2 yr", "3 yr", "5 yr", "7 yr", "10 yr", "20 yr", "30 yr"]}, "tooltip": [{"type": "temporal", "field": "Date", "format": "%b %Y"}, {"type": "nominal", "field": "Maturity"}, {"type": "quantitative", "field": "value"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "Date"}, "y": {"type": "quantitative", "axis": {"title": "Interest Rate [%]"}, "field": "value", "scale": {"zero": false}}}, "height": 450, "selection": {"selector002": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}}, "title": "U.S. Treasury Yields for 2007", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-3d45c0d363779ac3e8be797f35ab4aa3": [{"Date": "2007-01-31T00:00:00", "Maturity": "1 mo", "value": 5.0}, {"Date": "2007-02-28T00:00:00", "Maturity": "1 mo", "value": 5.24}, {"Date": "2007-03-31T00:00:00", "Maturity": "1 mo", "value": 5.07}, {"Date": "2007-04-30T00:00:00", "Maturity": "1 mo", "value": 4.8}, {"Date": "2007-05-31T00:00:00", "Maturity": "1 mo", "value": 4.78}, {"Date": "2007-06-30T00:00:00", "Maturity": "1 mo", "value": 4.28}, {"Date": "2007-07-31T00:00:00", "Maturity": "1 mo", "value": 5.13}, {"Date": "2007-08-31T00:00:00", "Maturity": "1 mo", "value": 4.02}, {"Date": "2007-09-30T00:00:00", "Maturity": "1 mo", "value": 3.43}, {"Date": "2007-10-31T00:00:00", "Maturity": "1 mo", "value": 4.01}, {"Date": "2007-11-30T00:00:00", "Maturity": "1 mo", "value": 3.63}, {"Date": "2007-12-31T00:00:00", "Maturity": "1 mo", "value": 2.76}, {"Date": "2007-01-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-02-28T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-03-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-04-30T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-05-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-06-30T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-07-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-08-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-09-30T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-10-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-11-30T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-12-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "2007-01-31T00:00:00", "Maturity": "3 mo", "value": 5.12}, {"Date": "2007-02-28T00:00:00", "Maturity": "3 mo", "value": 5.16}, {"Date": "2007-03-31T00:00:00", "Maturity": "3 mo", "value": 5.04}, {"Date": "2007-04-30T00:00:00", "Maturity": "3 mo", "value": 4.91}, {"Date": "2007-05-31T00:00:00", "Maturity": "3 mo", "value": 4.73}, {"Date": "2007-06-30T00:00:00", "Maturity": "3 mo", "value": 4.82}, {"Date": "2007-07-31T00:00:00", "Maturity": "3 mo", "value": 4.96}, {"Date": "2007-08-31T00:00:00", "Maturity": "3 mo", "value": 4.01}, {"Date": "2007-09-30T00:00:00", "Maturity": "3 mo", "value": 3.82}, {"Date": "2007-10-31T00:00:00", "Maturity": "3 mo", "value": 3.94}, {"Date": "2007-11-30T00:00:00", "Maturity": "3 mo", "value": 3.15}, {"Date": "2007-12-31T00:00:00", "Maturity": "3 mo", "value": 3.36}, {"Date": "2007-01-31T00:00:00", "Maturity": "6 mo", "value": 5.16}, {"Date": "2007-02-28T00:00:00", "Maturity": "6 mo", "value": 5.12}, {"Date": "2007-03-31T00:00:00", "Maturity": "6 mo", "value": 5.06}, {"Date": "2007-04-30T00:00:00", "Maturity": "6 mo", "value": 5.03}, {"Date": "2007-05-31T00:00:00", "Maturity": "6 mo", "value": 4.96}, {"Date": "2007-06-30T00:00:00", "Maturity": "6 mo", "value": 4.93}, {"Date": "2007-07-31T00:00:00", "Maturity": "6 mo", "value": 4.99}, {"Date": "2007-08-31T00:00:00", "Maturity": "6 mo", "value": 4.21}, {"Date": "2007-09-30T00:00:00", "Maturity": "6 mo", "value": 4.09}, {"Date": "2007-10-31T00:00:00", "Maturity": "6 mo", "value": 4.09}, {"Date": "2007-11-30T00:00:00", "Maturity": "6 mo", "value": 3.37}, {"Date": "2007-12-31T00:00:00", "Maturity": "6 mo", "value": 3.49}, {"Date": "2007-01-31T00:00:00", "Maturity": "1 yr", "value": 5.09}, {"Date": "2007-02-28T00:00:00", "Maturity": "1 yr", "value": 4.96}, {"Date": "2007-03-31T00:00:00", "Maturity": "1 yr", "value": 4.9}, {"Date": "2007-04-30T00:00:00", "Maturity": "1 yr", "value": 4.89}, {"Date": "2007-05-31T00:00:00", "Maturity": "1 yr", "value": 4.95}, {"Date": "2007-06-30T00:00:00", "Maturity": "1 yr", "value": 4.91}, {"Date": "2007-07-31T00:00:00", "Maturity": "1 yr", "value": 4.85}, {"Date": "2007-08-31T00:00:00", "Maturity": "1 yr", "value": 4.19}, {"Date": "2007-09-30T00:00:00", "Maturity": "1 yr", "value": 4.05}, {"Date": "2007-10-31T00:00:00", "Maturity": "1 yr", "value": 4.04}, {"Date": "2007-11-30T00:00:00", "Maturity": "1 yr", "value": 3.26}, {"Date": "2007-12-31T00:00:00", "Maturity": "1 yr", "value": 3.34}, {"Date": "2007-01-31T00:00:00", "Maturity": "2 yr", "value": 4.94}, {"Date": "2007-02-28T00:00:00", "Maturity": "2 yr", "value": 4.65}, {"Date": "2007-03-31T00:00:00", "Maturity": "2 yr", "value": 4.58}, {"Date": "2007-04-30T00:00:00", "Maturity": "2 yr", "value": 4.6}, {"Date": "2007-05-31T00:00:00", "Maturity": "2 yr", "value": 4.92}, {"Date": "2007-06-30T00:00:00", "Maturity": "2 yr", "value": 4.87}, {"Date": "2007-07-31T00:00:00", "Maturity": "2 yr", "value": 4.56}, {"Date": "2007-08-31T00:00:00", "Maturity": "2 yr", "value": 4.15}, {"Date": "2007-09-30T00:00:00", "Maturity": "2 yr", "value": 3.97}, {"Date": "2007-10-31T00:00:00", "Maturity": "2 yr", "value": 3.94}, {"Date": "2007-11-30T00:00:00", "Maturity": "2 yr", "value": 3.04}, {"Date": "2007-12-31T00:00:00", "Maturity": "2 yr", "value": 3.05}, {"Date": "2007-01-31T00:00:00", "Maturity": "3 yr", "value": 4.85}, {"Date": "2007-02-28T00:00:00", "Maturity": "3 yr", "value": 4.55}, {"Date": "2007-03-31T00:00:00", "Maturity": "3 yr", "value": 4.54}, {"Date": "2007-04-30T00:00:00", "Maturity": "3 yr", "value": 4.54}, {"Date": "2007-05-31T00:00:00", "Maturity": "3 yr", "value": 4.88}, {"Date": "2007-06-30T00:00:00", "Maturity": "3 yr", "value": 4.89}, {"Date": "2007-07-31T00:00:00", "Maturity": "3 yr", "value": 4.55}, {"Date": "2007-08-31T00:00:00", "Maturity": "3 yr", "value": 4.16}, {"Date": "2007-09-30T00:00:00", "Maturity": "3 yr", "value": 4.03}, {"Date": "2007-10-31T00:00:00", "Maturity": "3 yr", "value": 3.94}, {"Date": "2007-11-30T00:00:00", "Maturity": "3 yr", "value": 3.09}, {"Date": "2007-12-31T00:00:00", "Maturity": "3 yr", "value": 3.07}, {"Date": "2007-01-31T00:00:00", "Maturity": "5 yr", "value": 4.82}, {"Date": "2007-02-28T00:00:00", "Maturity": "5 yr", "value": 4.52}, {"Date": "2007-03-31T00:00:00", "Maturity": "5 yr", "value": 4.54}, {"Date": "2007-04-30T00:00:00", "Maturity": "5 yr", "value": 4.51}, {"Date": "2007-05-31T00:00:00", "Maturity": "5 yr", "value": 4.86}, {"Date": "2007-06-30T00:00:00", "Maturity": "5 yr", "value": 4.92}, {"Date": "2007-07-31T00:00:00", "Maturity": "5 yr", "value": 4.6}, {"Date": "2007-08-31T00:00:00", "Maturity": "5 yr", "value": 4.25}, {"Date": "2007-09-30T00:00:00", "Maturity": "5 yr", "value": 4.23}, {"Date": "2007-10-31T00:00:00", "Maturity": "5 yr", "value": 4.16}, {"Date": "2007-11-30T00:00:00", "Maturity": "5 yr", "value": 3.41}, {"Date": "2007-12-31T00:00:00", "Maturity": "5 yr", "value": 3.45}, {"Date": "2007-01-31T00:00:00", "Maturity": "7 yr", "value": 4.82}, {"Date": "2007-02-28T00:00:00", "Maturity": "7 yr", "value": 4.53}, {"Date": "2007-03-31T00:00:00", "Maturity": "7 yr", "value": 4.58}, {"Date": "2007-04-30T00:00:00", "Maturity": "7 yr", "value": 4.55}, {"Date": "2007-05-31T00:00:00", "Maturity": "7 yr", "value": 4.87}, {"Date": "2007-06-30T00:00:00", "Maturity": "7 yr", "value": 4.96}, {"Date": "2007-07-31T00:00:00", "Maturity": "7 yr", "value": 4.67}, {"Date": "2007-08-31T00:00:00", "Maturity": "7 yr", "value": 4.36}, {"Date": "2007-09-30T00:00:00", "Maturity": "7 yr", "value": 4.38}, {"Date": "2007-10-31T00:00:00", "Maturity": "7 yr", "value": 4.29}, {"Date": "2007-11-30T00:00:00", "Maturity": "7 yr", "value": 3.64}, {"Date": "2007-12-31T00:00:00", "Maturity": "7 yr", "value": 3.7}, {"Date": "2007-01-31T00:00:00", "Maturity": "10 yr", "value": 4.83}, {"Date": "2007-02-28T00:00:00", "Maturity": "10 yr", "value": 4.56}, {"Date": "2007-03-31T00:00:00", "Maturity": "10 yr", "value": 4.65}, {"Date": "2007-04-30T00:00:00", "Maturity": "10 yr", "value": 4.63}, {"Date": "2007-05-31T00:00:00", "Maturity": "10 yr", "value": 4.9}, {"Date": "2007-06-30T00:00:00", "Maturity": "10 yr", "value": 5.03}, {"Date": "2007-07-31T00:00:00", "Maturity": "10 yr", "value": 4.78}, {"Date": "2007-08-31T00:00:00", "Maturity": "10 yr", "value": 4.54}, {"Date": "2007-09-30T00:00:00", "Maturity": "10 yr", "value": 4.59}, {"Date": "2007-10-31T00:00:00", "Maturity": "10 yr", "value": 4.48}, {"Date": "2007-11-30T00:00:00", "Maturity": "10 yr", "value": 3.97}, {"Date": "2007-12-31T00:00:00", "Maturity": "10 yr", "value": 4.04}, {"Date": "2007-01-31T00:00:00", "Maturity": "20 yr", "value": 5.02}, {"Date": "2007-02-28T00:00:00", "Maturity": "20 yr", "value": 4.78}, {"Date": "2007-03-31T00:00:00", "Maturity": "20 yr", "value": 4.92}, {"Date": "2007-04-30T00:00:00", "Maturity": "20 yr", "value": 4.88}, {"Date": "2007-05-31T00:00:00", "Maturity": "20 yr", "value": 5.1}, {"Date": "2007-06-30T00:00:00", "Maturity": "20 yr", "value": 5.21}, {"Date": "2007-07-31T00:00:00", "Maturity": "20 yr", "value": 5.0}, {"Date": "2007-08-31T00:00:00", "Maturity": "20 yr", "value": 4.87}, {"Date": "2007-09-30T00:00:00", "Maturity": "20 yr", "value": 4.89}, {"Date": "2007-10-31T00:00:00", "Maturity": "20 yr", "value": 4.79}, {"Date": "2007-11-30T00:00:00", "Maturity": "20 yr", "value": 4.44}, {"Date": "2007-12-31T00:00:00", "Maturity": "20 yr", "value": 4.5}, {"Date": "2007-01-31T00:00:00", "Maturity": "30 yr", "value": 4.93}, {"Date": "2007-02-28T00:00:00", "Maturity": "30 yr", "value": 4.68}, {"Date": "2007-03-31T00:00:00", "Maturity": "30 yr", "value": 4.84}, {"Date": "2007-04-30T00:00:00", "Maturity": "30 yr", "value": 4.81}, {"Date": "2007-05-31T00:00:00", "Maturity": "30 yr", "value": 5.01}, {"Date": "2007-06-30T00:00:00", "Maturity": "30 yr", "value": 5.12}, {"Date": "2007-07-31T00:00:00", "Maturity": "30 yr", "value": 4.92}, {"Date": "2007-08-31T00:00:00", "Maturity": "30 yr", "value": 4.83}, {"Date": "2007-09-30T00:00:00", "Maturity": "30 yr", "value": 4.83}, {"Date": "2007-10-31T00:00:00", "Maturity": "30 yr", "value": 4.74}, {"Date": "2007-11-30T00:00:00", "Maturity": "30 yr", "value": 4.4}, {"Date": "2007-12-31T00:00:00", "Maturity": "30 yr", "value": 4.45}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">year</span> <span class="o">=</span> <span class="mi">1996</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">fetchRates</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Interest Rate [%]&#39;</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">),</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;U.S. Treasury Yields for </span><span class="si">{year}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">),</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span>
+<span class="p">)</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-118cdc2b396c41cea5d48c3aa171e73a"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-118cdc2b396c41cea5d48c3aa171e73a");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-b8c3512b2116acad71e33d1636c507d4"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "Maturity"}, "tooltip": [{"type": "temporal", "field": "Date", "format": "%b %Y"}, {"type": "nominal", "field": "Maturity"}, {"type": "quantitative", "field": "value"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "Date"}, "y": {"type": "quantitative", "axis": {"title": "Interest Rate [%]"}, "field": "value", "scale": {"zero": false}}}, "height": 450, "selection": {"selector003": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}}, "title": "U.S. Treasury Yields for 1996", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-b8c3512b2116acad71e33d1636c507d4": [{"Date": "1996-01-31T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-02-29T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-03-31T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-04-30T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-05-31T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-06-30T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-07-31T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-08-31T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-09-30T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-10-31T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-11-30T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-12-31T00:00:00", "Maturity": "1 mo", "value": null}, {"Date": "1996-01-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-02-29T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-03-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-04-30T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-05-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-06-30T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-07-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-08-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-09-30T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-10-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-11-30T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-12-31T00:00:00", "Maturity": "2 mo", "value": null}, {"Date": "1996-01-31T00:00:00", "Maturity": "3 mo", "value": 5.05}, {"Date": "1996-02-29T00:00:00", "Maturity": "3 mo", "value": 5.02}, {"Date": "1996-03-31T00:00:00", "Maturity": "3 mo", "value": 5.13}, {"Date": "1996-04-30T00:00:00", "Maturity": "3 mo", "value": 5.14}, {"Date": "1996-05-31T00:00:00", "Maturity": "3 mo", "value": 5.18}, {"Date": "1996-06-30T00:00:00", "Maturity": "3 mo", "value": 5.18}, {"Date": "1996-07-31T00:00:00", "Maturity": "3 mo", "value": 5.32}, {"Date": "1996-08-31T00:00:00", "Maturity": "3 mo", "value": 5.29}, {"Date": "1996-09-30T00:00:00", "Maturity": "3 mo", "value": 5.14}, {"Date": "1996-10-31T00:00:00", "Maturity": "3 mo", "value": 5.17}, {"Date": "1996-11-30T00:00:00", "Maturity": "3 mo", "value": 5.13}, {"Date": "1996-12-31T00:00:00", "Maturity": "3 mo", "value": 5.21}, {"Date": "1996-01-31T00:00:00", "Maturity": "6 mo", "value": 4.97}, {"Date": "1996-02-29T00:00:00", "Maturity": "6 mo", "value": 5.05}, {"Date": "1996-03-31T00:00:00", "Maturity": "6 mo", "value": 5.2}, {"Date": "1996-04-30T00:00:00", "Maturity": "6 mo", "value": 5.3}, {"Date": "1996-05-31T00:00:00", "Maturity": "6 mo", "value": 5.36}, {"Date": "1996-06-30T00:00:00", "Maturity": "6 mo", "value": 5.37}, {"Date": "1996-07-31T00:00:00", "Maturity": "6 mo", "value": 5.47}, {"Date": "1996-08-31T00:00:00", "Maturity": "6 mo", "value": 5.49}, {"Date": "1996-09-30T00:00:00", "Maturity": "6 mo", "value": 5.37}, {"Date": "1996-10-31T00:00:00", "Maturity": "6 mo", "value": 5.3}, {"Date": "1996-11-30T00:00:00", "Maturity": "6 mo", "value": 5.25}, {"Date": "1996-12-31T00:00:00", "Maturity": "6 mo", "value": 5.33}, {"Date": "1996-01-31T00:00:00", "Maturity": "1 yr", "value": 4.9}, {"Date": "1996-02-29T00:00:00", "Maturity": "1 yr", "value": 5.23}, {"Date": "1996-03-31T00:00:00", "Maturity": "1 yr", "value": 5.41}, {"Date": "1996-04-30T00:00:00", "Maturity": "1 yr", "value": 5.62}, {"Date": "1996-05-31T00:00:00", "Maturity": "1 yr", "value": 5.77}, {"Date": "1996-06-30T00:00:00", "Maturity": "1 yr", "value": 5.7}, {"Date": "1996-07-31T00:00:00", "Maturity": "1 yr", "value": 5.85}, {"Date": "1996-08-31T00:00:00", "Maturity": "1 yr", "value": 5.91}, {"Date": "1996-09-30T00:00:00", "Maturity": "1 yr", "value": 5.71}, {"Date": "1996-10-31T00:00:00", "Maturity": "1 yr", "value": 5.44}, {"Date": "1996-11-30T00:00:00", "Maturity": "1 yr", "value": 5.38}, {"Date": "1996-12-31T00:00:00", "Maturity": "1 yr", "value": 5.51}, {"Date": "1996-01-31T00:00:00", "Maturity": "2 yr", "value": 4.93}, {"Date": "1996-02-29T00:00:00", "Maturity": "2 yr", "value": 5.44}, {"Date": "1996-03-31T00:00:00", "Maturity": "2 yr", "value": 5.79}, {"Date": "1996-04-30T00:00:00", "Maturity": "2 yr", "value": 6.03}, {"Date": "1996-05-31T00:00:00", "Maturity": "2 yr", "value": 6.27}, {"Date": "1996-06-30T00:00:00", "Maturity": "2 yr", "value": 6.11}, {"Date": "1996-07-31T00:00:00", "Maturity": "2 yr", "value": 6.22}, {"Date": "1996-08-31T00:00:00", "Maturity": "2 yr", "value": 6.34}, {"Date": "1996-09-30T00:00:00", "Maturity": "2 yr", "value": 6.1}, {"Date": "1996-10-31T00:00:00", "Maturity": "2 yr", "value": 5.77}, {"Date": "1996-11-30T00:00:00", "Maturity": "2 yr", "value": 5.59}, {"Date": "1996-12-31T00:00:00", "Maturity": "2 yr", "value": 5.88}, {"Date": "1996-01-31T00:00:00", "Maturity": "3 yr", "value": 5.06}, {"Date": "1996-02-29T00:00:00", "Maturity": "3 yr", "value": 5.56}, {"Date": "1996-03-31T00:00:00", "Maturity": "3 yr", "value": 5.91}, {"Date": "1996-04-30T00:00:00", "Maturity": "3 yr", "value": 6.19}, {"Date": "1996-05-31T00:00:00", "Maturity": "3 yr", "value": 6.44}, {"Date": "1996-06-30T00:00:00", "Maturity": "3 yr", "value": 6.3}, {"Date": "1996-07-31T00:00:00", "Maturity": "3 yr", "value": 6.39}, {"Date": "1996-08-31T00:00:00", "Maturity": "3 yr", "value": 6.54}, {"Date": "1996-09-30T00:00:00", "Maturity": "3 yr", "value": 6.28}, {"Date": "1996-10-31T00:00:00", "Maturity": "3 yr", "value": 5.92}, {"Date": "1996-11-30T00:00:00", "Maturity": "3 yr", "value": 5.7}, {"Date": "1996-12-31T00:00:00", "Maturity": "3 yr", "value": 6.04}, {"Date": "1996-01-31T00:00:00", "Maturity": "5 yr", "value": 5.25}, {"Date": "1996-02-29T00:00:00", "Maturity": "5 yr", "value": 5.73}, {"Date": "1996-03-31T00:00:00", "Maturity": "5 yr", "value": 6.1}, {"Date": "1996-04-30T00:00:00", "Maturity": "5 yr", "value": 6.4}, {"Date": "1996-05-31T00:00:00", "Maturity": "5 yr", "value": 6.64}, {"Date": "1996-06-30T00:00:00", "Maturity": "5 yr", "value": 6.47}, {"Date": "1996-07-31T00:00:00", "Maturity": "5 yr", "value": 6.57}, {"Date": "1996-08-31T00:00:00", "Maturity": "5 yr", "value": 6.73}, {"Date": "1996-09-30T00:00:00", "Maturity": "5 yr", "value": 6.46}, {"Date": "1996-10-31T00:00:00", "Maturity": "5 yr", "value": 6.1}, {"Date": "1996-11-30T00:00:00", "Maturity": "5 yr", "value": 5.84}, {"Date": "1996-12-31T00:00:00", "Maturity": "5 yr", "value": 6.21}, {"Date": "1996-01-31T00:00:00", "Maturity": "7 yr", "value": 5.46}, {"Date": "1996-02-29T00:00:00", "Maturity": "7 yr", "value": 5.99}, {"Date": "1996-03-31T00:00:00", "Maturity": "7 yr", "value": 6.3}, {"Date": "1996-04-30T00:00:00", "Maturity": "7 yr", "value": 6.58}, {"Date": "1996-05-31T00:00:00", "Maturity": "7 yr", "value": 6.78}, {"Date": "1996-06-30T00:00:00", "Maturity": "7 yr", "value": 6.61}, {"Date": "1996-07-31T00:00:00", "Maturity": "7 yr", "value": 6.68}, {"Date": "1996-08-31T00:00:00", "Maturity": "7 yr", "value": 6.86}, {"Date": "1996-09-30T00:00:00", "Maturity": "7 yr", "value": 6.6}, {"Date": "1996-10-31T00:00:00", "Maturity": "7 yr", "value": 6.24}, {"Date": "1996-11-30T00:00:00", "Maturity": "7 yr", "value": 5.97}, {"Date": "1996-12-31T00:00:00", "Maturity": "7 yr", "value": 6.34}, {"Date": "1996-01-31T00:00:00", "Maturity": "10 yr", "value": 5.6}, {"Date": "1996-02-29T00:00:00", "Maturity": "10 yr", "value": 6.13}, {"Date": "1996-03-31T00:00:00", "Maturity": "10 yr", "value": 6.34}, {"Date": "1996-04-30T00:00:00", "Maturity": "10 yr", "value": 6.66}, {"Date": "1996-05-31T00:00:00", "Maturity": "10 yr", "value": 6.85}, {"Date": "1996-06-30T00:00:00", "Maturity": "10 yr", "value": 6.73}, {"Date": "1996-07-31T00:00:00", "Maturity": "10 yr", "value": 6.8}, {"Date": "1996-08-31T00:00:00", "Maturity": "10 yr", "value": 6.96}, {"Date": "1996-09-30T00:00:00", "Maturity": "10 yr", "value": 6.72}, {"Date": "1996-10-31T00:00:00", "Maturity": "10 yr", "value": 6.37}, {"Date": "1996-11-30T00:00:00", "Maturity": "10 yr", "value": 6.06}, {"Date": "1996-12-31T00:00:00", "Maturity": "10 yr", "value": 6.43}, {"Date": "1996-01-31T00:00:00", "Maturity": "20 yr", "value": 6.07}, {"Date": "1996-02-29T00:00:00", "Maturity": "20 yr", "value": 6.57}, {"Date": "1996-03-31T00:00:00", "Maturity": "20 yr", "value": 6.83}, {"Date": "1996-04-30T00:00:00", "Maturity": "20 yr", "value": 7.06}, {"Date": "1996-05-31T00:00:00", "Maturity": "20 yr", "value": 7.17}, {"Date": "1996-06-30T00:00:00", "Maturity": "20 yr", "value": 7.03}, {"Date": "1996-07-31T00:00:00", "Maturity": "20 yr", "value": 7.07}, {"Date": "1996-08-31T00:00:00", "Maturity": "20 yr", "value": 7.28}, {"Date": "1996-09-30T00:00:00", "Maturity": "20 yr", "value": 7.05}, {"Date": "1996-10-31T00:00:00", "Maturity": "20 yr", "value": 6.74}, {"Date": "1996-11-30T00:00:00", "Maturity": "20 yr", "value": 6.45}, {"Date": "1996-12-31T00:00:00", "Maturity": "20 yr", "value": 6.73}, {"Date": "1996-01-31T00:00:00", "Maturity": "30 yr", "value": 6.03}, {"Date": "1996-02-29T00:00:00", "Maturity": "30 yr", "value": 6.48}, {"Date": "1996-03-31T00:00:00", "Maturity": "30 yr", "value": 6.67}, {"Date": "1996-04-30T00:00:00", "Maturity": "30 yr", "value": 6.89}, {"Date": "1996-05-31T00:00:00", "Maturity": "30 yr", "value": 7.0}, {"Date": "1996-06-30T00:00:00", "Maturity": "30 yr", "value": 6.9}, {"Date": "1996-07-31T00:00:00", "Maturity": "30 yr", "value": 6.98}, {"Date": "1996-08-31T00:00:00", "Maturity": "30 yr", "value": 7.13}, {"Date": "1996-09-30T00:00:00", "Maturity": "30 yr", "value": 6.93}, {"Date": "1996-10-31T00:00:00", "Maturity": "30 yr", "value": 6.66}, {"Date": "1996-11-30T00:00:00", "Maturity": "30 yr", "value": 6.36}, {"Date": "1996-12-31T00:00:00", "Maturity": "30 yr", "value": 6.65}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Visualizing-the-&quot;yield-curve&quot;-of-US-Treasuries">Visualizing the "yield curve" of US Treasuries<a class="anchor-link" href="#Visualizing-the-&quot;yield-curve&quot;-of-US-Treasuries">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2004</span><span class="p">,</span> <span class="mi">2009</span><span class="p">)</span>
+<span class="n">instruments</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mf">0.25</span><span class="p">:</span> <span class="s1">&#39;3 Month T-bill&#39;</span><span class="p">,</span>
+    <span class="mf">0.5</span><span class="p">:</span> <span class="s1">&#39;6 Month T-bill&#39;</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;2 Year Note&#39;</span><span class="p">,</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="s1">&#39;10 Year Note&#39;</span><span class="p">,</span>
+    <span class="mi">30</span><span class="p">:</span> <span class="s1">&#39;30 Year Bond&#39;</span>
+<span class="p">}</span>
+<span class="n">fieldsToYears</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;3 mo&#39;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="s1">&#39;6 mo&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;2 yr&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;10 yr&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;30 yr&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fieldsToYears</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+
+<span class="n">dfm2</span> <span class="o">=</span> <span class="n">fetchTsRates</span><span class="p">(</span><span class="n">years</span><span class="p">)[</span><span class="n">fields</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">)</span>
+
+<span class="n">dfm2</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfm2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">dfm2</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Maturity&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span> <span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Maturity:O&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">,</span> <span class="n">labelAngle</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sort</span><span class="o">=</span><span class="n">fields</span><span class="p">),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Interest Rate [%]&#39;</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Year:N&#39;</span><span class="p">),</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;U.S. Treasury Yield comparison [</span><span class="si">{y1}</span><span class="s1"> to </span><span class="si">{y2}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y1</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">years</span><span class="p">),</span> <span class="n">y2</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">years</span><span class="p">)),</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[9]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-ac779e6268ff45d5ac47bd634326ddca"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-ac779e6268ff45d5ac47bd634326ddca");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-7eeda5cf5115ad2cfc4a756bcbab0b4b"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "Year"}, "tooltip": [{"type": "temporal", "field": "Date", "format": "%b %Y"}, {"type": "nominal", "field": "Maturity"}, {"type": "quantitative", "field": "value"}], "x": {"type": "ordinal", "axis": {"labelAngle": 0, "title": "Maturity"}, "field": "Maturity", "sort": ["3 mo", "6 mo", "2 yr", "10 yr", "30 yr"]}, "y": {"type": "quantitative", "axis": {"title": "Interest Rate [%]"}, "field": "value"}}, "height": 450, "title": "U.S. Treasury Yield comparison [2004 to 2008]", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-7eeda5cf5115ad2cfc4a756bcbab0b4b": [{"Maturity": "10 yr", "Year": 2004, "value": 4.2700000000000005}, {"Maturity": "10 yr", "Year": 2005, "value": 4.2700000000000005}, {"Maturity": "10 yr", "Year": 2006, "value": 4.785833333333334}, {"Maturity": "10 yr", "Year": 2007, "value": 4.583333333333334}, {"Maturity": "10 yr", "Year": 2008, "value": 3.6108333333333333}, {"Maturity": "2 yr", "Year": 2004, "value": 2.419166666666666}, {"Maturity": "2 yr", "Year": 2005, "value": 3.9058333333333337}, {"Maturity": "2 yr", "Year": 2006, "value": 4.8116666666666665}, {"Maturity": "2 yr", "Year": 2007, "value": 4.272499999999999}, {"Maturity": "2 yr", "Year": 2008, "value": 1.9349999999999998}, {"Maturity": "3 mo", "Year": 2004, "value": 1.4441666666666668}, {"Maturity": "3 mo", "Year": 2005, "value": 3.2983333333333333}, {"Maturity": "3 mo", "Year": 2006, "value": 4.8775}, {"Maturity": "3 mo", "Year": 2007, "value": 4.418333333333333}, {"Maturity": "3 mo", "Year": 2008, "value": 1.2758333333333334}, {"Maturity": "30 yr", "Year": 2004, "value": null}, {"Maturity": "30 yr", "Year": 2005, "value": null}, {"Maturity": "30 yr", "Year": 2006, "value": 4.890000000000001}, {"Maturity": "30 yr", "Year": 2007, "value": 4.796666666666666}, {"Maturity": "30 yr", "Year": 2008, "value": 4.218333333333333}, {"Maturity": "6 mo", "Year": 2004, "value": 1.6658333333333333}, {"Maturity": "6 mo", "Year": 2005, "value": 3.576666666666666}, {"Maturity": "6 mo", "Year": 2006, "value": 5.000000000000001}, {"Maturity": "6 mo", "Year": 2007, "value": 4.541666666666667}, {"Maturity": "6 mo", "Year": 2008, "value": 1.5283333333333335}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2021</span><span class="p">)</span>
+<span class="n">instruments</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mf">0.25</span><span class="p">:</span> <span class="s1">&#39;3 Month T-bill&#39;</span><span class="p">,</span>
+    <span class="mf">0.5</span><span class="p">:</span> <span class="s1">&#39;6 Month T-bill&#39;</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;2 Year Note&#39;</span><span class="p">,</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="s1">&#39;10 Year Note&#39;</span><span class="p">,</span>
+    <span class="mi">30</span><span class="p">:</span> <span class="s1">&#39;30 Year Bond&#39;</span>
+<span class="p">}</span>
+<span class="n">fieldsToYears</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;3 mo&#39;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="s1">&#39;6 mo&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;2 yr&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;10 yr&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;30 yr&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fieldsToYears</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+
+<span class="n">dfm2</span> <span class="o">=</span> <span class="n">fetchTsRates</span><span class="p">(</span><span class="n">years</span><span class="p">)[</span><span class="n">fields</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">)</span>
+
+<span class="n">dfm2</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfm2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">dfm2</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Maturity&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span> <span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Maturity:O&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Maturity&#39;</span><span class="p">,</span> <span class="n">labelAngle</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sort</span><span class="o">=</span><span class="n">fields</span><span class="p">),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Interest Rate [%]&#39;</span><span class="p">)),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Year:N&#39;</span><span class="p">),</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Date:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Maturity:N&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;U.S. Treasury Yield comparison [</span><span class="si">{y1}</span><span class="s1"> to </span><span class="si">{y2}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y1</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">years</span><span class="p">),</span> <span class="n">y2</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">years</span><span class="p">)),</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[10]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-3148b1dcc82f438dbd497bbe79248e65"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    const outputDiv = document.getElementById("altair-viz-3148b1dcc82f438dbd497bbe79248e65");
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-4926877c4e792efc31d3b55050ead4b3"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "Year"}, "tooltip": [{"type": "temporal", "field": "Date", "format": "%b %Y"}, {"type": "nominal", "field": "Maturity"}, {"type": "quantitative", "field": "value"}], "x": {"type": "ordinal", "axis": {"labelAngle": 0, "title": "Maturity"}, "field": "Maturity", "sort": ["3 mo", "6 mo", "2 yr", "10 yr", "30 yr"]}, "y": {"type": "quantitative", "axis": {"title": "Interest Rate [%]"}, "field": "value"}}, "height": 450, "title": "U.S. Treasury Yield comparison [2016 to 2020]", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-4926877c4e792efc31d3b55050ead4b3": [{"Maturity": "10 yr", "Year": 2016, "value": 1.8266666666666669}, {"Maturity": "10 yr", "Year": 2017, "value": 2.330833333333333}, {"Maturity": "10 yr", "Year": 2018, "value": 2.89}, {"Maturity": "10 yr", "Year": 2019, "value": 2.084166666666667}, {"Maturity": "10 yr", "Year": 2020, "value": 1.4849999999999999}, {"Maturity": "2 yr", "Year": 2016, "value": 0.8250000000000001}, {"Maturity": "2 yr", "Year": 2017, "value": 1.4191666666666667}, {"Maturity": "2 yr", "Year": 2018, "value": 2.526666666666667}, {"Maturity": "2 yr", "Year": 2019, "value": 1.9116666666666664}, {"Maturity": "2 yr", "Year": 2020, "value": 1.335}, {"Maturity": "3 mo", "Year": 2016, "value": 0.32666666666666666}, {"Maturity": "3 mo", "Year": 2017, "value": 0.9641666666666667}, {"Maturity": "3 mo", "Year": 2018, "value": 2.005}, {"Maturity": "3 mo", "Year": 2019, "value": 2.0658333333333334}, {"Maturity": "3 mo", "Year": 2020, "value": 1.5550000000000002}, {"Maturity": "30 yr", "Year": 2016, "value": 2.58}, {"Maturity": "30 yr", "Year": 2017, "value": 2.8866666666666667}, {"Maturity": "30 yr", "Year": 2018, "value": 3.095}, {"Maturity": "30 yr", "Year": 2019, "value": 2.5250000000000004}, {"Maturity": "30 yr", "Year": 2020, "value": 1.9449999999999998}, {"Maturity": "6 mo", "Year": 2016, "value": 0.4675}, {"Maturity": "6 mo", "Year": 2017, "value": 1.0924999999999998}, {"Maturity": "6 mo", "Year": 2018, "value": 2.1750000000000003}, {"Maturity": "6 mo", "Year": 2019, "value": 2.0766666666666667}, {"Maturity": "6 mo", "Year": 2020, "value": 1.5350000000000001}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<hr>
+&copy; 2020 Kyle Dunn
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/5e10ffefb5d3f73a785f57db833870313ae6a017/analysis/us-treasury-rates.ipynb"><code>analysis/us-treasury-rates.ipynb</code></a> committed by GitHub Action on Sun Feb 23 05:35:27 2020 <a href="http://github.com/kdunn926/us-macro/commit/5e10ffefb5d3f73a785f57db833870313ae6a017">revision 2, 5e10ffe</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+</div>
+</div>
+</body>
+
+
+<script>
+// TODO - some, or all of this could be moved to pre-rendering sed/regex
+// add bootstrap table styles to pandoc tables (notebooks)
+$(document).ready( () => {
+
+  $('tr').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr').parent('thead').parent('table').removeAttr('border');
+  $('tr').parent('thead').parent('table').removeClass('dataframe');
+
+  $('.output_area .output_html table thead tr').removeAttr('style');
+  $('.output_area .output_html table thead tr th').attr("scope", "col");
+
+  $('.output_area .output_html table tbody tr th').attr("scope", "row");
+
+
+  // Change the input cell gutter text, make it a link
+  $('.input .input_prompt').map((n, e) => {
+    e.innerHTML = `<a href="#" >Show Code Cell [${n + 1}]</a>`;
+  });
+
+  // Attach an event listener to the above link for show/hide
+  $('.input .input_prompt a').map((n, e) => {
+    const showOrHide = e => {
+      e.preventDefault();
+      $(`#code-${n}`).find('.inner_cell').toggleClass('collapse');
+      const v = $(`#code-${n}`).find('.input_prompt a');
+      if (v.html().includes('Show')) {
+        v.html(`Hide Code Cell [${n+1}]`);
+      } else {
+        v.html(`Show Code Cell [${n+1}]`);
+      }
+    }
+
+    e.addEventListener("click", showOrHide, false);
+  });
+
+  // Annotate parent cells of input cells with id/classes
+  $('.input .inner_cell').map((n, e) => {
+    $('.input .inner_cell').parent('div').toArray()[n].id = `code-${n}`;
+  });
+  $('.input .inner_cell')
+    .addClass("collapse")
+    .after('<div class="inner_cell" style="font-size: 150%; padding-left: 5px;">...</div>');
+
+});
+</script>
+    
+
+</html>
