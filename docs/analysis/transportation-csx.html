@@ -253,10 +253,10 @@ function sortDataFrame(id, n, dtype) {
     
     <span class="k">try</span><span class="p">:</span>
         <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">executable_path</span><span class="o">=</span><span class="s1">&#39;/usr/local/bin/chromedriver&#39;</span><span class="p">,</span>
-                                  <span class="n">options</span><span class="o">=</span><span class="n">chrome_options</span><span class="p">)</span>
+                                  <span class="n">chrome_options</span><span class="o">=</span><span class="n">chrome_options</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">WebDriverException</span><span class="p">:</span>
         <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">executable_path</span><span class="o">=</span><span class="s1">&#39;/usr/bin/chromedriver&#39;</span><span class="p">,</span>
-                          <span class="n">options</span><span class="o">=</span><span class="n">chrome_options</span><span class="p">)</span>
+                          <span class="n">chrome_options</span><span class="o">=</span><span class="n">chrome_options</span><span class="p">)</span>
         
     <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">baseUrl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">page</span><span class="p">))</span>
         
@@ -311,6 +311,51 @@ function sortDataFrame(id, n, dtype) {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Exception ignored in: &lt;function Service.__del__ at 0x7fbaedaf0cb0&gt;
+Traceback (most recent call last):
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
+    self.stop()
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
+    if self.process is None:
+AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
+Exception ignored in: &lt;function Service.__del__ at 0x7fbaedaf0cb0&gt;
+Traceback (most recent call last):
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
+    self.stop()
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
+    if self.process is None:
+AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
+Exception ignored in: &lt;function Service.__del__ at 0x7fbaedaf0cb0&gt;
+Traceback (most recent call last):
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
+    self.stop()
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
+    if self.process is None:
+AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
+Exception ignored in: &lt;function Service.__del__ at 0x7fbaedaf0cb0&gt;
+Traceback (most recent call last):
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
+    self.stop()
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
+    if self.process is None:
+AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -323,7 +368,7 @@ function sortDataFrame(id, n, dtype) {
 
 <span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
-<span class="n">merged</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">#merged.head()</span>
 </pre></div>
 
     </div>
@@ -340,7 +385,35 @@ function sortDataFrame(id, n, dtype) {
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>The output file is empty.
+<pre>Exception ignored in: &lt;function Service.__del__ at 0x7fbaedaf0cb0&gt;
+Traceback (most recent call last):
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
+    self.stop()
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
+    if self.process is None:
+AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
+Exception ignored in: &lt;function Service.__del__ at 0x7fbaedaf0cb0&gt;
+Traceback (most recent call last):
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
+    self.stop()
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
+    if self.process is None:
+AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
+Exception ignored in: &lt;function Service.__del__ at 0x7fbaedaf0cb0&gt;
+Traceback (most recent call last):
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
+    self.stop()
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
+    if self.process is None:
+AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
+Exception ignored in: &lt;function Service.__del__ at 0x7fbaedaf0cb0&gt;
+Traceback (most recent call last):
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
+    self.stop()
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
+    if self.process is None:
+AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
+The output file is empty.
 </pre>
 </div>
 </div>
@@ -352,201 +425,10 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>(&#39;http://csx.gcs-web.com/static-files/942ad9b6-158b-4db6-a5fd-9dea04c0373c&#39;, &#39;2016 Week 25 AAR&#39;)
-CPU times: user 7.92 s, sys: 2.48 s, total: 10.4 s
-Wall time: 11min 46s
+CPU times: user 8.91 s, sys: 2.94 s, total: 11.8 s
+Wall time: 13min 27s
 </pre>
 </div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[2]:</div>
-
-
-
-   
-        
-            
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Grain</th>
-      <th>Grain Mill Products</th>
-      <th>Farm Products (excl. Grain)</th>
-      <th>Food Products</th>
-      <th>Chemicals</th>
-      <th>Petroleum &amp; Petroleum Products</th>
-      <th>Primary Metal Products</th>
-      <th>Primary Forest Products</th>
-      <th>Lumber &amp; Wood Products</th>
-      <th>Pulp &amp; Paper Products</th>
-      <th>...</th>
-      <th>Non‐Metallic Minerals (incl. Phosphates)</th>
-      <th>Primary Forest Products*</th>
-      <th>Farm Products, Ex. Grain</th>
-      <th>Food &amp; Kindred Products</th>
-      <th>Petroleum Products</th>
-      <th>Metals &amp; Products</th>
-      <th>Pulp, Paper &amp; Allied Products</th>
-      <th>Phosphate (Phospate Rock)</th>
-      <th>Automotive (Motor Vehicles &amp; Equip.)</th>
-      <th>Military, Machinery &amp; Transportation Equipment</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Week 7 2020</th>
-      <td>2430.0</td>
-      <td>2116.0</td>
-      <td>175.0</td>
-      <td>1953.0</td>
-      <td>9837.0</td>
-      <td>3557.0</td>
-      <td>2554.0</td>
-      <td>613.0</td>
-      <td>970.0</td>
-      <td>2748.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>Week 7 2019</th>
-      <td>3316.0</td>
-      <td>2231.0</td>
-      <td>237.0</td>
-      <td>1830.0</td>
-      <td>9702.0</td>
-      <td>3231.0</td>
-      <td>2542.0</td>
-      <td>698.0</td>
-      <td>1136.0</td>
-      <td>3035.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>Week 7 pct-change</th>
-      <td>26.7</td>
-      <td>5.2</td>
-      <td>26.2</td>
-      <td>6.7</td>
-      <td>1.4</td>
-      <td>10.1</td>
-      <td>0.5</td>
-      <td>12.2</td>
-      <td>14.6</td>
-      <td>9.5</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>Week 7 2020 QTD</th>
-      <td>21697.0</td>
-      <td>14639.0</td>
-      <td>1374.0</td>
-      <td>14125.0</td>
-      <td>68808.0</td>
-      <td>24939.0</td>
-      <td>17681.0</td>
-      <td>4346.0</td>
-      <td>7524.0</td>
-      <td>21781.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>Week 7 2019 QTD</th>
-      <td>21322.0</td>
-      <td>14195.0</td>
-      <td>1683.0</td>
-      <td>13274.0</td>
-      <td>66923.0</td>
-      <td>23256.0</td>
-      <td>18884.0</td>
-      <td>4081.0</td>
-      <td>7739.0</td>
-      <td>21308.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 35 columns</p>
-</div>
-</div>
-
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
 </div>
 
 </div>
@@ -561,6 +443,15 @@ Wall time: 11min 46s
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">merged</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csx-data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
 
 <span class="c1">#merged.tail()</span>
+
+<span class="n">subset</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="s1">&#39;[0-9]$&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#subset.head()</span>
+
+<span class="n">subset</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; AAR&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; 6&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;Week %W %Y %w&#39;</span><span class="p">))</span>
+
+<span class="c1">#subset.tail()</span>
+
+<span class="c1">#print(subset.dtypes)</span>
 </pre></div>
 
     </div>
@@ -571,102 +462,6 @@ Wall time: 11min 46s
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="s1">&#39;[0-9]$&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="c1">#subset.head()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; AAR&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; 6&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;Week %W %Y %w&#39;</span><span class="p">))</span>
-
-<span class="c1">#subset.tail()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">subset</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Grain                                                    float64
-Grain Mill Products                                      float64
-Farm Products (excl. Grain)                              float64
-Food Products                                            float64
-Chemicals                                                float64
-Petroleum &amp; Petroleum Products                           float64
-Primary Metal Products                                   float64
-Primary Forest Products                                  float64
-Lumber &amp; Wood Products                                   float64
-Pulp &amp; Paper Products                                    float64
-Non-Metallic Minerals (incl. Phosphates)                 float64
-Crushed Stone, Sand &amp; Gravel                             float64
-Stone, Clay &amp; Glass Products                             float64
-Iron &amp; Steel Scrap                                       float64
-Waste &amp; Nonferrous Scrap                                 float64
-Motor Vehicles and Parts                                 float64
-Metallic Ores                                            float64
-Coal                                                     float64
-Coke                                                     float64
-All Other Carloads                                       float64
-Total Carloads                                           float64
-Trailers                                                 float64
-Containers                                               float64
-Total Intermodal                                         float64
-Total Traffic                                            float64
-Non‐Metallic Minerals (incl. Phosphates)                 float64
-Primary Forest Products*                                 float64
-Farm Products, Ex. Grain                                 float64
-Food &amp; Kindred Products                                  float64
-Petroleum Products                                       float64
-Metals &amp; Products                                        float64
-Pulp, Paper &amp; Allied Products                            float64
-Phosphate (Phospate Rock)                                float64
-Automotive (Motor Vehicles &amp; Equip.)                     float64
-Military, Machinery &amp; Transportation Equipment           float64
-dt                                                datetime64[ns]
-dtype: object
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">doChart</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">):</span>
@@ -709,10 +504,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-ec60cd68824a4d5d8e54b7b2d40e1dc0"></div>
+<div id="altair-viz-2c473f3ee51743ff9e0d03a19408dddb"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-ec60cd68824a4d5d8e54b7b2d40e1dc0");
+    const outputDiv = document.getElementById("altair-viz-2c473f3ee51743ff9e0d03a19408dddb");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -776,7 +571,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Lumber &amp; Wood Products&#39;</span>
@@ -802,10 +597,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-3451f771f2574b8eb0813ef5c8314e60"></div>
+<div id="altair-viz-f96bead2f56048b5b342584d1c959bbc"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-3451f771f2574b8eb0813ef5c8314e60");
+    const outputDiv = document.getElementById("altair-viz-f96bead2f56048b5b342584d1c959bbc");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -869,7 +664,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Total Traffic&#39;</span>
@@ -895,10 +690,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-5f5c87d37a544a7c9b7b0d699da9c6ec"></div>
+<div id="altair-viz-8eb5fb8cfd9d4fa3bee27b2837e41b64"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-5f5c87d37a544a7c9b7b0d699da9c6ec");
+    const outputDiv = document.getElementById("altair-viz-8eb5fb8cfd9d4fa3bee27b2837e41b64");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -962,7 +757,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Total Carloads&#39;</span>
@@ -988,10 +783,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-ab57f045a1e84452ba1b74591ddb19aa"></div>
+<div id="altair-viz-89242f3f6a9d49519e5a067cd5882482"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-ab57f045a1e84452ba1b74591ddb19aa");
+    const outputDiv = document.getElementById("altair-viz-89242f3f6a9d49519e5a067cd5882482");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1055,7 +850,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Total Intermodal&#39;</span>
@@ -1081,10 +876,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-908a8715ee12400fa259c8642f73c00d"></div>
+<div id="altair-viz-4f0a30af556c437083e9c7f75d0c917c"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-908a8715ee12400fa259c8642f73c00d");
+    const outputDiv = document.getElementById("altair-viz-4f0a30af556c437083e9c7f75d0c917c");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1148,7 +943,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Automotive (Motor Vehicles &amp; Equip.)&#39;</span>
@@ -1175,10 +970,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-2a832b4348494c73afb9950b729a2ed5"></div>
+<div id="altair-viz-168dbb714bf7450ab09575823b14e285"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-2a832b4348494c73afb9950b729a2ed5");
+    const outputDiv = document.getElementById("altair-viz-168dbb714bf7450ab09575823b14e285");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1242,7 +1037,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Containers&#39;</span>
@@ -1268,10 +1063,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-a62ce7be6dbb4b2698c88f171ac37a74"></div>
+<div id="altair-viz-b1ab2d39ebb047cbb9deab9e1f8d45cd"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-a62ce7be6dbb4b2698c88f171ac37a74");
+    const outputDiv = document.getElementById("altair-viz-b1ab2d39ebb047cbb9deab9e1f8d45cd");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1335,7 +1130,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Coal&#39;</span>
@@ -1361,10 +1156,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-07ecbaf259fc4c7d8a68b0987d978d31"></div>
+<div id="altair-viz-fb857fe6338141bfb4647bdb0c1c25be"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-07ecbaf259fc4c7d8a68b0987d978d31");
+    const outputDiv = document.getElementById("altair-viz-fb857fe6338141bfb4647bdb0c1c25be");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1428,7 +1223,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Chemicals&#39;</span>
@@ -1454,10 +1249,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-4e6d291b41624b4f9ed813282ea29e0b"></div>
+<div id="altair-viz-4a29c01836974863a0cba8fc163e9e84"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-4e6d291b41624b4f9ed813282ea29e0b");
+    const outputDiv = document.getElementById("altair-viz-4a29c01836974863a0cba8fc163e9e84");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1521,7 +1316,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Food Products&#39;</span>
@@ -1547,10 +1342,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-8d373381ee334b88bf049bd8d8b4381a"></div>
+<div id="altair-viz-9384126e31304dd48fa5e945a4752b92"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-8d373381ee334b88bf049bd8d8b4381a");
+    const outputDiv = document.getElementById("altair-viz-9384126e31304dd48fa5e945a4752b92");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1614,7 +1409,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Farm Products (excl. Grain)&#39;</span>
@@ -1640,10 +1435,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-8141ee08a73244a78148d75e07a3dfa3"></div>
+<div id="altair-viz-482eb43468c747f88c3b31372050b8eb"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-8141ee08a73244a78148d75e07a3dfa3");
+    const outputDiv = document.getElementById("altair-viz-482eb43468c747f88c3b31372050b8eb");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1707,7 +1502,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Grain&#39;</span>
@@ -1733,10 +1528,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-3a31dd6569f04488b2612878d1ee50a0"></div>
+<div id="altair-viz-1d2969bb2c694fabb2de505a27979d72"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-3a31dd6569f04488b2612878d1ee50a0");
+    const outputDiv = document.getElementById("altair-viz-1d2969bb2c694fabb2de505a27979d72");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1800,7 +1595,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Grain Mill Products&#39;</span>
@@ -1826,10 +1621,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-c45a03280d3f4bf1bf439ae1fbcdfd36"></div>
+<div id="altair-viz-c98d48473bac415eaddc2810684b18d3"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-c45a03280d3f4bf1bf439ae1fbcdfd36");
+    const outputDiv = document.getElementById("altair-viz-c98d48473bac415eaddc2810684b18d3");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1893,7 +1688,7 @@ dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;Grain Mill Products&#39;</span>
@@ -1919,10 +1714,10 @@ dtype: object
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-8976fee15b91431283037dd02b8447f2"></div>
+<div id="altair-viz-8b3192abe4bf4fe996b72e1e555c9596"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-8976fee15b91431283037dd02b8447f2");
+    const outputDiv = document.getElementById("altair-viz-8b3192abe4bf4fe996b72e1e555c9596");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1986,7 +1781,7 @@ dtype: object
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/3d566a4236bf1168ad8aaaee79bafedf57bb6a87/analysis/transportation-csx.ipynb"><code>analysis/transportation-csx.ipynb</code></a> committed by Kyle Dunn on Sun Feb 23 06:32:31 2020 <a href="http://github.com/kdunn926/us-macro/commit/3d566a4236bf1168ad8aaaee79bafedf57bb6a87">revision 1, 3d566a4</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/1d503291292c342f1adf8111d65bc3cc02b21861/analysis/transportation-csx.ipynb"><code>analysis/transportation-csx.ipynb</code></a> committed by GitHub Action on Sun Feb 23 08:11:08 2020 <a href="http://github.com/kdunn926/us-macro/commit/1d503291292c342f1adf8111d65bc3cc02b21861">revision 2, 1d50329</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
