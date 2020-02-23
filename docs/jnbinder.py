@@ -401,6 +401,16 @@ $(document).ready(function () {
   })();
 </script>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9902895-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-9902895-3');
+</script>
+
 </body>
 </html>
 {%% endblock %%}
@@ -1023,6 +1033,16 @@ function sortDataFrame(id, n, dtype) {
 </body>
 
 %(pandoc_to_bs4)s
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9902895-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-9902895-3');
+</script>
 
 </html>
 {%% endblock %%}
