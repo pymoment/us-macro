@@ -2204,21 +2204,34 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;Key&#39;</span><span class="p">,</span> <span class="s1">&#39;Jan&#39;</span><span class="p">,</span> <span class="s1">&#39;Feb&#39;</span><span class="p">,</span> <span class="s1">&#39;Mar&#39;</span><span class="p">,</span> <span class="s1">&#39;Apr&#39;</span><span class="p">,</span> <span class="s1">&#39;May&#39;</span><span class="p">,</span> <span class="s1">&#39;Jun&#39;</span><span class="p">,</span> <span class="s1">&#39;Jul&#39;</span><span class="p">,</span> <span class="s1">&#39;Aug&#39;</span><span class="p">,</span> <span class="s1">&#39;Sep&#39;</span><span class="p">,</span> <span class="s1">&#39;Oct&#39;</span><span class="p">,</span> <span class="s1">&#39;Nov&#39;</span><span class="p">,</span> <span class="s1">&#39;Dec&#39;</span><span class="p">,</span> <span class="s1">&#39;Total&#39;</span><span class="p">]</span>
 
-<span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="s2">&quot;http://gaports.com/wp-content/uploads/2020/02/Monthly-TEU-Throughput-January-2020.pdf&quot;</span><span class="p">,</span>
-              <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">uaString</span> <span class="p">})</span>
+<span class="k">def</span> <span class="nf">doFetch</span><span class="p">(</span><span class="n">retries</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">retries</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="s2">&quot;http://gaports.com/wp-content/uploads/2020/02/Monthly-TEU-Throughput-January-2020.pdf&quot;</span><span class="p">,</span>
+                      <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">uaString</span> <span class="p">})</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
 
-<span class="n">tabs</span> <span class="o">=</span> <span class="n">read_pdf</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">read</span><span class="p">()),</span> <span class="n">pages</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">pandas_options</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="n">cols</span> <span class="p">})</span> <span class="c1">#.head(20)</span>
+        <span class="n">tabs</span> <span class="o">=</span> <span class="n">read_pdf</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">read</span><span class="p">()),</span> <span class="n">pages</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">pandas_options</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="n">cols</span> <span class="p">})</span>
+
+        <span class="c1"># noop to test for the table</span>
+        <span class="n">tabs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">tabs</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">doFetch</span><span class="p">(</span><span class="n">retries</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    
+<span class="n">tabs</span> <span class="o">=</span> <span class="n">doFetch</span><span class="p">()</span>
 
 <span class="c1"># Read the first table in the report</span>
 <span class="n">df_ga</span> <span class="o">=</span> <span class="n">tabs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span>
-<span class="c1">#df_ga.head(20)</span>
 
 <span class="n">df_ga_melted</span> <span class="o">=</span> <span class="n">df_ga</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Key&#39;</span><span class="p">)</span>
 <span class="n">df_ga_melted</span> <span class="o">=</span> <span class="n">df_ga_melted</span><span class="p">[</span><span class="n">df_ga_melted</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Total&#39;</span><span class="p">]</span>
@@ -2235,7 +2248,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">doYoyChart</span><span class="p">(</span><span class="n">df_ga_melted</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;Georgia&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;TEU Total&#39;</span><span class="p">)</span>
@@ -2251,7 +2264,7 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[26]:</div>
+    <div class="prompt output_prompt">Out[67]:</div>
 
 
 
@@ -2260,10 +2273,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-c1a97b9fb38447c19c38ae291dde632a"></div>
+<div id="altair-viz-3ee59fa469ba465fb53466d9675c84e1"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-c1a97b9fb38447c19c38ae291dde632a");
+    const outputDiv = document.getElementById("altair-viz-3ee59fa469ba465fb53466d9675c84e1");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2327,7 +2340,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read the detail table in the rest of the report</span>
@@ -2364,7 +2377,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">doYoyChart</span><span class="p">(</span><span class="n">df_ga_ts</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;Georgia&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Import Empty&#39;</span><span class="p">)</span>
@@ -2380,7 +2393,7 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[28]:</div>
+    <div class="prompt output_prompt">Out[69]:</div>
 
 
 
@@ -2389,10 +2402,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-b8bdc7b0341648fd88610c872a076494"></div>
+<div id="altair-viz-7aa6eca1ab184f4c961b77179e87b08e"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-b8bdc7b0341648fd88610c872a076494");
+    const outputDiv = document.getElementById("altair-viz-7aa6eca1ab184f4c961b77179e87b08e");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -4676,7 +4689,7 @@ Wall time: 4min 14s
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/fd92a2d2742f5933b3639ac7a97265b2a8b483e2/analysis/transportation-ocean.ipynb"><code>analysis/transportation-ocean.ipynb</code></a> committed by Kyle Dunn on Fri Feb 28 02:59:43 2020 <a href="http://github.com/kdunn926/us-macro/commit/fd92a2d2742f5933b3639ac7a97265b2a8b483e2">revision 1, fd92a2d</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/7be80ad92c884df3946b843af9e7e418079d7766/analysis/transportation-ocean.ipynb"><code>analysis/transportation-ocean.ipynb</code></a> committed by Kyle Dunn on Fri Feb 28 04:25:47 2020 <a href="http://github.com/kdunn926/us-macro/commit/7be80ad92c884df3946b843af9e7e418079d7766">revision 1, 7be80ad</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
