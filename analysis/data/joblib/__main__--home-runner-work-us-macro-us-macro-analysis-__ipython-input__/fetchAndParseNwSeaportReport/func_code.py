@@ -1,6 +1,8 @@
 # first line: 1
 @memory.cache
-def fetchAndParseNwSeaportReport(url):
+def fetchAndParseNwSeaportReport(url, retries=5):
+    if retries < 0:
+        return None
     try:
         tmp = read_pdf(url, pages='all')[0]
 
@@ -56,4 +58,6 @@ def fetchAndParseNwSeaportReport(url):
         return tmp
     except HTTPError:
         print("Failed: " + url)
-        return None
+        return fetchAndParseNwSeaportReport(url, retries-1)
+    except KeyError:
+        return fetchAndParseNwSeaportReport(url, retries-1)
