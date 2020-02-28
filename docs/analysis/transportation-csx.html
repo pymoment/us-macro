@@ -224,7 +224,8 @@ function sortDataFrame(id, n, dtype) {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="CSX-Weekly-Freight-Reports">CSX Weekly Freight Reports<a class="anchor-link" href="#CSX-Weekly-Freight-Reports">&#182;</a></h2>
+<h2 id="CSX-Weekly-Freight-Reports">CSX Weekly Freight Reports<a class="anchor-link" href="#CSX-Weekly-Freight-Reports">&#182;</a></h2><hr>
+
 </div>
 </div>
 </div>
@@ -242,6 +243,8 @@ function sortDataFrame(id, n, dtype) {
 <span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
 <span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.options</span> <span class="kn">import</span> <span class="n">Options</span>
 <span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">WebDriverException</span>
+
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Memory</span>
 
 <span class="n">chrome_options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
 <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--disable-extensions&quot;</span><span class="p">)</span>
@@ -267,7 +270,10 @@ function sortDataFrame(id, n, dtype) {
     <span class="c1"># &lt;a href=&quot;http://csx.gcs-web.com/static-files/02ae9432-408a-4537-97c2-d0e0d9716e1b&quot; target=&quot;_blank&quot; class=&quot;new_window&quot;&gt;2019 Week 27 AAR&lt;/a&gt;</span>
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;\&lt;a href=</span><span class="se">\&quot;</span><span class="s2">([^</span><span class="se">\&quot;</span><span class="s2">]*)</span><span class="se">\&quot;</span><span class="s2"> target=</span><span class="se">\&quot;</span><span class="s2">_blank</span><span class="se">\&quot;</span><span class="s2"> class=</span><span class="se">\&quot;</span><span class="s2">new_window</span><span class="se">\&quot;</span><span class="s2">\&gt;([^&lt;]*)&quot;</span><span class="p">,</span> <span class="n">pageString</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">parseReport</span><span class="p">(</span><span class="n">urlAndWeek</span><span class="p">):</span>
+<span class="n">memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="s1">&#39;data/&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nd">@memory</span><span class="o">.</span><span class="n">cache</span>
+<span class="k">def</span> <span class="nf">parseCsxReport</span><span class="p">(</span><span class="n">urlAndWeek</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">url</span><span class="p">,</span> <span class="n">weekAndYear</span> <span class="o">=</span> <span class="n">urlAndWeek</span>
     
@@ -321,28 +327,35 @@ function sortDataFrame(id, n, dtype) {
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Exception ignored in: &lt;function Service.__del__ at 0x7ff615e6acb0&gt;
+<pre>Exception ignored in: &lt;function Service.__del__ at 0x7f555785ddd0&gt;
 Traceback (most recent call last):
   File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
     self.stop()
   File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
     if self.process is None:
 AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
-Exception ignored in: &lt;function Service.__del__ at 0x7ff615e6acb0&gt;
+Exception ignored in: &lt;function Service.__del__ at 0x7f555785ddd0&gt;
 Traceback (most recent call last):
   File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
     self.stop()
   File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
     if self.process is None:
 AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
-Exception ignored in: &lt;function Service.__del__ at 0x7ff615e6acb0&gt;
+Exception ignored in: &lt;function Service.__del__ at 0x7f555785ddd0&gt;
 Traceback (most recent call last):
   File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
     self.stop()
   File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
     if self.process is None:
 AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
-Exception ignored in: &lt;function Service.__del__ at 0x7ff615e6acb0&gt;
+Exception ignored in: &lt;function Service.__del__ at 0x7f555785ddd0&gt;
+Traceback (most recent call last):
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
+    self.stop()
+  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
+    if self.process is None:
+AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
+Exception ignored in: &lt;function Service.__del__ at 0x7f555785ddd0&gt;
 Traceback (most recent call last):
   File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
     self.stop()
@@ -363,8 +376,9 @@ AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="o">%%</span><span class="n">capture</span>
 
-<span class="n">dfs</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">parseReport</span><span class="p">,</span> <span class="n">reportUrls</span><span class="p">)</span>
+<span class="n">dfs</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">parseCsxReport</span><span class="p">,</span> <span class="n">reportUrls</span><span class="p">)</span>
 
 <span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
@@ -384,49 +398,9 @@ AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Exception ignored in: &lt;function Service.__del__ at 0x7ff615e6acb0&gt;
-Traceback (most recent call last):
-  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
-    self.stop()
-  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
-    if self.process is None:
-AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
-Exception ignored in: &lt;function Service.__del__ at 0x7ff615e6acb0&gt;
-Traceback (most recent call last):
-  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
-    self.stop()
-  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
-    if self.process is None:
-AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
-Exception ignored in: &lt;function Service.__del__ at 0x7ff615e6acb0&gt;
-Traceback (most recent call last):
-  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
-    self.stop()
-  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
-    if self.process is None:
-AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
-Exception ignored in: &lt;function Service.__del__ at 0x7ff615e6acb0&gt;
-Traceback (most recent call last):
-  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 163, in __del__
-    self.stop()
-  File &#34;/usr/share/miniconda/lib/python3.7/site-packages/selenium/webdriver/common/service.py&#34;, line 135, in stop
-    if self.process is None:
-AttributeError: &#39;Service&#39; object has no attribute &#39;process&#39;
-The output file is empty.
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(&#39;http://csx.gcs-web.com/static-files/942ad9b6-158b-4db6-a5fd-9dea04c0373c&#39;, &#39;2016 Week 25 AAR&#39;)
-CPU times: user 7.55 s, sys: 3.07 s, total: 10.6 s
-Wall time: 11min 56s
+<pre>CPU times: user 8.47 s, sys: 3.06 s, total: 11.5 s
+Wall time: 11min 57s
 </pre>
 </div>
 </div>
@@ -440,7 +414,7 @@ Wall time: 11min 56s
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">merged</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csx-data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#merged.to_csv(&#39;./csx-data.csv&#39;, sep=&#39;|&#39;)</span>
 
 <span class="c1">#merged.tail()</span>
 
@@ -504,10 +478,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-8bf5eb4e13054976a632a65c54286143"></div>
+<div id="altair-viz-0f4e66c732474063962abe8404fc42c7"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-8bf5eb4e13054976a632a65c54286143");
+    const outputDiv = document.getElementById("altair-viz-0f4e66c732474063962abe8404fc42c7");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -597,10 +571,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-f8ec799b7328436da281b31a7885a3f7"></div>
+<div id="altair-viz-f58fe897a36d4b4687851861c7e15384"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-f8ec799b7328436da281b31a7885a3f7");
+    const outputDiv = document.getElementById("altair-viz-f58fe897a36d4b4687851861c7e15384");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -690,10 +664,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-cd9705cdd92a465ba10ee24ac22cc88f"></div>
+<div id="altair-viz-21c0413805254f0bb322e23c087f29a3"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-cd9705cdd92a465ba10ee24ac22cc88f");
+    const outputDiv = document.getElementById("altair-viz-21c0413805254f0bb322e23c087f29a3");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -783,10 +757,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-240e8256c82b4001b7da9b19e85c033e"></div>
+<div id="altair-viz-6e91327ed6df4ea2bba2babc83db1234"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-240e8256c82b4001b7da9b19e85c033e");
+    const outputDiv = document.getElementById("altair-viz-6e91327ed6df4ea2bba2babc83db1234");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -876,10 +850,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-55c877731dc94885b0ce2699c5f1bf9f"></div>
+<div id="altair-viz-725011930b284e0ead76605041032995"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-55c877731dc94885b0ce2699c5f1bf9f");
+    const outputDiv = document.getElementById("altair-viz-725011930b284e0ead76605041032995");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -970,10 +944,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-ddbb505ab8854590b60bf71eb45619ea"></div>
+<div id="altair-viz-2a74116efe924bd48248ac427ebf52e1"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-ddbb505ab8854590b60bf71eb45619ea");
+    const outputDiv = document.getElementById("altair-viz-2a74116efe924bd48248ac427ebf52e1");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1063,10 +1037,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-2ee58e09adf54ffd89f588924068be58"></div>
+<div id="altair-viz-7314d5d0355e4faba7bc001b4cbe877e"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-2ee58e09adf54ffd89f588924068be58");
+    const outputDiv = document.getElementById("altair-viz-7314d5d0355e4faba7bc001b4cbe877e");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1156,10 +1130,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-ab9f0a235d9f42e4a7f4d9fc57e76bbe"></div>
+<div id="altair-viz-83909c11a26641d6a185b5c4975628cb"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-ab9f0a235d9f42e4a7f4d9fc57e76bbe");
+    const outputDiv = document.getElementById("altair-viz-83909c11a26641d6a185b5c4975628cb");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1249,10 +1223,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-1dcddceb56ae44198ba517f90ca05e0b"></div>
+<div id="altair-viz-adb731896ded46bcbee5ebbc59e0908f"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-1dcddceb56ae44198ba517f90ca05e0b");
+    const outputDiv = document.getElementById("altair-viz-adb731896ded46bcbee5ebbc59e0908f");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1342,10 +1316,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-cb6e9e61f59e4c569400f3c727aeba56"></div>
+<div id="altair-viz-ec28010659744570bb65a89a8e08d5e6"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-cb6e9e61f59e4c569400f3c727aeba56");
+    const outputDiv = document.getElementById("altair-viz-ec28010659744570bb65a89a8e08d5e6");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1435,10 +1409,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-e89a61897acf4b13aa037cb6d6d0c2ce"></div>
+<div id="altair-viz-62c7d0dc7cc04250990a9b27de17ddab"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-e89a61897acf4b13aa037cb6d6d0c2ce");
+    const outputDiv = document.getElementById("altair-viz-62c7d0dc7cc04250990a9b27de17ddab");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1528,10 +1502,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-9d20f4f9af7540c199f4a0bd14d5d242"></div>
+<div id="altair-viz-3ecc2f55ffc9442a883006ae252aff1f"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-9d20f4f9af7540c199f4a0bd14d5d242");
+    const outputDiv = document.getElementById("altair-viz-3ecc2f55ffc9442a883006ae252aff1f");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1621,10 +1595,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-9f1b05bbfbf34a5b9ab7c8cef0f05d5d"></div>
+<div id="altair-viz-ce390b32a4bd4c78a2712b508b2153ff"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-9f1b05bbfbf34a5b9ab7c8cef0f05d5d");
+    const outputDiv = document.getElementById("altair-viz-ce390b32a4bd4c78a2712b508b2153ff");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1714,10 +1688,10 @@ Wall time: 11min 56s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-55f9768a505b4aa59da7a316a435a1a9"></div>
+<div id="altair-viz-5cf6de1b5ecf45848e98cd5031ac5230"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-55f9768a505b4aa59da7a316a435a1a9");
+    const outputDiv = document.getElementById("altair-viz-5cf6de1b5ecf45848e98cd5031ac5230");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1781,7 +1755,7 @@ Wall time: 11min 56s
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/876b96e10b245b1e5dfc7569d792344924842932/analysis/transportation-csx.ipynb"><code>analysis/transportation-csx.ipynb</code></a> committed by GitHub Action on Fri Feb 28 17:52:00 2020 <a href="http://github.com/kdunn926/us-macro/commit/876b96e10b245b1e5dfc7569d792344924842932">revision 2, 876b96e</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/3a9c33886bb3ccb174d716f410fae2a3da9f599c/analysis/transportation-csx.ipynb"><code>analysis/transportation-csx.ipynb</code></a> committed by GitHub Action on Fri Feb 28 18:44:19 2020 <a href="http://github.com/kdunn926/us-macro/commit/3a9c33886bb3ccb174d716f410fae2a3da9f599c">revision 2, 3a9c338</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
