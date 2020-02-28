@@ -1745,23 +1745,37 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[63]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">JSONDecodeError</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 
-<span class="n">dataUrl</span> <span class="o">=</span> <span class="s2">&quot;&#39;https://www.panynj.gov/content/port/en.model.json&#39;&quot;</span>
+<span class="n">dataUrl</span> <span class="o">=</span> <span class="s2">&quot;https://www.panynj.gov/content/port/en.model.json&quot;</span>
 
-<span class="n">jqPath</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">.&quot;:children&quot;.&quot;/port/en/our-port/facts-and-figures&quot;.&quot;:items&quot;.&quot;root&quot;.&quot;:items&quot;.&quot;responsivegrid&quot;.&quot;:items&quot;.&quot;accordionlist_435572874&quot;.&quot;:items&quot;</span><span class="se">\&#39;</span><span class="s1">&#39;</span>
+<span class="c1">#jqPath = &#39;\&#39;.&quot;:children&quot;.&quot;/port/en/our-port/facts-and-figures&quot;.&quot;:items&quot;.&quot;root&quot;.&quot;:items&quot;.&quot;responsivegrid&quot;.&quot;:items&quot;.&quot;accordionlist_435572874&quot;.&quot;:items&quot;\&#39;&#39;</span>
     
 <span class="k">def</span> <span class="nf">doNynjFetch</span><span class="p">(</span><span class="n">retries</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">retries</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">loads</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="o">!</span>curl -s <span class="si">${</span><span class="nv">dataUrl</span><span class="si">}</span> <span class="p">|</span> jq <span class="si">${</span><span class="nv">jqPath</span><span class="si">}</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">dataUrl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">uaString</span> <span class="p">})</span>
 
-        <span class="k">return</span> <span class="n">loads</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">))</span> <span class="c1">#re.sub(&quot;(\\\\[rn]?|\&quot;)&quot;, &quot;&quot;, &quot;&quot;.join(res)))</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+
+        <span class="n">dict_data</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">dict_data</span><span class="p">[</span><span class="s2">&quot;:children&quot;</span><span class="p">]</span>\
+                     <span class="p">[</span><span class="s2">&quot;/port/en/our-port/facts-and-figures&quot;</span><span class="p">]</span>\
+                     <span class="p">[</span><span class="s2">&quot;:items&quot;</span><span class="p">]</span>\
+                     <span class="p">[</span><span class="s2">&quot;root&quot;</span><span class="p">]</span>\
+                     <span class="p">[</span><span class="s2">&quot;:items&quot;</span><span class="p">]</span>\
+                     <span class="p">[</span><span class="s2">&quot;responsivegrid&quot;</span><span class="p">]</span>\
+                     <span class="p">[</span><span class="s2">&quot;:items&quot;</span><span class="p">]</span>\
+                     <span class="p">[</span><span class="s2">&quot;accordionlist_435572874&quot;</span><span class="p">]</span>\
+                     <span class="p">[</span><span class="s2">&quot;:items&quot;</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">r</span>
     <span class="k">except</span> <span class="n">JSONDecodeError</span><span class="p">:</span>
         <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">doNynjFetch</span><span class="p">(</span><span class="n">retries</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -1822,7 +1836,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">doChart</span><span class="p">(</span><span class="n">df_nynj</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;New York/New Jersey&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;Import TEUs&quot;</span><span class="p">)</span>
@@ -1838,7 +1852,7 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[59]:</div>
+    <div class="prompt output_prompt">Out[64]:</div>
 
 
 
@@ -1847,10 +1861,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-bd51bb1c5f474584af88f138a7e5b5a2"></div>
+<div id="altair-viz-3093493761f84af5b144b8d9085a559b"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-bd51bb1c5f474584af88f138a7e5b5a2");
+    const outputDiv = document.getElementById("altair-viz-3093493761f84af5b144b8d9085a559b");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -4662,7 +4676,7 @@ Wall time: 4min 14s
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/708650026a60a75af208ccd2c620f6544e2ef8aa/analysis/transportation-ocean.ipynb"><code>analysis/transportation-ocean.ipynb</code></a> committed by Kyle Dunn on Fri Feb 28 02:24:09 2020 <a href="http://github.com/kdunn926/us-macro/commit/708650026a60a75af208ccd2c620f6544e2ef8aa">revision 1, 7086500</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/fd92a2d2742f5933b3639ac7a97265b2a8b483e2/analysis/transportation-ocean.ipynb"><code>analysis/transportation-ocean.ipynb</code></a> committed by Kyle Dunn on Fri Feb 28 02:59:43 2020 <a href="http://github.com/kdunn926/us-macro/commit/fd92a2d2742f5933b3639ac7a97265b2a8b483e2">revision 1, fd92a2d</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
