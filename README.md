@@ -27,7 +27,7 @@ Sources:
 - [x] Consumer Credit [historical rates]
 - [x] US Stock Market [distribution of inflation adjusted S&P 500 returns, Benford test (WIP)]
 - [x] US Treasuries [yield curves, bid to cover ratios, interest rates]
-- [ ] Consumer Confidence
+- [x] Consumer/Business Sentiment [OECD confidence indices]
 - [ ] Commericial Credit [issuance, default rates]
 - [ ] Central Bank Operations [repo market, quantitative easing]
 ...
