@@ -23,11 +23,6 @@ jobs:
         path: /usr/share/miniconda
         key: ${{ runner.OS }}-build-${{ hashFiles('**/requirements.txt') }}
 
-    - name: Cache historical data
-      uses: actions/cache@v1
-      with:
-        path: analysis/data
-
     - name: Check if Miniconda was restored (workaround)
       id: cache
       run: |
