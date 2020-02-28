@@ -1,0 +1,1 @@
+{"duration": 0.6653039455413818, "input_args": {"u": "'https://www.portoflosangeles.org/business/statistics/container-statistics/historical-teu-statistics-1998'", "year": "1998", "cols": "['Loaded Imports', 'Empty Imports', 'Total Imports', 'Loaded Export', 'Empty Exports', 'Total Exports', 'Total TEUs', 'Prior Year Change']", "args": "{}"}}
