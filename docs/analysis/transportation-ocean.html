@@ -2573,7 +2573,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fetchCharleston</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
@@ -2590,7 +2590,7 @@ function sortDataFrame(id, n, dtype) {
         <span class="n">dfs_ch</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         
         <span class="k">return</span> <span class="n">dfs_ch</span>
-    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Response code: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">getcode</span><span class="p">()))</span>
         <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fetchCharleston</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">retries</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -2660,7 +2660,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">doChart</span><span class="p">(</span><span class="n">df_ch</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;TEU-EMPTY-EXPORT&#39;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;Charleston&#39;</span><span class="p">)</span>
@@ -2676,7 +2676,7 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[41]:</div>
+    <div class="prompt output_prompt">Out[46]:</div>
 
 
 
@@ -2685,10 +2685,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-9eefcc3d974c476db251f03d6299be82"></div>
+<div id="altair-viz-8e1ba85dc4dd48f1b99788dcfc1b51e5"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-9eefcc3d974c476db251f03d6299be82");
+    const outputDiv = document.getElementById("altair-viz-8e1ba85dc4dd48f1b99788dcfc1b51e5");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2953,7 +2953,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/f0dc521125f89373fcbcf6d210fd7311a144d84a/analysis/transportation-ocean.ipynb"><code>analysis/transportation-ocean.ipynb</code></a> committed by Kyle Dunn on Fri Feb 28 23:31:19 2020 <a href="http://github.com/kdunn926/us-macro/commit/f0dc521125f89373fcbcf6d210fd7311a144d84a">revision 1, f0dc521</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/55f0b7fddd3c624fc140cf43c9d88d871d77440d/analysis/transportation-ocean.ipynb"><code>analysis/transportation-ocean.ipynb</code></a> committed by Kyle Dunn on Fri Feb 28 23:54:51 2020 <a href="http://github.com/kdunn926/us-macro/commit/55f0b7fddd3c624fc140cf43c9d88d871d77440d">revision 1, 55f0b7f</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
