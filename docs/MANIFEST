@@ -1,9 +1,11 @@
 docs/analysis.tpl
+docs/analysis/autos.html
 docs/analysis/construction.html
 docs/analysis/creditcards.html
 docs/analysis/international-trade.html
 docs/analysis/labor.html
 docs/analysis/manufacturing.html
+docs/analysis/oil-gas-inventories.html
 docs/analysis/residential-realestate-zillow.html
 docs/analysis/residential-realestate.html
 docs/analysis/retailsales.html
