@@ -8,15 +8,25 @@ def parseCsxReport(urlAndWeek):
         year, week = weekAndYear.split(' Week ')
         
     except ValueError:
-        print(urlAndWeek)
-        return None
+        try:
+            url, weekAndYear = urlAndWeek
+    
+            # '2013 Week 29'
+            year, week = weekAndYear.split('-WK')
+        except ValueError:
+            print(urlAndWeek)
+            return None
     
     #            WEEK   28                QUARTER TO DATE           YEAR TO DATE
     baseCols = ['Cargo', 'Week {0} {1}', 'Week {0} {2}', 'Week {0} pct-change',
                 'Week {0} {1} QTD', 'Week {0} {2} QTD', 'Week {0} QTD pct-change',
                 'Week {0} {1} YTD', 'Week {0} {2} YTD', 'Week {0} YTD pct-change']
 
-    cols = [c.format(week.split(' ')[0], int(year), int(year)-1) for c in baseCols]
+    try:
+        cols = [c.format(week.split(' ')[0], int(year), int(year)-1) for c in baseCols]
+    except ValueError:
+        print(urlAndWeek)
+        return None
     
     try:
         tmp = read_pdf(url, pages='all', pandas_options={ 'names': cols })
