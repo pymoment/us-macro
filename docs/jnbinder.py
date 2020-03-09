@@ -267,6 +267,8 @@ def get_index_tpl(conf, dirs):
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="ipynb_website:version" content="%(version)s" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="twitter:card" content="summary"></meta>
+<meta property="og:title" content="%(name)s" />
 
 <title>%(name)s</title>
 
@@ -911,6 +913,8 @@ def get_notebook_tpl(conf, dirs, path):
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="ipynb_website:version" content="%(version)s" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="twitter:card" content="summary_large_image"></meta>
+<meta property="og:title" content="%(name)s" />
 
 <!-- begin stylesheets -->
 %(common_style)s
