@@ -68,6 +68,7 @@ jobs:
             --to notebook --inplace \
             --execute {} \;
         git add ./analysis/*.ipynb
+        git add ./analysis/*.png
 
     - name: Commit updated notebooks
       run: |

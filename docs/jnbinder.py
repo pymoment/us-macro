@@ -269,6 +269,7 @@ def get_index_tpl(conf, dirs):
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary"></meta>
 <meta property="og:title" content="%(name)s" />
+<meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
 
 <title>%(name)s</title>
@@ -916,7 +917,9 @@ def get_notebook_tpl(conf, dirs, path):
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
 <meta property="og:title" content="%(name)s | REPLACEMETITLE" />
+<meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
+<meta property="og:img" content="REPLACEMEIMAGE" />
 
 <!-- begin stylesheets -->
 %(common_style)s
