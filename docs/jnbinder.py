@@ -269,6 +269,7 @@ def get_index_tpl(conf, dirs):
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary"></meta>
 <meta property="og:title" content="%(name)s" />
+<meta property="og:description" content="REPLACEMEDESCRIPTION" />
 
 <title>%(name)s</title>
 
@@ -914,7 +915,8 @@ def get_notebook_tpl(conf, dirs, path):
 <meta name="ipynb_website:version" content="%(version)s" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="%(name)s" />
+<meta property="og:title" content="%(name)s | REPLACEMETITLE" />
+<meta property="og:description" content="REPLACEMEDESCRIPTION" />
 
 <!-- begin stylesheets -->
 %(common_style)s
@@ -1009,7 +1011,7 @@ function sortDataFrame(id, n, dtype) {
 
 %(header)s
 
-<title>%(name)s</title>
+<title>%(name)s | REPLACEMETITLE</title>
 
 <style type = "text/css">
     body {
