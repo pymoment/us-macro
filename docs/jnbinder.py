@@ -271,6 +271,7 @@ def get_index_tpl(conf, dirs):
 <meta property="og:title" content="%(name)s" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
+<meta property="og:url" content="https://kdunn926.github.io/us-macro/index.html" />
 
 <title>%(name)s</title>
 
@@ -920,6 +921,7 @@ def get_notebook_tpl(conf, dirs, path):
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
 <meta property="og:image" content="REPLACEMEIMAGE" />
+<meta property="og:url" content="REPLACEMEURL" />
 
 <!-- begin stylesheets -->
 %(common_style)s
