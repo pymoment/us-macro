@@ -5,7 +5,10 @@
 <meta name="ipynb_website:version" content="0.9.7" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:title" content="US Macroeconomic Data Explorer | CSX Weekly Freight Reports" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="---" />
+<meta property="og:img" content="https://kdunn926.github.io/us-macro/analysis/transportation-csx.png" />
 
 <!-- begin stylesheets -->
 
@@ -185,7 +188,7 @@ function sortDataFrame(id, n, dtype) {
 
 
 
-<title>US Macroeconomic Data Explorer</title>
+<title>US Macroeconomic Data Explorer | CSX Weekly Freight Reports</title>
 
 <style type = "text/css">
     body {
@@ -338,7 +341,7 @@ function sortDataFrame(id, n, dtype) {
         <span class="n">year</span> <span class="o">=</span> <span class="mi">2020</span> <span class="k">if</span> <span class="s2">&quot;2020&quot;</span> <span class="ow">in</span> <span class="n">u</span> <span class="k">else</span> <span class="n">u</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">week</span> <span class="o">=</span> <span class="n">getWeekFrom</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-            <span class="n">yearAndWeek</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2"> Week </span><span class="si">{</span><span class="n">week</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">yearAndWeek</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{year}</span><span class="s2"> Week </span><span class="si">{week}</span><span class="s2">&quot;</span>
             <span class="n">urls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">yearAndWeek</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">continue</span>
@@ -407,8 +410,8 @@ function sortDataFrame(id, n, dtype) {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 1.58 s, sys: 148 ms, total: 1.72 s
-Wall time: 6.54 s
+<pre>CPU times: user 1.31 s, sys: 154 ms, total: 1.46 s
+Wall time: 6.11 s
 </pre>
 </div>
 </div>
@@ -462,10 +465,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-1b2c2a61e5e748a9ac20a20407b4f98f"></div>
+<div id="altair-viz-51411f58eb904128a81d9189481de94c"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-1b2c2a61e5e748a9ac20a20407b4f98f");
+    const outputDiv = document.getElementById("altair-viz-51411f58eb904128a81d9189481de94c");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -555,10 +558,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-7eb7072de0d140aaa14734b3cd3a9ee5"></div>
+<div id="altair-viz-611be1f705a54c72a74bfae62b88a2cb"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-7eb7072de0d140aaa14734b3cd3a9ee5");
+    const outputDiv = document.getElementById("altair-viz-611be1f705a54c72a74bfae62b88a2cb");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -648,10 +651,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-1039a5c9e626494ca683f101e14cb972"></div>
+<div id="altair-viz-4e1fdbac26e942839645dd0bba5e4697"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-1039a5c9e626494ca683f101e14cb972");
+    const outputDiv = document.getElementById("altair-viz-4e1fdbac26e942839645dd0bba5e4697");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -741,10 +744,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-c477812ae50f48ceabcaafe4a29681a1"></div>
+<div id="altair-viz-47f68d7b7faf4ff0aa8f198efc3f4985"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-c477812ae50f48ceabcaafe4a29681a1");
+    const outputDiv = document.getElementById("altair-viz-47f68d7b7faf4ff0aa8f198efc3f4985");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -834,10 +837,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-e21f56e45c914f28b3a8b2c5b56fe5aa"></div>
+<div id="altair-viz-34494986658544b7bc15f45ee0101271"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-e21f56e45c914f28b3a8b2c5b56fe5aa");
+    const outputDiv = document.getElementById("altair-viz-34494986658544b7bc15f45ee0101271");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -928,10 +931,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-4d17ab207f7845148b6cc68cebe9d049"></div>
+<div id="altair-viz-7122adbb48414caabce2959b8153f91c"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-4d17ab207f7845148b6cc68cebe9d049");
+    const outputDiv = document.getElementById("altair-viz-7122adbb48414caabce2959b8153f91c");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1021,10 +1024,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-0f35146c8dd34b778ee1594569a41c66"></div>
+<div id="altair-viz-76cb392896604d93b2b3e126f8e88f18"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-0f35146c8dd34b778ee1594569a41c66");
+    const outputDiv = document.getElementById("altair-viz-76cb392896604d93b2b3e126f8e88f18");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1114,10 +1117,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-11f9144b9af448e7a42ab284b32e4b00"></div>
+<div id="altair-viz-cc22f478f3484720909ab671f1d4815a"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-11f9144b9af448e7a42ab284b32e4b00");
+    const outputDiv = document.getElementById("altair-viz-cc22f478f3484720909ab671f1d4815a");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1207,10 +1210,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-092f0b4804684437913b5bde681aff9e"></div>
+<div id="altair-viz-c279d2fa2aef475f90e91900adeb1d0d"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-092f0b4804684437913b5bde681aff9e");
+    const outputDiv = document.getElementById("altair-viz-c279d2fa2aef475f90e91900adeb1d0d");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1300,10 +1303,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-3cd251ab616b41e2b8ab9b0e2b39d96c"></div>
+<div id="altair-viz-1a08dc086acf41f1be66febc73626148"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-3cd251ab616b41e2b8ab9b0e2b39d96c");
+    const outputDiv = document.getElementById("altair-viz-1a08dc086acf41f1be66febc73626148");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1393,10 +1396,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-311a1e753ff2472c833ebaf575637b92"></div>
+<div id="altair-viz-ddee1dce6fff46b9b5545bfcc06ad1df"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-311a1e753ff2472c833ebaf575637b92");
+    const outputDiv = document.getElementById("altair-viz-ddee1dce6fff46b9b5545bfcc06ad1df");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1486,10 +1489,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-ee0313eb43074243b8bb598543b6d207"></div>
+<div id="altair-viz-14b169142b2a4f94a24eb823ff6ac78a"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-ee0313eb43074243b8bb598543b6d207");
+    const outputDiv = document.getElementById("altair-viz-14b169142b2a4f94a24eb823ff6ac78a");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1579,10 +1582,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-1b8382bb370f4a558f68e613150cb312"></div>
+<div id="altair-viz-34fc952c1dea44b78e5ede95432aa53b"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-1b8382bb370f4a558f68e613150cb312");
+    const outputDiv = document.getElementById("altair-viz-34fc952c1dea44b78e5ede95432aa53b");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1672,10 +1675,10 @@ Wall time: 6.54 s
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-02573cbe7e754e31b87359498cf8c6e8"></div>
+<div id="altair-viz-929a61c99635412483acb3a893fee239"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-02573cbe7e754e31b87359498cf8c6e8");
+    const outputDiv = document.getElementById("altair-viz-929a61c99635412483acb3a893fee239");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1739,7 +1742,7 @@ Wall time: 6.54 s
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/65389b582f599cc180343b043ce020fbb5e7eee8/analysis/transportation-csx.ipynb"><code>analysis/transportation-csx.ipynb</code></a> committed by GitHub Action on Mon Mar 9 23:24:17 2020 <a href="http://github.com/kdunn926/us-macro/commit/65389b582f599cc180343b043ce020fbb5e7eee8">revision 2, 65389b5</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/ec789d0332cacd45c44dcc08b4f57aab36757b00/analysis/transportation-csx.ipynb"><code>analysis/transportation-csx.ipynb</code></a> committed by GitHub Action on Thu Mar 12 01:25:01 2020 <a href="http://github.com/kdunn926/us-macro/commit/ec789d0332cacd45c44dcc08b4f57aab36757b00">revision 2, ec789d0</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

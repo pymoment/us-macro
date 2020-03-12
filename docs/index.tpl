@@ -11,6 +11,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary"></meta>
 <meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="REPLACEMEDESCRIPTION" />
 
 <title>US Macroeconomic Data Explorer</title>
 

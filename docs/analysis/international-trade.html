@@ -5,7 +5,10 @@
 <meta name="ipynb_website:version" content="0.9.7" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:title" content="US Macroeconomic Data Explorer | International Trade" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="A look at international trade, according to the US Census Bureau." />
+<meta property="og:img" content="https://kdunn926.github.io/us-macro/analysis/international-trade.png" />
 
 <!-- begin stylesheets -->
 
@@ -185,7 +188,7 @@ function sortDataFrame(id, n, dtype) {
 
 
 
-<title>US Macroeconomic Data Explorer</title>
+<title>US Macroeconomic Data Explorer | International Trade</title>
 
 <style type = "text/css">
     body {
@@ -226,7 +229,9 @@ function sortDataFrame(id, n, dtype) {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="US-Census-International-Trade-Data">US Census International Trade Data<a class="anchor-link" href="#US-Census-International-Trade-Data">&#182;</a></h1>
+<h1 id="International-Trade">International Trade<a class="anchor-link" href="#International-Trade">&#182;</a></h1><hr>
+<p>A look at international trade, according to the US Census Bureau.</p>
+
 </div>
 </div>
 </div>
@@ -366,10 +371,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-d5d4755c8773420c88d321b9806ffc9f"></div>
+<div id="altair-viz-5cfb2aa24b8f4c7f8b6c2568805d0b7b"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-d5d4755c8773420c88d321b9806ffc9f");
+    const outputDiv = document.getElementById("altair-viz-5cfb2aa24b8f4c7f8b6c2568805d0b7b");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -474,10 +479,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-8280cee5a88f4963aec23504af7b94a0"></div>
+<div id="altair-viz-6db243630ca347108e1639fc48a84947"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-8280cee5a88f4963aec23504af7b94a0");
+    const outputDiv = document.getElementById("altair-viz-6db243630ca347108e1639fc48a84947");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -626,10 +631,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-98e340d4644b48ceb63f51103398a386"></div>
+<div id="altair-viz-86e743ddefd14273955e79d1634cd3e0"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-98e340d4644b48ceb63f51103398a386");
+    const outputDiv = document.getElementById("altair-viz-86e743ddefd14273955e79d1634cd3e0");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -732,10 +737,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-39efbafc251c4efeb495341c8db3fcf6"></div>
+<div id="altair-viz-ef713102ae7c4f6dab943beba437ac3b"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-39efbafc251c4efeb495341c8db3fcf6");
+    const outputDiv = document.getElementById("altair-viz-ef713102ae7c4f6dab943beba437ac3b");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -813,7 +818,7 @@ function sortDataFrame(id, n, dtype) {
 
 <span class="n">df_exmelt</span> <span class="o">=</span> <span class="n">df_excat</span><span class="p">[</span><span class="n">df_excat</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()[</span><span class="mi">2</span><span class="p">:]]</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;dt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 
-<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df_exmelt</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df_exmelt</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;dt:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;sum(value):Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Value [Million USD]&#39;</span><span class="p">)),</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;variable:N&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Export Category&#39;</span><span class="p">),</span>
@@ -823,6 +828,9 @@ function sortDataFrame(id, n, dtype) {
     <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
 <span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;international-trade.png&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -835,19 +843,19 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[9]:</div>
+    <div class="prompt"></div>
 
 
 
    
         
             
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-66196ce3db9c46e6b969fbd8ceb27184"></div>
+<div id="altair-viz-7048d237c30249fc8121a5dd85f0e191"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-66196ce3db9c46e6b969fbd8ceb27184");
+    const outputDiv = document.getElementById("altair-viz-7048d237c30249fc8121a5dd85f0e191");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -950,10 +958,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-5a8e0dfcdfa2444496d207654b419809"></div>
+<div id="altair-viz-8daa8028966e4dc5b81bcf520418f825"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-5a8e0dfcdfa2444496d207654b419809");
+    const outputDiv = document.getElementById("altair-viz-8daa8028966e4dc5b81bcf520418f825");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1017,7 +1025,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/65389b582f599cc180343b043ce020fbb5e7eee8/analysis/international-trade.ipynb"><code>analysis/international-trade.ipynb</code></a> committed by GitHub Action on Mon Mar 9 23:24:17 2020 <a href="http://github.com/kdunn926/us-macro/commit/65389b582f599cc180343b043ce020fbb5e7eee8">revision 2, 65389b5</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/ec789d0332cacd45c44dcc08b4f57aab36757b00/analysis/international-trade.ipynb"><code>analysis/international-trade.ipynb</code></a> committed by GitHub Action on Thu Mar 12 01:25:01 2020 <a href="http://github.com/kdunn926/us-macro/commit/ec789d0332cacd45c44dcc08b4f57aab36757b00">revision 2, ec789d0</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

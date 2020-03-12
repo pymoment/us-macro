@@ -5,7 +5,10 @@
 <meta name="ipynb_website:version" content="0.9.7" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:title" content="US Macroeconomic Data Explorer | CASS Freight Index" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="A look at US freight indexes, according to reports obtained from Cass Information Systems." />
+<meta property="og:img" content="https://kdunn926.github.io/us-macro/analysis/transportation-cass.png" />
 
 <!-- begin stylesheets -->
 
@@ -185,7 +188,7 @@ function sortDataFrame(id, n, dtype) {
 
 
 
-<title>US Macroeconomic Data Explorer</title>
+<title>US Macroeconomic Data Explorer | CASS Freight Index</title>
 
 <style type = "text/css">
     body {
@@ -226,7 +229,9 @@ function sortDataFrame(id, n, dtype) {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="CASS-Freight-Index">CASS Freight Index<a class="anchor-link" href="#CASS-Freight-Index">&#182;</a></h2>
+<h1 id="CASS-Freight-Index">CASS Freight Index<a class="anchor-link" href="#CASS-Freight-Index">&#182;</a></h1><hr>
+<p>A look at US freight indexes, according to reports obtained from Cass Information Systems.</p>
+
 </div>
 </div>
 </div>
@@ -312,10 +317,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-1a5491a9deeb4ee1ab91fd96a37859f1"></div>
+<div id="altair-viz-a03455260606431ab1a76aa9d89ae854"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-1a5491a9deeb4ee1ab91fd96a37859f1");
+    const outputDiv = document.getElementById("altair-viz-a03455260606431ab1a76aa9d89ae854");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -387,7 +392,7 @@ function sortDataFrame(id, n, dtype) {
 
 <span class="n">freight_yoy</span> <span class="o">=</span> <span class="n">freight_yoy</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">freight_yoy</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;indigo&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">freight_yoy</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;indigo&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
     <span class="n">YoYP</span><span class="o">=</span><span class="s2">&quot;format(datum.value * 100, &#39;,.2f&#39;)&quot;</span><span class="p">,</span>
 <span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;date:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">)),</span>
@@ -399,6 +404,9 @@ function sortDataFrame(id, n, dtype) {
     <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
     <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
 <span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;transportation-cass.png&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -411,19 +419,19 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[4]:</div>
+    <div class="prompt"></div>
 
 
 
    
         
             
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-6f0310989eb04b49b45af0fba999412b"></div>
+<div id="altair-viz-26cf6783be21490eb7c989f6ff877787"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-6f0310989eb04b49b45af0fba999412b");
+    const outputDiv = document.getElementById("altair-viz-26cf6783be21490eb7c989f6ff877787");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -525,10 +533,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-f8cec1bc5a1743eeb7fed85af1c53d9b"></div>
+<div id="altair-viz-3d9b5a1aa7e4491691d1a24a1d60b99e"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-f8cec1bc5a1743eeb7fed85af1c53d9b");
+    const outputDiv = document.getElementById("altair-viz-3d9b5a1aa7e4491691d1a24a1d60b99e");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -630,10 +638,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-5d1d7259e1c64c308576a7999647f285"></div>
+<div id="altair-viz-9223e426fd3d4328a147939380280d67"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-5d1d7259e1c64c308576a7999647f285");
+    const outputDiv = document.getElementById("altair-viz-9223e426fd3d4328a147939380280d67");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -697,7 +705,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/65389b582f599cc180343b043ce020fbb5e7eee8/analysis/transportation-cass.ipynb"><code>analysis/transportation-cass.ipynb</code></a> committed by GitHub Action on Mon Mar 9 23:24:17 2020 <a href="http://github.com/kdunn926/us-macro/commit/65389b582f599cc180343b043ce020fbb5e7eee8">revision 2, 65389b5</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/ec789d0332cacd45c44dcc08b4f57aab36757b00/analysis/transportation-cass.ipynb"><code>analysis/transportation-cass.ipynb</code></a> committed by GitHub Action on Thu Mar 12 01:25:01 2020 <a href="http://github.com/kdunn926/us-macro/commit/ec789d0332cacd45c44dcc08b4f57aab36757b00">revision 2, ec789d0</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

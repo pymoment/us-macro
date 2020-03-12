@@ -5,7 +5,10 @@
 <meta name="ipynb_website:version" content="0.9.7" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:title" content="US Macroeconomic Data Explorer | Consumer Credit Card Rates" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="A look at consumer credit card rates, according to the US Federal Reserve." />
+<meta property="og:img" content="https://kdunn926.github.io/us-macro/analysis/creditcards.png" />
 
 <!-- begin stylesheets -->
 
@@ -185,7 +188,7 @@ function sortDataFrame(id, n, dtype) {
 
 
 
-<title>US Macroeconomic Data Explorer</title>
+<title>US Macroeconomic Data Explorer | Consumer Credit Card Rates</title>
 
 <style type = "text/css">
     body {
@@ -226,7 +229,9 @@ function sortDataFrame(id, n, dtype) {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Consumer-Credit-Card-Rates">Consumer Credit Card Rates<a class="anchor-link" href="#Consumer-Credit-Card-Rates">&#182;</a></h1>
+<h1 id="Consumer-Credit-Card-Rates">Consumer Credit Card Rates<a class="anchor-link" href="#Consumer-Credit-Card-Rates">&#182;</a></h1><hr>
+<p>A look at consumer credit card rates, according to the US Federal Reserve.</p>
+
 </div>
 </div>
 </div>
@@ -289,10 +294,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-ba6f0ae929ea4933b28b2e215f4325dd"></div>
+<div id="altair-viz-303b6a62beeb4863815005930aaad517"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-ba6f0ae929ea4933b28b2e215f4325dd");
+    const outputDiv = document.getElementById("altair-viz-303b6a62beeb4863815005930aaad517");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -468,7 +473,7 @@ function sortDataFrame(id, n, dtype) {
     <span class="n">alt</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="p">(</span><span class="n">hist</span> <span class="o">+</span> <span class="n">now</span> <span class="o">+</span> <span class="n">nowText</span>\
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">hist</span> <span class="o">+</span> <span class="n">now</span> <span class="o">+</span> <span class="n">nowText</span>\
  <span class="o">+</span> <span class="n">oh_eight</span> <span class="o">+</span> <span class="n">oh_eightText</span> <span class="o">+</span> <span class="n">oh_eightPost</span> <span class="o">+</span> <span class="n">oh_eightPostText</span>\
  <span class="o">+</span> <span class="n">dotcom</span> <span class="o">+</span> <span class="n">dotcomtText</span> <span class="o">+</span> <span class="n">dotcomPost</span> <span class="o">+</span> <span class="n">dotcomtPostText</span><span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
     <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Path of historical credit card rates according to the Fed Funds Rate&#39;</span><span class="p">,</span>
@@ -476,6 +481,9 @@ function sortDataFrame(id, n, dtype) {
     <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
     <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
 <span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;creditcards.png&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -488,19 +496,19 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[4]:</div>
+    <div class="prompt"></div>
 
 
 
    
         
             
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-32b2499ce84c45d6976fc68228d08b1e"></div>
+<div id="altair-viz-fd61f4047a2246c5893ea1a54ca95c13"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-32b2499ce84c45d6976fc68228d08b1e");
+    const outputDiv = document.getElementById("altair-viz-fd61f4047a2246c5893ea1a54ca95c13");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -564,7 +572,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/65389b582f599cc180343b043ce020fbb5e7eee8/analysis/creditcards.ipynb"><code>analysis/creditcards.ipynb</code></a> committed by GitHub Action on Mon Mar 9 23:24:17 2020 <a href="http://github.com/kdunn926/us-macro/commit/65389b582f599cc180343b043ce020fbb5e7eee8">revision 2, 65389b5</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/ec789d0332cacd45c44dcc08b4f57aab36757b00/analysis/creditcards.ipynb"><code>analysis/creditcards.ipynb</code></a> committed by GitHub Action on Thu Mar 12 01:25:01 2020 <a href="http://github.com/kdunn926/us-macro/commit/ec789d0332cacd45c44dcc08b4f57aab36757b00">revision 2, ec789d0</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

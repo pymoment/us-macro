@@ -5,7 +5,10 @@
 <meta name="ipynb_website:version" content="0.9.7" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:title" content="US Macroeconomic Data Explorer | Quarterly Services Survey" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="A look at the service sector, according to the Quarterly Services Survey from the US Census Bureau." />
+<meta property="og:img" content="https://kdunn926.github.io/us-macro/analysis/services.png" />
 
 <!-- begin stylesheets -->
 
@@ -185,7 +188,7 @@ function sortDataFrame(id, n, dtype) {
 
 
 
-<title>US Macroeconomic Data Explorer</title>
+<title>US Macroeconomic Data Explorer | Quarterly Services Survey</title>
 
 <style type = "text/css">
     body {
@@ -226,7 +229,8 @@ function sortDataFrame(id, n, dtype) {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Quarterly-Services-Survey">Quarterly Services Survey<a class="anchor-link" href="#Quarterly-Services-Survey">&#182;</a></h2><hr>
+<h1 id="Quarterly-Services-Survey">Quarterly Services Survey<a class="anchor-link" href="#Quarterly-Services-Survey">&#182;</a></h1><hr>
+<p>A look at the service sector, according to the Quarterly Services Survey from the US Census Bureau.</p>
 
 </div>
 </div>
@@ -471,10 +475,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-1b7098f8eb264a45b6f78a7fab08050f"></div>
+<div id="altair-viz-57905d2f670046bdb15ff39f3b6d9c8f"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-1b7098f8eb264a45b6f78a7fab08050f");
+    const outputDiv = document.getElementById("altair-viz-57905d2f670046bdb15ff39f3b6d9c8f");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -579,10 +583,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-4629a821dece48e8a09ccf5bb31d7ee0"></div>
+<div id="altair-viz-14e6f5cb2cb34e60a9b387370467ef3b"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-4629a821dece48e8a09ccf5bb31d7ee0");
+    const outputDiv = document.getElementById("altair-viz-14e6f5cb2cb34e60a9b387370467ef3b");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -725,10 +729,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-2bdf7571844e4b44b8f007e340e8cc6f"></div>
+<div id="altair-viz-6e2f22e6acba4489a4f41d8d070da355"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-2bdf7571844e4b44b8f007e340e8cc6f");
+    const outputDiv = document.getElementById("altair-viz-6e2f22e6acba4489a4f41d8d070da355");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -882,7 +886,7 @@ function sortDataFrame(id, n, dtype) {
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">revenue_per_employee</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">revenue_per_employee</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">)),</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value_adj:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Quarterly Revenues per Employee [Million USD]&#39;</span><span class="p">)),</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;variable:N&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;NAICS Group&#39;</span><span class="p">)</span>
@@ -892,6 +896,9 @@ function sortDataFrame(id, n, dtype) {
     <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">450</span>
 <span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;services.png&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -904,19 +911,19 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[8]:</div>
+    <div class="prompt"></div>
 
 
 
    
         
             
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-ca2629a227a245ec8f5a5ba99492ee0a"></div>
+<div id="altair-viz-a3ebd69e429a4317986ab31455e55f97"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-ca2629a227a245ec8f5a5ba99492ee0a");
+    const outputDiv = document.getElementById("altair-viz-a3ebd69e429a4317986ab31455e55f97");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -980,7 +987,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/65389b582f599cc180343b043ce020fbb5e7eee8/analysis/services.ipynb"><code>analysis/services.ipynb</code></a> committed by GitHub Action on Mon Mar 9 23:24:17 2020 <a href="http://github.com/kdunn926/us-macro/commit/65389b582f599cc180343b043ce020fbb5e7eee8">revision 2, 65389b5</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/ec789d0332cacd45c44dcc08b4f57aab36757b00/analysis/services.ipynb"><code>analysis/services.ipynb</code></a> committed by GitHub Action on Thu Mar 12 01:25:01 2020 <a href="http://github.com/kdunn926/us-macro/commit/ec789d0332cacd45c44dcc08b4f57aab36757b00">revision 2, ec789d0</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

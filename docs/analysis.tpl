@@ -9,7 +9,10 @@
 <meta name="ipynb_website:version" content="0.9.7" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:title" content="US Macroeconomic Data Explorer | REPLACEMETITLE" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="REPLACEMEDESCRIPTION" />
+<meta property="og:img" content="REPLACEMEIMAGE" />
 
 <!-- begin stylesheets -->
 
@@ -189,7 +192,7 @@ function sortDataFrame(id, n, dtype) {
 
 
 
-<title>US Macroeconomic Data Explorer</title>
+<title>US Macroeconomic Data Explorer | REPLACEMETITLE</title>
 
 <style type = "text/css">
     body {

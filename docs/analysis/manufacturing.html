@@ -5,7 +5,10 @@
 <meta name="ipynb_website:version" content="0.9.7" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:title" content="US Macroeconomic Data Explorer | Manufacturing Orders" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="A look at manufacturing orders, according to the US Census Bureau." />
+<meta property="og:img" content="https://kdunn926.github.io/us-macro/analysis/manufacturing.png" />
 
 <!-- begin stylesheets -->
 
@@ -185,7 +188,7 @@ function sortDataFrame(id, n, dtype) {
 
 
 
-<title>US Macroeconomic Data Explorer</title>
+<title>US Macroeconomic Data Explorer | Manufacturing Orders</title>
 
 <style type = "text/css">
     body {
@@ -226,7 +229,8 @@ function sortDataFrame(id, n, dtype) {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Manufacturing">Manufacturing<a class="anchor-link" href="#Manufacturing">&#182;</a></h2><hr>
+<h1 id="Manufacturing-Orders">Manufacturing Orders<a class="anchor-link" href="#Manufacturing-Orders">&#182;</a></h1><hr>
+<p>A look at manufacturing orders, according to the US Census Bureau.</p>
 
 </div>
 </div>
@@ -328,10 +332,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-32af8bb063314f17a79050569f2cf768"></div>
+<div id="altair-viz-0cec1174da954b318f353a17ec7f002f"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-32af8bb063314f17a79050569f2cf768");
+    const outputDiv = document.getElementById("altair-viz-0cec1174da954b318f353a17ec7f002f");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -401,7 +405,7 @@ function sortDataFrame(id, n, dtype) {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">yoy_orders</span> <span class="o">=</span> <span class="n">melted</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>\
              <span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span> <span class="o">*</span> <span class="mf">100.</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">yoy_orders</span><span class="p">[</span><span class="o">-</span><span class="mi">150</span><span class="p">:])</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">yoy_orders</span><span class="p">[</span><span class="o">-</span><span class="mi">150</span><span class="p">:])</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Year over Year Revenue Growth [%]&#39;</span><span class="p">)),</span>
     <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;dt:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%B - %Y&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Period&#39;</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;value:Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;% Change&#39;</span><span class="p">)]</span>
@@ -411,6 +415,9 @@ function sortDataFrame(id, n, dtype) {
     <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span>
     <span class="n">background</span><span class="o">=</span><span class="s2">&quot;white&quot;</span>
 <span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;manufacturing.png&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -423,19 +430,19 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[6]:</div>
+    <div class="prompt"></div>
 
 
 
    
         
             
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-dbd4fdae039f49d49800e2b5f706b97e"></div>
+<div id="altair-viz-a891a781110a449ab57f36e928594b26"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-dbd4fdae039f49d49800e2b5f706b97e");
+    const outputDiv = document.getElementById("altair-viz-a891a781110a449ab57f36e928594b26");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -499,7 +506,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/65389b582f599cc180343b043ce020fbb5e7eee8/analysis/manufacturing.ipynb"><code>analysis/manufacturing.ipynb</code></a> committed by GitHub Action on Mon Mar 9 23:24:17 2020 <a href="http://github.com/kdunn926/us-macro/commit/65389b582f599cc180343b043ce020fbb5e7eee8">revision 2, 65389b5</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/ec789d0332cacd45c44dcc08b4f57aab36757b00/analysis/manufacturing.ipynb"><code>analysis/manufacturing.ipynb</code></a> committed by GitHub Action on Thu Mar 12 01:25:01 2020 <a href="http://github.com/kdunn926/us-macro/commit/ec789d0332cacd45c44dcc08b4f57aab36757b00">revision 2, ec789d0</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

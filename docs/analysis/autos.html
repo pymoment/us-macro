@@ -5,7 +5,10 @@
 <meta name="ipynb_website:version" content="0.9.7" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:title" content="US Macroeconomic Data Explorer | US Auto Sector" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="A look at the auto sector, according to the Supplemental Estimates for Motor Vehicles from the U.S. Bureau of Economic Analysis." />
+<meta property="og:img" content="https://kdunn926.github.io/us-macro/analysis/autos.png" />
 
 <!-- begin stylesheets -->
 
@@ -185,7 +188,7 @@ function sortDataFrame(id, n, dtype) {
 
 
 
-<title>US Macroeconomic Data Explorer</title>
+<title>US Macroeconomic Data Explorer | US Auto Sector</title>
 
 <style type = "text/css">
     body {
@@ -227,6 +230,7 @@ function sortDataFrame(id, n, dtype) {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="US-Auto-Sector">US Auto Sector<a class="anchor-link" href="#US-Auto-Sector">&#182;</a></h1><hr>
+<p>A look at the auto sector, according to the Supplemental Estimates for Motor Vehicles from the U.S. Bureau of Economic Analysis.</p>
 
 </div>
 </div>
@@ -275,9 +279,9 @@ function sortDataFrame(id, n, dtype) {
 <span class="k">def</span> <span class="nf">doChart</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;US Production&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
         <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;dt:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
-        <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">:Q&#39;</span><span class="p">)</span>
+        <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{metric}</span><span class="s1">:Q&#39;</span><span class="p">)</span>
     <span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Historical </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">]&#39;</span> <span class="k">if</span> <span class="n">title</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Historical </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Historical </span><span class="si">{title}</span><span class="s1"> [</span><span class="si">{metric}</span><span class="s1">]&#39;</span> <span class="k">if</span> <span class="n">title</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Historical </span><span class="si">{metric}</span><span class="s1">&#39;</span><span class="p">,</span>
         <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
         <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
@@ -288,9 +292,9 @@ function sortDataFrame(id, n, dtype) {
     
     <span class="k">return</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">yoy</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
         <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;dt:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
-        <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Year-over-year Growth [%]&#39;</span><span class="p">))</span>
+        <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{metric}</span><span class="s1">:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Year-over-year Growth [%]&#39;</span><span class="p">))</span>
     <span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Change in </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">]&#39;</span> <span class="k">if</span> <span class="n">title</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Change in </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Change in </span><span class="si">{title}</span><span class="s1"> [</span><span class="si">{metric}</span><span class="s1">]&#39;</span> <span class="k">if</span> <span class="n">title</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Change in </span><span class="si">{metric}</span><span class="s1">&#39;</span><span class="p">,</span>
         <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
         <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
@@ -346,10 +350,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-35cd57f7f7854275bc548e0b2c618020"></div>
+<div id="altair-viz-f1131c3899eb4c56a5e0371874e454a9"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-35cd57f7f7854275bc548e0b2c618020");
+    const outputDiv = document.getElementById("altair-viz-f1131c3899eb4c56a5e0371874e454a9");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -438,10 +442,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-a929b69d802b495ebedeade7d61ecad2"></div>
+<div id="altair-viz-b8dc0bfab93d427cbe83342fa1f82544"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-a929b69d802b495ebedeade7d61ecad2");
+    const outputDiv = document.getElementById("altair-viz-b8dc0bfab93d427cbe83342fa1f82544");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -545,10 +549,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-3e38e577a24647659f564391c7ada290"></div>
+<div id="altair-viz-aae3fac96e3c4a4b8285b96d777f25b3"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-3e38e577a24647659f564391c7ada290");
+    const outputDiv = document.getElementById("altair-viz-aae3fac96e3c4a4b8285b96d777f25b3");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -637,10 +641,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-4e26b378585a4fc58eac0724ebd2b1dd"></div>
+<div id="altair-viz-96f90cc8b569409ab6cbedca108c529d"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-4e26b378585a4fc58eac0724ebd2b1dd");
+    const outputDiv = document.getElementById("altair-viz-96f90cc8b569409ab6cbedca108c529d");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -744,10 +748,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-92baefc0635041e791f5ba799da143ad"></div>
+<div id="altair-viz-63e7128e14b2493b888e6f77246d56f5"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-92baefc0635041e791f5ba799da143ad");
+    const outputDiv = document.getElementById("altair-viz-63e7128e14b2493b888e6f77246d56f5");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -836,10 +840,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-0a7374e8a245469a9fec719e8102c318"></div>
+<div id="altair-viz-87e2987f2d8249b4bbf0c1904259dc56"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-0a7374e8a245469a9fec719e8102c318");
+    const outputDiv = document.getElementById("altair-viz-87e2987f2d8249b4bbf0c1904259dc56");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -943,10 +947,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-0bed380bdfe647fdaa71ef68a6a2fcd0"></div>
+<div id="altair-viz-0b65798bb47a46e1b1ac084ddffffef4"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-0bed380bdfe647fdaa71ef68a6a2fcd0");
+    const outputDiv = document.getElementById("altair-viz-0b65798bb47a46e1b1ac084ddffffef4");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1035,10 +1039,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-a527c3001df34d688351670e9c666dda"></div>
+<div id="altair-viz-88057a5250d74d91bca4233c21138e77"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-a527c3001df34d688351670e9c666dda");
+    const outputDiv = document.getElementById("altair-viz-88057a5250d74d91bca4233c21138e77");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1142,10 +1146,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-0b60e863a4ea400ebd5b7a4bd4b77148"></div>
+<div id="altair-viz-82671f203ea941a28c635dc7c04f16bd"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-0b60e863a4ea400ebd5b7a4bd4b77148");
+    const outputDiv = document.getElementById("altair-viz-82671f203ea941a28c635dc7c04f16bd");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1234,10 +1238,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-210560ed219b4d8ab31625bedc46b621"></div>
+<div id="altair-viz-e1e98eded5bb4070aec94ec143401391"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-210560ed219b4d8ab31625bedc46b621");
+    const outputDiv = document.getElementById("altair-viz-e1e98eded5bb4070aec94ec143401391");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1341,10 +1345,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-a13e6988c8824738bbb717efe1da0693"></div>
+<div id="altair-viz-951b08a9213548a886181631a1ebaf9d"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-a13e6988c8824738bbb717efe1da0693");
+    const outputDiv = document.getElementById("altair-viz-951b08a9213548a886181631a1ebaf9d");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1433,10 +1437,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-6fe858595b7d4f049eb931188e9f859f"></div>
+<div id="altair-viz-7574d3261c7c437a92e34e016f03cd59"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-6fe858595b7d4f049eb931188e9f859f");
+    const outputDiv = document.getElementById("altair-viz-7574d3261c7c437a92e34e016f03cd59");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1540,10 +1544,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-de14dc26c8654a1e9e8d2b5325c6105d"></div>
+<div id="altair-viz-fdb80be8f78942babbb000c17a3937b3"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-de14dc26c8654a1e9e8d2b5325c6105d");
+    const outputDiv = document.getElementById("altair-viz-fdb80be8f78942babbb000c17a3937b3");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1632,10 +1636,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-f7b4b8bc27ea45fab5fb87d1e000745b"></div>
+<div id="altair-viz-b9e1b673a7214d67a86b2f450164fa96"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-f7b4b8bc27ea45fab5fb87d1e000745b");
+    const outputDiv = document.getElementById("altair-viz-b9e1b673a7214d67a86b2f450164fa96");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1750,10 +1754,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-f2b8b2e6cbb448cd985247c8d0688809"></div>
+<div id="altair-viz-6367fad82d024117b5dc076523ffdfc2"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-f2b8b2e6cbb448cd985247c8d0688809");
+    const outputDiv = document.getElementById("altair-viz-6367fad82d024117b5dc076523ffdfc2");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1842,10 +1846,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-1fec10e08c534826ba0506a910e4491f"></div>
+<div id="altair-viz-6b87584895db49df8fbee85758060d08"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-1fec10e08c534826ba0506a910e4491f");
+    const outputDiv = document.getElementById("altair-viz-6b87584895db49df8fbee85758060d08");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1934,10 +1938,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-dcdaf7c5b91049c29969af452d440cd5"></div>
+<div id="altair-viz-fe8ec27e58e945ac954fc6d508362ed2"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-dcdaf7c5b91049c29969af452d440cd5");
+    const outputDiv = document.getElementById("altair-viz-fe8ec27e58e945ac954fc6d508362ed2");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2026,10 +2030,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-fdad1d2f55b646dd97dabeaccc805c6e"></div>
+<div id="altair-viz-b03a4066b0634483afde51a1c2f8f62c"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-fdad1d2f55b646dd97dabeaccc805c6e");
+    const outputDiv = document.getElementById("altair-viz-b03a4066b0634483afde51a1c2f8f62c");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2143,10 +2147,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-51e0b61208cf433fa7c1fece793e5742"></div>
+<div id="altair-viz-21d29fa2dada4a85be79bd85c377cc1b"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-51e0b61208cf433fa7c1fece793e5742");
+    const outputDiv = document.getElementById("altair-viz-21d29fa2dada4a85be79bd85c377cc1b");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2235,10 +2239,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-40ad14fa95404f0a951503b87d03bbf5"></div>
+<div id="altair-viz-d41ac214990343f5bd5dc35bbef861db"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-40ad14fa95404f0a951503b87d03bbf5");
+    const outputDiv = document.getElementById("altair-viz-d41ac214990343f5bd5dc35bbef861db");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2352,10 +2356,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-a268798eb4df4b97bdad88c2f9373a96"></div>
+<div id="altair-viz-935a6b9282eb46fabbf49b4187820405"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-a268798eb4df4b97bdad88c2f9373a96");
+    const outputDiv = document.getElementById("altair-viz-935a6b9282eb46fabbf49b4187820405");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2422,7 +2426,9 @@ function sortDataFrame(id, n, dtype) {
 <div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">doYoyChart</span><span class="p">(</span><span class="n">df_domestic</span><span class="p">,</span> <span class="s1">&#39;US Production&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">doYoyChart</span><span class="p">(</span><span class="n">df_domestic</span><span class="p">,</span> <span class="s1">&#39;US Production&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;autos.png&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2435,19 +2441,19 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[33]:</div>
+    <div class="prompt"></div>
 
 
 
    
         
             
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-c78f1bdef3c9406eae7a4f58116eb144"></div>
+<div id="altair-viz-1f25210ae2214769ae264e788d75b83b"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-c78f1bdef3c9406eae7a4f58116eb144");
+    const outputDiv = document.getElementById("altair-viz-1f25210ae2214769ae264e788d75b83b");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2536,10 +2542,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-df146b5370704d4c956dad23c5278062"></div>
+<div id="altair-viz-8f9a24587c034e54a35ed1edfdd62872"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-df146b5370704d4c956dad23c5278062");
+    const outputDiv = document.getElementById("altair-viz-8f9a24587c034e54a35ed1edfdd62872");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2628,10 +2634,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-2a08bc307f274a66a546f59e77876f9f"></div>
+<div id="altair-viz-b5991356a503416a8d486d9b6b8f0249"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-2a08bc307f274a66a546f59e77876f9f");
+    const outputDiv = document.getElementById("altair-viz-b5991356a503416a8d486d9b6b8f0249");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2720,10 +2726,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-b4b51e0285b8440f83ee243f3eab0cbb"></div>
+<div id="altair-viz-042b069e3dd049eb9d8358ac13cd9f59"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-b4b51e0285b8440f83ee243f3eab0cbb");
+    const outputDiv = document.getElementById("altair-viz-042b069e3dd049eb9d8358ac13cd9f59");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2812,10 +2818,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-945b42716973445fb2c46207eeea8d73"></div>
+<div id="altair-viz-0e960d4b533c41ac89a2deb9b32186fb"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-945b42716973445fb2c46207eeea8d73");
+    const outputDiv = document.getElementById("altair-viz-0e960d4b533c41ac89a2deb9b32186fb");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -2879,7 +2885,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/65389b582f599cc180343b043ce020fbb5e7eee8/analysis/autos.ipynb"><code>analysis/autos.ipynb</code></a> committed by GitHub Action on Mon Mar 9 23:24:17 2020 <a href="http://github.com/kdunn926/us-macro/commit/65389b582f599cc180343b043ce020fbb5e7eee8">revision 2, 65389b5</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/ec789d0332cacd45c44dcc08b4f57aab36757b00/analysis/autos.ipynb"><code>analysis/autos.ipynb</code></a> committed by GitHub Action on Thu Mar 12 01:25:01 2020 <a href="http://github.com/kdunn926/us-macro/commit/ec789d0332cacd45c44dcc08b4f57aab36757b00">revision 2, ec789d0</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

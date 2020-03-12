@@ -5,7 +5,10 @@
 <meta name="ipynb_website:version" content="0.9.7" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="twitter:card" content="summary_large_image"></meta>
-<meta property="og:title" content="US Macroeconomic Data Explorer" />
+<meta property="og:title" content="US Macroeconomic Data Explorer | Residential Real Estate" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="A look at residental real estate, according to the Federal Reserve and the Federal Housing Authority." />
+<meta property="og:img" content="https://kdunn926.github.io/us-macro/analysis/residential-realestate.png" />
 
 <!-- begin stylesheets -->
 
@@ -185,7 +188,7 @@ function sortDataFrame(id, n, dtype) {
 
 
 
-<title>US Macroeconomic Data Explorer</title>
+<title>US Macroeconomic Data Explorer | Residential Real Estate</title>
 
 <style type = "text/css">
     body {
@@ -223,6 +226,15 @@ function sortDataFrame(id, n, dtype) {
         
     </div><!--/.nav-collapse -->
 </nav><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Residential-Real-Estate">Residential Real Estate<a class="anchor-link" href="#Residential-Real-Estate">&#182;</a></h1><hr>
+<p>A look at residental real estate, according to the Federal Reserve and the Federal Housing Authority.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
@@ -346,10 +358,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-c3547e175c5e4f7ca16449f4a030dd54"></div>
+<div id="altair-viz-69675626c7314b378936a386ea6d44e0"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-c3547e175c5e4f7ca16449f4a030dd54");
+    const outputDiv = document.getElementById("altair-viz-69675626c7314b378936a386ea6d44e0");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -476,10 +488,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-7dff4b5cf24c42398ba8dd8ada0d45de"></div>
+<div id="altair-viz-d7799d4239bd4e01981be4ea9b5f803d"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-7dff4b5cf24c42398ba8dd8ada0d45de");
+    const outputDiv = document.getElementById("altair-viz-d7799d4239bd4e01981be4ea9b5f803d");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -601,10 +613,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-8fc4372a2a7447c689f5ae7e0e8ef507"></div>
+<div id="altair-viz-9cd98239cf7b409380a8cfa350e8c581"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-8fc4372a2a7447c689f5ae7e0e8ef507");
+    const outputDiv = document.getElementById("altair-viz-9cd98239cf7b409380a8cfa350e8c581");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -723,10 +735,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-907c3ac4bb50482e9a68dbb5ff5a41ff"></div>
+<div id="altair-viz-40a45be921424cb787e5bf54f5da8a04"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-907c3ac4bb50482e9a68dbb5ff5a41ff");
+    const outputDiv = document.getElementById("altair-viz-40a45be921424cb787e5bf54f5da8a04");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -845,10 +857,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-7f7815cedb64467fb0fa0b836fcb6375"></div>
+<div id="altair-viz-2e6cfc6150d44e608c4a6c498223eb40"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-7f7815cedb64467fb0fa0b836fcb6375");
+    const outputDiv = document.getElementById("altair-viz-2e6cfc6150d44e608c4a6c498223eb40");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -946,7 +958,7 @@ function sortDataFrame(id, n, dtype) {
 
 <span class="n">df_recessions</span> <span class="o">=</span> <span class="n">getSeries</span><span class="p">(</span><span class="s2">&quot;JHDUSRGDPBR&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
 
-<span class="p">(</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df_recessions</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()[[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#D3D3D3&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
         <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s2">&quot;date:T&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
         <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
@@ -961,6 +973,9 @@ function sortDataFrame(id, n, dtype) {
     <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
     <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
 <span class="p">)</span><span class="o">.</span><span class="n">resolve_scale</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;residential-realestate.png&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -973,19 +988,19 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[9]:</div>
+    <div class="prompt"></div>
 
 
 
    
         
             
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-756440ce6abc46c9b50fba5a1f9f0d7f"></div>
+<div id="altair-viz-6fd20b492297456caba07dc09e268d30"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-756440ce6abc46c9b50fba5a1f9f0d7f");
+    const outputDiv = document.getElementById("altair-viz-6fd20b492297456caba07dc09e268d30");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1150,10 +1165,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-53760d1e66fd45d4941b99a1d8aff857"></div>
+<div id="altair-viz-bb866f086b374f79ad435b9351d61071"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-53760d1e66fd45d4941b99a1d8aff857");
+    const outputDiv = document.getElementById("altair-viz-bb866f086b374f79ad435b9351d61071");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1324,10 +1339,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-979bf2aab8a3421bacf607b09100aef1"></div>
+<div id="altair-viz-1726970cf269408286e70fbe99af6ac8"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-979bf2aab8a3421bacf607b09100aef1");
+    const outputDiv = document.getElementById("altair-viz-1726970cf269408286e70fbe99af6ac8");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1424,10 +1439,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-7716fc05bd1c4a888f6f5da193ddc2f9"></div>
+<div id="altair-viz-d2cd2744ab01481ebf4e2cd2574c49e3"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-7716fc05bd1c4a888f6f5da193ddc2f9");
+    const outputDiv = document.getElementById("altair-viz-d2cd2744ab01481ebf4e2cd2574c49e3");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1524,10 +1539,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-ee6b9e0313ea40a293bf5b42f21bdd64"></div>
+<div id="altair-viz-a3d12e7956bd4cc884544a6ab35a44ba"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-ee6b9e0313ea40a293bf5b42f21bdd64");
+    const outputDiv = document.getElementById("altair-viz-a3d12e7956bd4cc884544a6ab35a44ba");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -1591,7 +1606,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/65389b582f599cc180343b043ce020fbb5e7eee8/analysis/residential-realestate.ipynb"><code>analysis/residential-realestate.ipynb</code></a> committed by GitHub Action on Mon Mar 9 23:24:17 2020 <a href="http://github.com/kdunn926/us-macro/commit/65389b582f599cc180343b043ce020fbb5e7eee8">revision 2, 65389b5</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/ec789d0332cacd45c44dcc08b4f57aab36757b00/analysis/residential-realestate.ipynb"><code>analysis/residential-realestate.ipynb</code></a> committed by GitHub Action on Thu Mar 12 01:25:01 2020 <a href="http://github.com/kdunn926/us-macro/commit/ec789d0332cacd45c44dcc08b4f57aab36757b00">revision 2, ec789d0</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
