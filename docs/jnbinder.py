@@ -919,7 +919,7 @@ def get_notebook_tpl(conf, dirs, path):
 <meta property="og:title" content="%(name)s | REPLACEMETITLE" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
-<meta property="og:img" content="REPLACEMEIMAGE" />
+<meta property="og:image" content="REPLACEMEIMAGE" />
 
 <!-- begin stylesheets -->
 %(common_style)s
