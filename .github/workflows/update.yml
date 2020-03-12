@@ -53,11 +53,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        /usr/share/miniconda/bin/pip install git+https://github.com/abenassi/Google-Search-API
-        rm -rf /usr/share/miniconda/lib/python*/site-packages/selenium*
         conda install -c conda-forge --yes --file requirements.txt
         /usr/share/miniconda/bin/pip install yfinance
         /usr/share/miniconda/bin/pip install unidecode fake_useragent
+        /usr/share/miniconda/bin/pip install git+https://github.com/abenassi/Google-Search-API
+        rm -rf /usr/share/miniconda/lib/python*/site-packages/selenium*
+        conda install -c conda-forge selenium==3.141.0 --force-reinstall
 
     - name: Update notebooks
       env:
