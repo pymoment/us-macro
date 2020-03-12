@@ -12,7 +12,7 @@
 <meta property="og:title" content="US Macroeconomic Data Explorer | REPLACEMETITLE" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
-<meta property="og:img" content="REPLACEMEIMAGE" />
+<meta property="og:image" content="REPLACEMEIMAGE" />
 
 <!-- begin stylesheets -->
 
