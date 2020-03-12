@@ -7,7 +7,7 @@ on:
     - 'docs/**'
     - 'README.md'
   schedule:
-    - cron:  '0 0 * * */6'
+    - cron:  '0 0 * * 6'
 
 jobs:
   refreshAndPublish:
@@ -70,7 +70,6 @@ jobs:
             --to notebook --inplace \
             --execute {} \;
         git add ./analysis/*.ipynb
-        git add ./analysis/*.png
 
     - name: Commit updated notebooks
       run: |

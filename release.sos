@@ -211,6 +211,7 @@ bash: expand = "${ }", stderr = False
   DESCRIPTION=`cat ${_input:e} | jq '.cells[0].source[-1] | sub("\n" ; "")' | sed 's/"#* /"/g;s/"//g'`
   perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" ${_output:ae}
   IMAGE=`echo ${_input:e} | perl -pe 's/.*analysis\/([^\.]*).ipynb.*/\1/g'`
+  mv "analysis/$IMAGE.png" docs/analysis/
   perl -i -pe "s/REPLACEMEIMAGE/https:\/\/kdunn926.github.io\/us-macro\/analysis\/$IMAGE.png/g" ${_output:ae}
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
      perl -i -ne 'print if /\S/' ${_output:e}
