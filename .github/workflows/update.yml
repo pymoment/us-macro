@@ -57,6 +57,7 @@ jobs:
         /usr/share/miniconda/bin/pip install yfinance
         /usr/share/miniconda/bin/pip install unidecode fake_useragent
         /usr/share/miniconda/bin/pip install git+https://github.com/abenassi/Google-Search-API
+        rm -rf /usr/share/miniconda/lib/python*/site-packages/selenium*
 
     - name: Update notebooks
       env:
