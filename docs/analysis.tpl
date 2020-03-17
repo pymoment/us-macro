@@ -13,6 +13,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
 <meta property="og:image" content="REPLACEMEIMAGE" />
+<meta property="og:url" content="REPLACEMEURL" />
 
 <!-- begin stylesheets -->
 

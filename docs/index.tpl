@@ -13,6 +13,7 @@
 <meta property="og:title" content="US Macroeconomic Data Explorer" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
+<meta property="og:url" content="https://kdunn926.github.io/us-macro/index.html" />
 
 <title>US Macroeconomic Data Explorer</title>
 
