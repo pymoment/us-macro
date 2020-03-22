@@ -1796,7 +1796,7 @@ Wall time: 4min 47s
 
 <span class="c1"># df_bnfs.to_csv(&quot;bnsf.csv&quot;, sep=&quot;|&quot;)</span>
 
-<span class="n">df_bnsf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;bnsf.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
+<span class="c1">#df_bnsf = pd.read_csv(&#39;bnsf.csv&#39;, sep=&quot;|&quot;)</span>
 
 <span class="n">df_bnsf</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_bnsf</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">)</span>
 
@@ -4661,7 +4661,10 @@ Wall time: 14min 32s
         <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
     <span class="p">)</span>
 
-<span class="n">doYoyUpChart</span><span class="p">(</span><span class="n">df_unionpac_yoy</span><span class="p">,</span> <span class="s1">&#39;Total Carloads&#39;</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">doYoyUpChart</span><span class="p">(</span><span class="n">df_unionpac_yoy</span><span class="p">,</span> <span class="s1">&#39;Total Carloads&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;transportation-rail.png&#39;</span><span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -5428,7 +5431,7 @@ Wall time: 14min 32s
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/c4c42410234074956cbdab13641ab035e2c8d663/analysis/transportation-rail.ipynb"><code>analysis/transportation-rail.ipynb</code></a> committed by Kyle Dunn on Sun Mar 22 05:13:34 2020 <a href="http://github.com/kdunn926/us-macro/commit/c4c42410234074956cbdab13641ab035e2c8d663">revision 1, c4c4241</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/854ec13a6411da91e1f841eebf5689a82cf88706/analysis/transportation-rail.ipynb"><code>analysis/transportation-rail.ipynb</code></a> committed by Kyle Dunn on Sun Mar 22 05:55:51 2020 <a href="http://github.com/kdunn926/us-macro/commit/854ec13a6411da91e1f841eebf5689a82cf88706">revision 1, 854ec13</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
