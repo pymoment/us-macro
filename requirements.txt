@@ -18,5 +18,5 @@ soupsieve
 feather-format
 pyarrow
 distro
-python-dateutil
 joblib
+python-dateutil
