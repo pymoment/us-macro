@@ -243,6 +243,9 @@ function sortDataFrame(id, n, dtype) {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span><span class="p">,</span> <span class="n">Request</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
 </pre></div>
 
     </div>
@@ -257,11 +260,25 @@ function sortDataFrame(id, n, dtype) {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">baseUrl</span> <span class="o">=</span> <span class="s2">&quot;https://stats.oecd.org/sdmx-json/data/DP_LIVE/</span><span class="si">{}</span><span class="s2">/OECD?contentType=csv&amp;detail=code&amp;separator=comma&amp;csv-lang=en&quot;</span>
 
-<span class="n">df_consumer</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">baseUrl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;USA.CCI...&quot;</span><span class="p">))</span>
+<span class="n">uaString</span> <span class="o">=</span> <span class="s1">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36&#39;</span>
+
+<span class="k">def</span> <span class="nf">fetchSentiment</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">retries</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">uaString</span> <span class="p">})</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">retries</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df_consumer</span> <span class="o">=</span> <span class="n">fetchSentiment</span><span class="p">(</span><span class="n">baseUrl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;USA.CCI...&quot;</span><span class="p">))</span>
 
 <span class="c1">#df_consumer.head()</span>
 
-<span class="n">df_business</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">baseUrl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;.BCI...&quot;</span><span class="p">))</span>
+<span class="n">df_business</span> <span class="o">=</span> <span class="n">fetchSentiment</span><span class="p">(</span><span class="n">baseUrl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;.BCI...&quot;</span><span class="p">))</span>
 
 <span class="c1">#df_business.head()</span>
 </pre></div>
@@ -314,10 +331,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-ecc3f0fa3fe04663a49c7a69ecb22798"></div>
+<div id="altair-viz-9cc96fb9f15a4f2cbbdb78374c0d48b2"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-ecc3f0fa3fe04663a49c7a69ecb22798");
+    const outputDiv = document.getElementById("altair-viz-9cc96fb9f15a4f2cbbdb78374c0d48b2");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -410,10 +427,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-dd3d5fa9aba34ad9b219513b2f7f4dc8"></div>
+<div id="altair-viz-5247786123a34e93b0fd492dde8bf48e"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-dd3d5fa9aba34ad9b219513b2f7f4dc8");
+    const outputDiv = document.getElementById("altair-viz-5247786123a34e93b0fd492dde8bf48e");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -502,10 +519,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-b9df9148ac0d45869ecb4abea26213d4"></div>
+<div id="altair-viz-84f1dcb128784a6aaf1ffca6a357abdc"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-b9df9148ac0d45869ecb4abea26213d4");
+    const outputDiv = document.getElementById("altair-viz-84f1dcb128784a6aaf1ffca6a357abdc");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -613,10 +630,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-2216bd972a0c4c9198301285f6fc093c"></div>
+<div id="altair-viz-4e6477a80d334d798a681901d0d18a7d"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-2216bd972a0c4c9198301285f6fc093c");
+    const outputDiv = document.getElementById("altair-viz-4e6477a80d334d798a681901d0d18a7d");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -706,10 +723,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-43b0b209478c45bdb9552ad6b0a90a5b"></div>
+<div id="altair-viz-4fbbaf6a658a4dbc87155c3d92273fcf"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-43b0b209478c45bdb9552ad6b0a90a5b");
+    const outputDiv = document.getElementById("altair-viz-4fbbaf6a658a4dbc87155c3d92273fcf");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -801,10 +818,10 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-97238535acb041ab9697701638bc9b5d"></div>
+<div id="altair-viz-2bc4051bbe9b419b8ca7f5107d99dc89"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-97238535acb041ab9697701638bc9b5d");
+    const outputDiv = document.getElementById("altair-viz-2bc4051bbe9b419b8ca7f5107d99dc89");
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
@@ -868,7 +885,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 Kyle Dunn
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/b2e4315457630dbc4d9df853e9a3c4b80241c270/analysis/sentiment.ipynb"><code>analysis/sentiment.ipynb</code></a> committed by Kyle Dunn on Sat Mar 28 02:33:46 2020 <a href="http://github.com/kdunn926/us-macro/commit/b2e4315457630dbc4d9df853e9a3c4b80241c270">revision 1, b2e4315</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/71464a8590ad9f40dc69ca33e94893e12108d382/analysis/sentiment.ipynb"><code>analysis/sentiment.ipynb</code></a> committed by GitHub Action on Sat Mar 28 03:17:18 2020 <a href="http://github.com/kdunn926/us-macro/commit/71464a8590ad9f40dc69ca33e94893e12108d382">revision 2, 71464a8</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
