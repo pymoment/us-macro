@@ -210,10 +210,17 @@ bash: expand = "${ }", stderr = False
   perl -i -pe "s/REPLACEMETITLE/$TITLE/g" ${_output:ae}
   DESCRIPTION=`cat ${_input:e} | jq '.cells[0].source[-1] | sub("\n" ; "")' | sed 's/"#* /"/g;s/"//g'`
   perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" ${_output:ae}
+  BASEURL="https:\/\/kdunn926.github.io\/us-macro\/analysis"
   ID=`echo ${_input:e} | perl -pe 's/.*analysis\/([^\.]*).ipynb.*/\1/g'`
   mv "analysis/$ID.png" docs/analysis/
-  perl -i -pe "s/REPLACEMEIMAGE/https:\/\/kdunn926.github.io\/us-macro\/analysis\/$ID.png/g" ${_output:ae}
-  perl -i -pe "s/REPLACEMEURL/https:\/\/kdunn926.github.io\/us-macro\/analysis\/$ID.html/g" ${_output:ae}
+  perl -i -pe "s/REPLACEMEIMAGE/$BASEURL\/$ID.png/g" ${_output:ae}
+  perl -i -pe "s/REPLACEMEURL/$BASEURL\/$ID.html/g" ${_output:ae}
+  CARDFILE="docs/analysis/card-$ID.html"
+  cp docs/card.tpl.html "$CARDFILE"
+  perl -i -pe "s/REPLACEMETITLE/$TITLE/g" "$CARDFILE"
+  perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" "$CARDFILE"
+  perl -i -pe "s/REPLACEMEIMAGE/$BASEURL\/$ID.png/g" "$CARDFILE"
+  perl -i -pe "s/REPLACEMEURL/$BASEURL\/$ID.html/g" "$CARDFILE"
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
      perl -i -ne 'print if /\S/' ${_output:e}
   fi
