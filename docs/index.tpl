@@ -201,7 +201,7 @@ $(document).ready(function () {
 <!-- code folding -->
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
     <a class="navbar-brand" href="../index.html">US Macroeconomic Data Explorer</a>
     <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -210,7 +210,7 @@ $(document).ready(function () {
       <ul class="navbar-nav mr-auto">
         
 <li class="nav-item">
-  <a class="nav-link" href="./index.html">Overview</a>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 </li>
         
       </ul>

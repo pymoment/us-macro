@@ -20,8 +20,16 @@
   <script>
     window.onload = function() {
       setTimeout(function() {
-        // similar behavior as clicking on a link
-        window.location.href = "https://kdunn926.github.io/us-macro/analysis/us-treasury-rates.html";
+        // capture the hash / anchor
+        const hash = window.location.hash.substr(1);
+        const anchorPropogate = hash ? `#${hash}` : ''
+
+        // capture the referrer, if there is one
+        const ref = document.referrer;
+        const utmString = ref ? `utm_medium=${ref}&utm_source=card` : 'utm_source=card';
+
+        // redirect a JS-enabled browser to the actual content
+        window.location.href = `https://kdunn926.github.io/us-macro/analysis/us-treasury-rates.html?${utmString}${anchorPropogate}`;
       }, 25);
     }
   </script>
