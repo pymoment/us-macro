@@ -117,25 +117,34 @@ def get_commit_info(fn, conf):
 
 
 def get_nav(dirs, home_label, prefix='./'):
+    dropdownBase = '''
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle btn" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: steelblue; color: white;">
+    Explore other charts
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  \n''' if len(dirs) else ''
     if home_label:
         out = '''
 <li class="nav-item">
   <a class="nav-link" href="{}index.html">{}</a>
 </li>
-        '''.format(prefix, home_label)
+        '''.format(prefix, home_label) + dropdownBase
     else:
-        out = ''
+        out = '''
+<li class="nav-item">
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+</li>
+        ''' + dropdownBase
     for item in dirs:
         out += '''
-<li class="nav-item">
-  <a class="nav-link" href="{}{}{}">{}</a>
-</li>
+    <a class="dropdown-item" href="{}{}{}">{}</a>
         '''.format(prefix, item,
                    '/index.html'
                    if os.path.isfile(f'{item}/{item}.ipynb') or os.path.isfile(f'{item}/{item}.Rmd')
                    else '.html',
-                   ' '.join([x.capitalize() if x.upper() != x else x for x in item.split('_')]))
-    return out
+                   ' '.join([x.capitalize() for x in item.split('/')[-1].split('-')]))
+    return (out + '\n  </div>\n</li>' if len(dirs) else out)
 
 
 def get_right_nav(repo, source_label):
@@ -238,7 +247,7 @@ def get_disqus(name):
 
 def get_navbar(name, nav, right_nav, isRoot=False):
     return '''
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
     <a class="navbar-brand" href="{pre}index.html">{n}</a>
     <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -903,7 +912,7 @@ $(document).ready( () => {
     '''
 
 
-def get_notebook_tpl(conf, dirs, path):
+def get_notebook_tpl(conf, dirs, files, path):
     '''Generate notebook template at given path'''
     content = '''
 {%%- extends 'basic.tpl' -%%}
@@ -1073,7 +1082,7 @@ function sortDataFrame(id, n, dtype) {
         'active_page': get_active_page(),
         'pandoc_to_bs4': convert_pandoc_to_bs4(),
         'navbar': get_navbar(conf['name'],
-                             get_nav([x for x in dirs if x not in conf['hide_navbar']],
+                             get_nav([x.split('.')[0] for x in files if x not in conf['hide_navbar']],
                                      conf['homepage_label'], '../'),
                              get_right_nav(conf['repo'], conf['source_label'])),
         'panel': get_sos_tpl('panel' if conf['report_style'] is True else ''),
@@ -1094,12 +1103,12 @@ def update_gitignore():
             f.write('\n**/.sos\n**/.ipynb_checkpoints\n**/__pycache__')
 
 
-def make_template(conf, dirs, outdir):
+def make_template(conf, dirs, files, outdir):
     with open('{}/index.tpl'.format(outdir), 'w') as f:
         f.write(get_index_tpl(conf, dirs).strip())
     for item in dirs:
         with open('{}/{}.tpl'.format(outdir, item), 'w') as f:
-            f.write(get_notebook_tpl(conf, dirs, item).strip())
+            f.write(get_notebook_tpl(conf, dirs, files, item).strip())
 
 
 def get_notebook_toc(path, exclude):

@@ -104,30 +104,6 @@ else:
 for item in rmd_files:
     fail_if(os.path.isfile(os.path.splitext(item)[0] + '.ipynb'), msg = f"Rmarkdown file name ``{item}`` conflicts with existing notebook ``{os.path.splitext(item)[0] + '.ipynb'}``. If the notebook was automatically generated you can use ``rm -f {os.path.splitext(item)[0] + '.ipynb'}`` to remove it.")
 
-[download-jnbinder: provides = 'jnbinder-master/README.md']
-download: decompress = True, dest_file = 'jnbinder-master.zip'
-  https://github.com/vatlab/jnbinder/archive/master.zip
-
-[setup-jnbinder]
-depends: 'jnbinder-master/README.md'
-run:
-  yes | cp -rf jnbinder-master/docs ./
-  cp jnbinder-master/config.yml config.default.yml
-  rm -rf jnbinder-master*
-
-[upgrade-jnbinder]
-depends: 'jnbinder-master/README.md'
-bash:
-  mkdir -p docs
-  rm -rf docs/{css,fonts,jnbinder.py,js,site_libs}
-  cp -r jnbinder-master/docs/{css,fonts,jnbinder.py,js,site_libs} docs
-  if [ -f release.sos ]; then
-     cp jnbinder-master/release ./release.sos
-  else
-     cp jnbinder-master/release ./
-  fi
-  rm -rf jnbinder-master*
-
 [upgrade-sos (SoS upgrader)]
 # using latest pip release
 try:
@@ -143,10 +119,11 @@ run: expand = True
 [update-tpl (Jupyter HTML template updater)]
 parameter: binders = list
 parameter: conf = dict
+parameter: notebook_files = list
 input: None
 output: [f"docs/{x}.tpl" for x in binders] + ['docs/index.tpl']
 from jnbinder import make_template
-make_template(conf, binders, 'docs')
+make_template(conf, binders, notebook_files, 'docs')
 
 [update-index (Index notebook generator)]
 parameter: binders = list

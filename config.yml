@@ -31,7 +31,7 @@ homepage: "analysis/index.ipynb"
 
 # The name of the homepage link shown in the navigation bar.
 # Set to NULL to hide it
-homepage_label: "Overview"
+homepage_label: ""
 
 # The name of the link to the source repository. It is shown in the
 # top-right corner of the navigation bar. Set it to NULL to hide it.
