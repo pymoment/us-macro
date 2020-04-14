@@ -123,7 +123,7 @@ parameter: notebook_files = list
 input: None
 output: [f"docs/{x}.tpl" for x in binders] + ['docs/index.tpl']
 from jnbinder import make_template
-make_template(conf, binders, notebook_files, 'docs')
+make_template(conf, binders, sorted(notebook_files), 'docs')
 
 [update-index (Index notebook generator)]
 parameter: binders = list
