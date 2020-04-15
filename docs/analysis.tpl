@@ -228,41 +228,41 @@ function sortDataFrame(id, n, dtype) {
   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
   
 
+    <a class="dropdown-item" href="../analysis/autos.html">Autos</a>
+        
+    <a class="dropdown-item" href="../analysis/construction.html">Construction</a>
+        
     <a class="dropdown-item" href="../analysis/creditcards.html">Creditcards</a>
         
-    <a class="dropdown-item" href="../analysis/transportation-ocean.html">Transportation Ocean</a>
+    <a class="dropdown-item" href="../analysis/international-trade.html">International Trade</a>
+        
+    <a class="dropdown-item" href="../analysis/labor.html">Labor</a>
         
     <a class="dropdown-item" href="../analysis/manufacturing.html">Manufacturing</a>
         
-    <a class="dropdown-item" href="../analysis/international-trade.html">International Trade</a>
+    <a class="dropdown-item" href="../analysis/oil-gas-inventories.html">Oil Gas Inventories</a>
+        
+    <a class="dropdown-item" href="../analysis/residential-realestate-zillow.html">Residential Realestate Zillow</a>
+        
+    <a class="dropdown-item" href="../analysis/residential-realestate.html">Residential Realestate</a>
         
     <a class="dropdown-item" href="../analysis/retailsales.html">Retailsales</a>
         
     <a class="dropdown-item" href="../analysis/sentiment.html">Sentiment</a>
         
-    <a class="dropdown-item" href="../analysis/us-treasury-rates.html">Us Treasury Rates</a>
-        
     <a class="dropdown-item" href="../analysis/services.html">Services</a>
-        
-    <a class="dropdown-item" href="../analysis/transportation-rail.html">Transportation Rail</a>
-        
-    <a class="dropdown-item" href="../analysis/residential-realestate.html">Residential Realestate</a>
-        
-    <a class="dropdown-item" href="../analysis/transportation-cass.html">Transportation Cass</a>
-        
-    <a class="dropdown-item" href="../analysis/autos.html">Autos</a>
-        
-    <a class="dropdown-item" href="../analysis/oil-gas-inventories.html">Oil Gas Inventories</a>
-        
-    <a class="dropdown-item" href="../analysis/labor.html">Labor</a>
-        
-    <a class="dropdown-item" href="../analysis/us-treasury-auctions.html">Us Treasury Auctions</a>
         
     <a class="dropdown-item" href="../analysis/sp500-returns-and-performance.html">Sp500 Returns And Performance</a>
         
-    <a class="dropdown-item" href="../analysis/construction.html">Construction</a>
+    <a class="dropdown-item" href="../analysis/transportation-cass.html">Transportation Cass</a>
         
-    <a class="dropdown-item" href="../analysis/residential-realestate-zillow.html">Residential Realestate Zillow</a>
+    <a class="dropdown-item" href="../analysis/transportation-ocean.html">Transportation Ocean</a>
+        
+    <a class="dropdown-item" href="../analysis/transportation-rail.html">Transportation Rail</a>
+        
+    <a class="dropdown-item" href="../analysis/us-treasury-auctions.html">Us Treasury Auctions</a>
+        
+    <a class="dropdown-item" href="../analysis/us-treasury-rates.html">Us Treasury Rates</a>
         
   </div>
 </li>
