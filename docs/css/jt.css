@@ -4316,6 +4316,7 @@ div.output_html {
  /* color: #353535; */
  /* background-color: #ffffff; */
  /* background: #ffffff; */
+ overflow-y: hidden;
 }
 div.output_subarea {
  overflow-x: auto;
