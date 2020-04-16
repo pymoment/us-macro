@@ -771,11 +771,9 @@ def get_common_javascript():
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <!-- Vega/Vegalite -->
-<script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-lite@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-lite@3"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
 
