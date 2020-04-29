@@ -62,7 +62,7 @@ jobs:
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
         find ./analysis/*.ipynb -exec \
-          jupyter nbconvert \
+          /usr/share/miniconda/envs/ci/bin/jupyter nbconvert \
             --ExecutePreprocessor.timeout=-1 \
             --to notebook --inplace \
             --execute {} \;
