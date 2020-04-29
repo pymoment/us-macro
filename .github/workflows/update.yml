@@ -43,6 +43,7 @@ jobs:
       run: |
         conda create --name ci -y
         conda init bash
+        /bin/bash
         source /home/runner/.bashrc
         conda activate ci
         conda install -c conda-forge --yes --file requirements.txt
@@ -56,6 +57,9 @@ jobs:
       env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
       run: |
+        /bin/bash
+        source /home/runner/.bashrc
+        conda activate ci
         find ./analysis/*.ipynb -exec \
           /usr/share/miniconda/bin/jupyter nbconvert \
             --ExecutePreprocessor.timeout=-1 \
