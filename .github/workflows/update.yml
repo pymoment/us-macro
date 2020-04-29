@@ -45,6 +45,7 @@ jobs:
         conda init bash
 
     - name: Install dependencies
+      shell: bash -e -l {0}
       run: |
         conda activate ci
         conda install -c conda-forge --yes --file requirements.txt
