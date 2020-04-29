@@ -1,6 +1,6 @@
 jupyter==1.0.0
 pandas==1.0.0
-altair==4.0.1
+altair==4.1.0
 numpy==1.18.1
 selenium==3.141.0
 tabula-py
