@@ -20,7 +20,7 @@ jobs:
     - name: Cache Miniconda and dependencies
       uses: actions/cache@v1
       with:
-        path: /usr/share/miniconda
+        path: /usr/share/miniconda/envs/ci
         key: ${{ runner.OS }}-build-${{ hashFiles('**/requirements.txt') }}
 
     - name: Set up Python 3.6
@@ -45,7 +45,6 @@ jobs:
         conda init bash
 
     - name: Install dependencies
-      shell: bash -e -l {0}
       run: |
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
@@ -60,8 +59,7 @@ jobs:
       env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
       run: |
-        /bin/bash
-        source /home/runner/.bashrc
+        source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
         find ./analysis/*.ipynb -exec \
           /usr/share/miniconda/bin/jupyter nbconvert \
