@@ -39,12 +39,13 @@ jobs:
       with:
         java-version: 1.8
 
-    - name: Install dependencies
+    - name: Set up Conda env 
       run: |
         conda create --name ci -y
         conda init bash
-        /bin/bash
-        source /home/runner/.bashrc
+
+    - name: Install dependencies
+      run: |
         conda activate ci
         conda install -c conda-forge --yes --file requirements.txt
         /usr/share/miniconda/bin/pip install yfinance
