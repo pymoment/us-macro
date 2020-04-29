@@ -47,6 +47,7 @@ jobs:
     - name: Install dependencies
       shell: bash -e -l {0}
       run: |
+        source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
         conda install -c conda-forge --yes --file requirements.txt
         /usr/share/miniconda/bin/pip install yfinance
