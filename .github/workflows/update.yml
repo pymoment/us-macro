@@ -62,7 +62,7 @@ jobs:
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
         find ./analysis/*.ipynb -exec \
-          /usr/share/miniconda/bin/jupyter nbconvert \
+          jupyter nbconvert \
             --ExecutePreprocessor.timeout=-1 \
             --to notebook --inplace \
             --execute {} \;
@@ -76,9 +76,11 @@ jobs:
 
     - name: Generate webpages
       run: |
+        source /usr/share/miniconda/etc/profile.d/conda.sh
+        conda activate ci
         echo '::add-path::/usr/share/miniconda/bin'
-        /usr/share/miniconda/bin/sos run release.sos clean
-        /usr/share/miniconda/bin/sos run release.sos -s force
+        sos run release.sos clean
+        sos run release.sos -s force
         git add ./docs
 
     - name: Commit generated webpages
