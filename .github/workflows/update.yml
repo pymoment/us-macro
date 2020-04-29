@@ -41,7 +41,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        conda create --name ci
+        conda create --name ci -y
+        conda init bash
         conda activate ci
         conda install -c conda-forge --yes --file requirements.txt
         /usr/share/miniconda/bin/pip install yfinance
