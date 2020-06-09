@@ -6,7 +6,7 @@ name: "US Macroeconomic Data Explorer"
 repo: "http://github.com/kdunn926/us-macro"
 
 # Footer added to the bottom of some webpages.
-footer: "&copy; 2020 Kyle Dunn"
+footer: "&copy; 2020 pymoment"
 
 # When set to True, populate the footer of each notebook with the git
 # commit id (SHA1) and commit modification date.
