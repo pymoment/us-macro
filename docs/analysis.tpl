@@ -281,7 +281,7 @@ function sortDataFrame(id, n, dtype) {
 
 {% block footer %}
 <hr>
-&copy; 2020 Kyle Dunn
+&copy; 2020 pymoment
 </div>
 </div>
 </body>

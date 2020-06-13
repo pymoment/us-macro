@@ -226,7 +226,7 @@ $(document).ready(function () {
 {%- endblock header -%}
 {% block footer %}
 <hr>
-&copy; 2020 Kyle Dunn
+&copy; 2020 pymoment
 <!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
 
 </div>
