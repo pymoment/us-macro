@@ -291,9 +291,9 @@ function sortDataFrame(id, n, dtype) {
 <span class="k">try</span><span class="p">:</span>
     <span class="n">df_report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://www.cassinfo.com/hubfs/Cass%20Indexes%20Historical%20Data%202020.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="c1"># Fallback to IPFS archive (Feb 2020 data)</span>
+    <span class="c1"># Fallback to IPFS archive (June 2020 data)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data from IPFS fallback&quot;</span><span class="p">)</span>
-    <span class="n">df_report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;https://ipfs.io/ipfs/QmRsm7UHdarRP52kKpSpcwpDd2fQUxm8qkac7q2vSFS5a7&quot;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">df_report</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;https://ipfs.io/ipfs/QmRPXiRQLRi8SvFeqnP1XAN3h1FHmfQZDtD1AMSBX5Z7qC&quot;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     
 <span class="n">df_freight</span> <span class="o">=</span> <span class="n">df_report</span><span class="p">[</span><span class="s1">&#39;CFI-Shipments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">df_freight</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Index&#39;</span><span class="p">,</span> <span class="s1">&#39;YoY&#39;</span><span class="p">]</span>
@@ -370,12 +370,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-3b9eaf917ae74e2990571276548733b5"></div>
+<div id="altair-viz-c59eba83534a4e769667b25ed0b09e75"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3b9eaf917ae74e2990571276548733b5") {
-      outputDiv = document.getElementById("altair-viz-3b9eaf917ae74e2990571276548733b5");
+    if (outputDiv.id !== "altair-viz-c59eba83534a4e769667b25ed0b09e75") {
+      outputDiv = document.getElementById("altair-viz-c59eba83534a4e769667b25ed0b09e75");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -488,12 +488,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-e231037a3d954a0ead5d4f34cf4abc93"></div>
+<div id="altair-viz-f4e8e62c49594bfea8f68078293b09d4"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e231037a3d954a0ead5d4f34cf4abc93") {
-      outputDiv = document.getElementById("altair-viz-e231037a3d954a0ead5d4f34cf4abc93");
+    if (outputDiv.id !== "altair-viz-f4e8e62c49594bfea8f68078293b09d4") {
+      outputDiv = document.getElementById("altair-viz-f4e8e62c49594bfea8f68078293b09d4");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -600,12 +600,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-e1f80b8bd84742cc9f9bcd7cabb7e322"></div>
+<div id="altair-viz-6b939c90b6be42678b7ae2a3567e2692"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e1f80b8bd84742cc9f9bcd7cabb7e322") {
-      outputDiv = document.getElementById("altair-viz-e1f80b8bd84742cc9f9bcd7cabb7e322");
+    if (outputDiv.id !== "altair-viz-6b939c90b6be42678b7ae2a3567e2692") {
+      outputDiv = document.getElementById("altair-viz-6b939c90b6be42678b7ae2a3567e2692");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -712,12 +712,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-9f54508a57a14913a7e8ead72a53a957"></div>
+<div id="altair-viz-1da4c783c1a247048899e55129dc565d"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9f54508a57a14913a7e8ead72a53a957") {
-      outputDiv = document.getElementById("altair-viz-9f54508a57a14913a7e8ead72a53a957");
+    if (outputDiv.id !== "altair-viz-1da4c783c1a247048899e55129dc565d") {
+      outputDiv = document.getElementById("altair-viz-1da4c783c1a247048899e55129dc565d");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -782,7 +782,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 pymoment
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/e0833adb806815ef77e31cf860386ffd45dff002/analysis/transportation-cass.ipynb"><code>analysis/transportation-cass.ipynb</code></a> committed by GitHub Action on Sat Jul 18 00:38:04 2020 <a href="http://github.com/kdunn926/us-macro/commit/e0833adb806815ef77e31cf860386ffd45dff002">revision 2, e0833ad</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/3e93de52440a8b4646ecd9ab2980d0774de20b1f/analysis/transportation-cass.ipynb"><code>analysis/transportation-cass.ipynb</code></a> committed by GitHub Action on Thu Jul 23 04:06:16 2020 <a href="http://github.com/kdunn926/us-macro/commit/3e93de52440a8b4646ecd9ab2980d0774de20b1f">revision 2, 3e93de5</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
