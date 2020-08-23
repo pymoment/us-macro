@@ -331,6 +331,361 @@ function sortDataFrame(id, n, dtype) {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfc</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Total\n\rConstruction1</th>
+      <th>Total\n\rResidential</th>
+      <th>Total\n\rNonresidential</th>
+      <th>Total\n\rLodging</th>
+      <th>Total\n\rOffice</th>
+      <th>Total\n\rCommercial</th>
+      <th>Total\n\rHealth care</th>
+      <th>Date.1</th>
+      <th>Total\n\rEducational</th>
+      <th>...</th>
+      <th>Date.6</th>
+      <th>Public\n\rPublic safety</th>
+      <th>Public\n\rAmusement and recreation</th>
+      <th>Public\n\rTransportation</th>
+      <th>Public\n\rPower</th>
+      <th>Public\n\rHighway and street</th>
+      <th>Public\n\rSewage and waste disposal</th>
+      <th>Public\n\rWater supply</th>
+      <th>Public\n\rConservation and development</th>
+      <th>dt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jun-20p</td>
+      <td>1355189.0</td>
+      <td>542307.0</td>
+      <td>812882.0</td>
+      <td>29353.0</td>
+      <td>81183.0</td>
+      <td>83051.0</td>
+      <td>45383.0</td>
+      <td>Jun-20p</td>
+      <td>101489.0</td>
+      <td>...</td>
+      <td>Jun-20p</td>
+      <td>14206.0</td>
+      <td>14111.0</td>
+      <td>41587.0</td>
+      <td>7256.0</td>
+      <td>102634.0</td>
+      <td>26262.0</td>
+      <td>17947.0</td>
+      <td>8753.0</td>
+      <td>2020-06-01</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>May-20r</td>
+      <td>1364738.0</td>
+      <td>549977.0</td>
+      <td>814761.0</td>
+      <td>29005.0</td>
+      <td>81038.0</td>
+      <td>84156.0</td>
+      <td>44624.0</td>
+      <td>May-20r</td>
+      <td>103823.0</td>
+      <td>...</td>
+      <td>May-20r</td>
+      <td>14069.0</td>
+      <td>14175.0</td>
+      <td>41822.0</td>
+      <td>7245.0</td>
+      <td>104416.0</td>
+      <td>25394.0</td>
+      <td>17528.0</td>
+      <td>8468.0</td>
+      <td>2020-05-01</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Apr-20r</td>
+      <td>1387936.0</td>
+      <td>569892.0</td>
+      <td>818044.0</td>
+      <td>29352.0</td>
+      <td>81204.0</td>
+      <td>83850.0</td>
+      <td>46769.0</td>
+      <td>Apr-20r</td>
+      <td>104552.0</td>
+      <td>...</td>
+      <td>Apr-20r</td>
+      <td>13562.0</td>
+      <td>13771.0</td>
+      <td>41192.0</td>
+      <td>7128.0</td>
+      <td>102539.0</td>
+      <td>25814.0</td>
+      <td>17495.0</td>
+      <td>8486.0</td>
+      <td>2020-04-01</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Mar-20</td>
+      <td>1436727.0</td>
+      <td>595963.0</td>
+      <td>840764.0</td>
+      <td>30096.0</td>
+      <td>82619.0</td>
+      <td>84857.0</td>
+      <td>48004.0</td>
+      <td>Mar-20</td>
+      <td>107492.0</td>
+      <td>...</td>
+      <td>Mar-20</td>
+      <td>13635.0</td>
+      <td>13905.0</td>
+      <td>41069.0</td>
+      <td>7122.0</td>
+      <td>110864.0</td>
+      <td>25520.0</td>
+      <td>17641.0</td>
+      <td>8386.0</td>
+      <td>2020-03-01</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Feb-20</td>
+      <td>1441145.0</td>
+      <td>600581.0</td>
+      <td>840564.0</td>
+      <td>31356.0</td>
+      <td>83305.0</td>
+      <td>84527.0</td>
+      <td>47982.0</td>
+      <td>Feb-20</td>
+      <td>107890.0</td>
+      <td>...</td>
+      <td>Feb-20</td>
+      <td>13265.0</td>
+      <td>14570.0</td>
+      <td>41076.0</td>
+      <td>6848.0</td>
+      <td>103382.0</td>
+      <td>25230.0</td>
+      <td>17199.0</td>
+      <td>9016.0</td>
+      <td>2020-02-01</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>306</th>
+      <td>Dec-94</td>
+      <td>541794.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>Dec-94</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>Dec-94</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1994-12-01</td>
+    </tr>
+    <tr>
+      <th>307</th>
+      <td>Nov-94</td>
+      <td>539150.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>Nov-94</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>Nov-94</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1994-11-01</td>
+    </tr>
+    <tr>
+      <th>308</th>
+      <td>Oct-94</td>
+      <td>533273.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>Oct-94</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>Oct-94</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1994-10-01</td>
+    </tr>
+    <tr>
+      <th>309</th>
+      <td>Sep-94</td>
+      <td>538215.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>Sep-94</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>Sep-94</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1994-09-01</td>
+    </tr>
+    <tr>
+      <th>310</th>
+      <td>Aug-94</td>
+      <td>537960.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>Aug-94</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>Aug-94</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1994-08-01</td>
+    </tr>
+  </tbody>
+</table>
+<p>311 rows × 56 columns</p>
+</div>
+</div>
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">dfc</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;indigo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Total</span><span class="se">\n\r</span><span class="s1">Construction1:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Monthly Spending [Million USD]&#39;</span><span class="p">)),</span>
@@ -352,7 +707,7 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[4]:</div>
+    <div class="prompt output_prompt">Out[5]:</div>
 
 
 
@@ -361,12 +716,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-72697c5019cf4d168035263d384eeb56"></div>
+<div id="altair-viz-a674cf1bc6dd452ab7e52b3055e19cf9"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-72697c5019cf4d168035263d384eeb56") {
-      outputDiv = document.getElementById("altair-viz-72697c5019cf4d168035263d384eeb56");
+    if (outputDiv.id !== "altair-viz-a674cf1bc6dd452ab7e52b3055e19cf9") {
+      outputDiv = document.getElementById("altair-viz-a674cf1bc6dd452ab7e52b3055e19cf9");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -431,7 +786,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">yoy_construction</span> <span class="o">=</span> <span class="n">dfc</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">)[</span><span class="s1">&#39;Total</span><span class="se">\n\r</span><span class="s1">Construction1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>\
@@ -441,6 +796,10 @@ function sortDataFrame(id, n, dtype) {
 <span class="n">c</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">yoy_construction</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Total</span><span class="se">\n\r</span><span class="s1">Construction1:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Year over year spending growth [%]&#39;</span><span class="p">)),</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="s2">&quot;datum[&#39;Total</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">rConstruction1&#39;] &lt; 0&quot;</span><span class="p">,</span>
+        <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;lightsalmon&#39;</span><span class="p">),</span>
+        <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+    <span class="p">),</span>
     <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;dt:T&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%B - %Y&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Period&#39;</span><span class="p">),</span>
              <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s1">&#39;Total</span><span class="se">\n\r</span><span class="s1">Construction1:Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;% Change&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;,.02f&#39;</span><span class="p">)]</span>
 <span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
@@ -473,12 +832,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-34acf9a10a7a4dd69ded0704ecee2e99"></div>
+<div id="altair-viz-14df40b5f0fc4318b2e3368ec803a009"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-34acf9a10a7a4dd69ded0704ecee2e99") {
-      outputDiv = document.getElementById("altair-viz-34acf9a10a7a4dd69ded0704ecee2e99");
+    if (outputDiv.id !== "altair-viz-14df40b5f0fc4318b2e3368ec803a009") {
+      outputDiv = document.getElementById("altair-viz-14df40b5f0fc4318b2e3368ec803a009");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -520,7 +879,7 @@ function sortDataFrame(id, n, dtype) {
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-9e95eb95748be76fa0b33c363d009553"}, "mark": {"type": "bar", "width": 1.5}, "background": "white", "encoding": {"tooltip": [{"type": "temporal", "field": "dt", "format": "%B - %Y", "title": "Period"}, {"type": "quantitative", "field": "Total\n\rConstruction1", "format": ",.02f", "title": "% Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "Year over year spending growth [%]"}, "field": "Total\n\rConstruction1"}}, "height": 450, "title": "New US Construction Spending Growth (unadjusted)", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-9e95eb95748be76fa0b33c363d009553": [{"dt": "1994-08-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1994-09-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1994-10-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1994-11-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1994-12-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-01-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-02-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-03-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-04-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-05-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-06-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-07-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-08-01T00:00:00", "Total\n\rConstruction1": 2.423228492824747}, {"dt": "1995-09-01T00:00:00", "Total\n\rConstruction1": 2.934886615943433}, {"dt": "1995-10-01T00:00:00", "Total\n\rConstruction1": 4.099026202339129}, {"dt": "1995-11-01T00:00:00", "Total\n\rConstruction1": 3.3933042752480658}, {"dt": "1995-12-01T00:00:00", "Total\n\rConstruction1": 2.982498883339435}, {"dt": "1996-01-01T00:00:00", "Total\n\rConstruction1": 5.737502987516785}, {"dt": "1996-02-01T00:00:00", "Total\n\rConstruction1": 5.620033244952838}, {"dt": "1996-03-01T00:00:00", "Total\n\rConstruction1": 5.863666933841882}, {"dt": "1996-04-01T00:00:00", "Total\n\rConstruction1": 8.721846598023175}, {"dt": "1996-05-01T00:00:00", "Total\n\rConstruction1": 10.61990614966659}, {"dt": "1996-06-01T00:00:00", "Total\n\rConstruction1": 10.257429078371306}, {"dt": "1996-07-01T00:00:00", "Total\n\rConstruction1": 9.602223107307672}, {"dt": "1996-08-01T00:00:00", "Total\n\rConstruction1": 9.61222948986926}, {"dt": "1996-09-01T00:00:00", "Total\n\rConstruction1": 11.092740035847658}, {"dt": "1996-10-01T00:00:00", "Total\n\rConstruction1": 12.002370607351054}, {"dt": "1996-11-01T00:00:00", "Total\n\rConstruction1": 11.367399474387607}, {"dt": "1996-12-01T00:00:00", "Total\n\rConstruction1": 8.625278473276431}, {"dt": "1997-01-01T00:00:00", "Total\n\rConstruction1": 5.819472891723376}, {"dt": "1997-02-01T00:00:00", "Total\n\rConstruction1": 8.337793018948968}, {"dt": "1997-03-01T00:00:00", "Total\n\rConstruction1": 7.994075239583798}, {"dt": "1997-04-01T00:00:00", "Total\n\rConstruction1": 4.354372154779962}, {"dt": "1997-05-01T00:00:00", "Total\n\rConstruction1": 4.0915649481994}, {"dt": "1997-06-01T00:00:00", "Total\n\rConstruction1": 4.026571452295946}, {"dt": "1997-07-01T00:00:00", "Total\n\rConstruction1": 6.252885902460248}, {"dt": "1997-08-01T00:00:00", "Total\n\rConstruction1": 5.900069375570194}, {"dt": "1997-09-01T00:00:00", "Total\n\rConstruction1": 5.046582589452542}, {"dt": "1997-10-01T00:00:00", "Total\n\rConstruction1": 5.055801184056263}, {"dt": "1997-11-01T00:00:00", "Total\n\rConstruction1": 3.6883951985464236}, {"dt": "1997-12-01T00:00:00", "Total\n\rConstruction1": 5.930424796808342}, {"dt": "1998-01-01T00:00:00", "Total\n\rConstruction1": 6.092263000157727}, {"dt": "1998-02-01T00:00:00", "Total\n\rConstruction1": 5.3144625984091975}, {"dt": "1998-03-01T00:00:00", "Total\n\rConstruction1": 7.484523753882155}, {"dt": "1998-04-01T00:00:00", "Total\n\rConstruction1": 9.441473607335581}, {"dt": "1998-05-01T00:00:00", "Total\n\rConstruction1": 7.936383440870887}, {"dt": "1998-06-01T00:00:00", "Total\n\rConstruction1": 12.25758146603746}, {"dt": "1998-07-01T00:00:00", "Total\n\rConstruction1": 9.276603755824354}, {"dt": "1998-08-01T00:00:00", "Total\n\rConstruction1": 9.156291579176123}, {"dt": "1998-09-01T00:00:00", "Total\n\rConstruction1": 9.4404556042603}, {"dt": "1998-10-01T00:00:00", "Total\n\rConstruction1": 8.381404662612745}, {"dt": "1998-11-01T00:00:00", "Total\n\rConstruction1": 9.963337527768722}, {"dt": "1998-12-01T00:00:00", "Total\n\rConstruction1": 10.119295163242326}, {"dt": "1999-01-01T00:00:00", "Total\n\rConstruction1": 9.777507952782006}, {"dt": "1999-02-01T00:00:00", "Total\n\rConstruction1": 12.063642437137512}, {"dt": "1999-03-01T00:00:00", "Total\n\rConstruction1": 10.544214626948921}, {"dt": "1999-04-01T00:00:00", "Total\n\rConstruction1": 8.072502302213547}, {"dt": "1999-05-01T00:00:00", "Total\n\rConstruction1": 7.864605346086817}, {"dt": "1999-06-01T00:00:00", "Total\n\rConstruction1": 5.11819925850816}, {"dt": "1999-07-01T00:00:00", "Total\n\rConstruction1": 7.0742527349470175}, {"dt": "1999-08-01T00:00:00", "Total\n\rConstruction1": 6.211792206899314}, {"dt": "1999-09-01T00:00:00", "Total\n\rConstruction1": 6.196073554082271}, {"dt": "1999-10-01T00:00:00", "Total\n\rConstruction1": 7.3399977116801685}, {"dt": "1999-11-01T00:00:00", "Total\n\rConstruction1": 10.363003199853082}, {"dt": "1999-12-01T00:00:00", "Total\n\rConstruction1": 11.66100179776488}, {"dt": "2000-01-01T00:00:00", "Total\n\rConstruction1": 10.739287094853678}, {"dt": "2000-02-01T00:00:00", "Total\n\rConstruction1": 9.283802463968449}, {"dt": "2000-03-01T00:00:00", "Total\n\rConstruction1": 9.797945270514052}, {"dt": "2000-04-01T00:00:00", "Total\n\rConstruction1": 10.425253983325744}, {"dt": "2000-05-01T00:00:00", "Total\n\rConstruction1": 10.675210831530002}, {"dt": "2000-06-01T00:00:00", "Total\n\rConstruction1": 7.609105925995063}, {"dt": "2000-07-01T00:00:00", "Total\n\rConstruction1": 5.092415679491569}, {"dt": "2000-08-01T00:00:00", "Total\n\rConstruction1": 8.606194809608315}, {"dt": "2000-09-01T00:00:00", "Total\n\rConstruction1": 8.374744810367819}, {"dt": "2000-10-01T00:00:00", "Total\n\rConstruction1": 7.394861996088986}, {"dt": "2000-11-01T00:00:00", "Total\n\rConstruction1": 4.973764687358795}, {"dt": "2000-12-01T00:00:00", "Total\n\rConstruction1": 2.7975845894067985}, {"dt": "2001-01-01T00:00:00", "Total\n\rConstruction1": 3.763217570769739}, {"dt": "2001-02-01T00:00:00", "Total\n\rConstruction1": 2.5083875389455113}, {"dt": "2001-03-01T00:00:00", "Total\n\rConstruction1": 2.2975839418673427}, {"dt": "2001-04-01T00:00:00", "Total\n\rConstruction1": 4.675396326385561}, {"dt": "2001-05-01T00:00:00", "Total\n\rConstruction1": 5.35909714846492}, {"dt": "2001-06-01T00:00:00", "Total\n\rConstruction1": 7.583375135621706}, {"dt": "2001-07-01T00:00:00", "Total\n\rConstruction1": 8.506816195561328}, {"dt": "2001-08-01T00:00:00", "Total\n\rConstruction1": 5.230579344650277}, {"dt": "2001-09-01T00:00:00", "Total\n\rConstruction1": 2.8344774231576775}, {"dt": "2001-10-01T00:00:00", "Total\n\rConstruction1": 3.656537189069975}, {"dt": "2001-11-01T00:00:00", "Total\n\rConstruction1": 2.9091986625271016}, {"dt": "2001-12-01T00:00:00", "Total\n\rConstruction1": 4.703912184109749}, {"dt": "2002-01-01T00:00:00", "Total\n\rConstruction1": 5.423712581908191}, {"dt": "2002-02-01T00:00:00", "Total\n\rConstruction1": 5.984290484694221}, {"dt": "2002-03-01T00:00:00", "Total\n\rConstruction1": 1.9918918625167148}, {"dt": "2002-04-01T00:00:00", "Total\n\rConstruction1": 1.881309414144483}, {"dt": "2002-05-01T00:00:00", "Total\n\rConstruction1": 0.3288348939923136}, {"dt": "2002-06-01T00:00:00", "Total\n\rConstruction1": -1.0462412209458538}, {"dt": "2002-07-01T00:00:00", "Total\n\rConstruction1": -0.3929587252240241}, {"dt": "2002-08-01T00:00:00", "Total\n\rConstruction1": -0.9979173181193346}, {"dt": "2002-09-01T00:00:00", "Total\n\rConstruction1": -0.6302751811533613}, {"dt": "2002-10-01T00:00:00", "Total\n\rConstruction1": -0.7389404225590201}, {"dt": "2002-11-01T00:00:00", "Total\n\rConstruction1": 0.09313778348665203}, {"dt": "2002-12-01T00:00:00", "Total\n\rConstruction1": 0.7334448251065995}, {"dt": "2003-01-01T00:00:00", "Total\n\rConstruction1": 0.6057154569826695}, {"dt": "2003-02-01T00:00:00", "Total\n\rConstruction1": -0.36099534057411065}, {"dt": "2003-03-01T00:00:00", "Total\n\rConstruction1": 0.7792306207677235}, {"dt": "2003-04-01T00:00:00", "Total\n\rConstruction1": 0.1420348620432499}, {"dt": "2003-05-01T00:00:00", "Total\n\rConstruction1": 1.8660649755856795}, {"dt": "2003-06-01T00:00:00", "Total\n\rConstruction1": 4.02561713414511}, {"dt": "2003-07-01T00:00:00", "Total\n\rConstruction1": 5.209950314532974}, {"dt": "2003-08-01T00:00:00", "Total\n\rConstruction1": 7.488724779739875}, {"dt": "2003-09-01T00:00:00", "Total\n\rConstruction1": 9.548341973768636}, {"dt": "2003-10-01T00:00:00", "Total\n\rConstruction1": 10.246876823589668}, {"dt": "2003-11-01T00:00:00", "Total\n\rConstruction1": 9.62333239019435}, {"dt": "2003-12-01T00:00:00", "Total\n\rConstruction1": 10.815250472882433}, {"dt": "2004-01-01T00:00:00", "Total\n\rConstruction1": 8.643811750814656}, {"dt": "2004-02-01T00:00:00", "Total\n\rConstruction1": 9.146381913934064}, {"dt": "2004-03-01T00:00:00", "Total\n\rConstruction1": 12.9271370363234}, {"dt": "2004-04-01T00:00:00", "Total\n\rConstruction1": 12.58268282722037}, {"dt": "2004-05-01T00:00:00", "Total\n\rConstruction1": 12.409467313633616}, {"dt": "2004-06-01T00:00:00", "Total\n\rConstruction1": 11.604729442082506}, {"dt": "2004-07-01T00:00:00", "Total\n\rConstruction1": 12.894047106132422}, {"dt": "2004-08-01T00:00:00", "Total\n\rConstruction1": 12.39434089676761}, {"dt": "2004-09-01T00:00:00", "Total\n\rConstruction1": 11.02371792551249}, {"dt": "2004-10-01T00:00:00", "Total\n\rConstruction1": 9.720631889142872}, {"dt": "2004-11-01T00:00:00", "Total\n\rConstruction1": 10.476303611829563}, {"dt": "2004-12-01T00:00:00", "Total\n\rConstruction1": 9.382165987869161}, {"dt": "2005-01-01T00:00:00", "Total\n\rConstruction1": 11.460216829599634}, {"dt": "2005-02-01T00:00:00", "Total\n\rConstruction1": 13.75913961525379}, {"dt": "2005-03-01T00:00:00", "Total\n\rConstruction1": 11.505484524412712}, {"dt": "2005-04-01T00:00:00", "Total\n\rConstruction1": 11.720728150623906}, {"dt": "2005-05-01T00:00:00", "Total\n\rConstruction1": 12.208776648969955}, {"dt": "2005-06-01T00:00:00", "Total\n\rConstruction1": 12.492180244474804}, {"dt": "2005-07-01T00:00:00", "Total\n\rConstruction1": 11.222301288829883}, {"dt": "2005-08-01T00:00:00", "Total\n\rConstruction1": 11.399484617448818}, {"dt": "2005-09-01T00:00:00", "Total\n\rConstruction1": 13.473045609042767}, {"dt": "2005-10-01T00:00:00", "Total\n\rConstruction1": 14.286628486815744}, {"dt": "2005-11-01T00:00:00", "Total\n\rConstruction1": 14.57447453259746}, {"dt": "2005-12-01T00:00:00", "Total\n\rConstruction1": 14.18793615298608}, {"dt": "2006-01-01T00:00:00", "Total\n\rConstruction1": 14.29715834896308}, {"dt": "2006-02-01T00:00:00", "Total\n\rConstruction1": 13.00944464441045}, {"dt": "2006-03-01T00:00:00", "Total\n\rConstruction1": 12.449229994075072}, {"dt": "2006-04-01T00:00:00", "Total\n\rConstruction1": 10.386933725065028}, {"dt": "2006-05-01T00:00:00", "Total\n\rConstruction1": 7.979212340889075}, {"dt": "2006-06-01T00:00:00", "Total\n\rConstruction1": 5.988989923103083}, {"dt": "2006-07-01T00:00:00", "Total\n\rConstruction1": 3.4693025919912523}, {"dt": "2006-08-01T00:00:00", "Total\n\rConstruction1": 1.482868283852734}, {"dt": "2006-09-01T00:00:00", "Total\n\rConstruction1": -1.104543736797281}, {"dt": "2006-10-01T00:00:00", "Total\n\rConstruction1": -3.266366938856735}, {"dt": "2006-11-01T00:00:00", "Total\n\rConstruction1": -4.294977348155859}, {"dt": "2006-12-01T00:00:00", "Total\n\rConstruction1": -4.1590239364822645}, {"dt": "2007-01-01T00:00:00", "Total\n\rConstruction1": -4.827950172376017}, {"dt": "2007-02-01T00:00:00", "Total\n\rConstruction1": -5.524622212785091}, {"dt": "2007-03-01T00:00:00", "Total\n\rConstruction1": -4.857824919160714}, {"dt": "2007-04-01T00:00:00", "Total\n\rConstruction1": -3.5788270471031502}, {"dt": "2007-05-01T00:00:00", "Total\n\rConstruction1": -1.60937707789639}, {"dt": "2007-06-01T00:00:00", "Total\n\rConstruction1": -0.7351586174888736}, {"dt": "2007-07-01T00:00:00", "Total\n\rConstruction1": -0.2140033128196439}, {"dt": "2007-08-01T00:00:00", "Total\n\rConstruction1": 1.1493079281302832}, {"dt": "2007-09-01T00:00:00", "Total\n\rConstruction1": 2.0098560162288726}, {"dt": "2007-10-01T00:00:00", "Total\n\rConstruction1": 2.6339505963947296}, {"dt": "2007-11-01T00:00:00", "Total\n\rConstruction1": 0.9947858210704874}, {"dt": "2007-12-01T00:00:00", "Total\n\rConstruction1": -1.7848241069714277}, {"dt": "2008-01-01T00:00:00", "Total\n\rConstruction1": -2.3349681918804266}, {"dt": "2008-02-01T00:00:00", "Total\n\rConstruction1": -3.7210543689729536}, {"dt": "2008-03-01T00:00:00", "Total\n\rConstruction1": -3.7656633735208778}, {"dt": "2008-04-01T00:00:00", "Total\n\rConstruction1": -4.288060907882041}, {"dt": "2008-05-01T00:00:00", "Total\n\rConstruction1": -5.1683007900439115}, {"dt": "2008-06-01T00:00:00", "Total\n\rConstruction1": -6.309609449330522}, {"dt": "2008-07-01T00:00:00", "Total\n\rConstruction1": -5.928090229936789}, {"dt": "2008-08-01T00:00:00", "Total\n\rConstruction1": -7.67869606592142}, {"dt": "2008-09-01T00:00:00", "Total\n\rConstruction1": -8.545029259956149}, {"dt": "2008-10-01T00:00:00", "Total\n\rConstruction1": -8.375943933618569}, {"dt": "2008-11-01T00:00:00", "Total\n\rConstruction1": -8.63927167960682}, {"dt": "2008-12-01T00:00:00", "Total\n\rConstruction1": -10.40245134920158}, {"dt": "2009-01-01T00:00:00", "Total\n\rConstruction1": -12.259717262025271}, {"dt": "2009-02-01T00:00:00", "Total\n\rConstruction1": -11.392899088859876}, {"dt": "2009-03-01T00:00:00", "Total\n\rConstruction1": -12.656079228163408}, {"dt": "2009-04-01T00:00:00", "Total\n\rConstruction1": -15.32528431276402}, {"dt": "2009-05-01T00:00:00", "Total\n\rConstruction1": -16.47927868715543}, {"dt": "2009-06-01T00:00:00", "Total\n\rConstruction1": -16.28917767026451}, {"dt": "2009-07-01T00:00:00", "Total\n\rConstruction1": -16.147355172997525}, {"dt": "2009-08-01T00:00:00", "Total\n\rConstruction1": -15.883279209401213}, {"dt": "2009-09-01T00:00:00", "Total\n\rConstruction1": -16.264761759151515}, {"dt": "2009-10-01T00:00:00", "Total\n\rConstruction1": -17.478708927145846}, {"dt": "2009-11-01T00:00:00", "Total\n\rConstruction1": -17.056461001726518}, {"dt": "2009-12-01T00:00:00", "Total\n\rConstruction1": -15.666488846897176}, {"dt": "2010-01-01T00:00:00", "Total\n\rConstruction1": -15.68917617595752}, {"dt": "2010-02-01T00:00:00", "Total\n\rConstruction1": -16.138901810008765}, {"dt": "2010-03-01T00:00:00", "Total\n\rConstruction1": -14.727643799031531}, {"dt": "2010-04-01T00:00:00", "Total\n\rConstruction1": -11.026271820796541}, {"dt": "2010-05-01T00:00:00", "Total\n\rConstruction1": -10.496837025282058}, {"dt": "2010-06-01T00:00:00", "Total\n\rConstruction1": -9.927016098100882}, {"dt": "2010-07-01T00:00:00", "Total\n\rConstruction1": -12.260186650106753}, {"dt": "2010-08-01T00:00:00", "Total\n\rConstruction1": -10.896643973194442}, {"dt": "2010-09-01T00:00:00", "Total\n\rConstruction1": -8.96182660629975}, {"dt": "2010-10-01T00:00:00", "Total\n\rConstruction1": -8.035313653687037}, {"dt": "2010-11-01T00:00:00", "Total\n\rConstruction1": -6.329929306354276}, {"dt": "2010-12-01T00:00:00", "Total\n\rConstruction1": -6.315384715805317}, {"dt": "2011-01-01T00:00:00", "Total\n\rConstruction1": -7.559778814130402}, {"dt": "2011-02-01T00:00:00", "Total\n\rConstruction1": -6.9345981334789535}, {"dt": "2011-03-01T00:00:00", "Total\n\rConstruction1": -6.41139674076382}, {"dt": "2011-04-01T00:00:00", "Total\n\rConstruction1": -7.2592037258456426}, {"dt": "2011-05-01T00:00:00", "Total\n\rConstruction1": -5.852957142354032}, {"dt": "2011-06-01T00:00:00", "Total\n\rConstruction1": -3.2975522633564625}, {"dt": "2011-07-01T00:00:00", "Total\n\rConstruction1": -0.9144747866058789}, {"dt": "2011-08-01T00:00:00", "Total\n\rConstruction1": 1.2372355148809966}, {"dt": "2011-09-01T00:00:00", "Total\n\rConstruction1": 0.7344056415030886}, {"dt": "2011-10-01T00:00:00", "Total\n\rConstruction1": 0.8742506601179034}, {"dt": "2011-11-01T00:00:00", "Total\n\rConstruction1": 0.9822782039691447}, {"dt": "2011-12-01T00:00:00", "Total\n\rConstruction1": 4.050190335636783}, {"dt": "2012-01-01T00:00:00", "Total\n\rConstruction1": 9.295966651051902}, {"dt": "2012-02-01T00:00:00", "Total\n\rConstruction1": 8.701752165152898}, {"dt": "2012-03-01T00:00:00", "Total\n\rConstruction1": 7.817779725075624}, {"dt": "2012-04-01T00:00:00", "Total\n\rConstruction1": 9.396870698965598}, {"dt": "2012-05-01T00:00:00", "Total\n\rConstruction1": 9.761612690599563}, {"dt": "2012-06-01T00:00:00", "Total\n\rConstruction1": 7.947521447739736}, {"dt": "2012-07-01T00:00:00", "Total\n\rConstruction1": 8.399116081783898}, {"dt": "2012-08-01T00:00:00", "Total\n\rConstruction1": 6.253194458299927}, {"dt": "2012-09-01T00:00:00", "Total\n\rConstruction1": 6.504928348450223}, {"dt": "2012-10-01T00:00:00", "Total\n\rConstruction1": 8.286717352525685}, {"dt": "2012-11-01T00:00:00", "Total\n\rConstruction1": 7.388953882150107}, {"dt": "2012-12-01T00:00:00", "Total\n\rConstruction1": 6.141225542297168}, {"dt": "2013-01-01T00:00:00", "Total\n\rConstruction1": 3.866074330913416}, {"dt": "2013-02-01T00:00:00", "Total\n\rConstruction1": 5.97002794868311}, {"dt": "2013-03-01T00:00:00", "Total\n\rConstruction1": 4.247257888694889}, {"dt": "2013-04-01T00:00:00", "Total\n\rConstruction1": 4.513032527858951}, {"dt": "2013-05-01T00:00:00", "Total\n\rConstruction1": 4.445029426696512}, {"dt": "2013-06-01T00:00:00", "Total\n\rConstruction1": 4.8118376380667405}, {"dt": "2013-07-01T00:00:00", "Total\n\rConstruction1": 6.848256094181848}, {"dt": "2013-08-01T00:00:00", "Total\n\rConstruction1": 7.688999751949055}, {"dt": "2013-09-01T00:00:00", "Total\n\rConstruction1": 8.254556952092585}, {"dt": "2013-10-01T00:00:00", "Total\n\rConstruction1": 8.664718529163796}, {"dt": "2013-11-01T00:00:00", "Total\n\rConstruction1": 10.557856641576425}, {"dt": "2013-12-01T00:00:00", "Total\n\rConstruction1": 12.319441529050511}, {"dt": "2014-01-01T00:00:00", "Total\n\rConstruction1": 14.319560646419127}, {"dt": "2014-02-01T00:00:00", "Total\n\rConstruction1": 13.175966107399063}, {"dt": "2014-03-01T00:00:00", "Total\n\rConstruction1": 14.824467039131983}, {"dt": "2014-04-01T00:00:00", "Total\n\rConstruction1": 14.339204845133956}, {"dt": "2014-05-01T00:00:00", "Total\n\rConstruction1": 13.442107584568031}, {"dt": "2014-06-01T00:00:00", "Total\n\rConstruction1": 12.021527974691292}, {"dt": "2014-07-01T00:00:00", "Total\n\rConstruction1": 10.361032779954593}, {"dt": "2014-08-01T00:00:00", "Total\n\rConstruction1": 9.289594547613135}, {"dt": "2014-09-01T00:00:00", "Total\n\rConstruction1": 8.711029813851301}, {"dt": "2014-10-01T00:00:00", "Total\n\rConstruction1": 9.918062602106371}, {"dt": "2014-11-01T00:00:00", "Total\n\rConstruction1": 8.417710621684815}, {"dt": "2014-12-01T00:00:00", "Total\n\rConstruction1": 7.939657540611789}, {"dt": "2015-01-01T00:00:00", "Total\n\rConstruction1": 8.470788635856664}, {"dt": "2015-02-01T00:00:00", "Total\n\rConstruction1": 9.530528398298355}, {"dt": "2015-03-01T00:00:00", "Total\n\rConstruction1": 10.494233223763416}, {"dt": "2015-04-01T00:00:00", "Total\n\rConstruction1": 11.749881197843859}, {"dt": "2015-05-01T00:00:00", "Total\n\rConstruction1": 13.726382859279585}, {"dt": "2015-06-01T00:00:00", "Total\n\rConstruction1": 15.680898626568872}, {"dt": "2015-07-01T00:00:00", "Total\n\rConstruction1": 14.544871130330893}, {"dt": "2015-08-01T00:00:00", "Total\n\rConstruction1": 15.35011478608228}, {"dt": "2015-09-01T00:00:00", "Total\n\rConstruction1": 14.494122122958375}, {"dt": "2015-10-01T00:00:00", "Total\n\rConstruction1": 10.815489557709013}, {"dt": "2015-11-01T00:00:00", "Total\n\rConstruction1": 10.615347672726605}, {"dt": "2015-12-01T00:00:00", "Total\n\rConstruction1": 10.124063703632213}, {"dt": "2016-01-01T00:00:00", "Total\n\rConstruction1": 10.098391854956601}, {"dt": "2016-02-01T00:00:00", "Total\n\rConstruction1": 9.22742639528753}, {"dt": "2016-03-01T00:00:00", "Total\n\rConstruction1": 9.936982719480113}, {"dt": "2016-04-01T00:00:00", "Total\n\rConstruction1": 6.871323048619171}, {"dt": "2016-05-01T00:00:00", "Total\n\rConstruction1": 5.093619370475255}, {"dt": "2016-06-01T00:00:00", "Total\n\rConstruction1": 5.262259154571836}, {"dt": "2016-07-01T00:00:00", "Total\n\rConstruction1": 5.566205409244573}, {"dt": "2016-08-01T00:00:00", "Total\n\rConstruction1": 4.716592086760296}, {"dt": "2016-09-01T00:00:00", "Total\n\rConstruction1": 5.715543421104474}, {"dt": "2016-10-01T00:00:00", "Total\n\rConstruction1": 7.799934060508984}, {"dt": "2016-11-01T00:00:00", "Total\n\rConstruction1": 9.90175906538353}, {"dt": "2016-12-01T00:00:00", "Total\n\rConstruction1": 9.89833018890618}, {"dt": "2017-01-01T00:00:00", "Total\n\rConstruction1": 7.163300185000132}, {"dt": "2017-02-01T00:00:00", "Total\n\rConstruction1": 8.89817540525415}, {"dt": "2017-03-01T00:00:00", "Total\n\rConstruction1": 6.301027918413382}, {"dt": "2017-04-01T00:00:00", "Total\n\rConstruction1": 6.160154698947218}, {"dt": "2017-05-01T00:00:00", "Total\n\rConstruction1": 6.643983684850396}, {"dt": "2017-06-01T00:00:00", "Total\n\rConstruction1": 3.9307931285506914}, {"dt": "2017-07-01T00:00:00", "Total\n\rConstruction1": 4.185544838532951}, {"dt": "2017-08-01T00:00:00", "Total\n\rConstruction1": 3.340157802602439}, {"dt": "2017-09-01T00:00:00", "Total\n\rConstruction1": 3.175561165136642}, {"dt": "2017-10-01T00:00:00", "Total\n\rConstruction1": 2.2975778435898375}, {"dt": "2017-11-01T00:00:00", "Total\n\rConstruction1": 2.307655381525686}, {"dt": "2017-12-01T00:00:00", "Total\n\rConstruction1": 2.7051768441740176}, {"dt": "2018-01-01T00:00:00", "Total\n\rConstruction1": 6.848628079818786}, {"dt": "2018-02-01T00:00:00", "Total\n\rConstruction1": 6.655052562361763}, {"dt": "2018-03-01T00:00:00", "Total\n\rConstruction1": 5.973716956034991}, {"dt": "2018-04-01T00:00:00", "Total\n\rConstruction1": 6.86127139981636}, {"dt": "2018-05-01T00:00:00", "Total\n\rConstruction1": 6.005092305824711}, {"dt": "2018-06-01T00:00:00", "Total\n\rConstruction1": 5.189196481656078}, {"dt": "2018-07-01T00:00:00", "Total\n\rConstruction1": 4.522958837806557}, {"dt": "2018-08-01T00:00:00", "Total\n\rConstruction1": 5.1459049182009275}, {"dt": "2018-09-01T00:00:00", "Total\n\rConstruction1": 3.357425241148082}, {"dt": "2018-10-01T00:00:00", "Total\n\rConstruction1": 1.8837637394459428}, {"dt": "2018-11-01T00:00:00", "Total\n\rConstruction1": -0.9448860083181354}, {"dt": "2018-12-01T00:00:00", "Total\n\rConstruction1": -1.840261048074221}, {"dt": "2019-01-01T00:00:00", "Total\n\rConstruction1": -2.5237774282932723}, {"dt": "2019-02-01T00:00:00", "Total\n\rConstruction1": -3.609154673274073}, {"dt": "2019-03-01T00:00:00", "Total\n\rConstruction1": -1.537338034006508}, {"dt": "2019-04-01T00:00:00", "Total\n\rConstruction1": -0.4983104699498475}, {"dt": "2019-05-01T00:00:00", "Total\n\rConstruction1": -0.6864398941160421}, {"dt": "2019-06-01T00:00:00", "Total\n\rConstruction1": 0.9696691313542338}, {"dt": "2019-07-01T00:00:00", "Total\n\rConstruction1": 2.4239079742733427}, {"dt": "2019-08-01T00:00:00", "Total\n\rConstruction1": 3.474264926582693}, {"dt": "2019-09-01T00:00:00", "Total\n\rConstruction1": 5.845611556153174}, {"dt": "2019-10-01T00:00:00", "Total\n\rConstruction1": 6.533300250350105}, {"dt": "2019-11-01T00:00:00", "Total\n\rConstruction1": 9.143191276061579}, {"dt": "2019-12-01T00:00:00", "Total\n\rConstruction1": 9.356593186745709}, {"dt": "2020-01-01T00:00:00", "Total\n\rConstruction1": 9.364179349711254}, {"dt": "2020-02-01T00:00:00", "Total\n\rConstruction1": 8.828986527254724}, {"dt": "2020-03-01T00:00:00", "Total\n\rConstruction1": 7.418519869847118}, {"dt": "2020-04-01T00:00:00", "Total\n\rConstruction1": 2.354105488586411}, {"dt": "2020-05-01T00:00:00", "Total\n\rConstruction1": 0.8753820510830401}, {"dt": "2020-06-01T00:00:00", "Total\n\rConstruction1": 0.08190062625546002}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-9e95eb95748be76fa0b33c363d009553"}, "mark": {"type": "bar", "width": 1.5}, "background": "white", "encoding": {"color": {"condition": {"value": "lightsalmon", "test": "datum['Total\\n\\rConstruction1'] < 0"}, "value": "steelblue"}, "tooltip": [{"type": "temporal", "field": "dt", "format": "%B - %Y", "title": "Period"}, {"type": "quantitative", "field": "Total\n\rConstruction1", "format": ",.02f", "title": "% Change"}], "x": {"type": "temporal", "axis": {"title": ""}, "field": "dt"}, "y": {"type": "quantitative", "axis": {"title": "Year over year spending growth [%]"}, "field": "Total\n\rConstruction1"}}, "height": 450, "title": "New US Construction Spending Growth (unadjusted)", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-9e95eb95748be76fa0b33c363d009553": [{"dt": "1994-08-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1994-09-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1994-10-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1994-11-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1994-12-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-01-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-02-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-03-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-04-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-05-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-06-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-07-01T00:00:00", "Total\n\rConstruction1": null}, {"dt": "1995-08-01T00:00:00", "Total\n\rConstruction1": 2.423228492824747}, {"dt": "1995-09-01T00:00:00", "Total\n\rConstruction1": 2.934886615943433}, {"dt": "1995-10-01T00:00:00", "Total\n\rConstruction1": 4.099026202339129}, {"dt": "1995-11-01T00:00:00", "Total\n\rConstruction1": 3.3933042752480658}, {"dt": "1995-12-01T00:00:00", "Total\n\rConstruction1": 2.982498883339435}, {"dt": "1996-01-01T00:00:00", "Total\n\rConstruction1": 5.737502987516785}, {"dt": "1996-02-01T00:00:00", "Total\n\rConstruction1": 5.620033244952838}, {"dt": "1996-03-01T00:00:00", "Total\n\rConstruction1": 5.863666933841882}, {"dt": "1996-04-01T00:00:00", "Total\n\rConstruction1": 8.721846598023175}, {"dt": "1996-05-01T00:00:00", "Total\n\rConstruction1": 10.61990614966659}, {"dt": "1996-06-01T00:00:00", "Total\n\rConstruction1": 10.257429078371306}, {"dt": "1996-07-01T00:00:00", "Total\n\rConstruction1": 9.602223107307672}, {"dt": "1996-08-01T00:00:00", "Total\n\rConstruction1": 9.61222948986926}, {"dt": "1996-09-01T00:00:00", "Total\n\rConstruction1": 11.092740035847658}, {"dt": "1996-10-01T00:00:00", "Total\n\rConstruction1": 12.002370607351054}, {"dt": "1996-11-01T00:00:00", "Total\n\rConstruction1": 11.367399474387607}, {"dt": "1996-12-01T00:00:00", "Total\n\rConstruction1": 8.625278473276431}, {"dt": "1997-01-01T00:00:00", "Total\n\rConstruction1": 5.819472891723376}, {"dt": "1997-02-01T00:00:00", "Total\n\rConstruction1": 8.337793018948968}, {"dt": "1997-03-01T00:00:00", "Total\n\rConstruction1": 7.994075239583798}, {"dt": "1997-04-01T00:00:00", "Total\n\rConstruction1": 4.354372154779962}, {"dt": "1997-05-01T00:00:00", "Total\n\rConstruction1": 4.0915649481994}, {"dt": "1997-06-01T00:00:00", "Total\n\rConstruction1": 4.026571452295946}, {"dt": "1997-07-01T00:00:00", "Total\n\rConstruction1": 6.252885902460248}, {"dt": "1997-08-01T00:00:00", "Total\n\rConstruction1": 5.900069375570194}, {"dt": "1997-09-01T00:00:00", "Total\n\rConstruction1": 5.046582589452542}, {"dt": "1997-10-01T00:00:00", "Total\n\rConstruction1": 5.055801184056263}, {"dt": "1997-11-01T00:00:00", "Total\n\rConstruction1": 3.6883951985464236}, {"dt": "1997-12-01T00:00:00", "Total\n\rConstruction1": 5.930424796808342}, {"dt": "1998-01-01T00:00:00", "Total\n\rConstruction1": 6.092263000157727}, {"dt": "1998-02-01T00:00:00", "Total\n\rConstruction1": 5.3144625984091975}, {"dt": "1998-03-01T00:00:00", "Total\n\rConstruction1": 7.484523753882155}, {"dt": "1998-04-01T00:00:00", "Total\n\rConstruction1": 9.441473607335581}, {"dt": "1998-05-01T00:00:00", "Total\n\rConstruction1": 7.936383440870887}, {"dt": "1998-06-01T00:00:00", "Total\n\rConstruction1": 12.25758146603746}, {"dt": "1998-07-01T00:00:00", "Total\n\rConstruction1": 9.276603755824354}, {"dt": "1998-08-01T00:00:00", "Total\n\rConstruction1": 9.156291579176123}, {"dt": "1998-09-01T00:00:00", "Total\n\rConstruction1": 9.4404556042603}, {"dt": "1998-10-01T00:00:00", "Total\n\rConstruction1": 8.381404662612745}, {"dt": "1998-11-01T00:00:00", "Total\n\rConstruction1": 9.963337527768722}, {"dt": "1998-12-01T00:00:00", "Total\n\rConstruction1": 10.119295163242326}, {"dt": "1999-01-01T00:00:00", "Total\n\rConstruction1": 9.777507952782006}, {"dt": "1999-02-01T00:00:00", "Total\n\rConstruction1": 12.063642437137512}, {"dt": "1999-03-01T00:00:00", "Total\n\rConstruction1": 10.544214626948921}, {"dt": "1999-04-01T00:00:00", "Total\n\rConstruction1": 8.072502302213547}, {"dt": "1999-05-01T00:00:00", "Total\n\rConstruction1": 7.864605346086817}, {"dt": "1999-06-01T00:00:00", "Total\n\rConstruction1": 5.11819925850816}, {"dt": "1999-07-01T00:00:00", "Total\n\rConstruction1": 7.0742527349470175}, {"dt": "1999-08-01T00:00:00", "Total\n\rConstruction1": 6.211792206899314}, {"dt": "1999-09-01T00:00:00", "Total\n\rConstruction1": 6.196073554082271}, {"dt": "1999-10-01T00:00:00", "Total\n\rConstruction1": 7.3399977116801685}, {"dt": "1999-11-01T00:00:00", "Total\n\rConstruction1": 10.363003199853082}, {"dt": "1999-12-01T00:00:00", "Total\n\rConstruction1": 11.66100179776488}, {"dt": "2000-01-01T00:00:00", "Total\n\rConstruction1": 10.739287094853678}, {"dt": "2000-02-01T00:00:00", "Total\n\rConstruction1": 9.283802463968449}, {"dt": "2000-03-01T00:00:00", "Total\n\rConstruction1": 9.797945270514052}, {"dt": "2000-04-01T00:00:00", "Total\n\rConstruction1": 10.425253983325744}, {"dt": "2000-05-01T00:00:00", "Total\n\rConstruction1": 10.675210831530002}, {"dt": "2000-06-01T00:00:00", "Total\n\rConstruction1": 7.609105925995063}, {"dt": "2000-07-01T00:00:00", "Total\n\rConstruction1": 5.092415679491569}, {"dt": "2000-08-01T00:00:00", "Total\n\rConstruction1": 8.606194809608315}, {"dt": "2000-09-01T00:00:00", "Total\n\rConstruction1": 8.374744810367819}, {"dt": "2000-10-01T00:00:00", "Total\n\rConstruction1": 7.394861996088986}, {"dt": "2000-11-01T00:00:00", "Total\n\rConstruction1": 4.973764687358795}, {"dt": "2000-12-01T00:00:00", "Total\n\rConstruction1": 2.7975845894067985}, {"dt": "2001-01-01T00:00:00", "Total\n\rConstruction1": 3.763217570769739}, {"dt": "2001-02-01T00:00:00", "Total\n\rConstruction1": 2.5083875389455113}, {"dt": "2001-03-01T00:00:00", "Total\n\rConstruction1": 2.2975839418673427}, {"dt": "2001-04-01T00:00:00", "Total\n\rConstruction1": 4.675396326385561}, {"dt": "2001-05-01T00:00:00", "Total\n\rConstruction1": 5.35909714846492}, {"dt": "2001-06-01T00:00:00", "Total\n\rConstruction1": 7.583375135621706}, {"dt": "2001-07-01T00:00:00", "Total\n\rConstruction1": 8.506816195561328}, {"dt": "2001-08-01T00:00:00", "Total\n\rConstruction1": 5.230579344650277}, {"dt": "2001-09-01T00:00:00", "Total\n\rConstruction1": 2.8344774231576775}, {"dt": "2001-10-01T00:00:00", "Total\n\rConstruction1": 3.656537189069975}, {"dt": "2001-11-01T00:00:00", "Total\n\rConstruction1": 2.9091986625271016}, {"dt": "2001-12-01T00:00:00", "Total\n\rConstruction1": 4.703912184109749}, {"dt": "2002-01-01T00:00:00", "Total\n\rConstruction1": 5.423712581908191}, {"dt": "2002-02-01T00:00:00", "Total\n\rConstruction1": 5.984290484694221}, {"dt": "2002-03-01T00:00:00", "Total\n\rConstruction1": 1.9918918625167148}, {"dt": "2002-04-01T00:00:00", "Total\n\rConstruction1": 1.881309414144483}, {"dt": "2002-05-01T00:00:00", "Total\n\rConstruction1": 0.3288348939923136}, {"dt": "2002-06-01T00:00:00", "Total\n\rConstruction1": -1.0462412209458538}, {"dt": "2002-07-01T00:00:00", "Total\n\rConstruction1": -0.3929587252240241}, {"dt": "2002-08-01T00:00:00", "Total\n\rConstruction1": -0.9979173181193346}, {"dt": "2002-09-01T00:00:00", "Total\n\rConstruction1": -0.6302751811533613}, {"dt": "2002-10-01T00:00:00", "Total\n\rConstruction1": -0.7389404225590201}, {"dt": "2002-11-01T00:00:00", "Total\n\rConstruction1": 0.09313778348665203}, {"dt": "2002-12-01T00:00:00", "Total\n\rConstruction1": 0.7334448251065995}, {"dt": "2003-01-01T00:00:00", "Total\n\rConstruction1": 0.6057154569826695}, {"dt": "2003-02-01T00:00:00", "Total\n\rConstruction1": -0.36099534057411065}, {"dt": "2003-03-01T00:00:00", "Total\n\rConstruction1": 0.7792306207677235}, {"dt": "2003-04-01T00:00:00", "Total\n\rConstruction1": 0.1420348620432499}, {"dt": "2003-05-01T00:00:00", "Total\n\rConstruction1": 1.8660649755856795}, {"dt": "2003-06-01T00:00:00", "Total\n\rConstruction1": 4.02561713414511}, {"dt": "2003-07-01T00:00:00", "Total\n\rConstruction1": 5.209950314532974}, {"dt": "2003-08-01T00:00:00", "Total\n\rConstruction1": 7.488724779739875}, {"dt": "2003-09-01T00:00:00", "Total\n\rConstruction1": 9.548341973768636}, {"dt": "2003-10-01T00:00:00", "Total\n\rConstruction1": 10.246876823589668}, {"dt": "2003-11-01T00:00:00", "Total\n\rConstruction1": 9.62333239019435}, {"dt": "2003-12-01T00:00:00", "Total\n\rConstruction1": 10.815250472882433}, {"dt": "2004-01-01T00:00:00", "Total\n\rConstruction1": 8.643811750814656}, {"dt": "2004-02-01T00:00:00", "Total\n\rConstruction1": 9.146381913934064}, {"dt": "2004-03-01T00:00:00", "Total\n\rConstruction1": 12.9271370363234}, {"dt": "2004-04-01T00:00:00", "Total\n\rConstruction1": 12.58268282722037}, {"dt": "2004-05-01T00:00:00", "Total\n\rConstruction1": 12.409467313633616}, {"dt": "2004-06-01T00:00:00", "Total\n\rConstruction1": 11.604729442082506}, {"dt": "2004-07-01T00:00:00", "Total\n\rConstruction1": 12.894047106132422}, {"dt": "2004-08-01T00:00:00", "Total\n\rConstruction1": 12.39434089676761}, {"dt": "2004-09-01T00:00:00", "Total\n\rConstruction1": 11.02371792551249}, {"dt": "2004-10-01T00:00:00", "Total\n\rConstruction1": 9.720631889142872}, {"dt": "2004-11-01T00:00:00", "Total\n\rConstruction1": 10.476303611829563}, {"dt": "2004-12-01T00:00:00", "Total\n\rConstruction1": 9.382165987869161}, {"dt": "2005-01-01T00:00:00", "Total\n\rConstruction1": 11.460216829599634}, {"dt": "2005-02-01T00:00:00", "Total\n\rConstruction1": 13.75913961525379}, {"dt": "2005-03-01T00:00:00", "Total\n\rConstruction1": 11.505484524412712}, {"dt": "2005-04-01T00:00:00", "Total\n\rConstruction1": 11.720728150623906}, {"dt": "2005-05-01T00:00:00", "Total\n\rConstruction1": 12.208776648969955}, {"dt": "2005-06-01T00:00:00", "Total\n\rConstruction1": 12.492180244474804}, {"dt": "2005-07-01T00:00:00", "Total\n\rConstruction1": 11.222301288829883}, {"dt": "2005-08-01T00:00:00", "Total\n\rConstruction1": 11.399484617448818}, {"dt": "2005-09-01T00:00:00", "Total\n\rConstruction1": 13.473045609042767}, {"dt": "2005-10-01T00:00:00", "Total\n\rConstruction1": 14.286628486815744}, {"dt": "2005-11-01T00:00:00", "Total\n\rConstruction1": 14.57447453259746}, {"dt": "2005-12-01T00:00:00", "Total\n\rConstruction1": 14.18793615298608}, {"dt": "2006-01-01T00:00:00", "Total\n\rConstruction1": 14.29715834896308}, {"dt": "2006-02-01T00:00:00", "Total\n\rConstruction1": 13.00944464441045}, {"dt": "2006-03-01T00:00:00", "Total\n\rConstruction1": 12.449229994075072}, {"dt": "2006-04-01T00:00:00", "Total\n\rConstruction1": 10.386933725065028}, {"dt": "2006-05-01T00:00:00", "Total\n\rConstruction1": 7.979212340889075}, {"dt": "2006-06-01T00:00:00", "Total\n\rConstruction1": 5.988989923103083}, {"dt": "2006-07-01T00:00:00", "Total\n\rConstruction1": 3.4693025919912523}, {"dt": "2006-08-01T00:00:00", "Total\n\rConstruction1": 1.482868283852734}, {"dt": "2006-09-01T00:00:00", "Total\n\rConstruction1": -1.104543736797281}, {"dt": "2006-10-01T00:00:00", "Total\n\rConstruction1": -3.266366938856735}, {"dt": "2006-11-01T00:00:00", "Total\n\rConstruction1": -4.294977348155859}, {"dt": "2006-12-01T00:00:00", "Total\n\rConstruction1": -4.1590239364822645}, {"dt": "2007-01-01T00:00:00", "Total\n\rConstruction1": -4.827950172376017}, {"dt": "2007-02-01T00:00:00", "Total\n\rConstruction1": -5.524622212785091}, {"dt": "2007-03-01T00:00:00", "Total\n\rConstruction1": -4.857824919160714}, {"dt": "2007-04-01T00:00:00", "Total\n\rConstruction1": -3.5788270471031502}, {"dt": "2007-05-01T00:00:00", "Total\n\rConstruction1": -1.60937707789639}, {"dt": "2007-06-01T00:00:00", "Total\n\rConstruction1": -0.7351586174888736}, {"dt": "2007-07-01T00:00:00", "Total\n\rConstruction1": -0.2140033128196439}, {"dt": "2007-08-01T00:00:00", "Total\n\rConstruction1": 1.1493079281302832}, {"dt": "2007-09-01T00:00:00", "Total\n\rConstruction1": 2.0098560162288726}, {"dt": "2007-10-01T00:00:00", "Total\n\rConstruction1": 2.6339505963947296}, {"dt": "2007-11-01T00:00:00", "Total\n\rConstruction1": 0.9947858210704874}, {"dt": "2007-12-01T00:00:00", "Total\n\rConstruction1": -1.7848241069714277}, {"dt": "2008-01-01T00:00:00", "Total\n\rConstruction1": -2.3349681918804266}, {"dt": "2008-02-01T00:00:00", "Total\n\rConstruction1": -3.7210543689729536}, {"dt": "2008-03-01T00:00:00", "Total\n\rConstruction1": -3.7656633735208778}, {"dt": "2008-04-01T00:00:00", "Total\n\rConstruction1": -4.288060907882041}, {"dt": "2008-05-01T00:00:00", "Total\n\rConstruction1": -5.1683007900439115}, {"dt": "2008-06-01T00:00:00", "Total\n\rConstruction1": -6.309609449330522}, {"dt": "2008-07-01T00:00:00", "Total\n\rConstruction1": -5.928090229936789}, {"dt": "2008-08-01T00:00:00", "Total\n\rConstruction1": -7.67869606592142}, {"dt": "2008-09-01T00:00:00", "Total\n\rConstruction1": -8.545029259956149}, {"dt": "2008-10-01T00:00:00", "Total\n\rConstruction1": -8.375943933618569}, {"dt": "2008-11-01T00:00:00", "Total\n\rConstruction1": -8.63927167960682}, {"dt": "2008-12-01T00:00:00", "Total\n\rConstruction1": -10.40245134920158}, {"dt": "2009-01-01T00:00:00", "Total\n\rConstruction1": -12.259717262025271}, {"dt": "2009-02-01T00:00:00", "Total\n\rConstruction1": -11.392899088859876}, {"dt": "2009-03-01T00:00:00", "Total\n\rConstruction1": -12.656079228163408}, {"dt": "2009-04-01T00:00:00", "Total\n\rConstruction1": -15.32528431276402}, {"dt": "2009-05-01T00:00:00", "Total\n\rConstruction1": -16.47927868715543}, {"dt": "2009-06-01T00:00:00", "Total\n\rConstruction1": -16.28917767026451}, {"dt": "2009-07-01T00:00:00", "Total\n\rConstruction1": -16.147355172997525}, {"dt": "2009-08-01T00:00:00", "Total\n\rConstruction1": -15.883279209401213}, {"dt": "2009-09-01T00:00:00", "Total\n\rConstruction1": -16.264761759151515}, {"dt": "2009-10-01T00:00:00", "Total\n\rConstruction1": -17.478708927145846}, {"dt": "2009-11-01T00:00:00", "Total\n\rConstruction1": -17.056461001726518}, {"dt": "2009-12-01T00:00:00", "Total\n\rConstruction1": -15.666488846897176}, {"dt": "2010-01-01T00:00:00", "Total\n\rConstruction1": -15.68917617595752}, {"dt": "2010-02-01T00:00:00", "Total\n\rConstruction1": -16.138901810008765}, {"dt": "2010-03-01T00:00:00", "Total\n\rConstruction1": -14.727643799031531}, {"dt": "2010-04-01T00:00:00", "Total\n\rConstruction1": -11.026271820796541}, {"dt": "2010-05-01T00:00:00", "Total\n\rConstruction1": -10.496837025282058}, {"dt": "2010-06-01T00:00:00", "Total\n\rConstruction1": -9.927016098100882}, {"dt": "2010-07-01T00:00:00", "Total\n\rConstruction1": -12.260186650106753}, {"dt": "2010-08-01T00:00:00", "Total\n\rConstruction1": -10.896643973194442}, {"dt": "2010-09-01T00:00:00", "Total\n\rConstruction1": -8.96182660629975}, {"dt": "2010-10-01T00:00:00", "Total\n\rConstruction1": -8.035313653687037}, {"dt": "2010-11-01T00:00:00", "Total\n\rConstruction1": -6.329929306354276}, {"dt": "2010-12-01T00:00:00", "Total\n\rConstruction1": -6.315384715805317}, {"dt": "2011-01-01T00:00:00", "Total\n\rConstruction1": -7.559778814130402}, {"dt": "2011-02-01T00:00:00", "Total\n\rConstruction1": -6.9345981334789535}, {"dt": "2011-03-01T00:00:00", "Total\n\rConstruction1": -6.41139674076382}, {"dt": "2011-04-01T00:00:00", "Total\n\rConstruction1": -7.2592037258456426}, {"dt": "2011-05-01T00:00:00", "Total\n\rConstruction1": -5.852957142354032}, {"dt": "2011-06-01T00:00:00", "Total\n\rConstruction1": -3.2975522633564625}, {"dt": "2011-07-01T00:00:00", "Total\n\rConstruction1": -0.9144747866058789}, {"dt": "2011-08-01T00:00:00", "Total\n\rConstruction1": 1.2372355148809966}, {"dt": "2011-09-01T00:00:00", "Total\n\rConstruction1": 0.7344056415030886}, {"dt": "2011-10-01T00:00:00", "Total\n\rConstruction1": 0.8742506601179034}, {"dt": "2011-11-01T00:00:00", "Total\n\rConstruction1": 0.9822782039691447}, {"dt": "2011-12-01T00:00:00", "Total\n\rConstruction1": 4.050190335636783}, {"dt": "2012-01-01T00:00:00", "Total\n\rConstruction1": 9.295966651051902}, {"dt": "2012-02-01T00:00:00", "Total\n\rConstruction1": 8.701752165152898}, {"dt": "2012-03-01T00:00:00", "Total\n\rConstruction1": 7.817779725075624}, {"dt": "2012-04-01T00:00:00", "Total\n\rConstruction1": 9.396870698965598}, {"dt": "2012-05-01T00:00:00", "Total\n\rConstruction1": 9.761612690599563}, {"dt": "2012-06-01T00:00:00", "Total\n\rConstruction1": 7.947521447739736}, {"dt": "2012-07-01T00:00:00", "Total\n\rConstruction1": 8.399116081783898}, {"dt": "2012-08-01T00:00:00", "Total\n\rConstruction1": 6.253194458299927}, {"dt": "2012-09-01T00:00:00", "Total\n\rConstruction1": 6.504928348450223}, {"dt": "2012-10-01T00:00:00", "Total\n\rConstruction1": 8.286717352525685}, {"dt": "2012-11-01T00:00:00", "Total\n\rConstruction1": 7.388953882150107}, {"dt": "2012-12-01T00:00:00", "Total\n\rConstruction1": 6.141225542297168}, {"dt": "2013-01-01T00:00:00", "Total\n\rConstruction1": 3.866074330913416}, {"dt": "2013-02-01T00:00:00", "Total\n\rConstruction1": 5.97002794868311}, {"dt": "2013-03-01T00:00:00", "Total\n\rConstruction1": 4.247257888694889}, {"dt": "2013-04-01T00:00:00", "Total\n\rConstruction1": 4.513032527858951}, {"dt": "2013-05-01T00:00:00", "Total\n\rConstruction1": 4.445029426696512}, {"dt": "2013-06-01T00:00:00", "Total\n\rConstruction1": 4.8118376380667405}, {"dt": "2013-07-01T00:00:00", "Total\n\rConstruction1": 6.848256094181848}, {"dt": "2013-08-01T00:00:00", "Total\n\rConstruction1": 7.688999751949055}, {"dt": "2013-09-01T00:00:00", "Total\n\rConstruction1": 8.254556952092585}, {"dt": "2013-10-01T00:00:00", "Total\n\rConstruction1": 8.664718529163796}, {"dt": "2013-11-01T00:00:00", "Total\n\rConstruction1": 10.557856641576425}, {"dt": "2013-12-01T00:00:00", "Total\n\rConstruction1": 12.319441529050511}, {"dt": "2014-01-01T00:00:00", "Total\n\rConstruction1": 14.319560646419127}, {"dt": "2014-02-01T00:00:00", "Total\n\rConstruction1": 13.175966107399063}, {"dt": "2014-03-01T00:00:00", "Total\n\rConstruction1": 14.824467039131983}, {"dt": "2014-04-01T00:00:00", "Total\n\rConstruction1": 14.339204845133956}, {"dt": "2014-05-01T00:00:00", "Total\n\rConstruction1": 13.442107584568031}, {"dt": "2014-06-01T00:00:00", "Total\n\rConstruction1": 12.021527974691292}, {"dt": "2014-07-01T00:00:00", "Total\n\rConstruction1": 10.361032779954593}, {"dt": "2014-08-01T00:00:00", "Total\n\rConstruction1": 9.289594547613135}, {"dt": "2014-09-01T00:00:00", "Total\n\rConstruction1": 8.711029813851301}, {"dt": "2014-10-01T00:00:00", "Total\n\rConstruction1": 9.918062602106371}, {"dt": "2014-11-01T00:00:00", "Total\n\rConstruction1": 8.417710621684815}, {"dt": "2014-12-01T00:00:00", "Total\n\rConstruction1": 7.939657540611789}, {"dt": "2015-01-01T00:00:00", "Total\n\rConstruction1": 8.470788635856664}, {"dt": "2015-02-01T00:00:00", "Total\n\rConstruction1": 9.530528398298355}, {"dt": "2015-03-01T00:00:00", "Total\n\rConstruction1": 10.494233223763416}, {"dt": "2015-04-01T00:00:00", "Total\n\rConstruction1": 11.749881197843859}, {"dt": "2015-05-01T00:00:00", "Total\n\rConstruction1": 13.726382859279585}, {"dt": "2015-06-01T00:00:00", "Total\n\rConstruction1": 15.680898626568872}, {"dt": "2015-07-01T00:00:00", "Total\n\rConstruction1": 14.544871130330893}, {"dt": "2015-08-01T00:00:00", "Total\n\rConstruction1": 15.35011478608228}, {"dt": "2015-09-01T00:00:00", "Total\n\rConstruction1": 14.494122122958375}, {"dt": "2015-10-01T00:00:00", "Total\n\rConstruction1": 10.815489557709013}, {"dt": "2015-11-01T00:00:00", "Total\n\rConstruction1": 10.615347672726605}, {"dt": "2015-12-01T00:00:00", "Total\n\rConstruction1": 10.124063703632213}, {"dt": "2016-01-01T00:00:00", "Total\n\rConstruction1": 10.098391854956601}, {"dt": "2016-02-01T00:00:00", "Total\n\rConstruction1": 9.22742639528753}, {"dt": "2016-03-01T00:00:00", "Total\n\rConstruction1": 9.936982719480113}, {"dt": "2016-04-01T00:00:00", "Total\n\rConstruction1": 6.871323048619171}, {"dt": "2016-05-01T00:00:00", "Total\n\rConstruction1": 5.093619370475255}, {"dt": "2016-06-01T00:00:00", "Total\n\rConstruction1": 5.262259154571836}, {"dt": "2016-07-01T00:00:00", "Total\n\rConstruction1": 5.566205409244573}, {"dt": "2016-08-01T00:00:00", "Total\n\rConstruction1": 4.716592086760296}, {"dt": "2016-09-01T00:00:00", "Total\n\rConstruction1": 5.715543421104474}, {"dt": "2016-10-01T00:00:00", "Total\n\rConstruction1": 7.799934060508984}, {"dt": "2016-11-01T00:00:00", "Total\n\rConstruction1": 9.90175906538353}, {"dt": "2016-12-01T00:00:00", "Total\n\rConstruction1": 9.89833018890618}, {"dt": "2017-01-01T00:00:00", "Total\n\rConstruction1": 7.163300185000132}, {"dt": "2017-02-01T00:00:00", "Total\n\rConstruction1": 8.89817540525415}, {"dt": "2017-03-01T00:00:00", "Total\n\rConstruction1": 6.301027918413382}, {"dt": "2017-04-01T00:00:00", "Total\n\rConstruction1": 6.160154698947218}, {"dt": "2017-05-01T00:00:00", "Total\n\rConstruction1": 6.643983684850396}, {"dt": "2017-06-01T00:00:00", "Total\n\rConstruction1": 3.9307931285506914}, {"dt": "2017-07-01T00:00:00", "Total\n\rConstruction1": 4.185544838532951}, {"dt": "2017-08-01T00:00:00", "Total\n\rConstruction1": 3.340157802602439}, {"dt": "2017-09-01T00:00:00", "Total\n\rConstruction1": 3.175561165136642}, {"dt": "2017-10-01T00:00:00", "Total\n\rConstruction1": 2.2975778435898375}, {"dt": "2017-11-01T00:00:00", "Total\n\rConstruction1": 2.307655381525686}, {"dt": "2017-12-01T00:00:00", "Total\n\rConstruction1": 2.7051768441740176}, {"dt": "2018-01-01T00:00:00", "Total\n\rConstruction1": 6.848628079818786}, {"dt": "2018-02-01T00:00:00", "Total\n\rConstruction1": 6.655052562361763}, {"dt": "2018-03-01T00:00:00", "Total\n\rConstruction1": 5.973716956034991}, {"dt": "2018-04-01T00:00:00", "Total\n\rConstruction1": 6.86127139981636}, {"dt": "2018-05-01T00:00:00", "Total\n\rConstruction1": 6.005092305824711}, {"dt": "2018-06-01T00:00:00", "Total\n\rConstruction1": 5.189196481656078}, {"dt": "2018-07-01T00:00:00", "Total\n\rConstruction1": 4.522958837806557}, {"dt": "2018-08-01T00:00:00", "Total\n\rConstruction1": 5.1459049182009275}, {"dt": "2018-09-01T00:00:00", "Total\n\rConstruction1": 3.357425241148082}, {"dt": "2018-10-01T00:00:00", "Total\n\rConstruction1": 1.8837637394459428}, {"dt": "2018-11-01T00:00:00", "Total\n\rConstruction1": -0.9448860083181354}, {"dt": "2018-12-01T00:00:00", "Total\n\rConstruction1": -1.840261048074221}, {"dt": "2019-01-01T00:00:00", "Total\n\rConstruction1": -2.5237774282932723}, {"dt": "2019-02-01T00:00:00", "Total\n\rConstruction1": -3.609154673274073}, {"dt": "2019-03-01T00:00:00", "Total\n\rConstruction1": -1.537338034006508}, {"dt": "2019-04-01T00:00:00", "Total\n\rConstruction1": -0.4983104699498475}, {"dt": "2019-05-01T00:00:00", "Total\n\rConstruction1": -0.6864398941160421}, {"dt": "2019-06-01T00:00:00", "Total\n\rConstruction1": 0.9696691313542338}, {"dt": "2019-07-01T00:00:00", "Total\n\rConstruction1": 2.4239079742733427}, {"dt": "2019-08-01T00:00:00", "Total\n\rConstruction1": 3.474264926582693}, {"dt": "2019-09-01T00:00:00", "Total\n\rConstruction1": 5.845611556153174}, {"dt": "2019-10-01T00:00:00", "Total\n\rConstruction1": 6.533300250350105}, {"dt": "2019-11-01T00:00:00", "Total\n\rConstruction1": 9.143191276061579}, {"dt": "2019-12-01T00:00:00", "Total\n\rConstruction1": 9.356593186745709}, {"dt": "2020-01-01T00:00:00", "Total\n\rConstruction1": 9.364179349711254}, {"dt": "2020-02-01T00:00:00", "Total\n\rConstruction1": 8.828986527254724}, {"dt": "2020-03-01T00:00:00", "Total\n\rConstruction1": 7.418519869847118}, {"dt": "2020-04-01T00:00:00", "Total\n\rConstruction1": 2.354105488586411}, {"dt": "2020-05-01T00:00:00", "Total\n\rConstruction1": 0.8753820510830401}, {"dt": "2020-06-01T00:00:00", "Total\n\rConstruction1": 0.08190062625546002}]}}, {"mode": "vega-lite"});
 </script>
 </div>
 
@@ -543,7 +902,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 pymoment
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/6dd64ae28068f211e5408bd07519f5492fee0a4f/analysis/construction.ipynb"><code>analysis/construction.ipynb</code></a> committed by GitHub Action on Sat Aug 22 00:36:18 2020 <a href="http://github.com/kdunn926/us-macro/commit/6dd64ae28068f211e5408bd07519f5492fee0a4f">revision 2, 6dd64ae</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/33a3dbb3ae97d362fd0b1a0d90870fcd307e7e06/analysis/construction.ipynb"><code>analysis/construction.ipynb</code></a> committed by GitHub Action on Sun Aug 23 17:38:38 2020 <a href="http://github.com/kdunn926/us-macro/commit/33a3dbb3ae97d362fd0b1a0d90870fcd307e7e06">revision 2, 33a3dbb</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
