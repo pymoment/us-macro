@@ -8,12 +8,12 @@ tabula-py
 beautifulsoup4
 lxml
 xlrd
-sos==0.9.9.3
+sos==0.21.13
 sos-python==0.18.4
-sos-notebook==0.21.7
-sos-bash==0.19.0
-sos-r==0.19.2
-sos-pbs==0.20.3
+sos-notebook==0.21.18
+sos-bash==0.20.0
+sos-r==0.19.6
+sos-pbs==0.20.7
 jupyter_contrib_nbextensions
 soupsieve
 feather-format
