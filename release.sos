@@ -151,7 +151,7 @@ input_files = index_files + ([path(conf['homepage']).with_suffix('.ipynb')] if n
 output_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + (['docs/index.html'] if not conf['skip_homepage'] else [])
 input: dynamic(input_files), group_by = 1
 output: output_files, group_by = 1
-bash: expand = "${ }", stderr = False
+bash: expand = "${ }", stderr = True
   /usr/share/miniconda/bin/jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl || jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl
   if [[ ${_output:e} == "docs/index.html" ]]; then
      perl -i -pe "s/REPLACEMEDATE/${now_str} UTC/g" docs/index.html
