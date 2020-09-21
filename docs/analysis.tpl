@@ -232,6 +232,8 @@ function sortDataFrame(id, n, dtype) {
         
     <a class="dropdown-item" href="../analysis/creditcards.html">Creditcards</a>
         
+    <a class="dropdown-item" href="../analysis/dairy.html">Dairy</a>
+        
     <a class="dropdown-item" href="../analysis/international-trade.html">International Trade</a>
         
     <a class="dropdown-item" href="../analysis/labor.html">Labor</a>
@@ -251,6 +253,8 @@ function sortDataFrame(id, n, dtype) {
     <a class="dropdown-item" href="../analysis/services.html">Services</a>
         
     <a class="dropdown-item" href="../analysis/sp500-returns-and-performance.html">Sp500 Returns And Performance</a>
+        
+    <a class="dropdown-item" href="../analysis/transportation-air-waterway.html">Transportation Air Waterway</a>
         
     <a class="dropdown-item" href="../analysis/transportation-cass.html">Transportation Cass</a>
         

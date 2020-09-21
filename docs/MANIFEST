@@ -2,6 +2,7 @@ docs/analysis.tpl
 docs/analysis/autos.html
 docs/analysis/construction.html
 docs/analysis/creditcards.html
+docs/analysis/dairy.html
 docs/analysis/international-trade.html
 docs/analysis/labor.html
 docs/analysis/manufacturing.html
@@ -12,6 +13,7 @@ docs/analysis/retailsales.html
 docs/analysis/sentiment.html
 docs/analysis/services.html
 docs/analysis/sp500-returns-and-performance.html
+docs/analysis/transportation-air-waterway.html
 docs/analysis/transportation-cass.html
 docs/analysis/transportation-ocean.html
 docs/analysis/transportation-rail.html

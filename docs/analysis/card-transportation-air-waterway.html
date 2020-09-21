@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="ipynb_website:version" content="0.9.7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="twitter:card" content="summary_large_image"></meta>
+  <meta property="og:title" content="US Macroeconomic Data Explorer | US Air Freight and Waterway Volumes" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="A look at air and domestic waterway freight volumes, according to the US DOT Bureau of Transportation Statistics." />
+  <meta property="og:image" content="https://kdunn926.github.io/us-macro/analysis/transportation-air-waterway.png" />
+  <meta property="og:url" content="https://kdunn926.github.io/us-macro/analysis/transportation-air-waterway.html" />
+
+  <title>US Macroeconomic Data Explorer | US Air Freight and Waterway Volumes</title>
+
+</head>
+
+<body>
+
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        // capture the hash / anchor
+        const hash = window.location.hash.substr(1);
+        const anchorPropogate = hash ? `#${hash}` : ''
+
+        // capture the referrer, if there is one
+        const ref = document.referrer;
+        const utmString = ref ? `utm_medium=${ref}&utm_source=card` : 'utm_source=card';
+
+        // redirect a JS-enabled browser to the actual content
+        window.location.href = `https://kdunn926.github.io/us-macro/analysis/transportation-air-waterway.html?${utmString}${anchorPropogate}`;
+      }, 25);
+    }
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9902895-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-9902895-3');
+  </script>
+
+</body>
+
+</html>
