@@ -305,7 +305,7 @@ function sortDataFrame(id, n, dtype) {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># https://www.transtats.bts.gov/osea/seasonaladjustment/</span>
 
-<span class="n">af_res</span> <span class="o">=</span> <span class="o">!</span>curl <span class="s1">&#39;https://transtats.bts.gov/osea/seasonaladjustment/?PageVar=AIR_RTMFM&#39;</span>
+<span class="n">af_res</span> <span class="o">=</span> <span class="o">!</span>curl -k <span class="s1">&#39;https://transtats.bts.gov/osea/seasonaladjustment/?PageVar=AIR_RTMFM&#39;</span>
 
 <span class="n">af_raw</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">af_res</span> <span class="k">if</span> <span class="s2">&quot;series:&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">]</span>
 
@@ -365,12 +365,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-8072a01176824a7aa1b8a8c1f09ed2b6"></div>
+<div id="altair-viz-55ec3198a6ba4ac184e507c8343835e8"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8072a01176824a7aa1b8a8c1f09ed2b6") {
-      outputDiv = document.getElementById("altair-viz-8072a01176824a7aa1b8a8c1f09ed2b6");
+    if (outputDiv.id !== "altair-viz-55ec3198a6ba4ac184e507c8343835e8") {
+      outputDiv = document.getElementById("altair-viz-55ec3198a6ba4ac184e507c8343835e8");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -477,12 +477,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-18ee90aa08644e839d127c8b3f0ce3d4"></div>
+<div id="altair-viz-5fa64c72f57c445ba817b1f00e10e9ec"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-18ee90aa08644e839d127c8b3f0ce3d4") {
-      outputDiv = document.getElementById("altair-viz-18ee90aa08644e839d127c8b3f0ce3d4");
+    if (outputDiv.id !== "altair-viz-5fa64c72f57c445ba817b1f00e10e9ec") {
+      outputDiv = document.getElementById("altair-viz-5fa64c72f57c445ba817b1f00e10e9ec");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -557,7 +557,7 @@ function sortDataFrame(id, n, dtype) {
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wwf_res</span> <span class="o">=</span> <span class="o">!</span>curl <span class="s1">&#39;https://transtats.bts.gov/osea/seasonaladjustment/?PageVar=WATERBORNE&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wwf_res</span> <span class="o">=</span> <span class="o">!</span>curl -k <span class="s1">&#39;https://transtats.bts.gov/osea/seasonaladjustment/?PageVar=WATERBORNE&#39;</span>
 
 <span class="n">wwf_raw</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">wwf_res</span> <span class="k">if</span> <span class="s2">&quot;series:&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">]</span>
 
@@ -611,12 +611,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-93f958b1a5704e49a0c2c43ca82afb21"></div>
+<div id="altair-viz-9f1eefabacc44f57aaad9fec77ce1f80"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-93f958b1a5704e49a0c2c43ca82afb21") {
-      outputDiv = document.getElementById("altair-viz-93f958b1a5704e49a0c2c43ca82afb21");
+    if (outputDiv.id !== "altair-viz-9f1eefabacc44f57aaad9fec77ce1f80") {
+      outputDiv = document.getElementById("altair-viz-9f1eefabacc44f57aaad9fec77ce1f80");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -720,12 +720,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-08fa5d750bac400295154a158fb16f68"></div>
+<div id="altair-viz-7b24ee157a794dd28658a55f4012f761"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-08fa5d750bac400295154a158fb16f68") {
-      outputDiv = document.getElementById("altair-viz-08fa5d750bac400295154a158fb16f68");
+    if (outputDiv.id !== "altair-viz-7b24ee157a794dd28658a55f4012f761") {
+      outputDiv = document.getElementById("altair-viz-7b24ee157a794dd28658a55f4012f761");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -790,7 +790,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 pymoment
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/538ab31ad583699ea92109b96aaa9ebef4f25e52/analysis/transportation-air-waterway.ipynb"><code>analysis/transportation-air-waterway.ipynb</code></a> committed by GitHub Action on Sat Oct 10 00:42:03 2020 <a href="http://github.com/kdunn926/us-macro/commit/538ab31ad583699ea92109b96aaa9ebef4f25e52">revision 2, 538ab31</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/660edc13535a3cee89be44a0dceb655b6ee748b7/analysis/transportation-air-waterway.ipynb"><code>analysis/transportation-air-waterway.ipynb</code></a> committed by GitHub Action on Tue Oct 13 02:22:34 2020 <a href="http://github.com/kdunn926/us-macro/commit/660edc13535a3cee89be44a0dceb655b6ee748b7">revision 2, 660edc1</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
