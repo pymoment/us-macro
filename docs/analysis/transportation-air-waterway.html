@@ -305,10 +305,14 @@ function sortDataFrame(id, n, dtype) {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># https://www.transtats.bts.gov/osea/seasonaladjustment/</span>
 
-<span class="n">af_raw</span> <span class="o">=</span> <span class="o">!</span>curl <span class="s1">&#39;https://transtats.bts.gov/osea/seasonaladjustment/?PageVar=AIR_RTMFM&#39;</span> <span class="p">|</span> grep <span class="s1">&#39;series:&#39;</span>
+<span class="n">af_res</span> <span class="o">=</span> <span class="o">!</span>curl <span class="s1">&#39;https://transtats.bts.gov/osea/seasonaladjustment/?PageVar=AIR_RTMFM&#39;</span>
+
+<span class="n">af_raw</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">af_res</span> <span class="k">if</span> <span class="s2">&quot;series:&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">]</span>
 
 <span class="n">df_af</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;&#39;(\d\d/\d\d/\d\d\d\d \d\d:\d\d:\d\d)&#39;\), y: (\d+)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">af_raw</span><span class="p">)),</span>
                                   <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;tonMiles&quot;</span><span class="p">])</span>
+
+<span class="n">df_af</span> <span class="o">=</span> <span class="n">df_af</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 
 <span class="n">df_af</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_af</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">)</span>
 
@@ -361,12 +365,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-725876f754974a949692c959c995a4ff"></div>
+<div id="altair-viz-8072a01176824a7aa1b8a8c1f09ed2b6"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-725876f754974a949692c959c995a4ff") {
-      outputDiv = document.getElementById("altair-viz-725876f754974a949692c959c995a4ff");
+    if (outputDiv.id !== "altair-viz-8072a01176824a7aa1b8a8c1f09ed2b6") {
+      outputDiv = document.getElementById("altair-viz-8072a01176824a7aa1b8a8c1f09ed2b6");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -473,12 +477,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-b4a4e0647095430a8a52fd70a39f13b6"></div>
+<div id="altair-viz-18ee90aa08644e839d127c8b3f0ce3d4"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b4a4e0647095430a8a52fd70a39f13b6") {
-      outputDiv = document.getElementById("altair-viz-b4a4e0647095430a8a52fd70a39f13b6");
+    if (outputDiv.id !== "altair-viz-18ee90aa08644e839d127c8b3f0ce3d4") {
+      outputDiv = document.getElementById("altair-viz-18ee90aa08644e839d127c8b3f0ce3d4");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -553,10 +557,15 @@ function sortDataFrame(id, n, dtype) {
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wwf_raw</span> <span class="o">=</span> <span class="o">!</span>curl <span class="s1">&#39;https://transtats.bts.gov/osea/seasonaladjustment/?PageVar=WATERBORNE&#39;</span> <span class="p">|</span> grep <span class="s1">&#39;series:&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wwf_res</span> <span class="o">=</span> <span class="o">!</span>curl <span class="s1">&#39;https://transtats.bts.gov/osea/seasonaladjustment/?PageVar=WATERBORNE&#39;</span>
+
+<span class="n">wwf_raw</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">wwf_res</span> <span class="k">if</span> <span class="s2">&quot;series:&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">]</span>
+
 
 <span class="n">df_wwf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;&#39;(\d\d/\d\d/\d\d\d\d \d\d:\d\d:\d\d)&#39;\), y: (\d+)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wwf_raw</span><span class="p">)),</span>
                                   <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;megaShortTons&quot;</span><span class="p">])</span>
+
+<span class="n">df_wwf</span> <span class="o">=</span> <span class="n">df_wwf</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 
 <span class="n">df_wwf</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_wwf</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">)</span>
 
@@ -602,12 +611,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-0b109affe24d457f804e844082c71e33"></div>
+<div id="altair-viz-93f958b1a5704e49a0c2c43ca82afb21"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-0b109affe24d457f804e844082c71e33") {
-      outputDiv = document.getElementById("altair-viz-0b109affe24d457f804e844082c71e33");
+    if (outputDiv.id !== "altair-viz-93f958b1a5704e49a0c2c43ca82afb21") {
+      outputDiv = document.getElementById("altair-viz-93f958b1a5704e49a0c2c43ca82afb21");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -711,12 +720,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-a21a02fd089746e0afe1780bb205ab8a"></div>
+<div id="altair-viz-08fa5d750bac400295154a158fb16f68"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a21a02fd089746e0afe1780bb205ab8a") {
-      outputDiv = document.getElementById("altair-viz-a21a02fd089746e0afe1780bb205ab8a");
+    if (outputDiv.id !== "altair-viz-08fa5d750bac400295154a158fb16f68") {
+      outputDiv = document.getElementById("altair-viz-08fa5d750bac400295154a158fb16f68");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -781,7 +790,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 pymoment
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/52352288d33a012f031ba614925e31c30efda095/analysis/transportation-air-waterway.ipynb"><code>analysis/transportation-air-waterway.ipynb</code></a> committed by GitHub Action on Sat Sep 26 01:03:01 2020 <a href="http://github.com/kdunn926/us-macro/commit/52352288d33a012f031ba614925e31c30efda095">revision 2, 5235228</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/538ab31ad583699ea92109b96aaa9ebef4f25e52/analysis/transportation-air-waterway.ipynb"><code>analysis/transportation-air-waterway.ipynb</code></a> committed by GitHub Action on Sat Oct 10 00:42:03 2020 <a href="http://github.com/kdunn926/us-macro/commit/538ab31ad583699ea92109b96aaa9ebef4f25e52">revision 2, 538ab31</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
