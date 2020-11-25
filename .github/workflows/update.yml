@@ -79,7 +79,7 @@ jobs:
       run: |
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
-        echo '::add-path::/usr/share/miniconda/bin'
+        echo '/usr/share/miniconda/bin' >> $GITHUB_PATH
         sos run release.sos clean
         sos run release.sos -s force
         git add ./docs
