@@ -307,6 +307,8 @@ function sortDataFrame(id, n, dtype) {
 
 <span class="n">af_res</span> <span class="o">=</span> <span class="o">!</span>curl -k <span class="s1">&#39;https://transtats.bts.gov/osea/seasonaladjustment/?PageVar=AIR_RTMFM&#39;</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">af_res</span><span class="p">))</span>
+
 <span class="n">af_raw</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">af_res</span> <span class="k">if</span> <span class="s2">&quot;series:&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">]</span>
 
 <span class="n">df_af</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;&#39;(\d\d/\d\d/\d\d\d\d \d\d:\d\d:\d\d)&#39;\), y: (\d+)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">af_raw</span><span class="p">)),</span>
@@ -320,6 +322,159 @@ function sortDataFrame(id, n, dtype) {
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:31 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:32 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:33 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:34 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:35 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:36 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:37 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:38 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:39 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:40 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:41 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:42 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:43 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:44 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:45 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:46 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:47 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:48 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:49 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:50 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:51 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:52 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:53 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:54 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:55 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:56 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:57 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:58 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:59 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:00 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:01 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:02 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:03 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:04 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:05 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:06 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:07 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:08 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:09 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:10 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:11 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:12 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:13 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:14 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:15 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:16 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:17 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:18 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:19 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:20 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:21 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:22 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:23 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:24 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:25 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:26 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:27 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:28 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:29 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:30 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:31 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:32 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:33 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:34 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:35 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:36 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:37 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:38 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:39 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:40 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:41 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:42 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:43 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:44 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:45 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:46 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:47 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:48 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:49 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:50 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:51 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:52 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:53 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:54 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:55 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:56 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:57 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:58 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:01:59 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:00 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:01 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:02 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:03 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:04 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:05 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:06 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:07 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:08 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:09 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:10 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:02:10 --:--:--     0
+curl: (28) Failed to connect to transtats.bts.gov port 443: Connection timed out
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -365,12 +520,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-c52a017c459143f9b911f91d7c54d001"></div>
+<div id="altair-viz-10106a3e805f4aa6abfa492920a7c083"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c52a017c459143f9b911f91d7c54d001") {
-      outputDiv = document.getElementById("altair-viz-c52a017c459143f9b911f91d7c54d001");
+    if (outputDiv.id !== "altair-viz-10106a3e805f4aa6abfa492920a7c083") {
+      outputDiv = document.getElementById("altair-viz-10106a3e805f4aa6abfa492920a7c083");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -454,7 +609,7 @@ function sortDataFrame(id, n, dtype) {
     <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
 <span class="p">)</span>
 
-<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;transportation-air-waterway.png&#39;</span><span class="p">)</span>
+<span class="c1">#c.save(&#39;transportation-air-waterway.png&#39;)</span>
 <span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
@@ -477,12 +632,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-c4242b65ccc1433aabaf11ddfcd13f17"></div>
+<div id="altair-viz-49c5aad3aed9475fa9587275d53a9d0d"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c4242b65ccc1433aabaf11ddfcd13f17") {
-      outputDiv = document.getElementById("altair-viz-c4242b65ccc1433aabaf11ddfcd13f17");
+    if (outputDiv.id !== "altair-viz-49c5aad3aed9475fa9587275d53a9d0d") {
+      outputDiv = document.getElementById("altair-viz-49c5aad3aed9475fa9587275d53a9d0d");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -611,12 +766,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-80c9ef09feaf47eab44a62d81b44e463"></div>
+<div id="altair-viz-d3776f03d83c47c4ba9bbb6a04fb8ac3"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-80c9ef09feaf47eab44a62d81b44e463") {
-      outputDiv = document.getElementById("altair-viz-80c9ef09feaf47eab44a62d81b44e463");
+    if (outputDiv.id !== "altair-viz-d3776f03d83c47c4ba9bbb6a04fb8ac3") {
+      outputDiv = document.getElementById("altair-viz-d3776f03d83c47c4ba9bbb6a04fb8ac3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -720,12 +875,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-7b4ef096bccd4ddd9a5308d9b7e9e9ed"></div>
+<div id="altair-viz-79e77516398e444c97d58c0c732836bb"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7b4ef096bccd4ddd9a5308d9b7e9e9ed") {
-      outputDiv = document.getElementById("altair-viz-7b4ef096bccd4ddd9a5308d9b7e9e9ed");
+    if (outputDiv.id !== "altair-viz-79e77516398e444c97d58c0c732836bb") {
+      outputDiv = document.getElementById("altair-viz-79e77516398e444c97d58c0c732836bb");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -790,7 +945,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 pymoment
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/78576bda7b9e46c07c7580613ac340034da990f5/analysis/transportation-air-waterway.ipynb"><code>analysis/transportation-air-waterway.ipynb</code></a> committed by GitHub Action on Sat Nov 14 00:40:24 2020 <a href="http://github.com/kdunn926/us-macro/commit/78576bda7b9e46c07c7580613ac340034da990f5">revision 2, 78576bd</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/3e7d38b3d096fc3227bc0dcd66a9310046131ab8/analysis/transportation-air-waterway.ipynb"><code>analysis/transportation-air-waterway.ipynb</code></a> committed by GitHub Action on Thu Nov 26 01:41:19 2020 <a href="http://github.com/kdunn926/us-macro/commit/3e7d38b3d096fc3227bc0dcd66a9310046131ab8">revision 2, 3e7d38b</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
