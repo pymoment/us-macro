@@ -234,7 +234,7 @@ function sortDataFrame(id, n, dtype) {
         
     <a class="dropdown-item" href="../analysis/dairy.html">Dairy</a>
         
-    <a class="dropdown-item" href="../analysis/electricty.html">Electricty</a>
+    <a class="dropdown-item" href="../analysis/electricity.html">Electricity</a>
         
     <a class="dropdown-item" href="../analysis/international-trade.html">International Trade</a>
         
