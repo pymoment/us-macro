@@ -398,7 +398,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%capture</span>
@@ -418,10 +418,10 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df_megawatts</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df_megawatts</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Year:T&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Megawatt-hours:Q&#39;</span><span class="p">)</span>
 <span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
@@ -430,6 +430,10 @@ function sortDataFrame(id, n, dtype) {
     <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span>
     <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
 <span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;electricity.png&quot;</span><span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -442,21 +446,42 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[27]:</div>
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/kyledunn/anaconda3/lib/python3.6/site-packages/altair_saver/savers/_selenium.py:203: UserWarning: Unexpected exception when attempting WebDriver creation: __init__() got an unexpected keyword argument &#39;options&#39;
+  f&#34;Unexpected exception when attempting WebDriver creation: {e}&#34;
+TypeError: Cannot read property &#39;getContext&#39; of null
+    at resize (/Users/kyledunn/anaconda3/lib/vega-cli/node_modules/vega-scenegraph/build/vega-scenegraph.js:3377:26)
+    at CanvasRenderer.prototype$6.resize (/Users/kyledunn/anaconda3/lib/vega-cli/node_modules/vega-scenegraph/build/vega-scenegraph.js:3427:5)
+    at CanvasRenderer.prototype$4.initialize (/Users/kyledunn/anaconda3/lib/vega-cli/node_modules/vega-scenegraph/build/vega-scenegraph.js:2989:17)
+    at CanvasRenderer.prototype$6.initialize (/Users/kyledunn/anaconda3/lib/vega-cli/node_modules/vega-scenegraph/build/vega-scenegraph.js:3422:28)
+    at initializeRenderer (/Users/kyledunn/anaconda3/lib/vega-cli/node_modules/vega-view/build/vega-view.js:630:8)
+    at renderHeadless (/Users/kyledunn/anaconda3/lib/vega-cli/node_modules/vega-view/build/vega-view.js:736:12)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at async View.renderToCanvas [as toCanvas] (/Users/kyledunn/anaconda3/lib/vega-cli/node_modules/vega-view/build/vega-view.js:771:15)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
 
 
 
    
         
             
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-de29bbe139a641bf999b9e0357733b70"></div>
+<div id="altair-viz-dc39841f88a74ec68543759e2949ecb8"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-de29bbe139a641bf999b9e0357733b70") {
-      outputDiv = document.getElementById("altair-viz-de29bbe139a641bf999b9e0357733b70");
+    if (outputDiv.id !== "altair-viz-dc39841f88a74ec68543759e2949ecb8") {
+      outputDiv = document.getElementById("altair-viz-dc39841f88a74ec68543759e2949ecb8");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -498,7 +523,7 @@ function sortDataFrame(id, n, dtype) {
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-4e3d91e1e4d59d29ed4777132f8a9ce8"}, "mark": "line", "background": "white", "encoding": {"x": {"type": "temporal", "axis": {"title": ""}, "field": "Year"}, "y": {"type": "quantitative", "field": "Megawatt-hours"}}, "height": 450, "title": "Total US Electricity Consumption (all sectors)", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-4e3d91e1e4d59d29ed4777132f8a9ce8": [{"Year": "1990-01-01T00:00:00", "Megawatt-hours": 2712554662.0}, {"Year": "1991-01-01T00:00:00", "Megawatt-hours": 2762003050.0}, {"Year": "1992-01-01T00:00:00", "Megawatt-hours": 2763365474.0}, {"Year": "1993-01-01T00:00:00", "Megawatt-hours": 2861462336.0}, {"Year": "1994-01-01T00:00:00", "Megawatt-hours": 2934562867.0}, {"Year": "1995-01-01T00:00:00", "Megawatt-hours": 3013286575.0}, {"Year": "1996-01-01T00:00:00", "Megawatt-hours": 3101127032.0}, {"Year": "1997-01-01T00:00:00", "Megawatt-hours": 3145610430.0}, {"Year": "1998-01-01T00:00:00", "Megawatt-hours": 3264230749.0}, {"Year": "1999-01-01T00:00:00", "Megawatt-hours": 3312087083.0}, {"Year": "2000-01-01T00:00:00", "Megawatt-hours": 3421414256.0}, {"Year": "2001-01-01T00:00:00", "Megawatt-hours": 3394458107.0}, {"Year": "2002-01-01T00:00:00", "Megawatt-hours": 3465466011.0}, {"Year": "2003-01-01T00:00:00", "Megawatt-hours": 3493734498.0}, {"Year": "2004-01-01T00:00:00", "Megawatt-hours": 3547479479.0}, {"Year": "2005-01-01T00:00:00", "Megawatt-hours": 3660968521.0}, {"Year": "2006-01-01T00:00:00", "Megawatt-hours": 3669918842.0}, {"Year": "2007-01-01T00:00:00", "Megawatt-hours": 3764560731.0}, {"Year": "2008-01-01T00:00:00", "Megawatt-hours": 3733964624.0}, {"Year": "2009-01-01T00:00:00", "Megawatt-hours": 3596795150.0}, {"Year": "2010-01-01T00:00:00", "Megawatt-hours": 3754841377.0}, {"Year": "2011-01-01T00:00:00", "Megawatt-hours": 3749846184.0}, {"Year": "2012-01-01T00:00:00", "Megawatt-hours": 3694649791.0}, {"Year": "2013-01-01T00:00:00", "Megawatt-hours": 3724867829.370001}, {"Year": "2014-01-01T00:00:00", "Megawatt-hours": 3764700270.749998}, {"Year": "2015-01-01T00:00:00", "Megawatt-hours": 3758992392.5399995}, {"Year": "2016-01-01T00:00:00", "Megawatt-hours": 3762461627.6499987}, {"Year": "2017-01-01T00:00:00", "Megawatt-hours": 3723355980.0499988}, {"Year": "2018-01-01T00:00:00", "Megawatt-hours": 3860118799.6400003}, {"Year": "2019-01-01T00:00:00", "Megawatt-hours": 3811150469.4899993}, {"Year": "2020-01-01T00:00:00", "Megawatt-hours": 2787314676.8300004}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-25d52f98d304d80a6c7782112321f620"}, "mark": "line", "background": "white", "encoding": {"x": {"type": "temporal", "axis": {"title": ""}, "field": "Year"}, "y": {"type": "quantitative", "field": "Megawatt-hours"}}, "height": 450, "title": "Total US Electricity Consumption (all sectors)", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-25d52f98d304d80a6c7782112321f620": [{"Year": "1990-01-01T00:00:00", "Megawatt-hours": 2712554662.0}, {"Year": "1991-01-01T00:00:00", "Megawatt-hours": 2762003050.0}, {"Year": "1992-01-01T00:00:00", "Megawatt-hours": 2763365474.0}, {"Year": "1993-01-01T00:00:00", "Megawatt-hours": 2861462336.0}, {"Year": "1994-01-01T00:00:00", "Megawatt-hours": 2934562867.0}, {"Year": "1995-01-01T00:00:00", "Megawatt-hours": 3013286575.0}, {"Year": "1996-01-01T00:00:00", "Megawatt-hours": 3101127032.0}, {"Year": "1997-01-01T00:00:00", "Megawatt-hours": 3145610430.0}, {"Year": "1998-01-01T00:00:00", "Megawatt-hours": 3264230749.0}, {"Year": "1999-01-01T00:00:00", "Megawatt-hours": 3312087083.0}, {"Year": "2000-01-01T00:00:00", "Megawatt-hours": 3421414256.0}, {"Year": "2001-01-01T00:00:00", "Megawatt-hours": 3394458107.0}, {"Year": "2002-01-01T00:00:00", "Megawatt-hours": 3465466011.0}, {"Year": "2003-01-01T00:00:00", "Megawatt-hours": 3493734498.0}, {"Year": "2004-01-01T00:00:00", "Megawatt-hours": 3547479479.0}, {"Year": "2005-01-01T00:00:00", "Megawatt-hours": 3660968521.0}, {"Year": "2006-01-01T00:00:00", "Megawatt-hours": 3669918842.0}, {"Year": "2007-01-01T00:00:00", "Megawatt-hours": 3764560731.0}, {"Year": "2008-01-01T00:00:00", "Megawatt-hours": 3733964624.0}, {"Year": "2009-01-01T00:00:00", "Megawatt-hours": 3596795150.0}, {"Year": "2010-01-01T00:00:00", "Megawatt-hours": 3754841377.0}, {"Year": "2011-01-01T00:00:00", "Megawatt-hours": 3749846184.0}, {"Year": "2012-01-01T00:00:00", "Megawatt-hours": 3694649791.0}, {"Year": "2013-01-01T00:00:00", "Megawatt-hours": 3724867829.370001}, {"Year": "2014-01-01T00:00:00", "Megawatt-hours": 3764700270.749998}, {"Year": "2015-01-01T00:00:00", "Megawatt-hours": 3758992392.5399995}, {"Year": "2016-01-01T00:00:00", "Megawatt-hours": 3762461627.6499987}, {"Year": "2017-01-01T00:00:00", "Megawatt-hours": 3723355980.0499988}, {"Year": "2018-01-01T00:00:00", "Megawatt-hours": 3860118799.6400003}, {"Year": "2019-01-01T00:00:00", "Megawatt-hours": 3811150469.4899993}, {"Year": "2020-01-01T00:00:00", "Megawatt-hours": 3083052288.180001}]}}, {"mode": "vega-lite"});
 </script>
 </div>
 
@@ -836,7 +861,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 pymoment
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/84053692abe99ff0667ad887a12b1c56a88b36ad/analysis/electricty.ipynb"><code>analysis/electricty.ipynb</code></a> committed by GitHub Action on Sat Jan 2 01:12:15 2021 <a href="http://github.com/kdunn926/us-macro/commit/84053692abe99ff0667ad887a12b1c56a88b36ad">revision 1, 8405369</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/618cccb3e8d182aaa7247a69a577e26e60741fdd/analysis/electricty.ipynb"><code>analysis/electricty.ipynb</code></a> committed by Kyle Dunn on Sat Jan 9 03:05:15 2021 <a href="http://github.com/kdunn926/us-macro/commit/618cccb3e8d182aaa7247a69a577e26e60741fdd">revision 1, 618cccb</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
