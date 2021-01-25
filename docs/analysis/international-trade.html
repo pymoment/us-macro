@@ -357,7 +357,7 @@ function sortDataFrame(id, n, dtype) {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># https://www.census.gov/foreign-trade/balance/c0015.html</span>
 
-<span class="n">dfb</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;https://www.census.gov/foreign-trade/balance/country.xlsx&quot;</span><span class="p">)</span>
+<span class="n">dfb</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;https://www.census.gov/foreign-trade/balance/country.xlsx&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;openpyxl&#39;</span><span class="p">)</span>
 
 <span class="c1"># dfb.tail()</span>
 
@@ -421,12 +421,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-4ae460c23c3a4331b357f0b399508722"></div>
+<div id="altair-viz-f505a380bd6a47fa8dd705705ae35c51"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4ae460c23c3a4331b357f0b399508722") {
-      outputDiv = document.getElementById("altair-viz-4ae460c23c3a4331b357f0b399508722");
+    if (outputDiv.id !== "altair-viz-f505a380bd6a47fa8dd705705ae35c51") {
+      outputDiv = document.getElementById("altair-viz-f505a380bd6a47fa8dd705705ae35c51");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -582,6 +582,18 @@ function sortDataFrame(id, n, dtype) {
 
 <div class="output_area">
 
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>&lt;ipython-input-6-bc9b8d4712cb&gt;:1: FutureWarning: This dataframe has a column name that matches the &#39;value_name&#39; column name of the resulting Dataframe. In the future this will raise an error, please set the &#39;value_name&#39; parameter of DataFrame.melt to a unique name.
+  dfb_yoy = dfb_ts.set_index([&#39;dt&#39;, &#39;Flow&#39;])[&#39;value&#39;].pct_change(12).apply(lambda v: v * 100)\
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
     <div class="prompt output_prompt">Out[6]:</div>
 
 
@@ -591,12 +603,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-a0cf9b70bb1849069a204145a61ff801"></div>
+<div id="altair-viz-5d18e13e8c97400089afc73d64506677"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a0cf9b70bb1849069a204145a61ff801") {
-      outputDiv = document.getElementById("altair-viz-a0cf9b70bb1849069a204145a61ff801");
+    if (outputDiv.id !== "altair-viz-5d18e13e8c97400089afc73d64506677") {
+      outputDiv = document.getElementById("altair-viz-5d18e13e8c97400089afc73d64506677");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -747,12 +759,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-6c88925ff8bb42cea49c611463c8ce6c"></div>
+<div id="altair-viz-3f0377e3f7714db0bf43cb0029ae93bc"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6c88925ff8bb42cea49c611463c8ce6c") {
-      outputDiv = document.getElementById("altair-viz-6c88925ff8bb42cea49c611463c8ce6c");
+    if (outputDiv.id !== "altair-viz-3f0377e3f7714db0bf43cb0029ae93bc") {
+      outputDiv = document.getElementById("altair-viz-3f0377e3f7714db0bf43cb0029ae93bc");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -858,12 +870,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-4dfc9f217c224f07a5fa67733a3f73d9"></div>
+<div id="altair-viz-2dbebe94b4d54988beec1559b27cfafc"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4dfc9f217c224f07a5fa67733a3f73d9") {
-      outputDiv = document.getElementById("altair-viz-4dfc9f217c224f07a5fa67733a3f73d9");
+    if (outputDiv.id !== "altair-viz-2dbebe94b4d54988beec1559b27cfafc") {
+      outputDiv = document.getElementById("altair-viz-2dbebe94b4d54988beec1559b27cfafc");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -977,12 +989,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-8576137df10d488ba852058a2afc15fd"></div>
+<div id="altair-viz-fd4939835f784363a2422340a4539493"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8576137df10d488ba852058a2afc15fd") {
-      outputDiv = document.getElementById("altair-viz-8576137df10d488ba852058a2afc15fd");
+    if (outputDiv.id !== "altair-viz-fd4939835f784363a2422340a4539493") {
+      outputDiv = document.getElementById("altair-viz-fd4939835f784363a2422340a4539493");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1088,12 +1100,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-f0e7d29b7eb4404ea251b21d81f8495a"></div>
+<div id="altair-viz-c644c147c8cc4fd18942cfc55d5fb8f5"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f0e7d29b7eb4404ea251b21d81f8495a") {
-      outputDiv = document.getElementById("altair-viz-f0e7d29b7eb4404ea251b21d81f8495a");
+    if (outputDiv.id !== "altair-viz-c644c147c8cc4fd18942cfc55d5fb8f5") {
+      outputDiv = document.getElementById("altair-viz-c644c147c8cc4fd18942cfc55d5fb8f5");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1190,12 +1202,12 @@ function sortDataFrame(id, n, dtype) {
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-5aff2de7843c47749410fd9642063caf"></div>
+<div id="altair-viz-9004ba10159e4f8c8b4720b300305fe5"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-5aff2de7843c47749410fd9642063caf") {
-      outputDiv = document.getElementById("altair-viz-5aff2de7843c47749410fd9642063caf");
+    if (outputDiv.id !== "altair-viz-9004ba10159e4f8c8b4720b300305fe5") {
+      outputDiv = document.getElementById("altair-viz-9004ba10159e4f8c8b4720b300305fe5");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1260,7 +1272,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 pymoment
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/602c34b01fd403b0add252fa802deba30660430c/analysis/international-trade.ipynb"><code>analysis/international-trade.ipynb</code></a> committed by GitHub Action on Sat Jan 9 06:22:03 2021 <a href="http://github.com/kdunn926/us-macro/commit/602c34b01fd403b0add252fa802deba30660430c">revision 1, 602c34b</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/d1498ae070edb08797dbd2d573d8caf366cdd376/analysis/international-trade.ipynb"><code>analysis/international-trade.ipynb</code></a> committed by GitHub Action on Mon Jan 25 21:26:35 2021 <a href="http://github.com/kdunn926/us-macro/commit/d1498ae070edb08797dbd2d573d8caf366cdd376">revision 2, d1498ae</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

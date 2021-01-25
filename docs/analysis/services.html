@@ -357,7 +357,7 @@ function sortDataFrame(id, n, dtype) {
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetNameFor</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">])))</span>
     <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="c1">#print(e)</span>
         <span class="k">return</span> <span class="n">tryFetch</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">retries</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     
 <span class="n">dfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">tryFetch</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">]</span>
@@ -367,22 +367,22 @@ function sortDataFrame(id, n, dtype) {
         <span class="c1"># https://www.census.gov/services/qss/qss-current.xlsx</span>
         <span class="n">q</span> <span class="o">=</span> <span class="mi">4</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://www.census.gov/services/qss/qss-current.xlsx&#39;</span><span class="p">,</span>
-                                <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetNameFor</span><span class="p">(</span><span class="n">currentYear</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="p">))</span>
+                                <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetNameFor</span><span class="p">(</span><span class="n">currentYear</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="p">),</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;openpyxl&#39;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">q</span> <span class="o">=</span> <span class="mi">3</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://www.census.gov/services/qss/qss-current.xlsx&#39;</span><span class="p">,</span>
-                        <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetNameFor</span><span class="p">(</span><span class="n">currentYear</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="p">))</span>
+                                <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetNameFor</span><span class="p">(</span><span class="n">currentYear</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="p">),</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;openpyxl&#39;</span><span class="p">)</span>
     <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">currentYear</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">current</span><span class="p">))</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># https://www.census.gov/services/qss/qss-current.xlsx</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">currentQuarter</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://www.census.gov/services/qss/qss-current.xlsx&#39;</span><span class="p">,</span>
-                                <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetNameFor</span><span class="p">(</span><span class="n">currentYear</span><span class="p">,</span> <span class="n">q</span><span class="p">))</span>
+                                <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetNameFor</span><span class="p">(</span><span class="n">currentYear</span><span class="p">,</span> <span class="n">q</span><span class="p">),</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;openpyxl&#39;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">currentQuarter</span> <span class="o">-</span> <span class="mi">2</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://www.census.gov/services/qss/qss-current.xlsx&#39;</span><span class="p">,</span>
-                        <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetNameFor</span><span class="p">(</span><span class="n">currentYear</span><span class="p">,</span> <span class="n">q</span><span class="p">))</span>
+                                <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetNameFor</span><span class="p">(</span><span class="n">currentYear</span><span class="p">,</span> <span class="n">q</span><span class="p">),</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;openpyxl&#39;</span><span class="p">)</span>
     <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">currentYear</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">current</span><span class="p">))</span>
     
 <span class="c1"># Depending on the year and quarter, we need to skip differing numbers of &quot;header&quot; rows</span>
@@ -527,41 +527,6 @@ function sortDataFrame(id, n, dtype) {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-HTTP Error 404: Not Found
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -611,12 +576,12 @@ HTTP Error 404: Not Found
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-2f55218dfc9b4404b79402213ab4b347"></div>
+<div id="altair-viz-0a8fc8fbb98547eab8f93e55bbe9ccd5"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-2f55218dfc9b4404b79402213ab4b347") {
-      outputDiv = document.getElementById("altair-viz-2f55218dfc9b4404b79402213ab4b347");
+    if (outputDiv.id !== "altair-viz-0a8fc8fbb98547eab8f93e55bbe9ccd5") {
+      outputDiv = document.getElementById("altair-viz-0a8fc8fbb98547eab8f93e55bbe9ccd5");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -723,12 +688,12 @@ HTTP Error 404: Not Found
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-d1b62b38dc654ee5a56a3798eca3c7e6"></div>
+<div id="altair-viz-15b8d39b76bb4713ab7aaf5866cb83dd"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d1b62b38dc654ee5a56a3798eca3c7e6") {
-      outputDiv = document.getElementById("altair-viz-d1b62b38dc654ee5a56a3798eca3c7e6");
+    if (outputDiv.id !== "altair-viz-15b8d39b76bb4713ab7aaf5866cb83dd") {
+      outputDiv = document.getElementById("altair-viz-15b8d39b76bb4713ab7aaf5866cb83dd");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -873,12 +838,12 @@ HTTP Error 404: Not Found
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-5630daad5c8a471992da653634ff927d"></div>
+<div id="altair-viz-7a714aaf698b4280849584e6b78a5976"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-5630daad5c8a471992da653634ff927d") {
-      outputDiv = document.getElementById("altair-viz-5630daad5c8a471992da653634ff927d");
+    if (outputDiv.id !== "altair-viz-7a714aaf698b4280849584e6b78a5976") {
+      outputDiv = document.getElementById("altair-viz-7a714aaf698b4280849584e6b78a5976");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1066,12 +1031,12 @@ HTTP Error 404: Not Found
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-3be905ae453b454d9c4ec8a7ba832868"></div>
+<div id="altair-viz-8ce172fa9bc342599d83f47085ef1fe7"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3be905ae453b454d9c4ec8a7ba832868") {
-      outputDiv = document.getElementById("altair-viz-3be905ae453b454d9c4ec8a7ba832868");
+    if (outputDiv.id !== "altair-viz-8ce172fa9bc342599d83f47085ef1fe7") {
+      outputDiv = document.getElementById("altair-viz-8ce172fa9bc342599d83f47085ef1fe7");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1210,12 +1175,12 @@ HTTP Error 404: Not Found
             
 <div class="output_html rendered_html output_subarea ">
 
-<div id="altair-viz-944990a67cb2494a9886aadaf782911b"></div>
+<div id="altair-viz-e65ea634f2f34b4580e0a49300aed08b"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-944990a67cb2494a9886aadaf782911b") {
-      outputDiv = document.getElementById("altair-viz-944990a67cb2494a9886aadaf782911b");
+    if (outputDiv.id !== "altair-viz-e65ea634f2f34b4580e0a49300aed08b") {
+      outputDiv = document.getElementById("altair-viz-e65ea634f2f34b4580e0a49300aed08b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1313,12 +1278,12 @@ HTTP Error 404: Not Found
             
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-e4810f8cb3ed45829d1b67d0e6fe478f"></div>
+<div id="altair-viz-fccdb9ac7a7d43189a3ac65abbd74f19"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e4810f8cb3ed45829d1b67d0e6fe478f") {
-      outputDiv = document.getElementById("altair-viz-e4810f8cb3ed45829d1b67d0e6fe478f");
+    if (outputDiv.id !== "altair-viz-fccdb9ac7a7d43189a3ac65abbd74f19") {
+      outputDiv = document.getElementById("altair-viz-fccdb9ac7a7d43189a3ac65abbd74f19");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1383,7 +1348,7 @@ HTTP Error 404: Not Found
 </div>
 <hr>
 &copy; 2020 pymoment
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/602c34b01fd403b0add252fa802deba30660430c/analysis/services.ipynb"><code>analysis/services.ipynb</code></a> committed by GitHub Action on Sat Jan 9 06:22:03 2021 <a href="http://github.com/kdunn926/us-macro/commit/602c34b01fd403b0add252fa802deba30660430c">revision 1, 602c34b</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/d1498ae070edb08797dbd2d573d8caf366cdd376/analysis/services.ipynb"><code>analysis/services.ipynb</code></a> committed by GitHub Action on Mon Jan 25 21:26:35 2021 <a href="http://github.com/kdunn926/us-macro/commit/d1498ae070edb08797dbd2d573d8caf366cdd376">revision 2, d1498ae</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
