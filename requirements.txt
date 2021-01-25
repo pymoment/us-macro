@@ -1,4 +1,4 @@
-jupyter==1.0.0
+jupyter==1.2.0
 nbconvert==5.6.1
 pandas==1.0.0
 altair==4.1.0
@@ -9,6 +9,7 @@ tabula-py
 beautifulsoup4
 lxml
 xlrd
+openpyxl
 sos==0.21.13
 sos-python==0.18.4
 sos-notebook==0.21.18
