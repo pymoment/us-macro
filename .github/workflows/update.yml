@@ -49,6 +49,7 @@ jobs:
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
         conda install -c conda-forge --yes --file requirements.txt
+        pip install pytrends
         pip install yfinance
         pip install tika
         pip install unidecode fake_useragent
