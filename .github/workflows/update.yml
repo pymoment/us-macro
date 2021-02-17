@@ -81,6 +81,7 @@ jobs:
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
         echo '/usr/share/miniconda/bin' >> $GITHUB_PATH
+        export REPONAME=`echo ${GITHUB_REPOSITORY} | cut -f 1 -d '/'`
         sos run release.sos clean
         sos run release.sos -s force
         git add ./docs
