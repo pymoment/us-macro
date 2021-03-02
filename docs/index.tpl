@@ -13,7 +13,7 @@
 <meta property="og:title" content="US Macroeconomic Data Explorer" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
-<meta property="og:url" content="https://REPLACEMEREPO.github.io/us-macro/index.html" />
+<meta property="og:url" content="https://kdunn926.github.io/us-macro/index.html" />
 
 <title>US Macroeconomic Data Explorer</title>
 
@@ -215,7 +215,7 @@ $(document).ready(function () {
         
 <ul class="navbar-nav">
 <li class="nav-item">
-   <a class="nav-link" href="http://github.com/REPLACEMEREPO/us-macro"> source </a>
+   <a class="nav-link" href="http://github.com/kdunn926/us-macro"> source </a>
 </li>
 </ul>
         
@@ -226,7 +226,7 @@ $(document).ready(function () {
 {%- endblock header -%}
 {% block footer %}
 <hr>
-&copy; <script>document.write(`${new Date().getFullYear()}`);</script> REPLACEMEREPO 
+&copy; 2020 pymoment
 <!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
 
 </div>
@@ -291,13 +291,13 @@ $(document).ready( () => {
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=REPLACEMETAG"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9902895-3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'REPLACEMETAG');
+  gtag('config', 'UA-9902895-3');
 </script>
 
 </body>

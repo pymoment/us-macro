@@ -482,7 +482,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfcs</span> <span class="o">=</span> <span class="n">getSeries</span><span class="p">(</span><span class="s2">&quot;CSUSHPINSA&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1Q&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -1002,7 +1002,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># original source: &quot;http://www.econ.yale.edu/~shiller/data/Fig2-1.xls&quot;</span>
@@ -1064,65 +1064,74 @@ function sortDataFrame(id, n, dtype) {
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/kyledunn/opt/anaconda3/lib/python3.8/site-packages/altair_saver/savers/_selenium.py:202: UserWarning: Unexpected exception when attempting WebDriver creation: __init__() got an unexpected keyword argument &#39;options&#39;
-  warnings.warn(
-</pre>
+
+   
+        
+            
+<div class="output_html rendered_html output_subarea ">
+
+<div id="altair-viz-fe7350dc12284693a02ce2fa533d73a2"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-fe7350dc12284693a02ce2fa533d73a2") {
+      outputDiv = document.getElementById("altair-viz-fe7350dc12284693a02ce2fa533d73a2");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"data": {"name": "data-12ab64d80529aab160777e905813a729"}, "mark": {"type": "bar", "color": "#D3D3D3"}, "encoding": {"x": {"type": "temporal", "axis": {"title": ""}, "field": "date"}, "y": {"type": "quantitative", "axis": {"labels": false, "orient": "right", "title": ""}, "field": "value"}}}, {"data": {"name": "data-c7f30ab812fb4fd0cf7caccca68a354f"}, "mark": {"type": "line", "color": "darkred"}, "encoding": {"x": {"type": "temporal", "axis": {"title": ""}, "field": "Date"}, "y": {"type": "quantitative", "axis": {"orient": "left"}, "field": "Home Price Index"}}}], "background": "white", "height": 400, "resolve": {"scale": {"y": "independent"}}, "title": "Robert Shiller \"Irrational Exuberance\" Housing Data (inflation adjusted)", "width": 750, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-12ab64d80529aab160777e905813a729": [{"date": "1967-10-01T00:00:00", "value": 0}, {"date": "1968-01-01T00:00:00", "value": 0}, {"date": "1968-04-01T00:00:00", "value": 0}, {"date": "1968-07-01T00:00:00", "value": 0}, {"date": "1968-10-01T00:00:00", "value": 0}, {"date": "1969-01-01T00:00:00", "value": 0}, {"date": "1969-04-01T00:00:00", "value": 1}, {"date": "1969-07-01T00:00:00", "value": 1}, {"date": "1969-10-01T00:00:00", "value": 1}, {"date": "1970-01-01T00:00:00", "value": 1}, {"date": "1970-04-01T00:00:00", "value": 1}, {"date": "1970-07-01T00:00:00", "value": 1}, {"date": "1970-10-01T00:00:00", "value": 1}, {"date": "1971-01-01T00:00:00", "value": 0}, {"date": "1971-04-01T00:00:00", "value": 0}, {"date": "1971-07-01T00:00:00", "value": 0}, {"date": "1971-10-01T00:00:00", "value": 0}, {"date": "1972-01-01T00:00:00", "value": 0}, {"date": "1972-04-01T00:00:00", "value": 0}, {"date": "1972-07-01T00:00:00", "value": 0}, {"date": "1972-10-01T00:00:00", "value": 0}, {"date": "1973-01-01T00:00:00", "value": 0}, {"date": "1973-04-01T00:00:00", "value": 0}, {"date": "1973-07-01T00:00:00", "value": 0}, {"date": "1973-10-01T00:00:00", "value": 1}, {"date": "1974-01-01T00:00:00", "value": 1}, {"date": "1974-04-01T00:00:00", "value": 1}, {"date": "1974-07-01T00:00:00", "value": 1}, {"date": "1974-10-01T00:00:00", "value": 1}, {"date": "1975-01-01T00:00:00", "value": 1}, {"date": "1975-04-01T00:00:00", "value": 0}, {"date": "1975-07-01T00:00:00", "value": 0}, {"date": "1975-10-01T00:00:00", "value": 0}, {"date": "1976-01-01T00:00:00", "value": 0}, {"date": "1976-04-01T00:00:00", "value": 0}, {"date": "1976-07-01T00:00:00", "value": 0}, {"date": "1976-10-01T00:00:00", "value": 0}, {"date": "1977-01-01T00:00:00", "value": 0}, {"date": "1977-04-01T00:00:00", "value": 0}, {"date": "1977-07-01T00:00:00", "value": 0}, {"date": "1977-10-01T00:00:00", "value": 0}, {"date": "1978-01-01T00:00:00", "value": 0}, {"date": "1978-04-01T00:00:00", "value": 0}, {"date": "1978-07-01T00:00:00", "value": 0}, {"date": "1978-10-01T00:00:00", "value": 0}, {"date": "1979-01-01T00:00:00", "value": 0}, {"date": "1979-04-01T00:00:00", "value": 1}, {"date": "1979-07-01T00:00:00", "value": 1}, {"date": "1979-10-01T00:00:00", "value": 1}, {"date": "1980-01-01T00:00:00", "value": 1}, {"date": "1980-04-01T00:00:00", "value": 1}, {"date": "1980-07-01T00:00:00", "value": 0}, {"date": "1980-10-01T00:00:00", "value": 0}, {"date": "1981-01-01T00:00:00", "value": 0}, {"date": "1981-04-01T00:00:00", "value": 1}, {"date": "1981-07-01T00:00:00", "value": 1}, {"date": "1981-10-01T00:00:00", "value": 1}, {"date": "1982-01-01T00:00:00", "value": 1}, {"date": "1982-04-01T00:00:00", "value": 1}, {"date": "1982-07-01T00:00:00", "value": 0}, {"date": "1982-10-01T00:00:00", "value": 0}, {"date": "1983-01-01T00:00:00", "value": 0}, {"date": "1983-04-01T00:00:00", "value": 0}, {"date": "1983-07-01T00:00:00", "value": 0}, {"date": "1983-10-01T00:00:00", "value": 0}, {"date": "1984-01-01T00:00:00", "value": 0}, {"date": "1984-04-01T00:00:00", "value": 0}, {"date": "1984-07-01T00:00:00", "value": 0}, {"date": "1984-10-01T00:00:00", "value": 0}, {"date": "1985-01-01T00:00:00", "value": 0}, {"date": "1985-04-01T00:00:00", "value": 0}, {"date": "1985-07-01T00:00:00", "value": 0}, {"date": "1985-10-01T00:00:00", "value": 0}, {"date": "1986-01-01T00:00:00", "value": 0}, {"date": "1986-04-01T00:00:00", "value": 0}, {"date": "1986-07-01T00:00:00", "value": 0}, {"date": "1986-10-01T00:00:00", "value": 0}, {"date": "1987-01-01T00:00:00", "value": 0}, {"date": "1987-04-01T00:00:00", "value": 0}, {"date": "1987-07-01T00:00:00", "value": 0}, {"date": "1987-10-01T00:00:00", "value": 0}, {"date": "1988-01-01T00:00:00", "value": 0}, {"date": "1988-04-01T00:00:00", "value": 0}, {"date": "1988-07-01T00:00:00", "value": 0}, {"date": "1988-10-01T00:00:00", "value": 0}, {"date": "1989-01-01T00:00:00", "value": 0}, {"date": "1989-04-01T00:00:00", "value": 0}, {"date": "1989-07-01T00:00:00", "value": 0}, {"date": "1989-10-01T00:00:00", "value": 1}, {"date": "1990-01-01T00:00:00", "value": 1}, {"date": "1990-04-01T00:00:00", "value": 1}, {"date": "1990-07-01T00:00:00", "value": 1}, {"date": "1990-10-01T00:00:00", "value": 1}, {"date": "1991-01-01T00:00:00", "value": 1}, {"date": "1991-04-01T00:00:00", "value": 0}, {"date": "1991-07-01T00:00:00", "value": 0}, {"date": "1991-10-01T00:00:00", "value": 0}, {"date": "1992-01-01T00:00:00", "value": 0}, {"date": "1992-04-01T00:00:00", "value": 0}, {"date": "1992-07-01T00:00:00", "value": 0}, {"date": "1992-10-01T00:00:00", "value": 0}, {"date": "1993-01-01T00:00:00", "value": 0}, {"date": "1993-04-01T00:00:00", "value": 0}, {"date": "1993-07-01T00:00:00", "value": 0}, {"date": "1993-10-01T00:00:00", "value": 0}, {"date": "1994-01-01T00:00:00", "value": 0}, {"date": "1994-04-01T00:00:00", "value": 0}, {"date": "1994-07-01T00:00:00", "value": 0}, {"date": "1994-10-01T00:00:00", "value": 0}, {"date": "1995-01-01T00:00:00", "value": 0}, {"date": "1995-04-01T00:00:00", "value": 0}, {"date": "1995-07-01T00:00:00", "value": 0}, {"date": "1995-10-01T00:00:00", "value": 0}, {"date": "1996-01-01T00:00:00", "value": 0}, {"date": "1996-04-01T00:00:00", "value": 0}, {"date": "1996-07-01T00:00:00", "value": 0}, {"date": "1996-10-01T00:00:00", "value": 0}, {"date": "1997-01-01T00:00:00", "value": 0}, {"date": "1997-04-01T00:00:00", "value": 0}, {"date": "1997-07-01T00:00:00", "value": 0}, {"date": "1997-10-01T00:00:00", "value": 0}, {"date": "1998-01-01T00:00:00", "value": 0}, {"date": "1998-04-01T00:00:00", "value": 0}, {"date": "1998-07-01T00:00:00", "value": 0}, {"date": "1998-10-01T00:00:00", "value": 0}, {"date": "1999-01-01T00:00:00", "value": 0}, {"date": "1999-04-01T00:00:00", "value": 0}, {"date": "1999-07-01T00:00:00", "value": 0}, {"date": "1999-10-01T00:00:00", "value": 0}, {"date": "2000-01-01T00:00:00", "value": 0}, {"date": "2000-04-01T00:00:00", "value": 0}, {"date": "2000-07-01T00:00:00", "value": 0}, {"date": "2000-10-01T00:00:00", "value": 0}, {"date": "2001-01-01T00:00:00", "value": 1}, {"date": "2001-04-01T00:00:00", "value": 1}, {"date": "2001-07-01T00:00:00", "value": 1}, {"date": "2001-10-01T00:00:00", "value": 0}, {"date": "2002-01-01T00:00:00", "value": 0}, {"date": "2002-04-01T00:00:00", "value": 0}, {"date": "2002-07-01T00:00:00", "value": 0}, {"date": "2002-10-01T00:00:00", "value": 0}, {"date": "2003-01-01T00:00:00", "value": 0}, {"date": "2003-04-01T00:00:00", "value": 0}, {"date": "2003-07-01T00:00:00", "value": 0}, {"date": "2003-10-01T00:00:00", "value": 0}, {"date": "2004-01-01T00:00:00", "value": 0}, {"date": "2004-04-01T00:00:00", "value": 0}, {"date": "2004-07-01T00:00:00", "value": 0}, {"date": "2004-10-01T00:00:00", "value": 0}, {"date": "2005-01-01T00:00:00", "value": 0}, {"date": "2005-04-01T00:00:00", "value": 0}, {"date": "2005-07-01T00:00:00", "value": 0}, {"date": "2005-10-01T00:00:00", "value": 0}, {"date": "2006-01-01T00:00:00", "value": 0}, {"date": "2006-04-01T00:00:00", "value": 0}, {"date": "2006-07-01T00:00:00", "value": 0}, {"date": "2006-10-01T00:00:00", "value": 0}, {"date": "2007-01-01T00:00:00", "value": 0}, {"date": "2007-04-01T00:00:00", "value": 0}, {"date": "2007-07-01T00:00:00", "value": 0}, {"date": "2007-10-01T00:00:00", "value": 1}, {"date": "2008-01-01T00:00:00", "value": 1}, {"date": "2008-04-01T00:00:00", "value": 1}, {"date": "2008-07-01T00:00:00", "value": 1}, {"date": "2008-10-01T00:00:00", "value": 1}, {"date": "2009-01-01T00:00:00", "value": 1}, {"date": "2009-04-01T00:00:00", "value": 1}, {"date": "2009-07-01T00:00:00", "value": 0}, {"date": "2009-10-01T00:00:00", "value": 0}, {"date": "2010-01-01T00:00:00", "value": 0}, {"date": "2010-04-01T00:00:00", "value": 0}, {"date": "2010-07-01T00:00:00", "value": 0}, {"date": "2010-10-01T00:00:00", "value": 0}, {"date": "2011-01-01T00:00:00", "value": 0}, {"date": "2011-04-01T00:00:00", "value": 0}, {"date": "2011-07-01T00:00:00", "value": 0}, {"date": "2011-10-01T00:00:00", "value": 0}, {"date": "2012-01-01T00:00:00", "value": 0}, {"date": "2012-04-01T00:00:00", "value": 0}, {"date": "2012-07-01T00:00:00", "value": 0}, {"date": "2012-10-01T00:00:00", "value": 0}, {"date": "2013-01-01T00:00:00", "value": 0}, {"date": "2013-04-01T00:00:00", "value": 0}, {"date": "2013-07-01T00:00:00", "value": 0}, {"date": "2013-10-01T00:00:00", "value": 0}, {"date": "2014-01-01T00:00:00", "value": 0}, {"date": "2014-04-01T00:00:00", "value": 0}, {"date": "2014-07-01T00:00:00", "value": 0}, {"date": "2014-10-01T00:00:00", "value": 0}, {"date": "2015-01-01T00:00:00", "value": 0}, {"date": "2015-04-01T00:00:00", "value": 0}, {"date": "2015-07-01T00:00:00", "value": 0}, {"date": "2015-10-01T00:00:00", "value": 0}, {"date": "2016-01-01T00:00:00", "value": 0}, {"date": "2016-04-01T00:00:00", "value": 0}, {"date": "2016-07-01T00:00:00", "value": 0}, {"date": "2016-10-01T00:00:00", "value": 0}, {"date": "2017-01-01T00:00:00", "value": 0}, {"date": "2017-04-01T00:00:00", "value": 0}, {"date": "2017-07-01T00:00:00", "value": 0}, {"date": "2017-10-01T00:00:00", "value": 0}, {"date": "2018-01-01T00:00:00", "value": 0}, {"date": "2018-04-01T00:00:00", "value": 0}, {"date": "2018-07-01T00:00:00", "value": 0}, {"date": "2018-10-01T00:00:00", "value": 0}, {"date": "2019-01-01T00:00:00", "value": 0}, {"date": "2019-04-01T00:00:00", "value": 0}, {"date": "2019-07-01T00:00:00", "value": 0}, {"date": "2019-10-01T00:00:00", "value": 0}, {"date": "2019-10-01T00:00:00", "value": 1}, {"date": "2019-10-01T00:00:00", "value": 0}, {"date": "2020-01-01T00:00:00", "value": 1}, {"date": "2020-04-01T00:00:00", "value": 0}, {"date": "2020-04-01T00:00:00", "value": 1}, {"date": "2020-07-01T00:00:00", "value": 0}], "data-c7f30ab812fb4fd0cf7caccca68a354f": [{"Date": "1890-01-01T00:00:00", "Home Price Index": 100.0}, {"Date": "1891-01-01T00:00:00", "Home Price Index": 88.01179105656392}, {"Date": "1892-01-01T00:00:00", "Home Price Index": 95.42173618250325}, {"Date": "1893-01-01T00:00:00", "Home Price Index": 92.29738548098196}, {"Date": "1894-01-01T00:00:00", "Home Price Index": 123.98048277944352}, {"Date": "1895-01-01T00:00:00", "Home Price Index": 117.45509156635747}, {"Date": "1896-01-01T00:00:00", "Home Price Index": 100.30299018534109}, {"Date": "1897-01-01T00:00:00", "Home Price Index": 106.51570280594892}, {"Date": "1898-01-01T00:00:00", "Home Price Index": 110.18413977609028}, {"Date": "1899-01-01T00:00:00", "Home Price Index": 103.8531133418475}, {"Date": "1900-01-01T00:00:00", "Home Price Index": 101.57429475419818}, {"Date": "1901-01-01T00:00:00", "Home Price Index": 87.3260955025929}, {"Date": "1902-01-01T00:00:00", "Home Price Index": 100.47364450144372}, {"Date": "1903-01-01T00:00:00", "Home Price Index": 93.07489238475267}, {"Date": "1904-01-01T00:00:00", "Home Price Index": 101.85435896630196}, {"Date": "1905-01-01T00:00:00", "Home Price Index": 87.24854752789749}, {"Date": "1906-01-01T00:00:00", "Home Price Index": 103.52516731881617}, {"Date": "1907-01-01T00:00:00", "Home Price Index": 109.31652066458433}, {"Date": "1908-01-01T00:00:00", "Home Price Index": 100.81918235205104}, {"Date": "1909-01-01T00:00:00", "Home Price Index": 95.3804137858177}, {"Date": "1910-01-01T00:00:00", "Home Price Index": 93.1106367072284}, {"Date": "1911-01-01T00:00:00", "Home Price Index": 97.54333604485521}, {"Date": "1912-01-01T00:00:00", "Home Price Index": 102.36516183529952}, {"Date": "1913-01-01T00:00:00", "Home Price Index": 95.40856079923094}, {"Date": "1914-01-01T00:00:00", "Home Price Index": 96.9771636978956}, {"Date": "1915-01-01T00:00:00", "Home Price Index": 88.14876379786153}, {"Date": "1916-01-01T00:00:00", "Home Price Index": 93.72485164834045}, {"Date": "1917-01-01T00:00:00", "Home Price Index": 85.00903741862217}, {"Date": "1918-01-01T00:00:00", "Home Price Index": 75.56662106329529}, {"Date": "1919-01-01T00:00:00", "Home Price Index": 70.51379535554896}, {"Date": "1920-01-01T00:00:00", "Home Price Index": 66.07414907003694}, {"Date": "1921-01-01T00:00:00", "Home Price Index": 65.61430847947112}, {"Date": "1922-01-01T00:00:00", "Home Price Index": 74.79619714101763}, {"Date": "1923-01-01T00:00:00", "Home Price Index": 76.35007781532083}, {"Date": "1924-01-01T00:00:00", "Home Price Index": 74.28697788319552}, {"Date": "1925-01-01T00:00:00", "Home Price Index": 78.16282020753616}, {"Date": "1926-01-01T00:00:00", "Home Price Index": 72.4906015524438}, {"Date": "1927-01-01T00:00:00", "Home Price Index": 71.3803012109625}, {"Date": "1928-01-01T00:00:00", "Home Price Index": 73.28212987318128}, {"Date": "1929-01-01T00:00:00", "Home Price Index": 72.61432987989275}, {"Date": "1930-01-01T00:00:00", "Home Price Index": 69.49191369505738}, {"Date": "1931-01-01T00:00:00", "Home Price Index": 68.64520320702393}, {"Date": "1932-01-01T00:00:00", "Home Price Index": 68.3371935122121}, {"Date": "1933-01-01T00:00:00", "Home Price Index": 72.86594697645333}, {"Date": "1934-01-01T00:00:00", "Home Price Index": 73.27941112856544}, {"Date": "1935-01-01T00:00:00", "Home Price Index": 78.06999902861965}, {"Date": "1936-01-01T00:00:00", "Home Price Index": 79.41489504934907}, {"Date": "1937-01-01T00:00:00", "Home Price Index": 79.71761780681187}, {"Date": "1938-01-01T00:00:00", "Home Price Index": 78.46465293653384}, {"Date": "1939-01-01T00:00:00", "Home Price Index": 78.54968493492918}, {"Date": "1940-01-01T00:00:00", "Home Price Index": 81.73080632803106}, {"Date": "1941-01-01T00:00:00", "Home Price Index": 73.81588342928298}, {"Date": "1942-01-01T00:00:00", "Home Price Index": 68.50282682878372}, {"Date": "1943-01-01T00:00:00", "Home Price Index": 70.92297420081695}, {"Date": "1944-01-01T00:00:00", "Home Price Index": 80.30899578637265}, {"Date": "1945-01-01T00:00:00", "Home Price Index": 87.75004612093751}, {"Date": "1946-01-01T00:00:00", "Home Price Index": 106.50589550863113}, {"Date": "1947-01-01T00:00:00", "Home Price Index": 109.32967071418366}, {"Date": "1948-01-01T00:00:00", "Home Price Index": 101.22257950824535}, {"Date": "1949-01-01T00:00:00", "Home Price Index": 100.04660762637596}, {"Date": "1950-01-01T00:00:00", "Home Price Index": 105.89483934250829}, {"Date": "1951-01-01T00:00:00", "Home Price Index": 103.89866872416337}, {"Date": "1952-01-01T00:00:00", "Home Price Index": 103.97432747997286}, {"Date": "1953-01-01T00:00:00", "Home Price Index": 114.56943361938956}, {"Date": "1954-01-01T00:00:00", "Home Price Index": 114.91059957673828}, {"Date": "1955-01-01T00:00:00", "Home Price Index": 115.64000465682287}, {"Date": "1956-01-01T00:00:00", "Home Price Index": 114.32948935064357}, {"Date": "1957-01-01T00:00:00", "Home Price Index": 113.84980899009389}, {"Date": "1958-01-01T00:00:00", "Home Price Index": 112.19777901169272}, {"Date": "1959-01-01T00:00:00", "Home Price Index": 110.95208797823261}, {"Date": "1960-01-01T00:00:00", "Home Price Index": 110.07025946317299}, {"Date": "1961-01-01T00:00:00", "Home Price Index": 109.30277370916352}, {"Date": "1962-01-01T00:00:00", "Home Price Index": 109.33097979443632}, {"Date": "1963-01-01T00:00:00", "Home Price Index": 109.11894386535286}, {"Date": "1964-01-01T00:00:00", "Home Price Index": 109.38708446479116}, {"Date": "1965-01-01T00:00:00", "Home Price Index": 109.21226801540047}, {"Date": "1966-01-01T00:00:00", "Home Price Index": 107.94687674588721}, {"Date": "1967-01-01T00:00:00", "Home Price Index": 106.48053514059842}, {"Date": "1968-01-01T00:00:00", "Home Price Index": 105.10461940306442}, {"Date": "1969-01-01T00:00:00", "Home Price Index": 106.33242285088592}, {"Date": "1970-01-01T00:00:00", "Home Price Index": 108.40265062401456}, {"Date": "1971-01-01T00:00:00", "Home Price Index": 109.57880497979492}, {"Date": "1972-01-01T00:00:00", "Home Price Index": 110.48485734712168}, {"Date": "1973-01-01T00:00:00", "Home Price Index": 106.85874455529118}, {"Date": "1974-01-01T00:00:00", "Home Price Index": 103.720022980039}, {"Date": "1975-01-01T00:00:00", "Home Price Index": 104.44058973167495}, {"Date": "1976-01-01T00:00:00", "Home Price Index": 105.22213430297185}, {"Date": "1977-01-01T00:00:00", "Home Price Index": 110.47108082199576}, {"Date": "1978-01-01T00:00:00", "Home Price Index": 117.10065367629491}, {"Date": "1979-01-01T00:00:00", "Home Price Index": 120.45053999134004}, {"Date": "1980-01-01T00:00:00", "Home Price Index": 114.463707695343}, {"Date": "1981-01-01T00:00:00", "Home Price Index": 108.97456824475103}, {"Date": "1982-01-01T00:00:00", "Home Price Index": 105.10048306638902}, {"Date": "1983-01-01T00:00:00", "Home Price Index": 105.38936298390433}, {"Date": "1984-01-01T00:00:00", "Home Price Index": 105.47100591666343}, {"Date": "1985-01-01T00:00:00", "Home Price Index": 107.45907126712446}, {"Date": "1986-01-01T00:00:00", "Home Price Index": 112.65014289872929}, {"Date": "1987-01-01T00:00:00", "Home Price Index": 118.3460627106993}, {"Date": "1988-01-01T00:00:00", "Home Price Index": 122.54790628557267}, {"Date": "1989-01-01T00:00:00", "Home Price Index": 125.2537384344782}, {"Date": "1990-01-01T00:00:00", "Home Price Index": 121.04976388605102}, {"Date": "1991-01-01T00:00:00", "Home Price Index": 114.13637195380623}, {"Date": "1992-01-01T00:00:00", "Home Price Index": 111.49623514371376}, {"Date": "1993-01-01T00:00:00", "Home Price Index": 108.95880174878863}, {"Date": "1994-01-01T00:00:00", "Home Price Index": 109.30540753756816}, {"Date": "1995-01-01T00:00:00", "Home Price Index": 108.23756872219158}, {"Date": "1996-01-01T00:00:00", "Home Price Index": 107.59660277897457}, {"Date": "1997-01-01T00:00:00", "Home Price Index": 108.55116379750568}, {"Date": "1998-01-01T00:00:00", "Home Price Index": 113.40814858159133}, {"Date": "1999-01-01T00:00:00", "Home Price Index": 119.51626500577927}, {"Date": "2000-01-01T00:00:00", "Home Price Index": 126.62830590773748}, {"Date": "2001-01-01T00:00:00", "Home Price Index": 133.50734951963952}, {"Date": "2002-01-01T00:00:00", "Home Price Index": 143.3855321374196}, {"Date": "2003-01-01T00:00:00", "Home Price Index": 154.53707436938433}, {"Date": "2004-01-01T00:00:00", "Home Price Index": 171.41118324061787}, {"Date": "2005-01-01T00:00:00", "Home Price Index": 190.99898881259102}, {"Date": "2006-01-01T00:00:00", "Home Price Index": 194.71670815658715}, {"Date": "2007-01-01T00:00:00", "Home Price Index": 181.11251650120127}, {"Date": "2008-01-01T00:00:00", "Home Price Index": 146.1405208018232}, {"Date": "2009-01-01T00:00:00", "Home Price Index": 130.28756631996254}, {"Date": "2010-01-01T00:00:00", "Home Price Index": 128.2244164794498}, {"Date": "2011-01-01T00:00:00", "Home Price Index": 119.0836266530387}, {"Date": "2012-01-01T00:00:00", "Home Price Index": 119.83040225204392}, {"Date": "2013-01-01T00:00:00", "Home Price Index": 130.8047999290343}, {"Date": "2014-01-01T00:00:00", "Home Price Index": 134.1403410544704}, {"Date": "2015-12-31T00:00:00", "Home Price Index": 175.2639529411765}, {"Date": "2016-12-31T00:00:00", "Home Price Index": 184.48889887640448}, {"Date": "2017-12-31T00:00:00", "Home Price Index": 195.68399999999997}, {"Date": "2018-12-31T00:00:00", "Home Price Index": 205.29247826086956}, {"Date": "2019-12-31T00:00:00", "Home Price Index": 212.29329999999996}, {"Date": "2020-12-31T00:00:00", "Home Price Index": 231.49383333333336}]}}, {"mode": "vega-lite"});
+</script>
 </div>
-</div>
 
-<div class="output_area">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
 
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-9-edb09d2881e9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">     41</span> ).resolve_scale(y=&#39;independent&#39;)
-<span class="ansi-green-intense-fg ansi-bold">     42</span> 
-<span class="ansi-green-fg">---&gt; 43</span><span class="ansi-red-fg"> </span>c<span class="ansi-blue-fg">.</span>save<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;residential-realestate.png&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     44</span> c<span class="ansi-blue-fg">.</span>display<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/altair/vegalite/v4/api.py</span> in <span class="ansi-cyan-fg">save</span><span class="ansi-blue-fg">(self, fp, format, override_data_transformer, scale_factor, vegalite_version, vega_version, vegaembed_version, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    474</span>         <span class="ansi-green-fg">if</span> override_data_transformer<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    475</span>             <span class="ansi-green-fg">with</span> data_transformers<span class="ansi-blue-fg">.</span>disable_max_rows<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 476</span><span class="ansi-red-fg">                 </span>result <span class="ansi-blue-fg">=</span> save<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    477</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    478</span>             result <span class="ansi-blue-fg">=</span> save<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/altair/utils/save.py</span> in <span class="ansi-cyan-fg">save</span><span class="ansi-blue-fg">(chart, fp, vega_version, vegaembed_version, format, mode, vegalite_version, embed_options, json_kwds, webdriver, scale_factor, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    110</span>         write_file_or_filename<span class="ansi-blue-fg">(</span>fp<span class="ansi-blue-fg">,</span> mimebundle<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;text/html&#34;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;w&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    111</span>     <span class="ansi-green-fg">elif</span> format <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;png&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;svg&#34;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 112</span><span class="ansi-red-fg">         mimebundle = spec_to_mimebundle(
-</span><span class="ansi-green-intense-fg ansi-bold">    113</span>             spec<span class="ansi-blue-fg">=</span>spec<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    114</span>             format<span class="ansi-blue-fg">=</span>format<span class="ansi-blue-fg">,</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/altair/utils/mimebundle.py</span> in <span class="ansi-cyan-fg">spec_to_mimebundle</span><span class="ansi-blue-fg">(spec, format, mode, vega_version, vegaembed_version, vegalite_version, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     58</span>                 <span class="ansi-blue-fg">&#34;see http://github.com/altair-viz/altair_saver/&#34;</span><span class="ansi-blue-fg">.</span>format<span class="ansi-blue-fg">(</span>fmt<span class="ansi-blue-fg">=</span>format<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     59</span>             )
-<span class="ansi-green-fg">---&gt; 60</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> altair_saver<span class="ansi-blue-fg">.</span>render<span class="ansi-blue-fg">(</span>spec<span class="ansi-blue-fg">,</span> format<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span>mode<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     61</span>     <span class="ansi-green-fg">if</span> format <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#34;html&#34;</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     62</span>         html = spec_to_html(
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/altair_saver/_core.py</span> in <span class="ansi-cyan-fg">render</span><span class="ansi-blue-fg">(chart, fmts, mode, embed_options, method, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    253</span> 
-<span class="ansi-green-intense-fg ansi-bold">    254</span>     <span class="ansi-green-fg">for</span> fmt <span class="ansi-green-fg">in</span> fmts<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 255</span><span class="ansi-red-fg">         </span>Saver <span class="ansi-blue-fg">=</span> _select_saver<span class="ansi-blue-fg">(</span>method<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span>mode<span class="ansi-blue-fg">,</span> fmt<span class="ansi-blue-fg">=</span>fmt<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    256</span>         saver <span class="ansi-blue-fg">=</span> Saver<span class="ansi-blue-fg">(</span>spec<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span>mode<span class="ansi-blue-fg">,</span> embed_options<span class="ansi-blue-fg">=</span>embed_options<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    257</span>         mimebundle<span class="ansi-blue-fg">.</span>update<span class="ansi-blue-fg">(</span>saver<span class="ansi-blue-fg">.</span>mimebundle<span class="ansi-blue-fg">(</span>fmt<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/altair_saver/_core.py</span> in <span class="ansi-cyan-fg">_select_saver</span><span class="ansi-blue-fg">(method, mode, fmt, fp)</span>
-<span class="ansi-green-intense-fg ansi-bold">     67</span>             <span class="ansi-green-fg">if</span> s<span class="ansi-blue-fg">.</span>enabled<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">and</span> fmt <span class="ansi-green-fg">in</span> s<span class="ansi-blue-fg">.</span>valid_formats<span class="ansi-blue-fg">[</span>mode<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     68</span>                 <span class="ansi-green-fg">return</span> s
-<span class="ansi-green-fg">---&gt; 69</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#34;No enabled saver found that supports format={fmt!r}&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     70</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     71</span>         <span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#34;Unrecognized method: {method}&#34;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">ValueError</span>: No enabled saver found that supports format=&#39;png&#39;</pre>
-</div>
 </div>
 
 </div>
@@ -1415,168 +1424,6 @@ function sortDataFrame(id, n, dtype) {
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_o</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[22]:</div>
-
-
-
-   
-        
-            
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Year and         Quarter</th>
-      <th>U.S.</th>
-      <th>Under 35 years</th>
-      <th>35 to 44 years</th>
-      <th>45 to 54 years</th>
-      <th>55 to 64 years</th>
-      <th>65 years and over</th>
-      <th>Unnamed: 7</th>
-      <th>Unnamed: 8</th>
-      <th>Unnamed: 9</th>
-      <th>Unnamed: 10</th>
-      <th>Unnamed: 11</th>
-      <th>dt</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>3</th>
-      <td>1994</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaT</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1st………….......</td>
-      <td>63.8</td>
-      <td>37.1</td>
-      <td>64.4</td>
-      <td>75.0</td>
-      <td>79.3</td>
-      <td>77.4</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1994-01-01</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>2nd……….........</td>
-      <td>63.8</td>
-      <td>36.8</td>
-      <td>64.6</td>
-      <td>75.2</td>
-      <td>79.1</td>
-      <td>77.2</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1994-04-01</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>3rd……….......</td>
-      <td>64.1</td>
-      <td>37.5</td>
-      <td>64.3</td>
-      <td>75.5</td>
-      <td>79.4</td>
-      <td>77.2</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1994-07-01</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>4th……..…......</td>
-      <td>64.2</td>
-      <td>38.0</td>
-      <td>64.7</td>
-      <td>74.9</td>
-      <td>79.2</td>
-      <td>77.7</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1994-10-01</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-</div>
-
 </div>
 </div>
 
@@ -2998,7 +2845,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[177]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
@@ -3169,52 +3016,6 @@ function sortDataFrame(id, n, dtype) {
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-177-6739e34300b4&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">    118</span> 
-<span class="ansi-green-intense-fg ansi-bold">    119</span> <span class="ansi-red-fg">#df_tmp = fetch(&#34;HomeSales&#34;)</span>
-<span class="ansi-green-fg">--&gt; 120</span><span class="ansi-red-fg"> </span>fetch<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;HomeSales&#34;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>head<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-177-6739e34300b4&gt;</span> in <span class="ansi-cyan-fg">fetch</span><span class="ansi-blue-fg">(metric)</span>
-<span class="ansi-green-intense-fg ansi-bold">     72</span>     addSelection<span class="ansi-blue-fg">(</span>wait<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Denver, CO metro area&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> 
-<span class="ansi-green-fg">---&gt; 74</span><span class="ansi-red-fg">     </span>wait<span class="ansi-blue-fg">.</span>until<span class="ansi-blue-fg">(</span>EC<span class="ansi-blue-fg">.</span>staleness_of<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">(</span>By<span class="ansi-blue-fg">.</span>CSS_SELECTOR<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;div[id=&#39;loadingGlassPane&#39;]&#34;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     75</span> 
-<span class="ansi-green-intense-fg ansi-bold">     76</span>     downloadButton <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#34;.tab-icon-download&#34;</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/selenium/webdriver/support/wait.py</span> in <span class="ansi-cyan-fg">until</span><span class="ansi-blue-fg">(self, method, message)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>         <span class="ansi-green-fg">while</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     70</span>             <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 71</span><span class="ansi-red-fg">                 </span>value <span class="ansi-blue-fg">=</span> method<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_driver<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     72</span>                 <span class="ansi-green-fg">if</span> value<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span>                     <span class="ansi-green-fg">return</span> value
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/selenium/webdriver/support/expected_conditions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, ignored)</span>
-<span class="ansi-green-intense-fg ansi-bold">    229</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    230</span>             <span class="ansi-red-fg"># Calling any method forces a staleness check</span>
-<span class="ansi-green-fg">--&gt; 231</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>element<span class="ansi-blue-fg">.</span>is_enabled<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    232</span>             <span class="ansi-green-fg">return</span> <span class="ansi-green-fg">False</span>
-<span class="ansi-green-intense-fg ansi-bold">    233</span>         <span class="ansi-green-fg">except</span> StaleElementReferenceException<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">AttributeError</span>: &#39;tuple&#39; object has no attribute &#39;is_enabled&#39;</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -3491,7 +3292,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[133]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s2">&quot;MedianSalePrice&quot;</span>
@@ -3504,111 +3305,10 @@ function sortDataFrame(id, n, dtype) {
 <span class="n">df_sale_price_melted</span><span class="p">[</span><span class="s1">&#39;Year of Period End&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sale_price_melted</span><span class="p">[</span><span class="s1">&#39;Period&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">df_sale_price_melted</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sale_price_melted</span><span class="p">[</span><span class="s1">&#39;Period&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%B %Y&#39;</span><span class="p">))</span>
 
-<span class="n">df_sale_price_melted</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">#df_sale_price_melted.head()</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[133]:</div>
-
-
-
-   
-        
-            
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Region</th>
-      <th>Period</th>
-      <th>Median Sale Price</th>
-      <th>Year of Period End</th>
-      <th>dt</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>National</td>
-      <td>February 2012</td>
-      <td>161000</td>
-      <td>2012</td>
-      <td>2012-02-01</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>National</td>
-      <td>March 2012</td>
-      <td>171000</td>
-      <td>2012</td>
-      <td>2012-03-01</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>National</td>
-      <td>April 2012</td>
-      <td>178000</td>
-      <td>2012</td>
-      <td>2012-04-01</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>National</td>
-      <td>May 2012</td>
-      <td>186000</td>
-      <td>2012</td>
-      <td>2012-05-01</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>National</td>
-      <td>June 2012</td>
-      <td>194000</td>
-      <td>2012</td>
-      <td>2012-06-01</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-</div>
-
 </div>
 </div>
 
@@ -3829,7 +3529,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[144]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="s2">&quot;Inventory&quot;</span>
@@ -3842,111 +3542,10 @@ function sortDataFrame(id, n, dtype) {
 <span class="n">df_inv_melted</span><span class="p">[</span><span class="s1">&#39;Year of Period End&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_inv_melted</span><span class="p">[</span><span class="s1">&#39;Period&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">df_inv_melted</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_inv_melted</span><span class="p">[</span><span class="s1">&#39;Period&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%B %Y&#39;</span><span class="p">))</span>
 
-<span class="n">df_inv_melted</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">#df_inv_melted.head()</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[144]:</div>
-
-
-
-   
-        
-            
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Region</th>
-      <th>Period</th>
-      <th>Number of Homes</th>
-      <th>Year of Period End</th>
-      <th>dt</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>National</td>
-      <td>February 2012</td>
-      <td>2083230</td>
-      <td>2012</td>
-      <td>2012-02-01</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>National</td>
-      <td>March 2012</td>
-      <td>2121227</td>
-      <td>2012</td>
-      <td>2012-03-01</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>National</td>
-      <td>April 2012</td>
-      <td>2153419</td>
-      <td>2012</td>
-      <td>2012-04-01</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>National</td>
-      <td>May 2012</td>
-      <td>2159538</td>
-      <td>2012</td>
-      <td>2012-05-01</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>National</td>
-      <td>June 2012</td>
-      <td>2142491</td>
-      <td>2012</td>
-      <td>2012-06-01</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-</div>
-
 </div>
 </div>
 
@@ -4219,7 +3818,7 @@ function sortDataFrame(id, n, dtype) {
 </div>
 <hr>
 &copy; 2020 pymoment
-<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/aeb16754a7771a7081e2268a98d20d96faee887c/analysis/residential-realestate.ipynb"><code>analysis/residential-realestate.ipynb</code></a> committed by GitHub Action on Sat Feb 20 03:40:59 2021 <a href="http://github.com/kdunn926/us-macro/commit/aeb16754a7771a7081e2268a98d20d96faee887c">revision 1, aeb1675</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/kdunn926/us-macro/blob/999cd38f433cf79e929c9f9cae341de593db39cc/analysis/residential-realestate.ipynb"><code>analysis/residential-realestate.ipynb</code></a> committed by Kyle Dunn on Tue Mar 2 01:34:50 2021 <a href="http://github.com/kdunn926/us-macro/commit/999cd38f433cf79e929c9f9cae341de593db39cc">revision 1, 999cd38</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
