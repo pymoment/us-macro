@@ -280,7 +280,7 @@ def get_index_tpl(conf, dirs):
 <meta property="og:title" content="%(name)s" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
-<meta property="og:url" content="https://kdunn926.github.io/us-macro/index.html" />
+<meta property="og:url" content="https://REPONAME.github.io/us-macro/index.html" />
 
 <title>%(name)s</title>
 
@@ -416,13 +416,13 @@ $(document).ready(function () {
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9902895-3"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=REPLACEMETAG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-9902895-3');
+  gtag('config', 'REPLACEMETAG');
 </script>
 
 </body>
@@ -1053,13 +1053,13 @@ function sortDataFrame(id, n, dtype) {
 %(pandoc_to_bs4)s
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9902895-3"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=REPLACEMETAG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-9902895-3');
+  gtag('config', 'REPLACEMETAG');
 </script>
 
 </html>
