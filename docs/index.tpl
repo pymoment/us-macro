@@ -13,7 +13,7 @@
 <meta property="og:title" content="US Macroeconomic Data Explorer" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
-<meta property="og:url" content="https://REPONAME.github.io/us-macro/index.html" />
+<meta property="og:url" content="https://REPLACEMEREPO.github.io/us-macro/index.html" />
 
 <title>US Macroeconomic Data Explorer</title>
 
@@ -215,7 +215,7 @@ $(document).ready(function () {
         
 <ul class="navbar-nav">
 <li class="nav-item">
-   <a class="nav-link" href="http://github.com/kdunn926/us-macro"> source </a>
+   <a class="nav-link" href="http://github.com/REPLACEMEREPO/us-macro"> source </a>
 </li>
 </ul>
         
@@ -226,7 +226,7 @@ $(document).ready(function () {
 {%- endblock header -%}
 {% block footer %}
 <hr>
-&copy; <script>document.write(`${new Date().getFullYear()}`);</script> pymoment
+&copy; <script>document.write(`${new Date().getFullYear()}`);</script> REPLACEMEREPO
 <!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
 
 </div>

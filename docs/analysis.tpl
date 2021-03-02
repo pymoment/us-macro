@@ -274,7 +274,7 @@ function sortDataFrame(id, n, dtype) {
         
 <ul class="navbar-nav">
 <li class="nav-item">
-   <a class="nav-link" href="http://github.com/kdunn926/us-macro"> source </a>
+   <a class="nav-link" href="http://github.com/REPLACEMEREPO/us-macro"> source </a>
 </li>
 </ul>
         
@@ -287,7 +287,7 @@ function sortDataFrame(id, n, dtype) {
 
 {% block footer %}
 <hr>
-&copy; <script>document.write(`${new Date().getFullYear()}`);</script> pymoment
+&copy; <script>document.write(`${new Date().getFullYear()}`);</script> REPLACEMEREPO
 </div>
 </div>
 </body>
