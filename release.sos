@@ -153,12 +153,12 @@ input: dynamic(input_files), group_by = 1
 output: output_files, group_by = 1
 bash: expand = "${ }", stderr = True
   /usr/share/miniconda/bin/jupyter nbconvert --to html ${_input:e} --output ${_output:ae} --template docs/index.tpl || jupyter nbconvert --to html ${_input:e} --output ${_output:ae} --template docs/index.tpl
+  perl -i -pe "s/REPLACEMETAG/$GOOGLE_ANALYTICS_TAG_ID/g" ${_output:ae}
+  perl -i -pe "s/REPLACEMEREPO/$REPONAME/g" ${_output:ae}
   if [[ ${_output:e} == "docs/index.html" ]]; then
      perl -i -pe "s/REPLACEMEDATE/${now_str} UTC/g" docs/index.html
      DESCRIPTION="US economic charts; a look behind the headlines."
      perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" ${_output:ae}
-     perl -i -pe "s/REPLACEMETAG/$GOOGLE_ANALYTICS_TAG_ID/g" ${_output:ae}
-     perl -i -pe "s/REPLACEMEREPO/$REPONAME/g" ${_output:ae}
   fi
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
