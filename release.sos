@@ -194,6 +194,8 @@ bash: expand = "${ }", stderr = False
   mv "analysis/$ID.png" docs/analysis/
   perl -i -pe "s/REPLACEMEIMAGE/$BASEURL\/$ID.png/g" ${_output:ae}
   perl -i -pe "s/REPLACEMEURL/$BASEURL\/$ID.html/g" ${_output:ae}
+  perl -i -pe "s/REPLACEMETAG/$GOOGLE_ANALYTICS_TAG_ID/g" ${_output:ae}
+  perl -i -pe "s/REPLACEMEREPO/$REPONAME/g" ${_output:ae}
   CARDFILE="docs/analysis/card-$ID.html"
   cp docs/card.tpl.html "$CARDFILE"
   perl -i -pe "s/REPLACEMETITLE/$TITLE/g" "$CARDFILE"
