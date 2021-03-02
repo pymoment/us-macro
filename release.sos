@@ -157,6 +157,8 @@ bash: expand = "${ }", stderr = True
      perl -i -pe "s/REPLACEMEDATE/${now_str} UTC/g" docs/index.html
      DESCRIPTION="US economic charts; a look behind the headlines."
      perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" ${_output:ae}
+     perl -i -pe "s/REPLACEMETAG/$GOOGLE_ANALYTICS_TAG_ID/g" ${_output:ae}
+     perl -i -pe "s/REPLACEMEREPO/$REPONAME/g" ${_output:ae}
   fi
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
@@ -198,6 +200,8 @@ bash: expand = "${ }", stderr = False
   perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" "$CARDFILE"
   perl -i -pe "s/REPLACEMEIMAGE/$BASEURL\/$ID.png/g" "$CARDFILE"
   perl -i -pe "s/REPLACEMEURL/$BASEURL\/$ID.html/g" "$CARDFILE"
+  perl -i -pe "s/REPLACEMETAG/$GOOGLE_ANALYTICS_TAG_ID/g" "$CARDFILE"
+  perl -i -pe "s/REPLACEMEREPO/$REPONAME/g" "$CARDFILE"
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
      perl -i -ne 'print if /\S/' ${_output:e}
   fi

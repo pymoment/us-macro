@@ -274,7 +274,7 @@ function sortDataFrame(id, n, dtype) {
         
 <ul class="navbar-nav">
 <li class="nav-item">
-   <a class="nav-link" href="http://github.com/kdunn926/us-macro"> source </a>
+   <a class="nav-link" href="http://github.com/REPLACEMEREPO/us-macro"> source </a>
 </li>
 </ul>
         
@@ -287,7 +287,7 @@ function sortDataFrame(id, n, dtype) {
 
 {% block footer %}
 <hr>
-&copy; 2020 pymoment
+&copy; <script>document.write(`${new Date().getFullYear()}`);</script> REPLACEMEREPO
 </div>
 </div>
 </body>
@@ -342,13 +342,13 @@ $(document).ready( () => {
     
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9902895-3"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=REPLACEMETAG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-9902895-3');
+  gtag('config', 'REPLACEMETAG');
 </script>
 
 </html>

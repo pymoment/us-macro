@@ -53,7 +53,8 @@ jobs:
         pip install yfinance
         pip install tika
         pip install unidecode fake_useragent
-        pip install git+https://github.com/abenassi/Google-Search-API
+        #pip install git+https://github.com/abenassi/Google-Search-API
+        pip install git+git://github.com/kulla/Google-Search-API.git@70956914a5e231dd9b65d0b962f8f4b70a899fbf
         rm -rf /usr/share/miniconda/lib/python*/site-packages/selenium*
         conda install -c conda-forge selenium==3.141.0 --force-reinstall
 
@@ -77,6 +78,8 @@ jobs:
         git commit -m 'Add notebook execution changes'
 
     - name: Generate webpages
+      env:
+          GOOGLE_ANALYTICS_TAG_ID: ${{ secrets.GOOGLE_ANALYTICS_TAG_ID }}
       run: |
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
