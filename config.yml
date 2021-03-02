@@ -3,10 +3,10 @@
 name: "US Macroeconomic Data Explorer"
 
 # Link to the source repository (e.g., on Github, Gitlab).
-repo: "http://github.com/kdunn926/us-macro"
+repo: "http://github.com/REPLACEMEREPO/us-macro"
 
 # Footer added to the bottom of some webpages.
-footer: "&copy; <script>document.write(`${new Date().getFullYear()}`);</script> pymoment"
+footer: "&copy; <script>document.write(`${new Date().getFullYear()}`);</script> REPLACEMEREPO"
 
 # When set to True, populate the footer of each notebook with the git
 # commit id (SHA1) and commit modification date.

@@ -280,7 +280,7 @@ def get_index_tpl(conf, dirs):
 <meta property="og:title" content="%(name)s" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
-<meta property="og:url" content="https://REPONAME.github.io/us-macro/index.html" />
+<meta property="og:url" content="https://REPLACEMEREPO.github.io/us-macro/index.html" />
 
 <title>%(name)s</title>
 
