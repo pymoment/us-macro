@@ -13,7 +13,7 @@
 <meta property="og:title" content="US Macroeconomic Data Explorer" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="REPLACEMEDESCRIPTION" />
-<meta property="og:url" content="https://kdunn926.github.io/us-macro/index.html" />
+<meta property="og:url" content="https://REPONAME.github.io/us-macro/index.html" />
 
 <title>US Macroeconomic Data Explorer</title>
 
@@ -226,7 +226,7 @@ $(document).ready(function () {
 {%- endblock header -%}
 {% block footer %}
 <hr>
-&copy; 2020 pymoment
+&copy; <script>document.write(`${new Date().getFullYear()}`);</script> pymoment
 <!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
 
 </div>
@@ -291,13 +291,13 @@ $(document).ready( () => {
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9902895-3"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=REPLACEMETAG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-9902895-3');
+  gtag('config', 'REPLACEMETAG');
 </script>
 
 </body>

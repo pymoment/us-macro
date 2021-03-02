@@ -287,7 +287,7 @@ function sortDataFrame(id, n, dtype) {
 
 {% block footer %}
 <hr>
-&copy; 2020 pymoment
+&copy; <script>document.write(`${new Date().getFullYear()}`);</script> pymoment
 </div>
 </div>
 </body>
@@ -342,13 +342,13 @@ $(document).ready( () => {
     
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9902895-3"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=REPLACEMETAG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-9902895-3');
+  gtag('config', 'REPLACEMETAG');
 </script>
 
 </html>
