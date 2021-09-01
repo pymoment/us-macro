@@ -1,4 +1,4 @@
-{%- extends 'basic.tpl' -%}
+{%- extends 'classic/base.html.j2' -%}
 
 {% set altair = {'vis_number': 1} %}
 

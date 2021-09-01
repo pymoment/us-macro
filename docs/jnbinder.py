@@ -265,7 +265,7 @@ def get_navbar(name, nav, right_nav, isRoot=False):
 def get_index_tpl(conf, dirs):
     '''Generate index template at given paths'''
     content = '''
-{%%- extends 'basic.tpl' -%%}
+{%%- extends 'classic/base.html.j2' -%%}
 
 {%%- block header -%%}
 {{ super() }}
@@ -913,7 +913,7 @@ $(document).ready( () => {
 def get_notebook_tpl(conf, dirs, files, path):
     '''Generate notebook template at given path'''
     content = '''
-{%%- extends 'basic.tpl' -%%}
+{%%- extends 'classic/base.html.j2' -%%}
 
 {%%- block header -%%}
 {{ super() }}
