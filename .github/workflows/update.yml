@@ -83,7 +83,9 @@ jobs:
       run: |
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
-        echo '/usr/share/miniconda/bin' >> $GITHUB_PATH
+        # Workaround for nbconvert issue 1240
+        sed -ie "s/'display_priority.j2'/'base\/display_priority.j2'/g" /usr/share/miniconda/envs/ci/share/jupyter/nbconvert/templates/classic/base.html.j2
+        sed -ie "s/'celltags.j2'/'base\/celltags.j2'/g" /usr/share/miniconda/envs/ci/share/jupyter/nbconvert/templates/classic/base.html.j2
         export REPONAME=`echo ${GITHUB_REPOSITORY} | cut -f 1 -d '/'`
         sos run release.sos clean
         sos run release.sos -s force
