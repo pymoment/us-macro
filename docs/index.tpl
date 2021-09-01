@@ -1,4 +1,4 @@
-{%- extends 'basic.tpl' -%}
+{%- extends 'classic/base.html.j2' -%}
 
 {%- block header -%}
 {{ super() }}
