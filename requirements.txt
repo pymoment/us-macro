@@ -2,7 +2,7 @@ jupyter==1.0.0
 nbconvert==6.4.4
 pandas==1.4.1
 altair==4.2.0
-numpy==1.18.1
+numpy==1.21.0
 selenium==3.141.0
 altair_saver
 tabula-py
