@@ -1,8 +1,8 @@
-jupyter==1.0.0
+jupyter
 nbconvert==6.4.4
-pandas==1.4.1
-altair==4.2.0
-numpy==1.18.1
+pandas
+altair
+numpy
 selenium==3.141.0
 altair_saver
 tabula-py
@@ -10,10 +10,10 @@ beautifulsoup4
 lxml
 xlrd
 openpyxl
-sos==0.21.5
-sos-python==0.18.4
-sos-notebook==0.23.1
-sos-bash==0.20.0
+sos
+sos-python
+sos-notebook
+sos-bash
 jupyter_contrib_nbextensions
 soupsieve
 feather-format
