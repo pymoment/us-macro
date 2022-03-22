@@ -48,7 +48,7 @@ jobs:
       run: |
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate ci
-        conda install mamba
+        conda install -c conda-forge mamba
         mamba install -c conda-forge --yes --file requirements.txt
         pip install pytrends
         pip install yfinance==0.1.70
