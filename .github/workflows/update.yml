@@ -50,11 +50,11 @@ jobs:
         conda activate ci
         conda install -c conda-forge --yes --file requirements.txt
         pip install pytrends
-        pip install yfinance
+        pip install yfinance==0.1.70
         pip install tika
         pip install unidecode fake_useragent
         #pip install git+https://github.com/abenassi/Google-Search-API
-        pip install git+git://github.com/kulla/Google-Search-API.git@70956914a5e231dd9b65d0b962f8f4b70a899fbf
+        #pip install git+git://github.com/kulla/Google-Search-API.git@70956914a5e231dd9b65d0b962f8f4b70a899fbf
         rm -rf /usr/share/miniconda/lib/python*/site-packages/selenium*
         conda install -c conda-forge selenium==3.141.0 --force-reinstall
 

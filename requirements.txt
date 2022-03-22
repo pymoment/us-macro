@@ -1,7 +1,7 @@
 jupyter==1.0.0
-nbconvert==6.1.0
-pandas==1.2.0
-altair==4.1.0
+nbconvert==6.4.4
+pandas==1.4.1
+altair==4.2.0
 numpy==1.18.1
 selenium==3.141.0
 altair_saver
@@ -10,9 +10,9 @@ beautifulsoup4
 lxml
 xlrd
 openpyxl
-sos==0.21.13
+sos==0.21.5
 sos-python==0.18.4
-sos-notebook==0.21.18
+sos-notebook==0.23.1
 sos-bash==0.20.0
 jupyter_contrib_nbextensions
 soupsieve
