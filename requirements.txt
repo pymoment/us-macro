@@ -21,3 +21,4 @@ pyarrow
 distro
 joblib
 python-dateutil
+html5lib
