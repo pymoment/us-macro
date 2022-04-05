@@ -12,7 +12,7 @@ xlrd
 openpyxl
 sos==0.21.5
 sos-python==0.18.4
-sos-notebook==0.23.1
+sos-notebook==0.21.7
 sos-bash==0.20.0
 jupyter_contrib_nbextensions
 soupsieve
