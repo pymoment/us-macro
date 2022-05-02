@@ -89,7 +89,7 @@ jobs:
         sed -ie "s/'celltags.j2'/'base\/celltags.j2'/g" /usr/share/miniconda/envs/ci/share/jupyter/nbconvert/templates/classic/base.html.j2
         export REPONAME=`echo ${GITHUB_REPOSITORY} | cut -f 1 -d '/'`
         sos run release.sos clean
-        sos run release.sos -s force
+        sos run release.sos -s force || true
         git add ./docs
 
     - name: Commit generated webpages
