@@ -182,13 +182,13 @@ output: [f"docs/{path(x):d}/index.html" if f'{path(x):db}' == f'{path(x):bn}' el
 bash: expand = "${ }", stderr = True
   cat docs/nbconvert_template_altair.tpl > /tmp/${_input:d}.tpl
   tail -n+2 docs/${_input:d}.tpl >> /tmp/${_input:d}.tpl
-  jupyter nbconvert --to html ${_input:e} --output ${_output:ae} --template /tmp/${_input:d}.tpl ${"--execute" if str(_input.with_suffix(".Rmd")) in rmd_files else ""}
+  jupyter nbconvert --to html ${_input:e} --output ${_output:ae} --template /tmp/${_input:d}.tpl || true
   #num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | perl -pe 's/\([0-9]*\).*/\1/'`
   #perl -i -lpe 'print "${_nb_info[0]}" if $. == '"$num"'+1' ${_output:e}
   TITLE=`cat ${_input:e} | jq '.cells[0].source[0] | sub("\n" ; "")' | perl -pe 's/"#* /"/g;s/"//g'`
-  perl -i -pe "s/REPLACEMETITLE/$TITLE/g" ${_output:ae}
+  perl -i -pe "s/REPLACEMETITLE/$TITLE/g" ${_output:ae} || true
   DESCRIPTION=`cat ${_input:e} | jq '.cells[0].source[-1] | sub("\n" ; "")' | sed 's/"#* /"/g;s/"//g'`
-  perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" ${_output:ae}
+  perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" ${_output:ae} || true
   BASEURL="https:\/\/$REPONAME.github.io\/us-macro\/analysis"
   ID=`echo ${_input:e} | perl -pe 's/.*analysis\/([^\.]*).ipynb.*/\1/g'`
   mv "analysis/$ID.png" docs/analysis/ || true
