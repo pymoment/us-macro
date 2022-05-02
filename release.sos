@@ -296,7 +296,7 @@ To properly add in version info, all changes made to source notebooks must be co
 Please use ``git commit`` to commit changes and run this command again. Or you may
 set ``add_commit_info: False`` in ``config.yml`` if you want to disable this feature.
 '''
-stop_if(status)
+#stop_if(status)
 changed_list = get_output('git status --untracked-files=no --porcelain')
 fail_if(os.path.isdir('.git') and ('ipynb' in changed_list or 'Rmd' in changed_list) and conf['add_commit_info'], msg = err_msg)
 sos_run('update-index', conf=conf, binders=binders, notebook_files=notebook_files)
@@ -305,7 +305,7 @@ sos_run('release-website', conf=conf)
 
 [default_4]
 # remove intermediate files
-stop_if(status)
+#stop_if(status)
 hp = [path(conf["homepage"]).with_suffix(".ipynb")] if conf["homepage"].endswith(".Rmd") else []
 for item in [binder + '/_index.ipynb' for binder in binders] + [x.replace('.Rmd', '.ipynb') for x in rmd_files] + hp:
   try:
