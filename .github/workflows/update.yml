@@ -41,7 +41,7 @@ jobs:
 
     - name: Set up Conda env 
       run: |
-        conda create --name ci -y
+        conda create --name ci -y python=3.9
         conda init bash
 
     - name: Install dependencies

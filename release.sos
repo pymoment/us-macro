@@ -183,29 +183,29 @@ bash: expand = "${ }", stderr = True
   cat docs/nbconvert_template_altair.tpl > /tmp/${_input:d}.tpl
   tail -n+2 docs/${_input:d}.tpl >> /tmp/${_input:d}.tpl
   jupyter nbconvert --to html ${_input:e} --output ${_output:ae} --template /tmp/${_input:d}.tpl ${"--execute" if str(_input.with_suffix(".Rmd")) in rmd_files else ""}
-  num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
-  perl -i -lpe 'print "${_nb_info[0]}" if $. == '"$num"'+1' ${_output:e}
+  #num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | perl -pe 's/\([0-9]*\).*/\1/'`
+  #perl -i -lpe 'print "${_nb_info[0]}" if $. == '"$num"'+1' ${_output:e}
   TITLE=`cat ${_input:e} | jq '.cells[0].source[0] | sub("\n" ; "")' | perl -pe 's/"#* /"/g;s/"//g'`
   perl -i -pe "s/REPLACEMETITLE/$TITLE/g" ${_output:ae}
   DESCRIPTION=`cat ${_input:e} | jq '.cells[0].source[-1] | sub("\n" ; "")' | sed 's/"#* /"/g;s/"//g'`
   perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" ${_output:ae}
   BASEURL="https:\/\/$REPONAME.github.io\/us-macro\/analysis"
   ID=`echo ${_input:e} | perl -pe 's/.*analysis\/([^\.]*).ipynb.*/\1/g'`
-  mv "analysis/$ID.png" docs/analysis/
-  perl -i -pe "s/REPLACEMEIMAGE/$BASEURL\/$ID.png/g" ${_output:ae}
-  perl -i -pe "s/REPLACEMEURL/$BASEURL\/$ID.html/g" ${_output:ae}
-  perl -i -pe "s/REPLACEMETAG/$GOOGLE_ANALYTICS_TAG_ID/g" ${_output:ae}
-  perl -i -pe "s/REPLACEMEREPO/$REPONAME/g" ${_output:ae}
+  mv "analysis/$ID.png" docs/analysis/ || true
+  perl -i -pe "s/REPLACEMEIMAGE/$BASEURL\/$ID.png/g" ${_output:ae} || true
+  perl -i -pe "s/REPLACEMEURL/$BASEURL\/$ID.html/g" ${_output:ae} || true
+  perl -i -pe "s/REPLACEMETAG/$GOOGLE_ANALYTICS_TAG_ID/g" ${_output:ae} || true
+  perl -i -pe "s/REPLACEMEREPO/$REPONAME/g" ${_output:ae} || true
   CARDFILE="docs/analysis/card-$ID.html"
-  cp docs/card.tpl.html "$CARDFILE"
-  perl -i -pe "s/REPLACEMETITLE/$TITLE/g" "$CARDFILE"
-  perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" "$CARDFILE"
-  perl -i -pe "s/REPLACEMEIMAGE/$BASEURL\/$ID.png/g" "$CARDFILE"
-  perl -i -pe "s/REPLACEMEURL/$BASEURL\/$ID.html/g" "$CARDFILE"
-  perl -i -pe "s/REPLACEMETAG/$GOOGLE_ANALYTICS_TAG_ID/g" "$CARDFILE"
-  perl -i -pe "s/REPLACEMEREPO/$REPONAME/g" "$CARDFILE"
+  cp docs/card.tpl.html "$CARDFILE" || true
+  perl -i -pe "s/REPLACEMETITLE/$TITLE/g" "$CARDFILE" || true
+  perl -i -pe "s/REPLACEMEDESCRIPTION/$DESCRIPTION/g" "$CARDFILE" || true
+  perl -i -pe "s/REPLACEMEIMAGE/$BASEURL\/$ID.png/g" "$CARDFILE" || true
+  perl -i -pe "s/REPLACEMEURL/$BASEURL\/$ID.html/g" "$CARDFILE" || true
+  perl -i -pe "s/REPLACEMETAG/$GOOGLE_ANALYTICS_TAG_ID/g" "$CARDFILE" || true
+  perl -i -pe "s/REPLACEMEREPO/$REPONAME/g" "$CARDFILE" || true
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
-     perl -i -ne 'print if /\S/' ${_output:e}
+     perl -i -ne 'print if /\S/' ${_output:e} || true
   fi
 
 python: expand = "${ }", input = 'docs/jnbinder.py'
