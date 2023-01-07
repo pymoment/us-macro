@@ -1741,7 +1741,7 @@ function sortDataFrame(id, n, dtype) {
         <span class="k">return</span> <span class="n">doGaFetch</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">retries</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     
 <span class="n">reportPage</span> <span class="o">=</span> <span class="s1">&#39;https://gaports.com/sales/by-the-numbers/&#39;</span>
-<span class="n">currentReport</span> <span class="o">=</span> <span class="o">!</span>curl -s -L <span class="nv">$reportPage</span> <span class="p">|</span> egrep -i <span class="s1">&#39;Monthly.*TEU.*pdf&#39;</span> <span class="p">|</span> perl -pe <span class="s1">&#39;s/.*href=\&quot;([^&quot;]+)\&quot;.*/\1/&#39;</span>
+<span class="n">currentReport</span> <span class="o">=</span> <span class="o">!</span>curl<span class="w"> </span>-s<span class="w"> </span>-L<span class="w"> </span><span class="nv">$reportPage</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;Monthly.*TEU.*pdf&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>perl<span class="w"> </span>-pe<span class="w"> </span><span class="s1">&#39;s/.*href=\&quot;([^&quot;]+)\&quot;.*/\1/&#39;</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">currentReport</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
@@ -1975,7 +1975,7 @@ function sortDataFrame(id, n, dtype) {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="o">!</span>curl -s <span class="s1">&#39;https://www.nwseaportalliance.com/about-us/cargo-statistics&#39;</span> <span class="p">|</span> grep <span class="s1">&#39;xlsx&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="o">!</span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;https://www.nwseaportalliance.com/about-us/cargo-statistics&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;xlsx&#39;</span>
 
 <span class="c1">#pageCount = re.findall(&quot;of ([0-9]+)&quot;, &quot;&quot;.join(rawPg))[0]</span>
 
@@ -2088,7 +2088,7 @@ function sortDataFrame(id, n, dtype) {
         <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fetchHouston</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">retries</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">res</span> <span class="o">=</span> <span class="o">!</span>curl -s <span class="s1">&#39;https://porthouston.com/about-us/statistics/&#39;</span> <span class="p">|</span> grep <span class="s1">&#39;TEU-stats&#39;</span>
+<span class="n">res</span> <span class="o">=</span> <span class="o">!</span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;https://porthouston.com/about-us/statistics/&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;TEU-stats&#39;</span>
     
 <span class="n">currentUrl</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;href=&quot;([^&quot;]+)&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 
